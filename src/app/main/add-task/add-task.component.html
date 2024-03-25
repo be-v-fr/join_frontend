@@ -3,22 +3,22 @@
     <div class="form-side">
         <div class="form-field">
             <label for="title">Title<span class="marked-red">*</span></label>
-            <input type="text" name="title" placeholder="Enter a title">
+            <input type="text" name="title" id="title" placeholder="Enter a title">
         </div>
         <div class="form-field">
             <label for="description">Description</label>
-            <textarea type="text" name="description" placeholder="Enter a description"></textarea>
+            <textarea type="text" name="description" id="description" placeholder="Enter a description"></textarea>
         </div>
         <div class="form-field">
             <label for="assigend">Assigned to</label>
-            <input type="text" name="assigned" value="Select contacts to assign">
+            <input type="text" name="assigned" id="assigned" value="Select contacts to assign">
         </div>
     </div>
     <div class="vertical-ruler"></div>
     <div class="form-side">
         <div class="form-field">
             <label for="due">Due date<span class="marked-red">*</span></label>
-            <input type="date" name="due">
+            <input type="date" name="due" id="due">
         </div>
         <div class="form-field">
             <label for="">Prio</label>
@@ -49,13 +49,17 @@
                 </button>
             </div>
         </div>
-        <div class="form-field">
+        <div class="form-field" id="category-container">
             <label for="category">Category<span class="marked-red">*</span></label>
-            <input type="text" name="category" value="Select task category">
+            <input type="text" name="category" id="category" value="Select task category">
+            <ul class="dropdown-menu">
+                <li>Technical Task</li>
+                <li>User Story</li>
+            </ul>
         </div>
         <div class="form-field">
             <label for="subtasks">Subtasks</label>
-            <input type="text" name="subtasks" placeholder="Add new subtask">
+            <input type="text" name="subtasks" id="subtasks" placeholder="Add new subtask">
         </div>
     </div>
 </form>

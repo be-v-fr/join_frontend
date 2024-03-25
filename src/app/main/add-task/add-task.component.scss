@@ -32,6 +32,20 @@ textarea {
   }
 }
 
+.dropdown-menu {
+  list-style-type: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-top: 48px;
+  background: white;
+  z-index: 0;
+  li {
+    z-index: 2;
+  }
+}
+
 .prio-btns {
   width: 100%;
   @include flex($jc: space-between, $g: 4%);
@@ -69,4 +83,8 @@ textarea {
     background: #7ae229;
     transition: 75ms ease;
   }
+}
+
+#category-container {
+  position: relative;
 }
