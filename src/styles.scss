@@ -1,5 +1,29 @@
-@import './fonts.scss';
+@import "./fonts.scss";
 
-h1 {
-    font-family: 'Inter';
+$anthracite: #2A3647;
+$light-grey: #F6F7F8;
+
+@mixin flex($jc: center, $ai: center, $g: 0, $dir: row) {
+    display: flex;
+    justify-content: $jc;
+    align-items: $ai;
+    gap: $g;
+    flex-direction: $dir;
+}
+
+html,
+body,
+p {
+  margin: 0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+body,
+p,
+span {
+  font-family: "Inter";
 }
