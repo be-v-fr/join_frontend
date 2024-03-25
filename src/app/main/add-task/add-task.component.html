@@ -1,1 +1,41 @@
-<p>add-task works!</p>
+<h2>Add Task</h2>
+<form>
+    <div class="form-side">
+        <label for="title">Title</label>
+        <input type="text" name="title" placeholder="Enter a title">
+
+        <label for="description">Description</label>
+        <textarea type="text" name="description" placeholder="Enter a description"></textarea>
+
+        <label for="assigend">Assigned to</label>
+        <input type="text" name="assigned" value="Select contacts to assign">
+    </div>
+    <div class="vertical-ruler"></div>
+    <div class="form-side">
+        <label for="due">Due date</label>
+        <input type="date" name="due">
+
+        <label for="">Prio</label>
+        <div class="prio-btns">
+            <button>
+                <span>Urgent</span>
+                <img src="../../../assets/img/prio/task_prio_urgent.svg" alt="urgent">
+            </button>
+            <button>
+                <span>Medium</span>
+                <img src="../../../assets/img/prio/task_prio_medium.svg" alt="medium">
+            </button>
+            <button>
+                <span>Low</span>
+                <img src="../../../assets/img/prio/task_prio_low.svg" alt="low">
+            </button>           
+        </div>
+
+        <label for="category">Category</label>
+        <input type="text" name="category" value="Select task category">
+
+        <label for="subtasks">Subtasks</label>
+        <input type="text" name="subtasks" placeholder="Add new subtask">
+    </div>
+
+</form>
