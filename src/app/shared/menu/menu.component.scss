@@ -1,7 +1,61 @@
-@import '../../../styles.scss';
+@import "../../../styles.scss";
 
 nav {
+  width: 100%;
+  height: 100%;
+  background: $anthracite;
+  @include flex($dir: column);
+}
+
+.logo {
+  margin-top: 64px;
+  width: 100px;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+  margin-bottom: 72%;
+  @include flex($dir: column, $g: 15px);
+  a {
     width: 100%;
-    height: 100%;
-    background: $anthracite;
+    height: 46px;
+    font-size: $font-small;
+    color: $grey;
+    @include flex($g: 8px);
+    transition: 75ms ease;
+    img {
+      width: 30px;
+      height: 30px;
+    }
+    span {
+      width: 80px;
+    }
+    &:hover {
+      transition: 75ms ease;
+      background: $anthracite-darkened;
+      img {
+        filter: brightness(2);
+      }
+      span {
+        color: white;
+      }
+    }
+  }
+}
+
+.other {
+  width: 100%;
+  margin-bottom: 64px;
+  @include flex($g: 4px, $dir: column);
+  a {
+    width: 105px;
+    height: 35px;
+    color: $dark-grey;
+    transition: 75ms ease;
+    &:hover {
+        transition: 75ms ease;
+        color: #29ABE2;
+    }
+  }
 }

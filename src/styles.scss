@@ -1,7 +1,11 @@
 @import "./fonts.scss";
 
 $anthracite: #2A3647;
+$anthracite-darkened: #091931;
 $light-grey: #F6F7F8;
+$grey: #CDCDCD;
+$dark-grey: #A8A8A8;
+$font-small: 16px;
 
 @mixin flex($jc: center, $ai: center, $g: 0, $dir: row) {
     display: flex;
@@ -26,4 +30,9 @@ body,
 p,
 span {
   font-family: "Inter";
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
 }
