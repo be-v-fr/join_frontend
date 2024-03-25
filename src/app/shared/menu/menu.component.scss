@@ -23,7 +23,7 @@ nav {
     font-size: $font-small;
     color: $grey;
     @include flex($g: 8px);
-    transition: 75ms ease;
+    transition: 100ms ease;
     img {
       width: 30px;
       height: 30px;
@@ -32,7 +32,7 @@ nav {
       width: 80px;
     }
     &:hover {
-      transition: 75ms ease;
+      transition: 100ms ease;
       background: $anthracite-darkened;
       img {
         filter: brightness(2);
@@ -49,12 +49,12 @@ nav {
   margin-bottom: 64px;
   @include flex($g: 4px, $dir: column);
   a {
-    width: 105px;
     height: 35px;
     color: $dark-grey;
     transition: 75ms ease;
     &:hover {
         transition: 75ms ease;
+        font-weight: 700;
         color: #29ABE2;
     }
   }
