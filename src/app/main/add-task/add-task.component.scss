@@ -2,39 +2,71 @@
 
 form {
   width: 100%;
+  padding-right: 60px;
   height: 424px;
   display: flex;
   @include flex($g: 44px);
   .form-side {
     height: 100%;
     flex: 1;
-    padding-right: 44px;
-    @include flex($jc: flex-start, $ai: flex-start, $g: 8px, $dir: column);
-    input,
-    textarea {
+    @include flex($jc: flex-start, $ai: flex-start, $g: 24px, $dir: column);
+    .form-field {
       width: 100%;
-      margin-bottom: 16px;
-      border: 1px solid $medium-light-grey;
-      border-radius: 10px;
-      &::placeholder {
-        color: $medium-light-grey;
-      }
-    }
-    .prio-btns {
-      width: 100%;
-      @include flex($jc: space-between, $g: 4%);
-      button {
-        flex: 1;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0px 0px 4px 0px #0000001a;
-        height: 56px;
-      }
+      @include flex($jc: flex-start, $ai: flex-start, $g: 8px, $dir: column);
     }
   }
   .vertical-ruler {
     height: 100%;
     width: 1px;
     background: $medium-light-grey;
+  }
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid $medium-light-grey;
+  border-radius: 10px;
+  &::placeholder {
+    color: $medium-light-grey;
+  }
+}
+
+.prio-btns {
+  width: 100%;
+  @include flex($jc: space-between, $g: 4%);
+  button {
+    flex: 1;
+    background: white;
+    border-radius: 10px;
+    box-shadow: $shadow-subtle;
+    height: 56px;
+    @include flex($g: 8px);
+    transition: 75ms ease;
+    img {
+      width: 20px;
+    }
+    &:hover {
+      box-shadow: $shadow-stronger;
+      transition: 75ms ease;
+    }
+  }
+  .selected {
+    color: white;
+    font-weight: 600;
+    box-shadow: none;
+    transition: 75ms ease;
+  }
+  .urgent {
+    background: #ff3d00;
+    transition: 75ms ease;
+  }
+  .medium {
+    background: #ff7a00;
+    transition: 75ms ease;
+  }
+  .low {
+    background: #7ae229;
+    transition: 75ms ease;
   }
 }

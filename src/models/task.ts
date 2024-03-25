@@ -7,7 +7,7 @@ export class Task {
     description: string;
     assignedTo: User[] = [];
     due: string;
-    prio: 'Urgent' | 'Medium' | 'Low';
+    prio: 'Urgent' | 'Medium' | 'Low' | null;
     category: 'Technical Task' | 'User Story';
     subtasks: Subtask[] = [];
     timestamp: number = Date.now();

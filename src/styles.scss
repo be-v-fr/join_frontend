@@ -6,6 +6,8 @@ $light-grey: #f6f7f8;
 $medium-light-grey: #d1d1d1;
 $grey: #cdcdcd;
 $dark-grey: #a8a8a8;
+$shadow-subtle: 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
+$shadow-stronger: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 $font-small: 16px;
 
 @mixin flex($jc: center, $ai: center, $g: 0, $dir: row) {
@@ -25,6 +27,12 @@ p {
 body {
   width: 100vw;
   height: 100vh;
+}
+
+* {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box; /* Firefox, other Gecko */
+  box-sizing: border-box; /* Opera/IE 8+ */
 }
 
 body,
@@ -49,7 +57,8 @@ button {
   cursor: pointer;
 }
 
-input, textarea {
+input,
+textarea {
   outline: none;
   padding: 12px 21px;
 }
@@ -58,5 +67,9 @@ h2 {
   font-weight: 700;
   font-size: 61px;
   margin: 0;
-  margin-bottom: 80px;
+  margin-bottom: 64px;
+}
+
+.marked-red {
+  color: #ff8190;
 }

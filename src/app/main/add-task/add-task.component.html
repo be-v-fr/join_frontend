@@ -1,41 +1,61 @@
 <h2>Add Task</h2>
 <form>
     <div class="form-side">
-        <label for="title">Title</label>
-        <input type="text" name="title" placeholder="Enter a title">
-
-        <label for="description">Description</label>
-        <textarea type="text" name="description" placeholder="Enter a description"></textarea>
-
-        <label for="assigend">Assigned to</label>
-        <input type="text" name="assigned" value="Select contacts to assign">
+        <div class="form-field">
+            <label for="title">Title<span class="marked-red">*</span></label>
+            <input type="text" name="title" placeholder="Enter a title">
+        </div>
+        <div class="form-field">
+            <label for="description">Description</label>
+            <textarea type="text" name="description" placeholder="Enter a description"></textarea>
+        </div>
+        <div class="form-field">
+            <label for="assigend">Assigned to</label>
+            <input type="text" name="assigned" value="Select contacts to assign">
+        </div>
     </div>
     <div class="vertical-ruler"></div>
     <div class="form-side">
-        <label for="due">Due date</label>
-        <input type="date" name="due">
-
-        <label for="">Prio</label>
-        <div class="prio-btns">
-            <button>
-                <span>Urgent</span>
-                <img src="../../../assets/img/prio/task_prio_urgent.svg" alt="urgent">
-            </button>
-            <button>
-                <span>Medium</span>
-                <img src="../../../assets/img/prio/task_prio_medium.svg" alt="medium">
-            </button>
-            <button>
-                <span>Low</span>
-                <img src="../../../assets/img/prio/task_prio_low.svg" alt="low">
-            </button>           
+        <div class="form-field">
+            <label for="due">Due date<span class="marked-red">*</span></label>
+            <input type="date" name="due">
         </div>
-
-        <label for="category">Category</label>
-        <input type="text" name="category" value="Select task category">
-
-        <label for="subtasks">Subtasks</label>
-        <input type="text" name="subtasks" placeholder="Add new subtask">
+        <div class="form-field">
+            <label for="">Prio</label>
+            <div class="prio-btns">
+                <button type="button" (click)="selectPrio('Urgent')" [ngClass]="{'selected urgent': prio == 'Urgent'}">
+                    <span>Urgent</span>
+                    @if(prio == 'Urgent') {
+                    <img src="../../../assets/img/prio/task_prio_urgent_white.svg" alt="urgent selected">
+                    } @else {
+                    <img src="../../../assets/img/prio/task_prio_urgent.svg" alt="select urgent">
+                    }
+                </button>
+                <button type="button" (click)="selectPrio('Medium')" [ngClass]="{'selected medium': prio == 'Medium'}">
+                    <span>Medium</span>
+                    @if(prio == 'Medium') {
+                    <img src="../../../assets/img/prio/task_prio_medium_white.svg" alt="medium selected">
+                    } @else {
+                    <img src="../../../assets/img/prio/task_prio_medium.svg" alt="select medium">
+                    }
+                </button>
+                <button type="button" (click)="selectPrio('Low')" [ngClass]="{'selected low': prio == 'Low'}">
+                    <span>Low</span>
+                    @if(prio == 'Low') {
+                    <img src="../../../assets/img/prio/task_prio_low_white.svg" alt="low selected">
+                    } @else {
+                    <img src="../../../assets/img/prio/task_prio_low.svg" alt="select low">
+                    }
+                </button>
+            </div>
+        </div>
+        <div class="form-field">
+            <label for="category">Category<span class="marked-red">*</span></label>
+            <input type="text" name="category" value="Select task category">
+        </div>
+        <div class="form-field">
+            <label for="subtasks">Subtasks</label>
+            <input type="text" name="subtasks" placeholder="Add new subtask">
+        </div>
     </div>
-
 </form>
