@@ -2,15 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Subtask } from '../../../interfaces/subtask.interface';
 import { SubtaskComponent } from './subtask/subtask.component';
+import { FormsModule } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [CommonModule, SubtaskComponent],
+  imports: [CommonModule, FormsModule, SubtaskComponent],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
 export class AddTaskComponent {
+  formClick: Subject<void> = new Subject<void>();
   prio: 'Urgent' | 'Medium' | 'Low' | null = 'Medium';
   category: 'Technical Task' | 'User Story' | null = null;
   subtasks: Subtask[] = [
@@ -51,5 +54,6 @@ export class AddTaskComponent {
 
   handleGeneralClick() {
     this.showCategoryDropdown = false;
+    this.formClick.next();
   }
 }

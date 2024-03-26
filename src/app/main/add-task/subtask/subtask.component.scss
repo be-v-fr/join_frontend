@@ -1,5 +1,12 @@
 @import "../add-task.component.scss";
 
+input {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
 li {
   border-radius: 10px;
   padding: 4px 16px;
@@ -9,7 +16,7 @@ li {
   @include flex($jc: space-between);
   .content {
     @include flex($jc: flex-start);
-    span {
+    span, input {
       margin-left: 12px;
     }
   } 
@@ -20,6 +27,11 @@ li {
       display: inline-block;
       width: 24px;
       height: 24px;
+      transition: 75ms ease;
+      &:hover {
+        filter: invert(56%) sepia(80%) saturate(2198%) hue-rotate(166deg) brightness(102%) contrast(77%);
+        transition: 75ms ease;
+      }
     }
   }
   &:hover {

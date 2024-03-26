@@ -1,24 +1,56 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subtask } from '../../../../interfaces/subtask.interface';
+import { FormsModule } from '@angular/forms';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-subtask',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './subtask.component.html',
   styleUrl: './subtask.component.scss'
 })
-export class SubtaskComponent {
+export class SubtaskComponent implements OnInit {
   @Input() task: Subtask = {
     name: 'Task created',
     status: 'To do'
   };
   editing: boolean = false;
+  previousName: string = '';
+  @Output() taskChange = new EventEmitter<Subtask>();
   @Output() delete = new EventEmitter<boolean>();
+  private formSubscription: Subscription | undefined;
+  @Input() formClick: Observable<void> | undefined;
 
-  toggleEdit() {
-    this.editing = !this.editing;
+  ngOnInit() {
+    if (this.formClick) {
+      this.formSubscription = this.formClick.subscribe(() => this.cancel());
+    }
+    this.previousName = this.task.name;
+  }
+
+  ngOnDestroy() {
+    if (this.formSubscription) {
+      this.formSubscription.unsubscribe();
+    }
+  }
+
+  edit() {
+    this.editing = true;
+    this.previousName = this.task.name;
+  }
+
+  confirm() {
+    this.editing = false;
+    this.taskChange.emit(this.task);
+  }
+
+  cancel() {
+    if (this.editing) {
+      this.task.name = this.previousName;
+      this.confirm();
+    }
   }
 
   deleteTask() {

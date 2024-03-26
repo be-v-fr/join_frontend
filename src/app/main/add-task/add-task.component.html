@@ -84,9 +84,9 @@
             </div>
         </div>
         <div class="form-bottom">
-            <ul class="subtasks-list">
+            <ul class="subtasks-list" (click)="$event.stopPropagation()">
                 @for (subtask of subtasks; track subtask; let i = $index) {
-                <app-subtask [task]="subtask" (delete)="deleteSubtask(i)"></app-subtask>
+                <app-subtask [(task)]="subtasks[i]" (delete)="deleteSubtask(i)" [formClick]="formClick.asObservable()"></app-subtask>
                 }
             </ul>
             <p class="font-small"><span class="marked-red">*</span>This field is required</p>

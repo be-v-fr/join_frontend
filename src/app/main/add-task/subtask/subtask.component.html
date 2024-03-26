@@ -1,15 +1,21 @@
-<li [ngClass]="{'editing': editing}">
-    <p class="content">&bull;
-        <span>{{task.name}}</span>
+<li [ngClass]="{'editing': editing}" (formClick)="cancel()">
+    <p class="content" (dblclick)="edit()">
+        @if(!editing) {
+        &bull;<span>{{task.name}}</span>
+        } @else {
+        <input [(ngModel)]="task.name">
+        }
     </p>
     <div class="btns-container">
-        <button type="button" (click)="toggleEdit()">
-            @if(!editing) {
+        @if(!editing) {
+        <button type="button" (click)="edit()">
             <img src="../../../../assets/img/edit.svg" alt="edit subtask">
-            } @else {
-            <img src="../../../../assets/img/check.svg" alt="confirm subtask edit">
-            }
         </button>
+        } @else {
+        <button type="button" (click)="confirm()">
+            <img src="../../../../assets/img/check.svg" alt="confirm subtask edit">
+        </button>
+        }
         <div class="vertical-ruler"></div>
         <button type="button" (click)="deleteTask()">
             <img src="../../../../assets/img/remove.svg" alt="remove subtask">
