@@ -1,16 +1,32 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Subtask } from '../../../interfaces/subtask.interface';
+import { SubtaskComponent } from './subtask/subtask.component';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SubtaskComponent],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
 export class AddTaskComponent {
   prio: 'Urgent' | 'Medium' | 'Low' | null = 'Medium';
   category: 'Technical Task' | 'User Story' | null = null;
+  subtasks: Subtask[] = [
+    {
+      name: 'test 1',
+      status: 'To do'
+    },
+    {
+      name: 'test 2',
+      status: 'To do'
+    },
+    {
+      name: 'test 3',
+      status: 'To do'
+    }
+  ];
   showCategoryDropdown: boolean = false;
 
   selectPrio(prio: 'Urgent' | 'Medium' | 'Low') {
@@ -27,6 +43,10 @@ export class AddTaskComponent {
 
   setCategory(category: 'Technical Task' | 'User Story') {
     this.category = category;
+  }
+
+  deleteSubtask(index: number) {
+    this.subtasks.splice(index, 1);
   }
 
   handleGeneralClick() {

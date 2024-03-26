@@ -84,6 +84,11 @@
             </div>
         </div>
         <div class="form-bottom">
+            <ul class="subtasks-list">
+                @for (subtask of subtasks; track subtask; let i = $index) {
+                <app-subtask [task]="subtask" (delete)="deleteSubtask(i)"></app-subtask>
+                }
+            </ul>
             <p class="font-small"><span class="marked-red">*</span>This field is required</p>
             <div class="btns-submit">
                 <button type="reset" class="btn-secondary">

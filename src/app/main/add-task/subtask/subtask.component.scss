@@ -1,0 +1,44 @@
+@import "../add-task.component.scss";
+
+li {
+  border-radius: 10px;
+  padding: 4px 16px;
+  height: 32px;
+  background: none;
+  width: 100%;
+  @include flex($jc: space-between);
+  .content {
+    @include flex($jc: flex-start);
+    span {
+      margin-left: 12px;
+    }
+  } 
+  .btns-container {
+    display: none;
+    height: 24px;
+    img {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+    }
+  }
+  &:hover {
+    background: #eeeeee;
+    .btns-container {
+      display: flex;
+    }
+  }
+}
+
+.editing {
+  border-radius: 0;
+  border-bottom: 1px solid #005DFF;
+  padding-bottom: 2px;
+  background: white;
+  .btns-container {
+    @include flex($dir: row-reverse);
+  }
+  &:hover {
+    background: white;
+  }
+}
