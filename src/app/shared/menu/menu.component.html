@@ -3,19 +3,19 @@
         <img src="../../../assets/img/menu/logo_white.svg" alt="JOIN">
     </a>
     <div class="main">
-        <a routerLink="/summary" routerLinkActive="active">
+        <a routerLink="/summary" routerLinkActive="active" [ngClass]="{'current': getCurrentRoute() == '/summary'}">
             <img src="../../../assets/img/menu/summary.svg" alt="summary">
             <span>Summary</span>
         </a>
-        <a routerLink="/add_task">
+        <a routerLink="/add_task" [ngClass]="{'current': getCurrentRoute() == '/add_task'}">
             <img src="../../../assets/img/menu/add_task.svg" alt="add task">
             <span>Add Task</span>
         </a>
-        <a routerLink="/board">
+        <a routerLink="/board" [ngClass]="{'current': getCurrentRoute() == '/board'}">
             <img src="../../../assets/img/menu/board.svg" alt="board">
             <span>Board</span>
         </a>
-        <a routerLink="/contacts">
+        <a routerLink="/contacts" [ngClass]="{'current': getCurrentRoute() == '/contacts'}">
             <img src="../../../assets/img/menu/contacts.svg" alt="contacts">
             <span>Contacts</span>
         </a>
