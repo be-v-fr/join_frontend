@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subtask } from '../../../../interfaces/subtask.interface';
 import { FormsModule } from '@angular/forms';
@@ -22,6 +22,7 @@ export class SubtaskComponent implements OnInit {
   @Output() delete = new EventEmitter<boolean>();
   private formSubscription: Subscription | undefined;
   @Input() formClick: Observable<void> | undefined;
+  @ViewChild('editInput') editInputRef!: ElementRef;
 
   ngOnInit() {
     if (this.formClick) {
@@ -39,6 +40,7 @@ export class SubtaskComponent implements OnInit {
   edit() {
     this.editing = true;
     this.previousName = this.task.name;
+    this.editInputRef.nativeElement.focus();
   }
 
   confirm() {

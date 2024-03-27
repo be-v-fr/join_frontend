@@ -2,9 +2,8 @@
     <p class="content" (dblclick)="edit()">
         @if(!editing) {
         &bull;<span>{{task.name}}</span>
-        } @else {
-        <input [(ngModel)]="task.name">
         }
+        <input #editInput [(ngModel)]="task.name" [ngClass]="{'hide': !editing}">
     </p>
     <div class="btns-container">
         @if(!editing) {
@@ -12,7 +11,7 @@
             <img src="../../../../assets/img/edit.svg" alt="edit subtask">
         </button>
         } @else {
-        <button type="button" (click)="confirm()">
+        <button type="button" (click)="confirm()" (keydown.enter)="confirm()">
             <img src="../../../../assets/img/check.svg" alt="confirm subtask edit">
         </button>
         }
