@@ -4,6 +4,7 @@ $anthracite: #2a3647;
 $anthracite-lightened: #2a3d59;
 $anthracite-darkened: #091931;
 $light-blue: #29ABE2;
+$link-blue: #007CEE;
 $light-grey: #f6f7f8;
 $medium-light-grey: #d1d1d1;
 $grey: #cdcdcd;
@@ -22,6 +23,7 @@ $font-small: 16px;
 }
 
 :root {
+  --page-padding: 120px 100px;
   --input-padding: 12px 21px;
   --add-task-form-gap: 44px;
 }
@@ -139,4 +141,8 @@ h2 {
 
 .marked-red {
   color: #ff8190;
+}
+
+.relative {
+  position: relative;
 }

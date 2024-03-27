@@ -1,0 +1,7 @@
+<div class="content">
+    <app-contact-icon [name]="name" [color]="color"></app-contact-icon>
+    <div class="data">
+        <p>{{name}}</p>
+        <app-email *ngIf="email" [email]="email"></app-email>
+    </div>
+</div>

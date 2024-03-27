@@ -1,1 +1,13 @@
-<p>contacts works!</p>
+<div class="content">
+    <div class="list">
+        @for (contact of contacts; track contact) {
+            <app-contact-list-item [name]="contact.name" [email]="contact.email" [color]="contact.color"></app-contact-list-item>
+        }
+    </div>
+<div class="viewer">
+    <h2>Contacts</h2>
+</div>
+
+
+
+</div>

@@ -14,10 +14,13 @@
         app-header {
             height: 96px;
         }
-        .main-page {
+        .page {
             flex: 1;
             background: $light-grey;
-            padding: 120px 100px;
+        }
+        .padding-page {
+            @extend .page;
+            padding: var(--page-padding);
         }
     }
 }

@@ -13,8 +13,25 @@
                         placeholder="Enter a description"></textarea>
                 </div>
                 <div class="form-field">
-                    <label for="assigend">Assigned to</label>
-                    <input type="text" name="assigned" id="assigned" value="Select contacts to assign">
+                    <label for="assigend" (click)="$event.preventDefault()">Assigned to</label>
+                    <input type="hidden" name="assigned" id="assigned" value="{{assigned}}">
+                    <div class="dropdown-container">
+                        <div class="dropdown-input" (click)="toggleDropdown($event, 'assigned')">
+                            Select contacts to assign
+                            <button type="button" class="dropdown-arrow-btn">
+                                <img src="../../../assets/img/select_icon.svg" alt="icon"
+                                    [ngClass]="{'turn': showAssignedDropdown}">
+                            </button>
+                        </div>
+                        <ul class="dropdown-menu" *ngIf="showAssignedDropdown">
+                            @for (contact of assigned; track contact) {
+                            <li>
+                                <app-contact-list-item [name]="contact.name"
+                                    [color]="contact.color"></app-contact-list-item>
+                            </li>
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="vertical-ruler"></div>
@@ -60,7 +77,7 @@
                             class="marked-red">*</span></label>
                     <input type="hidden" name="category" id="category" value="{{category}}">
                     <div class="dropdown-container">
-                        <div class="dropdown-input" (click)="toggleCategoryDropdown($event)">
+                        <div class="dropdown-input" (click)="toggleDropdown($event, 'category')">
                             @if(category == null) {
                             Select task category
                             } @else {
@@ -77,16 +94,21 @@
                         </ul>
                     </div>
                 </div>
-                <div class="form-field">
-                    <label for="subtasks">Subtasks</label>
-                    <input type="text" name="subtasks" id="subtasks" placeholder="Add new subtask">
+                <div class="form-field relative">
+                    <label for="subtask">Subtasks</label>
+                    <input type="text" name="subtask" #subtask placeholder="Add new subtask"
+                        (keydown.enter)="addSubtask()">
+                    <button type="button" (click)="addSubtask()" class="custom-input-btn">
+                        <img src="../../../assets/img/plus_icon.svg" alt="icon">
+                    </button>
                 </div>
             </div>
         </div>
         <div class="form-bottom">
             <ul class="subtasks-list" (click)="$event.stopPropagation()">
                 @for (subtask of subtasks; track subtask; let i = $index) {
-                <app-subtask [(task)]="subtasks[i]" (delete)="deleteSubtask(i)" [formClick]="formClick.asObservable()"></app-subtask>
+                <app-subtask [(task)]="subtasks[i]" (delete)="deleteSubtask(i)"
+                    [formClick]="formClick.asObservable()"></app-subtask>
                 }
             </ul>
             <p class="font-small"><span class="marked-red">*</span>This field is required</p>
