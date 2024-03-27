@@ -81,10 +81,6 @@ textarea,
       border-radius: 10px;
       transition: 75ms ease;
       z-index: -1;
-      &:hover {
-        background: #eeeeee;
-        transition: 75ms ease;
-      }
     }
   }
   .dropdown-arrow-btn {
@@ -94,6 +90,38 @@ textarea,
     .turn {
       transition: transform 250ms ease, background-color 75ms ease;
       transform: rotate(180deg);
+    }
+  }
+}
+
+.dropdown-assigned {
+  @extend .dropdown-menu;
+  li {
+    @include flex($jc: space-between);
+    cursor: pointer;
+    .custom-checkbox {
+      width: 24px;
+      height: 24px;
+      background: url('../../../assets/img/checkbox.svg');
+      background-size: 100%;
+      background-repeat: no-repeat;
+    }
+    .custom-checked {
+      background: url('../../../assets/img/checkbox_checked.svg');      
+    }
+    &:hover {
+      color: white;
+      background-color: $anthracite;
+      transition: 75ms ease;
+      .custom-checkbox {
+        background: url('../../../assets/img/checkbox_white.svg');     
+      }
+      .custom-checked {
+        background: url('../../../assets/img/checkbox_white_checked.svg');      
+      }
+    }
+    &:active {
+      background: $anthracite-darkened;
     }
   }
 }
@@ -133,6 +161,14 @@ textarea,
   }
   .low {
     background: #7ae229;
+    transition: 75ms ease;
+  }
+}
+
+.dropdown-category {
+  @extend .dropdown-menu;
+  li:hover {
+    background: #eeeeee;
     transition: 75ms ease;
   }
 }

@@ -23,11 +23,12 @@
                                     [ngClass]="{'turn': showAssignedDropdown}">
                             </button>
                         </div>
-                        <ul class="dropdown-menu" *ngIf="showAssignedDropdown">
-                            @for (contact of assigned; track contact) {
-                            <li>
-                                <app-contact-list-item [name]="contact.name"
-                                    [color]="contact.color"></app-contact-list-item>
+                        <ul class="dropdown-assigned" *ngIf="showAssignedDropdown">
+                            @for (user of users; track user; let i = $index) {
+                            <li class="assigned-li" (click)="$event.stopPropagation(); toggleAssignment(i)">
+                                <app-contact-list-item [name]="user.name"
+                                    [color]="user.color" [instance]="'task'"></app-contact-list-item>
+                                <div class="custom-checkbox" [ngClass]="{'custom-checked' : assigned[i]}"></div>
                             </li>
                             }
                         </ul>
@@ -88,7 +89,7 @@
                                     [ngClass]="{'turn': showCategoryDropdown}">
                             </button>
                         </div>
-                        <ul class="dropdown-menu" *ngIf="showCategoryDropdown">
+                        <ul class="dropdown-category" *ngIf="showCategoryDropdown">
                             <li (click)="setCategory('Technical Task')">Technical Task</li>
                             <li (click)="setCategory('User Story')">User Story</li>
                         </ul>

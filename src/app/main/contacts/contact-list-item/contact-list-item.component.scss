@@ -3,3 +3,11 @@
 .content {
     @include flex($jc: flex-start);
 }
+
+.in-contacts {
+    gap: 35px;
+}
+
+.in-task {
+    gap: 16px;
+}

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Subtask } from '../../../interfaces/subtask.interface';
 import { SubtaskComponent } from './subtask/subtask.component';
 import { FormsModule } from '@angular/forms';
@@ -15,12 +15,13 @@ import { ContactListItemComponent } from '../contacts/contact-list-item/contact-
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
-export class AddTaskComponent {
+export class AddTaskComponent implements OnInit {
   formClick: Subject<void> = new Subject<void>();
-  assigned: User[] = [
-      new User('test 1', 'email 1', 'password 1'),
-      new User('test 2', 'email 2', 'password 2'),
+  users: User[] = [
+    new User('test 1', 'email 1', 'password 1'),
+    new User('test 2', 'email 2', 'password 2'),
   ];
+  assigned: boolean[] = [];
   prio: 'Urgent' | 'Medium' | 'Low' | null = 'Medium';
   category: 'Technical Task' | 'User Story' | null = null;
   @ViewChild('subtask') subtaskRef!: ElementRef;
@@ -41,6 +42,10 @@ export class AddTaskComponent {
   showAssignedDropdown: boolean = false;
   showCategoryDropdown: boolean = false;
 
+  ngOnInit() {
+    this.initAssigned();
+  }
+
   selectPrio(prio: 'Urgent' | 'Medium' | 'Low') {
     this.prio != prio ? this.prio = prio : this.prio = null;
   }
@@ -50,13 +55,21 @@ export class AddTaskComponent {
     if (e.target != null) {
       (e.target as HTMLInputElement).blur();
     }
-    switch(name) {
+    switch (name) {
       case 'assigned':
         this.showAssignedDropdown = !this.showAssignedDropdown;
         break;
       case 'category':
         this.showCategoryDropdown = !this.showCategoryDropdown;
     }
+  }
+
+  initAssigned() {
+    this.users.forEach(() => this.assigned.push(false));
+  }
+
+  toggleAssignment(index: number) {
+    this.assigned[index] = !this.assigned[index];
   }
 
   setCategory(category: 'Technical Task' | 'User Story') {

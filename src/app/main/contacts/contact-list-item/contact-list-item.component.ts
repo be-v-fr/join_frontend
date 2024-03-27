@@ -13,6 +13,7 @@ import { EmailComponent } from '../email/email.component';
 })
 export class ContactListItemComponent {
   @Input() name: string = 'name';
-  @Input() email: string | undefined;
+  @Input() email?: string | undefined;
   @Input() color: string = '#DDDDDD';
+  @Input() instance: 'contacts' | 'task' = 'contacts';
 }
