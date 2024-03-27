@@ -23,6 +23,13 @@
                                     [ngClass]="{'turn': showAssignedDropdown}">
                             </button>
                         </div>
+                        <div class="assigned-icons">
+                            @for(assignment of assigned; track assignment; let i = $index) {
+                                @if(assignment) {
+                                    <app-contact-icon [name]="users[i].name" [color]="users[i].color"></app-contact-icon>
+                                }
+                            }
+                        </div>
                         <ul class="dropdown-assigned" *ngIf="showAssignedDropdown">
                             @for (user of users; track user; let i = $index) {
                             <li class="assigned-li" (click)="$event.stopPropagation(); toggleAssignment(i)">

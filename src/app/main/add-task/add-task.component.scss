@@ -126,6 +126,17 @@ textarea,
   }
 }
 
+.assigned-icons {
+  position: absolute;
+  left: 0;
+  bottom: -48px;
+  z-index: -1;
+  display: flex;
+  app-contact-icon {
+    margin-right: -12px;
+  }
+}
+
 .prio-btns {
   width: 100%;
   @include flex($jc: space-between, $g: 4%);

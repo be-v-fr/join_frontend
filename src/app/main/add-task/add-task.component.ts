@@ -7,11 +7,12 @@ import { Subject } from 'rxjs';
 import { User } from '../../../models/user';
 import { Task } from '../../../models/task';
 import { ContactListItemComponent } from '../contacts/contact-list-item/contact-list-item.component';
+import { ContactIconComponent } from '../contacts/contact-list-item/contact-icon/contact-icon.component';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [CommonModule, FormsModule, SubtaskComponent, ContactListItemComponent],
+  imports: [CommonModule, FormsModule, SubtaskComponent, ContactListItemComponent, ContactIconComponent],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
