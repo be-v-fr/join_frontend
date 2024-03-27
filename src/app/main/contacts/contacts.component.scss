@@ -5,6 +5,7 @@
     height: 100%;
     @include flex($ai: flex-start);
     .list {
+        width: 33.3%;
         height: 100%;
         background: white;
         padding: var(--page-padding);
@@ -16,4 +17,15 @@
         flex: 1;
         padding: var(--page-padding);
     }
+}
+
+.letter {
+    padding: 17px 36px;
+}
+
+.horizontal-ruler {
+    width: 100%;
+    height: 1px;
+    background: $medium-light-grey;
+    margin: 8px 0;
 }
