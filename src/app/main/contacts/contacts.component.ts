@@ -3,11 +3,12 @@ import { ContactListItemComponent } from './contact-list-item/contact-list-item.
 import { Contact } from '../../../models/contact';
 import { ContactIconComponent } from './contact-list-item/contact-icon/contact-icon.component';
 import { EmailComponent } from './email/email.component';
+import { AddContactComponent } from './add-contact/add-contact.component';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [ContactListItemComponent, ContactIconComponent, EmailComponent],
+  imports: [ContactListItemComponent, ContactIconComponent, EmailComponent, AddContactComponent],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss'
 })
@@ -18,6 +19,7 @@ export class ContactsComponent {
     new Contact('no email')
   ];
   selection: number = -1;
+  contactOverlay: 'add' | 'edit' | null = null;
 
   getSortedContacts(): Contact[] {
     return this.contacts.sort((a: Contact, b: Contact) => a.name > b.name ? 1 : -1);
@@ -38,5 +40,14 @@ export class ContactsComponent {
 
   selectContact(index: number) {
     this.selection = index;
+  }
+
+  addContact() {
+    this.selection = -1;
+    this.contactOverlay = 'add';
+  }
+
+  cancelOverlay() {
+    this.contactOverlay = null;
   }
 }

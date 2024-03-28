@@ -1,6 +1,6 @@
 <div class="content">
     <div class="list">
-        <button class="btn-primary add-new">
+        <button class="btn-primary add-new" (click)="addContact()">
             Add new contact
             <img src="../../../assets/img/person_add.svg" alt="add new contact"></button>
         @for (contact of getSortedContacts(); track contact; let i = $index) {
@@ -52,3 +52,6 @@
         }
     </div>
 </div>
+@if(contactOverlay != null) {
+<app-add-contact (cancelOverlay)="cancelOverlay()"></app-add-contact>
+}
