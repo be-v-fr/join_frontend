@@ -10,11 +10,23 @@
         </div>
         <app-contact-icon [large]="true"></app-contact-icon>
         <form>
-            <input type="text" placeholder="Name">
-            <input type="text" placeholder="Email">
-            <input type="text" placeholder="Phone">
+            <button type="button" class="btn-close" (click)="cancel()">
+                    <img src="../../../assets/img/cancel.svg" class="secondary-neutral" alt="clear">
+            </button>
+            <div class="form-field">
+                <input type="text" class="text-input" placeholder="Name">
+                <img src="assets/img/contacts/person.svg">
+            </div>
+            <div class="form-field">
+                <input type="text" class="text-input" placeholder="Email">
+                <img src="assets/img/contacts/mail.svg">
+            </div>
+            <div class="form-field">
+                <input type="text" class="text-input" placeholder="Phone">
+                <img src="assets/img/contacts/call.svg">
+            </div>
             <div class="btns-submit">
-                <button type="button" class="btn-secondary-x" (click)="cancel()">
+                <button type="button" class="btn-secondary btn-x" (click)="cancel()">
                     Cancel
                     <div class="img-container">
                         <img src="../../../assets/img/cancel.svg" class="secondary-neutral" alt="clear">

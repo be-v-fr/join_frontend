@@ -65,6 +65,14 @@ textarea {
   font-size: $font-normal;
 }
 
+.text-input {
+  border: 1px solid $medium-light-grey;
+  border-radius: 10px;
+  &::placeholder {
+    color: $medium-light-grey;
+  }
+}
+
 .font-small {
   font-size: $font-small;
 }
@@ -125,8 +133,7 @@ button {
   }
 }
 
-.btn-secondary-x {
-  @extend .btn-secondary;
+.btn-x {
   .img-container {
     position: relative;
     width: 24px;

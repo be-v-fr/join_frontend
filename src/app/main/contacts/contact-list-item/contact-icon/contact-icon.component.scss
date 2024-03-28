@@ -8,6 +8,11 @@ div {
     color: white;
     @include flex();
     border: 2px solid white;
+    img {
+        width: 24px;
+        height: 24px;
+        filter: brightness(2);
+    }
 }
 
 .large {
@@ -16,4 +21,8 @@ div {
     border-radius: 50%;
     font-size: $font-larger;
     border-width: 3px;
+    img {
+        width: 64px;
+        height: 64px;
+    }
 }

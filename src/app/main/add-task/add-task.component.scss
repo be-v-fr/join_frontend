@@ -51,11 +51,7 @@ input,
 textarea,
 .dropdown-input {
   width: 100%;
-  border: 1px solid $medium-light-grey;
-  border-radius: 10px;
-  &::placeholder {
-    color: $medium-light-grey;
-  }
+  @extend .text-input;
 }
 
 .dropdown-container {

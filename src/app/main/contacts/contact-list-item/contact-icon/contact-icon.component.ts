@@ -9,8 +9,8 @@ import { Component, Input } from '@angular/core';
   styleUrl: './contact-icon.component.scss'
 })
 export class ContactIconComponent {
-  @Input() name: string = '##';
-  @Input() color: string = '#CCCCCC';
+  @Input() name: string = '';
+  @Input() color: string = '#d1d1d1';
   @Input() large?: boolean = false;
 
   getInitials() {

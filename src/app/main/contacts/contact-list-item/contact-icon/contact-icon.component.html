@@ -1,1 +1,7 @@
-<div [ngStyle]="{'background': color}" [ngClass]="{'large': large}">{{getInitials()}}</div>
+<div [ngStyle]="{'background': color}" [ngClass]="{'large': large}">
+    @if(name.length > 0) {
+    {{getInitials()}}
+    } @else {
+    <img src="assets/img/contacts/person.svg">
+    }
+</div>

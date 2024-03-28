@@ -1,66 +1,100 @@
-@import '../../../../styles.scss';
+@import "../../../../styles.scss";
 
 $overlay-content-padding: 50px;
 
 .overlay {
-    position: fixed;
-    z-index: 2;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0,0,0,0.1);
-    @include flex();
-    .content {
-        background: linear-gradient(to right, #00000000 20%, white 20%);
-        border-radius: 30px;
-        width: 80%;
-        height: 80%;
-        @include flex($jc: flex-start, $g: 80px);
-    }
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.1);
+  @include flex();
+  .content {
+    background: linear-gradient(to right, #00000000 20%, white 20%);
+    border-radius: 30px;
+    width: 80%;
+    height: 80%;
+    @include flex($jc: flex-start, $g: 80px);
+  }
 }
 
 .headline {
-    border-radius: 30px 0 0 30px;
-    background: $anthracite;
-    width: 33%;
-    height: 100%;
-    padding: 0 $overlay-content-padding;
-    @include flex($ai: flex-start, $g: 12px, $dir: column);
-    .headline-and-logo-container {
-        width: 100%;
-        position: relative;
-    }
-    .logo {
-        position: absolute;
-        z-index: 2;
-        bottom: calc(100% + 14px);
-        width: 54px;
-    }
-    h2 {
-        color: white;
-        margin: 0;
-    }
-    p {
-        color: white;
-        font-size: $font-large;
-    }
-    .separator {
-        width: 90px;
-        height: 3px;
-        margin-top: 3px;
-        background: $light-blue;
-    }
+  border-radius: 30px 0 0 30px;
+  background: $anthracite;
+  width: 33%;
+  height: 100%;
+  padding: 0 $overlay-content-padding;
+  @include flex($ai: flex-start, $g: 12px, $dir: column);
+  .headline-and-logo-container {
+    width: 100%;
+    position: relative;
+  }
+  .logo {
+    position: absolute;
+    z-index: 2;
+    bottom: calc(100% + 14px);
+    width: 54px;
+  }
+  h2 {
+    color: white;
+    margin: 0;
+  }
+  p {
+    color: white;
+    font-size: $font-large;
+  }
+  .separator {
+    width: 90px;
+    height: 3px;
+    margin-top: 3px;
+    background: $light-blue;
+  }
 }
 
 form {
-    flex: 1;
-    padding-right: $overlay-content-padding;
-    @include flex($ai: flex-start, $dir: column);
+  flex: 1;
+  padding-right: $overlay-content-padding;
+  position: relative;
+  @include flex($ai: flex-start, $dir: column);
+  .btn-close {
+    position: absolute;
+    right: $overlay-content-padding;
+    top: -80px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    transition: 75ms ease;
+    @include flex();
+    img {
+      display: blocK;
+      width: 24px;
+      height: 24px;
+    }
+    &:hover {
+      background: #eeeeee;
+      transition: 75ms ease;
+    }
+  }
+  .form-field {
+    position: relative;
+    width: 100%;
+    margin-bottom: 32px;
     input {
-        width: 100%;
+      width: 100%;
     }
-    .btns-submit {
-        @include flex($g: 16px);
+    img {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      height: 24px;
+      width: 24px;
+      margin: var(--input-padding);
     }
+  }
+  .btns-submit {
+    margin-top: 24px;
+    @include flex($g: 16px);
+  }
 }
