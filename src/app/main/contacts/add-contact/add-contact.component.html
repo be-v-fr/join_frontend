@@ -1,3 +1,32 @@
 <div class="overlay" (click)="cancel()">
-    <div class="content" (click)="$event.stopPropagation()"></div>
+    <div class="content" (click)="$event.stopPropagation()">
+        <div class="headline">
+            <div class="headline-and-logo-container">
+                <img class="logo" src="../../../../assets/img/logo_white.svg" alt="logo">
+                <h2>Add contact</h2>
+            </div>
+            <p>Tasks are better with a team!</p>
+            <div class="separator"></div>
+        </div>
+        <app-contact-icon [large]="true"></app-contact-icon>
+        <form>
+            <input type="text" placeholder="Name">
+            <input type="text" placeholder="Email">
+            <input type="text" placeholder="Phone">
+            <div class="btns-submit">
+                <button type="button" class="btn-secondary-x" (click)="cancel()">
+                    Cancel
+                    <div class="img-container">
+                        <img src="../../../assets/img/cancel.svg" class="secondary-neutral" alt="clear">
+                        <img src="../../../assets/img/cancel_hover.svg" class="secondary-hover" alt="clear">
+                        <img src="../../../assets/img/cancel_active.svg" class="secondary-active" alt="clear">
+                    </div>
+                </button>
+                <button type="submit" class="btn-primary">
+                    Create Contact
+                    <img src="../../../assets/img/check_white.svg" alt="create task">
+                </button>
+            </div>
+        </form>
+    </div>
 </div>

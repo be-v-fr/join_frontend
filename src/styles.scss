@@ -12,6 +12,7 @@ $dark-grey: #a8a8a8;
 $shadow-subtle: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
 $shadow-stronger: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 $font-larger: 47px;
+$font-large: 27px;
 $font-normal: 20px;
 $font-small: 16px;
 
@@ -121,6 +122,47 @@ button {
   &:active {
     color: $anthracite-darkened;
     border-color: $anthracite-darkened;
+  }
+}
+
+.btn-secondary-x {
+  @extend .btn-secondary;
+  .img-container {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    img {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .secondary-hover,
+    .secondary-active {
+      opacity: 0;
+      transition: 75ms ease;
+    }
+  }
+  &:hover .img-container {
+    .secondary-neutral {
+      transition: 75ms ease;
+      opacity: 0;
+    }
+    .secondary-hover {
+      transition: 75ms ease;
+      opacity: 1;
+    }
+  }
+  &:active .img-container {
+    .secondary-hover {
+      transition: 75ms ease;
+      opacity: 0;
+    }
+    .secondary-active {
+      transition: 75ms ease;
+      opacity: 1;
+    }
   }
 }
 
