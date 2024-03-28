@@ -1,14 +1,40 @@
-@import '../../../../styles.scss';
+@import "../../../../styles.scss";
 
 .content {
-    @include flex($jc: flex-start);
+  @include flex($jc: flex-start);
+  cursor: pointer;
 }
 
 .in-contacts {
-    gap: 35px;
-    padding: 15px 24px;
+  gap: 35px;
+  padding: 15px 24px;
+  border-radius: 10px;
+  transition: 75ms ease;
+}
+
+.in-contacts-default {
+  @extend .in-contacts;
+  &:hover {
+    background: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
+    transition: 75ms ease;
+  }
+  &:active {
+    color: white;
+    background: $anthracite-darkened;
+    transition: 75ms ease;
+  }
+}
+
+.in-contacts-selected {
+  @extend .in-contacts;
+  background: $anthracite;
+  color: white;
+  &:hover {
+    background: $anthracite-darkened;
+    transition: 75ms ease;
+  }
 }
 
 .in-task {
-    gap: 16px;
+  gap: 16px;
 }

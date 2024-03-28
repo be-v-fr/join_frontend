@@ -3,14 +3,15 @@
 $anthracite: #2a3647;
 $anthracite-lightened: #2a3d59;
 $anthracite-darkened: #091931;
-$light-blue: #29ABE2;
-$link-blue: #007CEE;
+$light-blue: #29abe2;
+$link-blue: #007cee;
 $light-grey: #f6f7f8;
 $medium-light-grey: #d1d1d1;
 $grey: #cdcdcd;
 $dark-grey: #a8a8a8;
 $shadow-subtle: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
 $shadow-stronger: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+$font-larger: 47px;
 $font-normal: 20px;
 $font-small: 16px;
 
@@ -26,6 +27,7 @@ $font-small: 16px;
   --page-padding: 120px 100px;
   --input-padding: 12px 21px;
   --add-task-form-gap: 44px;
+  --page-headline-margin: 64px;
 }
 
 html,
@@ -55,6 +57,7 @@ body,
 p,
 span,
 input,
+button,
 textarea {
   font-family: "Inter";
   font-weight: 400;
@@ -136,7 +139,16 @@ h2 {
   font-weight: 700;
   font-size: 61px;
   margin: 0;
-  margin-bottom: 64px;
+  margin-bottom: var(--page-headline-margin);
+}
+
+h3 {
+  font-weight: 400;
+  margin: 40px 0;
+}
+
+h4 {
+  margin-bottom: 16px;
 }
 
 .marked-red {
@@ -145,4 +157,24 @@ h2 {
 
 .relative {
   position: relative;
+}
+
+.edit-btn {
+  font-size: $font-small;
+  @include flex($jc: flex-start, $g: 8px);
+  img {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    transition: 75ms ease;
+  }
+  &:hover {
+    font-weight: 700;
+    color: $light-blue;
+    img {
+      filter: invert(56%) sepia(80%) saturate(2198%) hue-rotate(166deg)
+        brightness(102%) contrast(77%);
+      transition: 75ms ease;
+    }
+  }
 }

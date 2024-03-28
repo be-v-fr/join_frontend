@@ -11,6 +11,7 @@ import { Component, Input } from '@angular/core';
 export class ContactIconComponent {
   @Input() name: string = '##';
   @Input() color: string = '#CCCCCC';
+  @Input() large?: boolean = false;
 
   getInitials() {
     const nameParts: string[] = this.name.split(' ');

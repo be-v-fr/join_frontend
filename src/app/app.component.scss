@@ -13,6 +13,9 @@
         flex-direction: column;
         app-header {
             height: 96px;
+            box-shadow: $shadow-subtle;
+            position: relative;
+            z-index: 1;
         }
         .page {
             flex: 1;

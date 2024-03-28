@@ -16,4 +16,5 @@ export class ContactListItemComponent {
   @Input() email?: string | undefined;
   @Input() color: string = '#DDDDDD';
   @Input() instance: 'contacts' | 'task' = 'contacts';
+  @Input() selected?: boolean = false;
 }

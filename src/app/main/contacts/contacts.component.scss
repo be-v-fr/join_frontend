@@ -1,31 +1,68 @@
-@import '../../../styles.scss';
+@import "../../../styles.scss";
 
 .content {
-    width: 100%;
+  width: 100%;
+  height: 100%;
+  @include flex($ai: flex-start);
+  .list {
+    width: 33.3%;
     height: 100%;
-    @include flex($ai: flex-start);
-    .list {
-        width: 33.3%;
-        height: 100%;
-        background: white;
-        padding: var(--page-padding);
-        padding-left: 50px;
-        padding-right: 50px;
+    background: white;
+    padding: 24px 50px;
+    overflow-y: auto;
+    box-shadow: $shadow-subtle;
+    .add-new {
+      width: 100%;
+      gap: 16px;
     }
-    .viewer {
-        height: 100%;
-        flex: 1;
-        padding: var(--page-padding);
+    .letter {
+      padding: 17px 36px;
+      margin-top: 6px;
     }
-}
-
-.letter {
-    padding: 17px 36px;
-}
-
-.horizontal-ruler {
-    width: 100%;
-    height: 1px;
-    background: $medium-light-grey;
-    margin: 8px 0;
+    .horizontal-ruler {
+      width: 100%;
+      height: 1px;
+      background: $medium-light-grey;
+      margin: 8px 0;
+    }
+  }
+  .viewer {
+    height: 100%;
+    flex: 1;
+    padding: var(--page-padding);
+    .title {
+      width: 100%;
+      height: 60px;
+      margin-bottom: var(--page-headline-margin);
+      @include flex($jc: flex-start, $g: 30px);
+      h2 {
+        margin: 0;
+      }
+      .separator {
+        height: 56px;
+        width: 3px;
+        background: $light-blue;
+      }
+    }
+    .contactData {
+      .name {
+        @include flex($jc: flex-start, $g: 54px);
+        .full-name-edit {
+            .full-name {
+                font-size: $font-larger;
+            }
+            .edit-btns-container {
+                margin-top: 8px;
+                display: flex;
+                button {
+                    width: 80px;
+                }
+            }
+        }
+      }
+      app-email {
+        margin-bottom: 16px;
+      }
+    }
+  }
 }

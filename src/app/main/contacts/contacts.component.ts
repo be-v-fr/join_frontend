@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { ContactListItemComponent } from './contact-list-item/contact-list-item.component';
 import { Contact } from '../../../models/contact';
+import { ContactIconComponent } from './contact-list-item/contact-icon/contact-icon.component';
+import { EmailComponent } from './email/email.component';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [ContactListItemComponent],
+  imports: [ContactListItemComponent, ContactIconComponent, EmailComponent],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss'
 })
@@ -15,6 +17,7 @@ export class ContactsComponent {
     new Contact('test 2', 'email 2'),
     new Contact('no email')
   ];
+  selection: number = -1;
 
   getSortedContacts(): Contact[] {
     return this.contacts.sort((a: Contact, b: Contact) => a.name > b.name ? 1 : -1);
@@ -31,5 +34,9 @@ export class ContactsComponent {
       if(current == previous) {return false;}
     }
       return true;
+  }
+
+  selectContact(index: number) {
+    this.selection = index;
   }
 }

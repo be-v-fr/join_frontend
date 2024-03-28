@@ -1,4 +1,4 @@
-<div class="content" [ngClass]="instance == 'contacts' ? 'in-contacts' : 'in-task'">
+<div class="content" [ngClass]="instance == 'contacts' ? (selected ? 'in-contacts-selected' : 'in-contacts-default') : 'in-task'">
     <app-contact-icon [name]="name" [color]="color"></app-contact-icon>
     <div class="data">
         <p>{{name}}</p>

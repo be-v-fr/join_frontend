@@ -34,7 +34,8 @@
                             @for (user of users; track user; let i = $index) {
                             <li class="assigned-li" (click)="$event.stopPropagation(); toggleAssignment(i)">
                                 <app-contact-list-item [name]="user.name"
-                                    [color]="user.color" [instance]="'task'"></app-contact-list-item>
+                                    [color]="user.color" [instance]="'task'">
+                                </app-contact-list-item>
                                 <div class="custom-checkbox" [ngClass]="{'custom-checked' : assigned[i]}"></div>
                             </li>
                             }
