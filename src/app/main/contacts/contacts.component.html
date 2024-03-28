@@ -1,6 +1,6 @@
 <div class="content">
     <div class="list">
-        <button class="btn-primary add-new" (click)="addContact()">
+        <button class="btn-primary add-new" (click)="showContactOverlay('add')">
             Add new contact
             <img src="../../../assets/img/person_add.svg" alt="add new contact"></button>
         @for (contact of getSortedContacts(); track contact; let i = $index) {
@@ -26,7 +26,7 @@
                 <div class="full-name-edit">
                     <p class="full-name">{{contacts[selection].name}}</p>
                     <div class="edit-btns-container">
-                        <button class="edit-btn">
+                        <button class="edit-btn" (click)="showContactOverlay('edit')">
                             <img src="../../../../assets/img/edit.svg" alt="edit contact">
                             Edit
                         </button>
@@ -53,5 +53,5 @@
     </div>
 </div>
 @if(contactOverlay != null) {
-<app-add-contact (cancelOverlay)="cancelOverlay()"></app-add-contact>
+<app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="contactOverlay"></app-add-contact>
 }

@@ -42,9 +42,9 @@ export class ContactsComponent {
     this.selection = index;
   }
 
-  addContact() {
+  showContactOverlay(mode: 'add' | 'edit') {
     this.selection = -1;
-    this.contactOverlay = 'add';
+    this.contactOverlay = mode;
   }
 
   cancelOverlay() {
