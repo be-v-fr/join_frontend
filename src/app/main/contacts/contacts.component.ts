@@ -43,8 +43,16 @@ export class ContactsComponent {
   }
 
   showContactOverlay(mode: 'add' | 'edit') {
-    this.selection = -1;
     this.contactOverlay = mode;
+  }
+
+  submitContact(contact: Contact) {
+    if(this.contactOverlay == 'add') {
+      this.contacts.push(contact);
+    } else {
+      this.contacts[this.selection] = contact;
+    }
+    this.cancelOverlay();
   }
 
   cancelOverlay() {

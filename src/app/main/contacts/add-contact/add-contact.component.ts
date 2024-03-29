@@ -1,17 +1,26 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactIconComponent } from '../contact-list-item/contact-icon/contact-icon.component';
+import { FormsModule } from '@angular/forms';
+import { Contact } from '../../../../models/contact';
 
 @Component({
   selector: 'app-add-contact',
   standalone: true,
-  imports: [CommonModule, ContactIconComponent],
+  imports: [CommonModule, FormsModule, ContactIconComponent],
   templateUrl: './add-contact.component.html',
   styleUrl: './add-contact.component.scss'
 })
 export class AddContactComponent {
-  @Input() mode: 'add' | 'edit' = 'add'; 
+  @Input() mode: 'add' | 'edit' = 'add';
+  @Input() contact: Contact = new Contact('');
   @Output() cancelOverlay = new EventEmitter<void>();
+  @Output() afterSubmit = new EventEmitter<Contact>();
+
+  onSubmit(e: Event): void {
+    e.preventDefault();
+    this.afterSubmit.emit(this.contact);
+  }
 
   cancel() {
     this.cancelOverlay.emit();

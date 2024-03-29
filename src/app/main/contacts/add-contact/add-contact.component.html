@@ -15,21 +15,25 @@
             <p *ngIf="mode == 'add'">Tasks are better with a team!</p>
             <div class="separator"></div>
         </div>
-        <app-contact-icon [large]="true"></app-contact-icon>
-        <form>
+        @if(mode == 'add') {
+            <app-contact-icon [large]="true"></app-contact-icon>
+        } @else {
+            <app-contact-icon [name]="contact.name" [color]="contact.color" [large]="true"></app-contact-icon>
+        }
+        <form ngNativeValidate (submit)="onSubmit($event)">
             <button type="button" class="btn-close" (click)="cancel()">
                 <img src="../../../assets/img/cancel.svg" class="secondary-neutral" alt="clear">
             </button>
             <div class="form-field">
-                <input type="text" class="text-input" placeholder="Name">
+                <input type="text" [(ngModel)]="contact.name" class="text-input" placeholder="Name" name="name" id="name" required>
                 <img src="assets/img/contacts/person.svg">
             </div>
             <div class="form-field">
-                <input type="text" class="text-input" placeholder="Email">
+                <input type="text" [(ngModel)]="contact.email" class="text-input" placeholder="Email" name="email">
                 <img src="assets/img/contacts/mail.svg">
             </div>
             <div class="form-field">
-                <input type="text" class="text-input" placeholder="Phone">
+                <input type="text" [(ngModel)]="contact.phone" class="text-input" placeholder="Phone" name="phone">
                 <img src="assets/img/contacts/call.svg">
             </div>
             <div class="btns-submit">
@@ -46,15 +50,15 @@
                     Create Contact
                     <img src="../../../assets/img/check_white.svg" alt="create task">
                 </button>
-            } @else {
+                } @else {
                 <button type="button" class="btn-secondary btn-x" (click)="cancel()">
                     Delete
                 </button>
                 <button type="submit" class="btn-primary">
                     Save
                     <img src="../../../assets/img/check_white.svg" alt="create task">
-                </button>               
-            }
+                </button>
+                }
             </div>
         </form>
     </div>
