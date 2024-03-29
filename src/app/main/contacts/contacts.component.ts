@@ -58,4 +58,8 @@ export class ContactsComponent {
   cancelOverlay() {
     this.contactOverlay = null;
   }
+
+  deleteSelectedContact() {
+    this.contacts.splice(this.selection, 1);
+  }
 }

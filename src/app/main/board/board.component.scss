@@ -1,0 +1,33 @@
+@import '../../../styles.scss';
+
+.content {
+    height: 100%;
+    @include flex($dir: column);
+}
+
+.top-section {
+    @include flex($jc: space-between);
+    h2 {
+        margin: 0;
+    }
+    header {
+        @include flex($g: 32px);
+        .btn-primary {
+            gap: 4px;
+            height: 50px;
+            img {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    }
+}
+
+.tasks-by-status {
+    flex: 1;
+    @include flex();
+    .task-column {
+        height: 100%;
+        background: yellow;
+    }
+}
