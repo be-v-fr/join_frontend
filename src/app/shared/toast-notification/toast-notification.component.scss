@@ -1,0 +1,32 @@
+@import '../../../styles.scss';
+
+$height: 74px;
+
+.content {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    @include flex();
+    p {
+        background: $anthracite;
+        color: white;
+        height: $height;
+        border-radius: 20px;
+        padding: 0 25px;
+        transform: translateY(calc(50vh + $height / 2));
+        @include flex();
+        .board-icon {
+            display: block;
+            width: 30px;
+            height: 30px;
+            filter: brightness(2);
+        }
+    }
+    .show {
+        transform: translateY(0);
+        transition: transform 300ms ease-out;
+    }
+}

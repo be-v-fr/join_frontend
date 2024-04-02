@@ -1,5 +1,12 @@
 <div class="content" (click)="handleGeneralClick()">
-    <h2>Add Task</h2>
+    <h2>
+        @if(mode == 'add') {
+        Add
+        } @else {
+        Edit
+        }
+        Task
+    </h2>
     <form (submit)="onSubmit($event)">
         <div class="form-main">
             <div class="form-side">
@@ -25,16 +32,15 @@
                         </div>
                         <div class="assigned-icons">
                             @for(assignment of task.assigned; track assignment; let i = $index) {
-                                @if(assignment) {
-                                    <app-contact-icon [name]="users[i].name" [color]="users[i].color"></app-contact-icon>
-                                }
+                            @if(assignment) {
+                            <app-contact-icon [name]="users[i].name" [color]="users[i].color"></app-contact-icon>
+                            }
                             }
                         </div>
                         <ul class="dropdown-assigned" *ngIf="showAssignedDropdown">
                             @for (user of users; track user; let i = $index) {
                             <li class="assigned-li" (click)="$event.stopPropagation(); toggleAssignment(i)">
-                                <app-contact-list-item [name]="user.name"
-                                    [color]="user.color" [instance]="'task'">
+                                <app-contact-list-item [name]="user.name" [color]="user.color" [instance]="'task'">
                                 </app-contact-list-item>
                                 <div class="custom-checkbox" [ngClass]="{'custom-checked' : task.assigned[i]}"></div>
                             </li>
@@ -71,7 +77,8 @@
                             <img src="../../../assets/img/prio/task_prio_medium.svg" alt="select medium">
                             }
                         </button>
-                        <button type="button" (click)="selectPrio('Low')" [ngClass]="{'selected low': task.prio == 'Low'}">
+                        <button type="button" (click)="selectPrio('Low')"
+                            [ngClass]="{'selected low': task.prio == 'Low'}">
                             <span>Low</span>
                             @if(task.prio == 'Low') {
                             <img src="../../../assets/img/prio/task_prio_low_white.svg" alt="low selected">
@@ -139,3 +146,4 @@
         </div>
     </form>
 </div>
+<app-toast-notification [message]="'Task added to board'" [show]="showTaskAddedToast"></app-toast-notification>

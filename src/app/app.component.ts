@@ -21,8 +21,8 @@ export class AppComponent {
   constructor(private router: Router, private mainService: MainService ) {
     mainService.taskSubmitted$.subscribe(
       (task: Task) => {
-        console.log('Task added!');
-        console.log(task);
+        this.tasks.push(task); // neuen Task hinzufügen
+        // bestehenden Task verändern ??
       } 
     )
   }

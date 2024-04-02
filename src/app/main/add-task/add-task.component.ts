@@ -9,11 +9,12 @@ import { Task } from '../../../models/task';
 import { ContactListItemComponent } from '../contacts/contact-list-item/contact-list-item.component';
 import { ContactIconComponent } from '../contacts/contact-list-item/contact-icon/contact-icon.component';
 import { MainService } from '../../shared/main.service';
+import { ToastNotificationComponent } from '../../shared/toast-notification/toast-notification.component';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [CommonModule, FormsModule, SubtaskComponent, ContactListItemComponent, ContactIconComponent],
+  imports: [CommonModule, FormsModule, SubtaskComponent, ContactListItemComponent, ContactIconComponent, ToastNotificationComponent],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
@@ -24,9 +25,11 @@ export class AddTaskComponent implements OnInit {
     new User('test 2', 'email 2', 'password 2'),
   ];
   @Input() task: Task = new Task('');
+  @Input() mode: 'add' | 'edit' = 'add';
   @ViewChild('subtask') subtaskRef!: ElementRef;
   showAssignedDropdown: boolean = false;
   showCategoryDropdown: boolean = false;
+  showTaskAddedToast: boolean = false;
 
   constructor(private mainService: MainService) {}
 
@@ -89,5 +92,6 @@ export class AddTaskComponent implements OnInit {
   onSubmit(e: Event): void {
     e.preventDefault();
     this.mainService.submitTask(this.task);
+    this.showTaskAddedToast = true;
   }
 }
