@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Subtask } from '../../../interfaces/subtask.interface';
 import { SubtaskComponent } from './subtask/subtask.component';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +8,7 @@ import { User } from '../../../models/user';
 import { Task } from '../../../models/task';
 import { ContactListItemComponent } from '../contacts/contact-list-item/contact-list-item.component';
 import { ContactIconComponent } from '../contacts/contact-list-item/contact-icon/contact-icon.component';
+import { MainService } from '../../shared/main.service';
 
 @Component({
   selector: 'app-add-task',
@@ -42,6 +43,8 @@ export class AddTaskComponent implements OnInit {
   ];
   showAssignedDropdown: boolean = false;
   showCategoryDropdown: boolean = false;
+
+  constructor(private mainService: MainService) {}
 
   ngOnInit() {
     this.initAssigned();
@@ -97,5 +100,12 @@ export class AddTaskComponent implements OnInit {
     this.showCategoryDropdown = false;
     this.showAssignedDropdown = false;
     this.formClick.next();
+  }
+
+  onSubmit(e: Event): void {
+    e.preventDefault();
+    this.mainService.submitTask(new Task(
+
+    ));
   }
 }

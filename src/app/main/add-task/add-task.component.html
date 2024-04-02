@@ -1,6 +1,6 @@
 <div class="content" (click)="handleGeneralClick()">
     <h2>Add Task</h2>
-    <form>
+    <form (submit)="onSubmit($event)">
         <div class="form-main">
             <div class="form-side">
                 <div class="form-field">
