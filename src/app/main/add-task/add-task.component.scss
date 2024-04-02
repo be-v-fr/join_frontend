@@ -181,27 +181,6 @@ textarea,
   }
 }
 
-.custom-input-btn {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  height: 24px;
-  width: 24px;
-  margin: var(--input-padding);
-  img {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background-color: none;
-    transition: transform 250ms ease, background-color 75ms ease;
-    transform: rotate(0deg);
-    &:hover {
-      background-color: #d2e3ff;
-      transition: transform 250ms ease, background-color 75ms ease;
-    }
-  }
-}
-
 .subtasks-list {
   position: absolute;
   top: 0;

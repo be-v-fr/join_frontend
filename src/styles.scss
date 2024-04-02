@@ -13,6 +13,7 @@ $shadow-subtle: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
 $shadow-stronger: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 $font-larger: 47px;
 $font-large: 27px;
+$font-medium: 24px;
 $font-normal: 20px;
 $font-small: 16px;
 
@@ -200,6 +201,11 @@ h4 {
   margin-bottom: 16px;
 }
 
+h5 {
+  font-size: $font-medium;
+  color: $anthracite;
+}
+
 .marked-red {
   color: #ff8190;
 }
@@ -224,6 +230,27 @@ h4 {
       filter: invert(56%) sepia(80%) saturate(2198%) hue-rotate(166deg)
         brightness(102%) contrast(77%);
       transition: 75ms ease;
+    }
+  }
+}
+
+.custom-input-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 24px;
+  width: 24px;
+  margin: var(--input-padding);
+  img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: none;
+    transition: transform 250ms ease, background-color 75ms ease;
+    transform: rotate(0deg);
+    &:hover {
+      background-color: #d2e3ff;
+      transition: transform 250ms ease, background-color 75ms ease;
     }
   }
 }

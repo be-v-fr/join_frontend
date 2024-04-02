@@ -2,7 +2,13 @@
     <section class="top-section">
         <h2>Board</h2>
         <header>
-            <input type="search" class="text-input" placeholder="Find task">
+            <div class="search-container relative text-input">
+                <input type="search" class="text-input" placeholder="Find task">
+                <div class="separator"></div>
+                <button type="button" class="search-icon">
+                    <img src="../../../assets/img/search.svg" alt="search">
+                </button>
+            </div>
             <button class="btn-primary">
                 Add task
                 <img src="../../../assets/img/plus_icon_white.svg" alt="add task">
@@ -10,9 +16,50 @@
         </header>
     </section>
     <section class="tasks-by-status">
-        <div class="task-column">To do</div>
-        <div class="task-column">In progress</div>
-        <div class="task-column">Await feedback</div>
-        <div class="task-column">Done</div>
+        <div class="task-column">
+            <div class="column-title">
+                <h5>To do</h5>
+                <button>
+                    <img src="../../../assets/img/plus_icon.svg" alt="add to do">
+                </button>
+            </div>
+            <div class="tasks-container">
+                <div class="no-tasks">No tasks to do</div>
+                <app-task-card></app-task-card>
+            </div>
+        </div>
+        <div class="task-column">
+            <div class="column-title">
+                <h5>In progress</h5>
+                <button>
+                    <img src="../../../assets/img/plus_icon.svg" alt="add in progress">
+                </button>
+            </div>
+                        <div class="tasks-container">
+                <div class="no-tasks">No tasks in progress</div>
+                <app-task-card></app-task-card>
+            </div>
+        </div>
+        <div class="task-column">
+            <div class="column-title">
+                <h5>Await feedback</h5>
+                <button>
+                    <img src="../../../assets/img/plus_icon.svg" alt="add awaiting feedback">
+                </button>
+            </div>
+                        <div class="tasks-container">
+                <div class="no-tasks">No tasks awaiting feedback</div>
+                <app-task-card></app-task-card>
+            </div>
+        </div>
+        <div class="task-column">
+            <div class="column-title">
+                <h5>Done</h5>
+            </div>
+                        <div class="tasks-container">
+                <div class="no-tasks">No tasks done</div>
+                <app-task-card></app-task-card>
+            </div>
+        </div>
     </section>
 </div>
