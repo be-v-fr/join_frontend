@@ -5,10 +5,17 @@ import { Contact } from '../../models/contact';
 
 @Injectable({ providedIn: 'root'})
 export class MainService {
-  private taskChangeSource = new Subject<Task>();
-  taskSubmitted$ = this.taskChangeSource.asObservable();
+
+  private taskSubmitSource = new Subject<Task>();
+  private tasksChangeSource = new Subject<Task[]>();
+  taskSubmitted$ = this.taskSubmitSource.asObservable();
+  tasksChanged$ = this.tasksChangeSource.asObservable();
 
   submitTask(task: Task) {
-    this.taskChangeSource.next(task);
+    this.taskSubmitSource.next(task);
+  }
+
+  changeTasks(tasks: Task[]) {
+    this.tasksChangeSource.next(tasks);
   }
 }

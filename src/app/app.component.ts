@@ -22,6 +22,7 @@ export class AppComponent {
     mainService.taskSubmitted$.subscribe(
       (task: Task) => {
         this.tasks.push(task); // neuen Task hinzufügen
+        this.mainService.changeTasks(this.tasks);
         // bestehenden Task verändern ??
       } 
     )

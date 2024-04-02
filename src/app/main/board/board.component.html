@@ -24,8 +24,12 @@
                 </button>
             </div>
             <div class="tasks-container">
+                @if(filterTasksBy('To do').length == 0) {
                 <div class="no-tasks">No tasks to do</div>
+                }
+                @for (task of filterTasksBy('To do'); track task) {
                 <app-task-card></app-task-card>
+                }
             </div>
         </div>
         <div class="task-column">
@@ -35,9 +39,13 @@
                     <img src="../../../assets/img/plus_icon.svg" alt="add in progress">
                 </button>
             </div>
-                        <div class="tasks-container">
+            <div class="tasks-container">
+                @if(filterTasksBy('In progress').length == 0) {
                 <div class="no-tasks">No tasks in progress</div>
+                }
+                @for (task of filterTasksBy('In progress'); track task) {
                 <app-task-card></app-task-card>
+                }
             </div>
         </div>
         <div class="task-column">
@@ -47,18 +55,26 @@
                     <img src="../../../assets/img/plus_icon.svg" alt="add awaiting feedback">
                 </button>
             </div>
-                        <div class="tasks-container">
+            <div class="tasks-container">
+                @if(filterTasksBy('Await feedback').length == 0) {
                 <div class="no-tasks">No tasks awaiting feedback</div>
+                }
+                @for (task of filterTasksBy('Await feedback'); track task) {
                 <app-task-card></app-task-card>
+                }
             </div>
         </div>
         <div class="task-column">
             <div class="column-title">
                 <h5>Done</h5>
             </div>
-                        <div class="tasks-container">
+            <div class="tasks-container">
+                @if(filterTasksBy('Done').length == 0) {
                 <div class="no-tasks">No tasks done</div>
+                }
+                @for (task of filterTasksBy('Done'); track task) {
                 <app-task-card></app-task-card>
+                }
             </div>
         </div>
     </section>
