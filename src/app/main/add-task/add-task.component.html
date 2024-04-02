@@ -5,16 +5,16 @@
             <div class="form-side">
                 <div class="form-field">
                     <label for="title">Title<span class="marked-red">*</span></label>
-                    <input type="text" name="title" id="title" placeholder="Enter a title">
+                    <input type="text" [(ngModel)]="task.title" name="title" id="title" placeholder="Enter a title">
                 </div>
                 <div class="form-field">
                     <label for="description">Description</label>
-                    <textarea type="text" name="description" id="description"
+                    <textarea type="text" [(ngModel)]="task.description" name="description" id="description"
                         placeholder="Enter a description"></textarea>
                 </div>
                 <div class="form-field">
                     <label for="assigend" (click)="$event.preventDefault()">Assigned to</label>
-                    <input type="hidden" name="assigned" id="assigned" value="{{assigned}}">
+                    <input type="hidden" [(ngModel)]="task.assigned" name="assigned" id="assigned">
                     <div class="dropdown-container">
                         <div class="dropdown-input" (click)="toggleDropdown($event, 'assigned')">
                             Select contacts to assign
@@ -24,7 +24,7 @@
                             </button>
                         </div>
                         <div class="assigned-icons">
-                            @for(assignment of assigned; track assignment; let i = $index) {
+                            @for(assignment of task.assigned; track assignment; let i = $index) {
                                 @if(assignment) {
                                     <app-contact-icon [name]="users[i].name" [color]="users[i].color"></app-contact-icon>
                                 }
@@ -36,7 +36,7 @@
                                 <app-contact-list-item [name]="user.name"
                                     [color]="user.color" [instance]="'task'">
                                 </app-contact-list-item>
-                                <div class="custom-checkbox" [ngClass]="{'custom-checked' : assigned[i]}"></div>
+                                <div class="custom-checkbox" [ngClass]="{'custom-checked' : task.assigned[i]}"></div>
                             </li>
                             }
                         </ul>
@@ -47,33 +47,33 @@
             <div class="form-side">
                 <div class="form-field">
                     <label for="due">Due date<span class="marked-red">*</span></label>
-                    <input type="date" name="due" id="due">
+                    <input type="date" [(ngModel)]="task.due" name="due" id="due">
                 </div>
                 <div class="form-field">
                     <label for="prio">Prio</label>
                     <div class="prio-btns">
-                        <input type="hidden" name="prio" id="prio" value="{{prio}}">
+                        <input type="hidden" [(ngModel)]="task.prio" name="prio" id="prio">
                         <button type="button" (click)="selectPrio('Urgent')"
-                            [ngClass]="{'selected urgent': prio == 'Urgent'}">
+                            [ngClass]="{'selected urgent': task.prio == 'Urgent'}">
                             <span>Urgent</span>
-                            @if(prio == 'Urgent') {
+                            @if(task.prio == 'Urgent') {
                             <img src="../../../assets/img/prio/task_prio_urgent_white.svg" alt="urgent selected">
                             } @else {
                             <img src="../../../assets/img/prio/task_prio_urgent.svg" alt="select urgent">
                             }
                         </button>
                         <button type="button" (click)="selectPrio('Medium')"
-                            [ngClass]="{'selected medium': prio == 'Medium'}">
+                            [ngClass]="{'selected medium': task.prio == 'Medium'}">
                             <span>Medium</span>
-                            @if(prio == 'Medium') {
+                            @if(task.prio == 'Medium') {
                             <img src="../../../assets/img/prio/task_prio_medium_white.svg" alt="medium selected">
                             } @else {
                             <img src="../../../assets/img/prio/task_prio_medium.svg" alt="select medium">
                             }
                         </button>
-                        <button type="button" (click)="selectPrio('Low')" [ngClass]="{'selected low': prio == 'Low'}">
+                        <button type="button" (click)="selectPrio('Low')" [ngClass]="{'selected low': task.prio == 'Low'}">
                             <span>Low</span>
-                            @if(prio == 'Low') {
+                            @if(task.prio == 'Low') {
                             <img src="../../../assets/img/prio/task_prio_low_white.svg" alt="low selected">
                             } @else {
                             <img src="../../../assets/img/prio/task_prio_low.svg" alt="select low">
@@ -84,13 +84,13 @@
                 <div class="form-field">
                     <label for="category" (click)="$event.preventDefault()">Category<span
                             class="marked-red">*</span></label>
-                    <input type="hidden" name="category" id="category" value="{{category}}">
+                    <input type="hidden" [(ngModel)]="task.category" name="category" id="category">
                     <div class="dropdown-container">
                         <div class="dropdown-input" (click)="toggleDropdown($event, 'category')">
-                            @if(category == null) {
+                            @if(task.category == null) {
                             Select task category
                             } @else {
-                            {{category}}
+                            {{task.category}}
                             }
                             <button type="button" class="dropdown-arrow-btn">
                                 <img src="../../../assets/img/select_icon.svg" alt="icon"
@@ -105,6 +105,7 @@
                 </div>
                 <div class="form-field relative">
                     <label for="subtask">Subtasks</label>
+                    <input type="hidden" [(ngModel)]="task.subtasks" name="subtasks" id="subtasks">
                     <input type="text" name="subtask" #subtask placeholder="Add new subtask"
                         (keydown.enter)="addSubtask()">
                     <button type="button" (click)="addSubtask()" class="custom-input-btn">
@@ -115,8 +116,8 @@
         </div>
         <div class="form-bottom">
             <ul class="subtasks-list" (click)="$event.stopPropagation()">
-                @for (subtask of subtasks; track subtask; let i = $index) {
-                <app-subtask [(task)]="subtasks[i]" (delete)="deleteSubtask(i)"
+                @for (subtask of task.subtasks; track subtask; let i = $index) {
+                <app-subtask [(task)]="task.subtasks[i]" (delete)="deleteSubtask(i)"
                     [formClick]="formClick.asObservable()"></app-subtask>
                 }
             </ul>

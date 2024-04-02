@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Subtask } from '../../../interfaces/subtask.interface';
 import { SubtaskComponent } from './subtask/subtask.component';
 import { FormsModule } from '@angular/forms';
@@ -23,24 +23,8 @@ export class AddTaskComponent implements OnInit {
     new User('test 1', 'email 1', 'password 1'),
     new User('test 2', 'email 2', 'password 2'),
   ];
-  assigned: boolean[] = [];
-  prio: 'Urgent' | 'Medium' | 'Low' | null = 'Medium';
-  category: 'Technical Task' | 'User Story' | null = null;
+  @Input() task: Task = new Task('');
   @ViewChild('subtask') subtaskRef!: ElementRef;
-  subtasks: Subtask[] = [
-    {
-      name: 'test 1',
-      status: 'To do'
-    },
-    {
-      name: 'test 2',
-      status: 'To do'
-    },
-    {
-      name: 'test 3',
-      status: 'To do'
-    }
-  ];
   showAssignedDropdown: boolean = false;
   showCategoryDropdown: boolean = false;
 
@@ -51,7 +35,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   selectPrio(prio: 'Urgent' | 'Medium' | 'Low') {
-    this.prio != prio ? this.prio = prio : this.prio = null;
+    this.task.prio != prio ? this.task.prio = prio : this.task.prio = null;
   }
 
   toggleDropdown(e: Event, name: 'assigned' | 'category') {
@@ -69,15 +53,15 @@ export class AddTaskComponent implements OnInit {
   }
 
   initAssigned() {
-    this.users.forEach(() => this.assigned.push(false));
+    this.users.forEach(() => this.task.assigned.push(false));
   }
 
   toggleAssignment(index: number) {
-    this.assigned[index] = !this.assigned[index];
+    this.task.assigned[index] = !this.task.assigned[index];
   }
 
   setCategory(category: 'Technical Task' | 'User Story') {
-    this.category = category;
+    this.task.category = category;
   }
 
   addSubtask() {
@@ -87,13 +71,13 @@ export class AddTaskComponent implements OnInit {
         name: name,
         status: 'To do'
       };
-      this.subtasks.push(newSubtask);
+      this.task.subtasks.push(newSubtask);
       this.subtaskRef.nativeElement.value = '';
     }
   }
 
   deleteSubtask(index: number) {
-    this.subtasks.splice(index, 1);
+    this.task.subtasks.splice(index, 1);
   }
 
   handleGeneralClick() {
@@ -104,8 +88,6 @@ export class AddTaskComponent implements OnInit {
 
   onSubmit(e: Event): void {
     e.preventDefault();
-    this.mainService.submitTask(new Task(
-
-    ));
+    this.mainService.submitTask(this.task);
   }
 }

@@ -4,8 +4,8 @@ import { Subtask } from '../interfaces/subtask.interface';
 export class Task {
     id: number;
     title: string;
-    description: string;
-    assignedTo: User[] = [];
+    description: string = '';
+    assigned: boolean[] = [];
     due: string;
     prio: 'Urgent' | 'Medium' | 'Low' | null;
     category: 'Technical Task' | 'User Story';
@@ -13,12 +13,16 @@ export class Task {
     timestamp: number = Date.now();
     status: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
 
-    constructor() {
+    constructor(title: string) {
         this.id = -1;
-        this.title = 'New task';
-        this.description = '';
-        this.due = '';
+        this.title = title;
+        this.due = getCurrentDate();
         this.prio = 'Medium';
         this.category = 'Technical Task';
     }
+}
+
+function getCurrentDate(): string {
+    const d = new Date();
+    return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
 }
