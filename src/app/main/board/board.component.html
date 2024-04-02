@@ -24,10 +24,10 @@
                 </button>
             </div>
             <div class="tasks-container">
-                @if(filterTasksBy('To do').length == 0) {
-                <div class="no-tasks">No tasks to do</div>
+                @if(toDo.length == 0) {
+                <div class="no-tasks">No tasks to do {{toDo.length}}</div>
                 }
-                @for (task of filterTasksBy('To do'); track task) {
+                @for (task of toDo; track task) {
                 <app-task-card></app-task-card>
                 }
             </div>
@@ -40,10 +40,10 @@
                 </button>
             </div>
             <div class="tasks-container">
-                @if(filterTasksBy('In progress').length == 0) {
+                @if(inProgress.length == 0) {
                 <div class="no-tasks">No tasks in progress</div>
                 }
-                @for (task of filterTasksBy('In progress'); track task) {
+                @for (task of inProgress; track task) {
                 <app-task-card></app-task-card>
                 }
             </div>
@@ -56,10 +56,10 @@
                 </button>
             </div>
             <div class="tasks-container">
-                @if(filterTasksBy('Await feedback').length == 0) {
+                @if(awaitFeedback.length == 0) {
                 <div class="no-tasks">No tasks awaiting feedback</div>
                 }
-                @for (task of filterTasksBy('Await feedback'); track task) {
+                @for (task of awaitFeedback; track task) {
                 <app-task-card></app-task-card>
                 }
             </div>
@@ -69,10 +69,10 @@
                 <h5>Done</h5>
             </div>
             <div class="tasks-container">
-                @if(filterTasksBy('Done').length == 0) {
+                @if(done.length == 0) {
                 <div class="no-tasks">No tasks done</div>
                 }
-                @for (task of filterTasksBy('Done'); track task) {
+                @for (task of done; track task) {
                 <app-task-card></app-task-card>
                 }
             </div>
