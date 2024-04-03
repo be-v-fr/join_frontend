@@ -3,14 +3,6 @@
 $overlay-content-padding: 50px;
 
 .overlay {
-  position: fixed;
-  z-index: 2;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.1);
-  @include flex();
   .content {
     background: linear-gradient(to right, #00000000 20%, white 20%);
     border-radius: 30px;
@@ -62,20 +54,6 @@ form {
     position: absolute;
     right: $overlay-content-padding;
     top: -80px;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    transition: 75ms ease;
-    @include flex();
-    img {
-      display: blocK;
-      width: 24px;
-      height: 24px;
-    }
-    &:hover {
-      background: #eeeeee;
-      transition: 75ms ease;
-    }
   }
   .form-field {
     position: relative;

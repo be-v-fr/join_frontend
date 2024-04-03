@@ -1,0 +1,44 @@
+<div class="overlay" (click)="cancel()">
+    <div class="content" (click)="$event.stopPropagation()">
+        <div class="top-container">
+            <app-task-category [category]="task.category"></app-task-category>
+            <app-close-btn (click)="cancel()"></app-close-btn>
+        </div>
+        <h2>{{task.title}}</h2>
+        <p *ngIf="task.description.length > 0">{{task.description}}</p>
+        <table class="due-prio-table">
+            <tr>
+                <td>Due date:</td>
+                <td>{{task.due}}</td>
+            </tr>
+            <tr *ngIf="task.prio != null">
+                <td>Priority:</td>
+                <td>
+                    <div class="prio">
+                        {{task.prio}}
+                        <app-prio-icon [prio]="task.prio"></app-prio-icon>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div *ngIf="task.assigned.length > 0">
+            <p>Assigned to:</p>
+            @for(assignment of task.assigned; track assignment; let i = $index) {
+            @if(assignment) {
+            <app-contact-list-item [name]="users[i].name" [color]="users[i].color"></app-contact-list-item>
+            }
+            }
+        </div>
+        <div *ngIf="task.subtasks.length > 0">
+            <p>Subtasks</p>
+            @for (subtask of task.subtasks; track subtask) {
+            <div class="subtask-container">
+                <div class="custom-checkbox" [ngClass]="{'custom-checked' : subtask.status == 'Done'}"></div>
+                <p>{{subtask.name}}</p>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+name
+status

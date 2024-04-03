@@ -9,7 +9,7 @@ import { Task } from '../../../models/task';
 import { ContactListItemComponent } from '../contacts/contact-list-item/contact-list-item.component';
 import { ContactIconComponent } from '../contacts/contact-list-item/contact-icon/contact-icon.component';
 import { TasksService } from '../../shared/tasks.service';
-import { ToastNotificationComponent } from '../../shared/toast-notification/toast-notification.component';
+import { ToastNotificationComponent } from '../../templates/toast-notification/toast-notification.component';
 import { Router } from '@angular/router';
 
 @Component({

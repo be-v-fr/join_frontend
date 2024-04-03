@@ -25,10 +25,10 @@
             </div>
             <div class="tasks-container">
                 @for (task of toDo; track task) {
-                <app-task-card [task]="task"></app-task-card>
+                <app-task-card [task]="task" (click)="viewTask(task.id)"></app-task-card>
                 }
                 @empty {
-                    <div class="no-tasks">No tasks to do</div>
+                <div class="no-tasks">No tasks to do</div>
                 }
             </div>
         </div>
@@ -41,10 +41,10 @@
             </div>
             <div class="tasks-container">
                 @for (task of inProgress; track task) {
-                <app-task-card></app-task-card>
+                <app-task-card [task]="task" (click)="viewTask(task.id)"></app-task-card>
                 }
                 @empty {
-                    <div class="no-tasks">No tasks in progress</div>
+                <div class="no-tasks">No tasks in progress</div>
                 }
             </div>
         </div>
@@ -57,10 +57,10 @@
             </div>
             <div class="tasks-container">
                 @for (task of awaitFeedback; track task) {
-                <app-task-card></app-task-card>
+                <app-task-card [task]="task" (click)="viewTask(task.id)"></app-task-card>
                 }
                 @empty {
-                    <div class="no-tasks">No tasks awaiting feedback</div>
+                <div class="no-tasks">No tasks awaiting feedback</div>
                 }
             </div>
         </div>
@@ -70,12 +70,13 @@
             </div>
             <div class="tasks-container">
                 @for (task of done; track task) {
-                <app-task-card></app-task-card>
+                <app-task-card [task]="task" (click)="viewTask(task.id)"></app-task-card>
                 }
                 @empty {
-                    <div class="no-tasks">No tasks done</div>
+                <div class="no-tasks">No tasks done</div>
                 }
             </div>
         </div>
     </section>
 </div>
+<app-task-view *ngIf="viewTaskId != ''" [task]="getTaskById(viewTaskId)" (cancelOverlay)="closeTaskView()"></app-task-view>

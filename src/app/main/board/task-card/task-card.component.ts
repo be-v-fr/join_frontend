@@ -3,11 +3,13 @@ import { Component, Input } from '@angular/core';
 import { Task } from '../../../../models/task';
 import { User } from '../../../../models/user';
 import { ContactIconComponent } from '../../contacts/contact-list-item/contact-icon/contact-icon.component';
+import { TaskCategoryComponent } from './task-category/task-category.component';
+import { PrioIconComponent } from '../../../templates/prio-icon/prio-icon.component';
 
 @Component({
   selector: 'app-task-card',
   standalone: true,
-  imports: [CommonModule, ContactIconComponent],
+  imports: [CommonModule, ContactIconComponent, TaskCategoryComponent, PrioIconComponent],
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.scss'
 })

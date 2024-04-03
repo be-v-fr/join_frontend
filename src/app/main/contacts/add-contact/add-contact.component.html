@@ -21,9 +21,7 @@
             <app-contact-icon [name]="contact.name" [color]="contact.color" [large]="true"></app-contact-icon>
         }
         <form ngNativeValidate (submit)="onSubmit($event)">
-            <button type="button" class="btn-close" (click)="cancel()">
-                <img src="../../../assets/img/cancel.svg" class="secondary-neutral" alt="clear">
-            </button>
+            <app-close-btn (click)="cancel()" class="btn-close"></app-close-btn>
             <div class="form-field">
                 <input type="text" [(ngModel)]="contact.name" class="text-input" placeholder="Name" name="name" id="name" required>
                 <img src="assets/img/contacts/person.svg">

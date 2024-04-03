@@ -63,6 +63,14 @@ export class TasksService {
     }
   }
 
+  getTaskById(id: string): Task {
+    let task = new Task('');
+    this.tasks.forEach(t => {
+      if(t.id == id) {task = t}
+    });
+    return task;
+  }
+
   subTasks() {
     return onSnapshot(this.getColRef(), (list: any) => {
       this.tasks = [];

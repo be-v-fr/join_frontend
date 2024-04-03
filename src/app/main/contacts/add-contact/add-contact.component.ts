@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ContactIconComponent } from '../contact-list-item/contact-icon/contact-icon.component';
 import { FormsModule } from '@angular/forms';
 import { Contact } from '../../../../models/contact';
+import { CloseBtnComponent } from '../../../templates/close-btn/close-btn.component';
 
 @Component({
   selector: 'app-add-contact',
   standalone: true,
-  imports: [CommonModule, FormsModule, ContactIconComponent],
+  imports: [CommonModule, FormsModule, ContactIconComponent, CloseBtnComponent],
   templateUrl: './add-contact.component.html',
   styleUrl: './add-contact.component.scss'
 })

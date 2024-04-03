@@ -1,0 +1,43 @@
+@import '../../../../styles.scss';
+
+.overlay {
+  .content {
+    background: white;
+    border-radius: 30px;
+    width: 525px;
+    max-height: 80%;
+    padding: 48px 40px;
+    @include flex($ai: flex-start, $g: 24px, $dir: column);
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.top-container {
+  width: 100%;
+  @include flex($jc: space-between);
+}
+
+.prio {
+  @include flex($jc: flex-start, $g: 10px);
+  app-prio-icon {
+    display: block;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.subtask-container {
+  @include flex($jc: flex-start, $g: 16px);
+  .custom-checkbox {
+    width: 24px;
+    height: 24px;
+    background: url("../../../../assets/img/checkbox.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  .custom-checked {
+    background: url("../../../../assets/img/checkbox_checked.svg");
+  }
+}
