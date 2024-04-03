@@ -28,8 +28,8 @@ export class TasksService {
     return doc(this.getColRef(), id);
   }
 
-  async addTask(item: Task) {
-    await addDoc(this.getColRef(), item)
+  async addTask(task: Task) {
+    await addDoc(this.getColRef(), this.getJsonFromTask(task))
       .catch((err: Error) => { console.error(err) });
   }
 
@@ -41,6 +41,7 @@ export class TasksService {
         .catch((err: Error) => { console.error(err) });
     }
   }
+  
   async deleteTask(id: string) {
     let docRef = this.getSingleDocRef(id);
     await deleteDoc(docRef)
@@ -49,16 +50,16 @@ export class TasksService {
 
   getJsonFromTask(task: Task): {} {
     return {
-      'id' : task.id,
-      'title' : task.title,
-      'description' : task.description,
-      'assigned' : task.assigned,
-      'due' : task.due,
-      'prio' : task.prio,
-      'category' : task.category,
-      'subtasks' : task.subtasks,
-      'timestamp' : task.timestamp,
-      'status' : task.status
+      'id': task.id,
+      'title': task.title,
+      'description': task.description,
+      'assigned': task.assigned,
+      'due': task.due,
+      'prio': task.prio,
+      'category': task.category,
+      'subtasks': task.subtasks,
+      'timestamp': task.timestamp,
+      'status': task.status
     }
   }
 
@@ -74,16 +75,16 @@ export class TasksService {
   setTaskObject(obj: any, id: string): Task {
     const defaultTask = new Task('null');
     return {
-      id : id || defaultTask.id,
-      title : obj.title || defaultTask.title,
-      description : obj.description || defaultTask.description, 
-      assigned : obj.assigned || defaultTask.assigned,
-      due : obj.due || defaultTask.due,
-      prio : obj.prio || defaultTask.prio, 
-      category : obj.category || defaultTask.category,
-      subtasks : obj.subtasks || defaultTask.subtasks, 
-      timestamp : obj.timestamp || defaultTask.timestamp,
-      status : obj.status || defaultTask.status 
+      id: id || defaultTask.id,
+      title: obj.title || defaultTask.title,
+      description: obj.description || defaultTask.description,
+      assigned: obj.assigned || defaultTask.assigned,
+      due: obj.due || defaultTask.due,
+      prio: obj.prio || defaultTask.prio,
+      category: obj.category || defaultTask.category,
+      subtasks: obj.subtasks || defaultTask.subtasks,
+      timestamp: obj.timestamp || defaultTask.timestamp,
+      status: obj.status || defaultTask.status
     };
   }
 }

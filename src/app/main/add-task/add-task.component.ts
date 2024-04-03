@@ -92,7 +92,7 @@ export class AddTaskComponent implements OnInit {
 
   onSubmit(e: Event): void {
     e.preventDefault();
-    // this.mainService.submitTask(this.task);
+    this.tasksService.addTask(this.task);
     this.showTaskAddedToast = true;
     setTimeout(() => {this.router.navigate(['/board'])}, 700);
   }
