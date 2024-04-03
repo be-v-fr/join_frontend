@@ -25,7 +25,7 @@
             </div>
             <div class="tasks-container">
                 @if(toDo.length == 0) {
-                <div class="no-tasks">No tasks to do {{toDo.length}}</div>
+                <div class="no-tasks">No tasks to do</div>
                 }
                 @for (task of toDo; track task) {
                 <app-task-card></app-task-card>

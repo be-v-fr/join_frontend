@@ -8,7 +8,7 @@ import { User } from '../../../models/user';
 import { Task } from '../../../models/task';
 import { ContactListItemComponent } from '../contacts/contact-list-item/contact-list-item.component';
 import { ContactIconComponent } from '../contacts/contact-list-item/contact-icon/contact-icon.component';
-import { MainService } from '../../shared/main.service';
+import { TasksService } from '../../shared/tasks.service';
 import { ToastNotificationComponent } from '../../shared/toast-notification/toast-notification.component';
 import { Router } from '@angular/router';
 
@@ -32,7 +32,7 @@ export class AddTaskComponent implements OnInit {
   showCategoryDropdown: boolean = false;
   showTaskAddedToast: boolean = false;
 
-  constructor(private router: Router, private mainService: MainService) {}
+  constructor(private router: Router, private tasksService: TasksService) {}
 
   ngOnInit() {
     this.initAssigned();
@@ -92,7 +92,7 @@ export class AddTaskComponent implements OnInit {
 
   onSubmit(e: Event): void {
     e.preventDefault();
-    this.mainService.submitTask(this.task);
+    // this.mainService.submitTask(this.task);
     this.showTaskAddedToast = true;
     setTimeout(() => {this.router.navigate(['/board'])}, 700);
   }

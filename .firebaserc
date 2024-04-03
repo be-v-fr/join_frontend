@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "join-aeecd": {
+      "hosting": {
+        "join": [
+          "join-aeecd"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "join-aeecd"
+  }
+}

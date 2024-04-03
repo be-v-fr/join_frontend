@@ -2,7 +2,7 @@ import { User } from '../models/user';
 import { Subtask } from '../interfaces/subtask.interface';
 
 export class Task {
-    id: number;
+    id: string;
     title: string;
     description: string = '';
     assigned: boolean[] = [];
@@ -14,7 +14,7 @@ export class Task {
     status: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
 
     constructor(title: string) {
-        this.id = -1;
+        this.id = '';
         this.title = title;
         this.due = getCurrentDate();
         this.prio = 'Medium';
