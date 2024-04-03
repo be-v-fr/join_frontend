@@ -1,1 +1,32 @@
-<p>task-card works!</p>
+<div class="content">
+    <p class="category"
+        [ngClass]="{'technical-task': task.category == 'Technical Task', 'user-story': task.category == 'User Story'}">
+        {{task.category}}
+    </p>
+    <p class="title">{{task.title}}</p>
+    <p class="description" *ngIf="task.description.length > 0">{{printDescription()}}</p>
+    <div class="subtasks-diagram" *ngIf="task.subtasks.length > 0">
+        <div class="bar-bg">
+            <div class="bar" [ngStyle]="{'width.%': getSubtasksDoneNumber() / task.subtasks.length * 100}"></div>
+        </div>
+        <div class="counter">{{getSubtasksDoneNumber()}}/{{task.subtasks.length}} Subtasks</div>
+    </div>
+    <div class="bottom-container" *ngIf="task.assigned.length > 0 || task.prio != null">
+        <div class="assigned-icons">
+            @for(assignment of task.assigned; track assignment; let i = $index) {
+            @if(assignment) {
+            <app-contact-icon [name]="users[i].name" [color]="users[i].color"></app-contact-icon>
+            }
+            }
+        </div>
+        <div class="prio">
+            @if(task.prio == 'Urgent') {
+            <img src="../../../../assets/img/prio/task_prio_urgent.svg" alt="urgent">
+            } @else if(task.prio == 'Medium') {
+            <img src="../../../../assets/img/prio/task_prio_medium.svg" alt="medium">
+            } @else if(task.prio == 'Low') {
+            <img src="../../../../assets/img/prio/task_prio_low.svg" alt="low">
+            }
+        </div>
+    </div>
+</div>
