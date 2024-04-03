@@ -2,7 +2,6 @@
 
 .content {
   @include flex($jc: flex-start);
-  cursor: pointer;
 }
 
 .in-contacts {
@@ -10,6 +9,7 @@
   padding: 15px 24px;
   border-radius: 10px;
   transition: 75ms ease;
+  cursor: pointer;
 }
 
 .in-contacts-default {

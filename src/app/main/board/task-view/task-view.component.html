@@ -25,20 +25,29 @@
             <p>Assigned to:</p>
             @for(assignment of task.assigned; track assignment; let i = $index) {
             @if(assignment) {
-            <app-contact-list-item [name]="users[i].name" [color]="users[i].color"></app-contact-list-item>
+            <app-contact-list-item [name]="users[i].name" [color]="users[i].color" [instance]="'task'"></app-contact-list-item>
             }
             }
         </div>
         <div *ngIf="task.subtasks.length > 0">
             <p>Subtasks</p>
-            @for (subtask of task.subtasks; track subtask) {
-            <div class="subtask-container">
+            @for (subtask of task.subtasks; track subtask; let i = $index) {
+            <div class="subtask-container" (click)="toggleSubtaskStatus(i)">
                 <div class="custom-checkbox" [ngClass]="{'custom-checked' : subtask.status == 'Done'}"></div>
                 <p>{{subtask.name}}</p>
             </div>
             }
         </div>
+        <div class="edit-btns-container">
+            <button class="edit-btn">
+                <img src="../../../../assets/img/remove.svg" alt="delete contact">
+                Delete
+            </button>
+            <div class="separator"></div>
+            <button class="edit-btn">
+                <img src="../../../../assets/img/edit.svg" alt="edit contact">
+                Edit
+            </button>
+        </div>
     </div>
 </div>
-name
-status

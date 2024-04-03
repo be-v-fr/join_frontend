@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../../../../models/task';
+import { TasksService } from '../../../shared/tasks.service';
 import { User } from '../../../../models/user';
 import { TaskCategoryComponent } from '../task-card/task-category/task-category.component';
 import { ContactListItemComponent } from '../../contacts/contact-list-item/contact-list-item.component';
@@ -22,7 +23,15 @@ export class TaskViewComponent {
   @Input() task: Task = new Task('');
   @Output() cancelOverlay = new EventEmitter<void>();
 
+  constructor(private tasksService: TasksService ) {}
+
   cancel() {
     this.cancelOverlay.emit();
+  }
+
+  toggleSubtaskStatus(index: number) {
+    const subtask = this.task.subtasks[index];
+    subtask.status == 'To do' ? subtask.status = 'Done' : subtask.status = 'To do';
+    this.tasksService.updateTask(this.task);
   }
 }

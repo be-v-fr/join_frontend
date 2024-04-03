@@ -1,4 +1,4 @@
-@import '../../../../styles.scss';
+@import "../../../../styles.scss";
 
 .overlay {
   .content {
@@ -39,5 +39,18 @@
   }
   .custom-checked {
     background: url("../../../../assets/img/checkbox_checked.svg");
+  }
+}
+
+.edit-btns-container {
+  width: 100%;
+  @include flex($jc: flex-end, $g: 4px);
+  // button {
+  //   width: 80px;
+  // }
+  .separator {
+    width: 1px;
+    height: 24px;
+    background: $medium-light-grey;
   }
 }
