@@ -39,14 +39,14 @@
             }
         </div>
         <div class="edit-btns-container">
-            <button class="edit-btn">
-                <img src="../../../../assets/img/remove.svg" alt="delete contact">
-                Delete
+            <button class="edit-btn" name="Delete" (click)="deleteTask()">
+                <img src="../../../../assets/img/remove.svg" alt="delete task">
+                <p>Delete</p>
             </button>
             <div class="separator"></div>
-            <button class="edit-btn">
-                <img src="../../../../assets/img/edit.svg" alt="edit contact">
-                Edit
+            <button class="edit-btn" name="Edit" (click)="editTask()">
+                <img src="../../../../assets/img/edit.svg" alt="edit task">
+                <p>Edit</p>
             </button>
         </div>
     </div>

@@ -26,13 +26,13 @@
                 <div class="full-name-edit">
                     <p class="full-name">{{contacts[selection].name}}</p>
                     <div class="edit-btns-container">
-                        <button class="edit-btn" (click)="showContactOverlay('edit')">
+                        <button class="edit-btn" (click)="showContactOverlay('edit')" name="Edit">
                             <img src="../../../../assets/img/edit.svg" alt="edit contact">
-                            Edit
+                            <p>Edit</p>
                         </button>
-                        <button class="edit-btn" (click)="deleteSelectedContact()">
+                        <button class="edit-btn" (click)="deleteSelectedContact()" name="Delete">
                             <img src="../../../../assets/img/remove.svg" alt="delete contact">
-                            Delete
+                            <p>Delete</p>
                         </button>
                     </div>
                 </div>

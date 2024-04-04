@@ -23,7 +23,7 @@ export class TaskViewComponent {
   @Input() task: Task = new Task('');
   @Output() cancelOverlay = new EventEmitter<void>();
 
-  constructor(private tasksService: TasksService ) {}
+  constructor(private tasksService: TasksService) {}
 
   cancel() {
     this.cancelOverlay.emit();
@@ -33,5 +33,14 @@ export class TaskViewComponent {
     const subtask = this.task.subtasks[index];
     subtask.status == 'To do' ? subtask.status = 'Done' : subtask.status = 'To do';
     this.tasksService.updateTask(this.task);
+  }
+
+  deleteTask() {
+    this.cancel();
+    this.tasksService.deleteTask(this.task.id);
+  }
+
+  editTask() {
+
   }
 }

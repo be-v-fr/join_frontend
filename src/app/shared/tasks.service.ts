@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, collection, doc, collectionData, onSnapshot, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Task } from '../../models/task';
 
 @Injectable({
@@ -9,6 +9,7 @@ import { Task } from '../../models/task';
 
 export class TasksService {
   tasks: Task[] = [];
+  private tasksUpdate: Subject<void> = new Subject<void>();
   unsubTasks;
   firestore: Firestore = inject(Firestore);
 
@@ -18,6 +19,20 @@ export class TasksService {
 
   ngOnDestroy() {
     this.unsubTasks();
+  }
+
+  subTasks() {
+    return onSnapshot(this.getColRef(), (list: any) => {
+      this.tasks = [];
+      list.forEach((element: any) => {
+        this.tasks.push(this.setTaskObject(element.data(), element.id));
+      });
+      this.tasksUpdate.next();
+    });
+  }
+
+  getCurrentTasks(): Observable<void> {
+    return this.tasksUpdate.asObservable();
   }
 
   getColRef() {
@@ -69,15 +84,6 @@ export class TasksService {
       if(t.id == id) {task = t}
     });
     return task;
-  }
-
-  subTasks() {
-    return onSnapshot(this.getColRef(), (list: any) => {
-      this.tasks = [];
-      list.forEach((element: any) => {
-        this.tasks.push(this.setTaskObject(element.data(), element.id));
-      });
-    });
   }
 
   setTaskObject(obj: any, id: string): Task {

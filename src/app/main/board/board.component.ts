@@ -4,6 +4,7 @@ import { Task } from '../../../models/task';
 import { TaskCardComponent } from './task-card/task-card.component';
 import { TasksService } from '../../shared/tasks.service';
 import { TaskViewComponent } from './task-view/task-view.component';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-board',
@@ -13,18 +14,23 @@ import { TaskViewComponent } from './task-view/task-view.component';
   styleUrl: './board.component.scss'
 })
 export class BoardComponent {
-  toDo: Task[];
-  inProgress: Task[];
-  awaitFeedback: Task[];
-  done: Task[];
+  toDo: Task[] = [];
+  inProgress: Task[] = [];
+  awaitFeedback: Task[] = [];
+  done: Task[] = [];
   viewTaskId: string = '';
 
   constructor(private tasksService: TasksService ) {
+    this.updateTasks();
+    this.tasksService.getCurrentTasks().subscribe(() => this.updateTasks());
+  }
+
+  updateTasks() {
     const allTasks = this.tasksService.tasks;
     this.toDo = allTasks.filter(t => t.status == 'To do');
     this.inProgress = allTasks.filter(t => t.status == 'In progress');
     this.awaitFeedback = allTasks.filter(t => t.status == 'Await feedback');
-    this.done = allTasks.filter(t => t.status == 'Done');
+    this.done = allTasks.filter(t => t.status == 'Done');    
   }
 
   getTaskById(id: string): Task {
