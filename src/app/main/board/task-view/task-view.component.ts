@@ -22,6 +22,7 @@ export class TaskViewComponent {
   ];
   @Input() task: Task = new Task('');
   @Output() cancelOverlay = new EventEmitter<void>();
+  @Output() editThisTask = new EventEmitter<void>();
 
   constructor(private tasksService: TasksService) {}
 
@@ -41,6 +42,6 @@ export class TaskViewComponent {
   }
 
   editTask() {
-
+    this.editThisTask.emit();
   }
 }

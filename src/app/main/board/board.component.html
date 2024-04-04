@@ -9,7 +9,7 @@
                     <img src="../../../assets/img/search.svg" alt="search">
                 </button>
             </div>
-            <button class="btn-primary">
+            <button class="btn-primary" (click)="showTaskForm('')">
                 Add task
                 <img src="../../../assets/img/plus_icon_white.svg" alt="add task">
             </button>
@@ -19,7 +19,7 @@
         <div class="task-column">
             <div class="column-title">
                 <h5>To do</h5>
-                <button>
+                <button (click)="addToStatus('To do')">
                     <img src="../../../assets/img/plus_icon.svg" alt="add to do">
                 </button>
             </div>
@@ -35,7 +35,7 @@
         <div class="task-column">
             <div class="column-title">
                 <h5>In progress</h5>
-                <button>
+                <button (click)="addToStatus('In progress')">
                     <img src="../../../assets/img/plus_icon.svg" alt="add in progress">
                 </button>
             </div>
@@ -51,7 +51,7 @@
         <div class="task-column">
             <div class="column-title">
                 <h5>Await feedback</h5>
-                <button>
+                <button (click)="addToStatus('Await feedback')">
                     <img src="../../../assets/img/plus_icon.svg" alt="add awaiting feedback">
                 </button>
             </div>
@@ -79,4 +79,16 @@
         </div>
     </section>
 </div>
-<app-task-view *ngIf="viewTaskId != ''" [task]="getTaskById(viewTaskId)" (cancelOverlay)="closeTaskView()"></app-task-view>
+<app-task-view *ngIf="viewTaskId != ''" [task]="getTaskById(viewTaskId)"
+    (cancelOverlay)="closeTaskView()" (editThisTask)="showTaskForm(viewTaskId)"></app-task-view>
+@if(taskFormId != null) {
+<div class="overlay" [ngClass]="{'no-bg': viewTaskId != ''}" (click)="hideTaskForm()">
+    <div class="task-form-wrapper" (click)="$event.stopPropagation()">
+        @if(taskFormId == '') {
+            <app-add-task [status]="newTaskStatus" [inOverlay]="true" (cancelled)="hideTaskForm()"></app-add-task>
+        } @else {
+            <app-add-task [task]="getTaskById(taskFormId)" [inOverlay]="true" (cancelled)="hideTaskForm()"></app-add-task>
+        }
+    </div>
+</div>
+}

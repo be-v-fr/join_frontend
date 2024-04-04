@@ -214,6 +214,10 @@ h5 {
   position: relative;
 }
 
+.no-bg {
+  background: none;
+}
+
 .edit-btn {
   position: relative;
   @include flex($jc: flex-start);

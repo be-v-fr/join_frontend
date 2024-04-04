@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, ElementRef, Input, Output, OnInit, ViewChild, OnDestroy, EventEmitter } from '@angular/core';
 import { Subtask } from '../../../interfaces/subtask.interface';
 import { SubtaskComponent } from './subtask/subtask.component';
 import { FormsModule } from '@angular/forms';
@@ -26,16 +26,23 @@ export class AddTaskComponent implements OnInit {
     new User('test 2', 'email 2', 'password 2'),
   ];
   @Input() task: Task = new Task('');
-  @Input() mode: 'add' | 'edit' = 'add';
+  @Input() inOverlay: boolean = false;
+  @Input() status: 'To do' | 'In progress' | 'Await feedback' = 'To do';
   @ViewChild('subtask') subtaskRef!: ElementRef;
   showAssignedDropdown: boolean = false;
   showCategoryDropdown: boolean = false;
   showTaskAddedToast: boolean = false;
+  @Output() cancelled = new EventEmitter<void>();
 
-  constructor(private router: Router, private tasksService: TasksService) {}
+
+  constructor(private router: Router, private tasksService: TasksService) {
+  }
 
   ngOnInit() {
     this.initAssigned();
+    if(this.task.id == '') {
+      this.task.status = this.status;
+    }
   }
 
   selectPrio(prio: 'Urgent' | 'Medium' | 'Low') {
@@ -92,8 +99,17 @@ export class AddTaskComponent implements OnInit {
 
   onSubmit(e: Event): void {
     e.preventDefault();
-    this.tasksService.addTask(this.task);
-    this.showTaskAddedToast = true;
-    setTimeout(() => {this.router.navigate(['/board'])}, 700);
+    if (this.task.id == '') {
+      this.tasksService.addTask(this.task);
+      this.showTaskAddedToast = true;
+      setTimeout(() => { this.inOverlay ? this.close() : this.router.navigate(['/board']) }, 700);
+    } else {
+      this.tasksService.updateTask(this.task);
+      this.close()
+    }
+  }
+
+  close() {
+    this.cancelled.emit();
   }
 }

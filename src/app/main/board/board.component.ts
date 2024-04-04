@@ -4,12 +4,12 @@ import { Task } from '../../../models/task';
 import { TaskCardComponent } from './task-card/task-card.component';
 import { TasksService } from '../../shared/tasks.service';
 import { TaskViewComponent } from './task-view/task-view.component';
-import { Observable, Subject } from 'rxjs';
+import { AddTaskComponent } from '../add-task/add-task.component';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, TaskCardComponent, TaskViewComponent],
+  imports: [CommonModule, TaskCardComponent, TaskViewComponent, AddTaskComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
@@ -19,8 +19,10 @@ export class BoardComponent {
   awaitFeedback: Task[] = [];
   done: Task[] = [];
   viewTaskId: string = '';
+  taskFormId: string | null = null;
+  newTaskStatus: 'To do' | 'In progress' | 'Await feedback' = 'To do'; 
 
-  constructor(private tasksService: TasksService ) {
+  constructor(private tasksService: TasksService) {
     this.updateTasks();
     this.tasksService.getCurrentTasks().subscribe(() => this.updateTasks());
   }
@@ -30,7 +32,7 @@ export class BoardComponent {
     this.toDo = allTasks.filter(t => t.status == 'To do');
     this.inProgress = allTasks.filter(t => t.status == 'In progress');
     this.awaitFeedback = allTasks.filter(t => t.status == 'Await feedback');
-    this.done = allTasks.filter(t => t.status == 'Done');    
+    this.done = allTasks.filter(t => t.status == 'Done');
   }
 
   getTaskById(id: string): Task {
@@ -43,5 +45,18 @@ export class BoardComponent {
 
   closeTaskView() {
     this.viewTaskId = '';
+  }
+
+  showTaskForm(id: string) {
+    this.taskFormId = id;
+  }
+
+  hideTaskForm() {
+    this.taskFormId = null;
+  }
+
+  addToStatus(status: 'To do' | 'In progress' | 'Await feedback') {
+    this.newTaskStatus = status;
+    this.showTaskForm('');
   }
 }
