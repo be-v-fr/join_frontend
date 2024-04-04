@@ -16,7 +16,7 @@
         </header>
     </section>
     <section class="tasks-by-status">
-        <div class="task-column">
+        <div class="task-column" (dragover)="onTaskDragOver()" (drop)="onTaskDrop($event)">
             <div class="column-title">
                 <h5>To do</h5>
                 <button (click)="addToStatus('To do')">
@@ -25,14 +25,14 @@
             </div>
             <div class="tasks-container">
                 @for (task of toDo; track task) {
-                <app-task-card [task]="task" (click)="viewTask(task.id)"></app-task-card>
+                <app-task-card [task]="task" (click)="viewTask(task.id)" [draggable]="true" (dragstart)="onTaskDragStart()"></app-task-card>
                 }
                 @empty {
                 <div class="no-tasks">No tasks to do</div>
                 }
             </div>
         </div>
-        <div class="task-column">
+        <div class="task-column" >
             <div class="column-title">
                 <h5>In progress</h5>
                 <button (click)="addToStatus('In progress')">

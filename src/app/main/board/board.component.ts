@@ -20,7 +20,7 @@ export class BoardComponent {
   done: Task[] = [];
   viewTaskId: string = '';
   taskFormId: string | null = null;
-  newTaskStatus: 'To do' | 'In progress' | 'Await feedback' = 'To do'; 
+  newTaskStatus: 'To do' | 'In progress' | 'Await feedback' = 'To do';
 
   constructor(private tasksService: TasksService) {
     this.updateTasks();
@@ -58,5 +58,18 @@ export class BoardComponent {
   addToStatus(status: 'To do' | 'In progress' | 'Await feedback') {
     this.newTaskStatus = status;
     this.showTaskForm('');
+  }
+
+  onTaskDragStart() {
+    console.log('drag start!');
+  }
+
+  onTaskDragOver() {
+    console.log('drag over!');
+  }
+
+  onTaskDrop(ev: Event) {
+    ev.preventDefault();
+    console.log(ev.target);
   }
 }
