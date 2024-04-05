@@ -4,11 +4,12 @@ import { Contact } from '../../../models/contact';
 import { ContactIconComponent } from './contact-list-item/contact-icon/contact-icon.component';
 import { EmailComponent } from './email/email.component';
 import { AddContactComponent } from './add-contact/add-contact.component';
+import { HeadlineSloganComponent } from '../../templates/headline-slogan/headline-slogan.component';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [ContactListItemComponent, ContactIconComponent, EmailComponent, AddContactComponent],
+  imports: [ContactListItemComponent, ContactIconComponent, EmailComponent, AddContactComponent, HeadlineSloganComponent],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss'
 })

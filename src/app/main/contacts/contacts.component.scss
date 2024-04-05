@@ -30,19 +30,9 @@
     height: 100%;
     flex: 1;
     padding: var(--page-padding);
-    .title {
+    app-headline-slogan {
       width: 100%;
       height: 60px;
-      margin-bottom: var(--page-headline-margin);
-      @include flex($jc: flex-start, $g: 30px);
-      h2 {
-        margin: 0;
-      }
-      .separator {
-        height: 56px;
-        width: 3px;
-        background: $light-blue;
-      }
     }
     .contactData {
       .name {

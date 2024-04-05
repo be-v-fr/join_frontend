@@ -1,5 +1,5 @@
 <div class="content">
-    <div class="title"></div>
+    <app-headline-slogan [headline]="'Join 360'" [slogan]="'Key metrics at a glance'"></app-headline-slogan>
     <div class="content-main">
         <div class="stats-container">
             <div class="stats-row">
@@ -18,6 +18,10 @@
                     class="stats"></app-stats-item>
             </div>
         </div>
-        <div class="greeting"></div>
+        <div class="greeting">
+            <p class="greeting-msg">{{getGreeting()}}</p>
+            <!-- hier das Komma nicht vergessen, wenn als Gast eingeloggt -->
+            <p class="user-name">Bengt Früchtenicht</p>
+        </div>
     </div>
 </div>

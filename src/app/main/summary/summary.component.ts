@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Task } from '../../../models/task';
 import { TasksService } from '../../shared/tasks.service';
 import { StatsItemComponent } from './stats-item/stats-item.component';
+import { HeadlineSloganComponent } from '../../templates/headline-slogan/headline-slogan.component';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [StatsItemComponent],
+  imports: [StatsItemComponent, HeadlineSloganComponent],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss'
 })
@@ -44,5 +45,13 @@ export class SummaryComponent {
     const day = date.getDate();
     const year = date.getFullYear();
     return month + ' ' + day + ', ' + year;
+  }
+
+  getGreeting(): string {
+    const currentHour = new Date().getHours();
+    if(currentHour < 4) {return 'Good evening'}
+    else if(currentHour < 11) {return 'Good morning'}
+    else if(currentHour < 18) {return 'Good day'}
+    else {return 'Good evening'}
   }
 }
