@@ -1,0 +1,52 @@
+@import '../../../../styles.scss';
+
+.task-column {
+    width: 100%;
+    height: 100%;
+
+    .column-title {
+      @include flex();
+      margin-bottom: 12px;
+
+      h5 {
+        flex: 1;
+      }
+
+      button {
+        @include flex();
+        width: 24px;
+        height: 24px;
+        border-radius: 8px;
+        border: 2px solid $anthracite;
+
+        img {
+          display: block;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    .tasks-container {
+      width: 100%;
+      @include flex($jc: flex-start, $g: 16px, $dir: column);
+      .no-tasks {
+        @include flex();
+        width: 100%;
+        height: 48px;
+        background: #e7e7e7;
+        color: #a8a8a8;
+        border: 1px dashed #a8a8a8;
+        border-radius: 10px;
+        font-size: $font-small;
+      }
+      app-task-card {
+        width: 100%;
+      }
+    }
+  }
+
+
+  .bg-red {
+    background: red;
+  }

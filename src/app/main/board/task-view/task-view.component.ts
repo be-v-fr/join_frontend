@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../../../../models/task';
 import { TasksService } from '../../../shared/tasks.service';
 import { User } from '../../../../models/user';
-import { TaskCategoryComponent } from '../task-card/task-category/task-category.component';
+import { TaskCategoryComponent } from '../task-list/task-card/task-category/task-category.component';
 import { ContactListItemComponent } from '../../contacts/contact-list-item/contact-list-item.component';
 import { CloseBtnComponent } from '../../../templates/close-btn/close-btn.component';
 import { PrioIconComponent } from '../../../templates/prio-icon/prio-icon.component';

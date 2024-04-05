@@ -1,0 +1,16 @@
+<div class="task-column" (dragover)="onTaskDragOver($event)" (drop)="onTaskDrop($event)" [ngClass]="{'bg-red': draggingOver}">
+    <div class="column-title">
+        <h5>{{status}}</h5>
+        <button *ngIf="status != 'Done'" (click)="addToStatus()">
+            <img src="../../../assets/img/plus_icon.svg" alt="add to status">
+        </button>
+    </div>
+    <div class="tasks-container">
+        @for (task of tasks; track task) {
+        <app-task-card [task]="task" (click)="viewTask(task.id)" [draggable]="true" (dragstart)="onTaskDragStart()"></app-task-card>
+        }
+        @empty {
+        <div class="no-tasks">No tasks to do</div>
+        }
+    </div>
+</div>

@@ -1,23 +1,20 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../../models/task';
-import { TaskCardComponent } from './task-card/task-card.component';
 import { TasksService } from '../../shared/tasks.service';
 import { TaskViewComponent } from './task-view/task-view.component';
 import { AddTaskComponent } from '../add-task/add-task.component';
+import { TaskListComponent } from './task-list/task-list.component';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, TaskCardComponent, TaskViewComponent, AddTaskComponent],
+  imports: [CommonModule, TaskListComponent, TaskViewComponent, AddTaskComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
 export class BoardComponent {
-  toDo: Task[] = [];
-  inProgress: Task[] = [];
-  awaitFeedback: Task[] = [];
-  done: Task[] = [];
+  tasks: Task[] = [];
   viewTaskId: string = '';
   taskFormId: string | null = null;
   newTaskStatus: 'To do' | 'In progress' | 'Await feedback' = 'To do';
@@ -28,11 +25,11 @@ export class BoardComponent {
   }
 
   updateTasks() {
-    const allTasks = this.tasksService.tasks;
-    this.toDo = allTasks.filter(t => t.status == 'To do');
-    this.inProgress = allTasks.filter(t => t.status == 'In progress');
-    this.awaitFeedback = allTasks.filter(t => t.status == 'Await feedback');
-    this.done = allTasks.filter(t => t.status == 'Done');
+    this.tasks = this.tasksService.tasks;
+  }
+
+  getFilteredTasks(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
+    return this.tasks.filter(t => t.status == status);
   }
 
   getTaskById(id: string): Task {
@@ -58,18 +55,5 @@ export class BoardComponent {
   addToStatus(status: 'To do' | 'In progress' | 'Await feedback') {
     this.newTaskStatus = status;
     this.showTaskForm('');
-  }
-
-  onTaskDragStart() {
-    console.log('drag start!');
-  }
-
-  onTaskDragOver() {
-    console.log('drag over!');
-  }
-
-  onTaskDrop(ev: Event) {
-    ev.preventDefault();
-    console.log(ev.target);
   }
 }

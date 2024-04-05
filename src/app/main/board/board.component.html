@@ -16,67 +16,10 @@
         </header>
     </section>
     <section class="tasks-by-status">
-        <div class="task-column" (dragover)="onTaskDragOver()" (drop)="onTaskDrop($event)">
-            <div class="column-title">
-                <h5>To do</h5>
-                <button (click)="addToStatus('To do')">
-                    <img src="../../../assets/img/plus_icon.svg" alt="add to do">
-                </button>
-            </div>
-            <div class="tasks-container">
-                @for (task of toDo; track task) {
-                <app-task-card [task]="task" (click)="viewTask(task.id)" [draggable]="true" (dragstart)="onTaskDragStart()"></app-task-card>
-                }
-                @empty {
-                <div class="no-tasks">No tasks to do</div>
-                }
-            </div>
-        </div>
-        <div class="task-column" >
-            <div class="column-title">
-                <h5>In progress</h5>
-                <button (click)="addToStatus('In progress')">
-                    <img src="../../../assets/img/plus_icon.svg" alt="add in progress">
-                </button>
-            </div>
-            <div class="tasks-container">
-                @for (task of inProgress; track task) {
-                <app-task-card [task]="task" (click)="viewTask(task.id)"></app-task-card>
-                }
-                @empty {
-                <div class="no-tasks">No tasks in progress</div>
-                }
-            </div>
-        </div>
-        <div class="task-column">
-            <div class="column-title">
-                <h5>Await feedback</h5>
-                <button (click)="addToStatus('Await feedback')">
-                    <img src="../../../assets/img/plus_icon.svg" alt="add awaiting feedback">
-                </button>
-            </div>
-            <div class="tasks-container">
-                @for (task of awaitFeedback; track task) {
-                <app-task-card [task]="task" (click)="viewTask(task.id)"></app-task-card>
-                }
-                @empty {
-                <div class="no-tasks">No tasks awaiting feedback</div>
-                }
-            </div>
-        </div>
-        <div class="task-column">
-            <div class="column-title">
-                <h5>Done</h5>
-            </div>
-            <div class="tasks-container">
-                @for (task of done; track task) {
-                <app-task-card [task]="task" (click)="viewTask(task.id)"></app-task-card>
-                }
-                @empty {
-                <div class="no-tasks">No tasks done</div>
-                }
-            </div>
-        </div>
+        <app-task-list [status]="'To do'" [tasks]="getFilteredTasks('To do')" (addToStatusClick)="addToStatus('To do')" (taskClick)="viewTask($event)"></app-task-list>
+        <app-task-list [status]="'In progress'" [tasks]="getFilteredTasks('In progress')" (addToStatusClick)="addToStatus('In progress')" (taskClick)="viewTask($event)"></app-task-list>
+        <app-task-list [status]="'Await feedback'" [tasks]="getFilteredTasks('Await feedback')" (addToStatusClick)="addToStatus('Await feedback')" (taskClick)="viewTask($event)"></app-task-list>
+        <app-task-list [status]="'Done'" [tasks]="getFilteredTasks('Done')" (taskClick)="viewTask($event)"></app-task-list>
     </section>
 </div>
 <app-task-view *ngIf="viewTaskId != ''" [task]="getTaskById(viewTaskId)"
