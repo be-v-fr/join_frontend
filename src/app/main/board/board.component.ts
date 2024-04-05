@@ -30,7 +30,7 @@ export class BoardComponent {
   }
 
   getFilteredTasks(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
-    return this.tasks.filter(t => t.status == status);
+    return this.tasksService.getFilteredTasks(status);
   }
 
   getTaskById(id: string): Task {

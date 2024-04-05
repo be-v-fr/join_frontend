@@ -1,1 +1,16 @@
-<p>summary works!</p>
+<div class="stats-container">
+    <div class="stats-row">
+        <app-stats-item [name]="'To do'" [value]="getFilteredTasks('To do').length" class="stats"></app-stats-item>
+        <app-stats-item [name]="'Done'" [value]="getFilteredTasks('Done').length" class="stats"></app-stats-item>
+    </div>
+    <div class="stats-row stats">
+        <app-stats-item [name]="'Urgent'" [value]="getUrgent().length"> </app-stats-item>
+        <app-stats-item [name]="'Upcoming Deadline'" [value]="getMostUrgent()"></app-stats-item>
+    </div>
+    <div class="stats-row">
+        <app-stats-item [name]="'Tasks in board'" [value]="tasks.length" class="stats"></app-stats-item>
+        <app-stats-item [name]="'Tasks in progress'" [value]="getFilteredTasks('In progress').length" class="stats"></app-stats-item>
+        <app-stats-item [name]="'Awaiting feedback'" [value]="getFilteredTasks('Await feedback').length" class="stats"></app-stats-item>
+    </div>
+</div>
+<div class="greeting"></div>

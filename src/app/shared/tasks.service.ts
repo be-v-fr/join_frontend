@@ -86,6 +86,10 @@ export class TasksService {
     return task;
   }
 
+  getFilteredTasks(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
+    return this.tasks.filter(t => t.status == status);
+  }
+
   setTaskObject(obj: any, id: string): Task {
     const defaultTask = new Task('null');
     return {

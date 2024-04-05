@@ -1,0 +1,16 @@
+@import '../../../styles.scss';
+
+.stats-container {
+    @include flex($g: 30px, $dir: column);
+    .stats-row {
+        width: 100%;
+        flex: 1;
+        @include flex($g: 30px);  
+    }
+    .stats {
+        flex: 1;
+        background: white;
+        box-shadow: $shadow-subtle;
+        border-radius: 30px;
+    }      
+}
