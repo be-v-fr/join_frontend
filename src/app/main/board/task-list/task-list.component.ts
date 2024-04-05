@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../../../../models/task';
 import { TaskCardComponent } from './task-card/task-card.component';
+import { TasksService } from '../../../shared/tasks.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,38 +12,61 @@ import { CommonModule } from '@angular/common';
   styleUrl: './task-list.component.scss'
 })
 export class TaskListComponent {
-@Input() tasks: Task[] = [];
-@Input() status: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
+  @Input() tasks: Task[] = [];
+  @Input() status: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
+  draggingOver: boolean = false;
+  draggedTaskCard: HTMLElement | null = null;
+  @Output() addToStatusClick = new EventEmitter<void>();
+  @Output() taskClick = new EventEmitter<string>();
+
+  constructor(private tasksService: TasksService) { }
+
+  onTaskDragStart(ev: DragEvent, id: string) {
+    ev.dataTransfer?.setData('text/plain', id);
+    this.draggedTaskCard = ev.target as HTMLElement;
+  }
+
+  onTaskDragEnd() {
+    if (this.draggedTaskCard != null) {
+      this.draggedTaskCard = null;
+    }
+  }
+
+  onTaskDragEnter(ev: DragEvent) {
+    console.log('enter!');
+    ev.preventDefault();
+    this.draggingOver = true;
+  }
 
 
-draggingOver: boolean = false;
-// dragLeave-Funktion??
+  onTaskDragOver(ev: DragEvent) {
+    console.log('over!');
+    ev.preventDefault();
+    this.draggingOver = true;
+  }
 
+  onTaskDragLeave(ev: DragEvent) {
+    console.log('leave!');
+    ev.preventDefault();
+    this.draggingOver = false;
+  }
 
-@Output() addToStatusClick = new EventEmitter<void>();
-@Output() taskClick = new EventEmitter<string>();
+  onTaskDrop(ev: DragEvent) {
+    ev.preventDefault();
+    this.draggingOver = false;
+    const id = ev.dataTransfer?.getData('text/plain');
+    if (id) {
+      let task = this.tasksService.getTaskById(id);
+      task.status = this.status;
+      this.tasksService.updateTask(task);
+    }
+  }
 
-onTaskDragStart() {
-  console.log('drag start!');
-}
+  addToStatus() {
+    this.addToStatusClick.emit();
+  }
 
-onTaskDragOver(ev: Event) {
-  ev.preventDefault();
-  console.log('drag over!');
-  this.draggingOver = true;
-}
-
-onTaskDrop(ev: Event) {
-  ev.preventDefault();
-  console.log(ev.target);
-  this.draggingOver = false;
-}
-
-addToStatus() {
-  this.addToStatusClick.emit();
-}
-
-viewTask(id: string) {
-  this.taskClick.emit(id);
-}
+  viewTask(id: string) {
+    this.taskClick.emit(id);
+  }
 }

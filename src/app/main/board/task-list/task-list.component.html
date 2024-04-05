@@ -1,4 +1,4 @@
-<div class="task-column" (dragover)="onTaskDragOver($event)" (drop)="onTaskDrop($event)" [ngClass]="{'bg-red': draggingOver}">
+<div class="task-column" (dragenter)="onTaskDragEnter($event)" (dragover)="onTaskDragOver($event)" (dragleave)="onTaskDragLeave($event)" (drop)="onTaskDrop($event)">
     <div class="column-title">
         <h5>{{status}}</h5>
         <button *ngIf="status != 'Done'" (click)="addToStatus()">
@@ -6,11 +6,20 @@
         </button>
     </div>
     <div class="tasks-container">
-        @for (task of tasks; track task) {
-        <app-task-card [task]="task" (click)="viewTask(task.id)" [draggable]="true" (dragstart)="onTaskDragStart()"></app-task-card>
+        @for (task of tasks; track task; let i = $index) {
+        <app-task-card [task]="task" (click)="viewTask(task.id)" [draggable]="true" (dragstart)="onTaskDragStart($event, task.id)" (dragend)="onTaskDragEnd()"></app-task-card>
         }
         @empty {
-        <div class="no-tasks">No tasks to do</div>
+        <div class="no-tasks" *ngIf="!draggingOver">
+            No tasks
+        @switch(status) {
+            @case('To do') {to do}
+            @case('In progress') {in progress}
+            @case('Await feedback') {awaiting feedback}
+            @case('Done') {done}
         }
+        </div>
+        }
+        <div *ngIf="draggingOver" class="drop-zone-visualizer"></div>
     </div>
 </div>

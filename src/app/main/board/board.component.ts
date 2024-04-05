@@ -15,6 +15,7 @@ import { TaskListComponent } from './task-list/task-list.component';
 })
 export class BoardComponent {
   tasks: Task[] = [];
+  statusList: ('To do' | 'In progress' | 'Await feedback' | 'Done')[] = ['To do', 'In progress', 'Await feedback', 'Done'];
   viewTaskId: string = '';
   taskFormId: string | null = null;
   newTaskStatus: 'To do' | 'In progress' | 'Await feedback' = 'To do';
@@ -52,8 +53,10 @@ export class BoardComponent {
     this.taskFormId = null;
   }
 
-  addToStatus(status: 'To do' | 'In progress' | 'Await feedback') {
-    this.newTaskStatus = status;
-    this.showTaskForm('');
+  addToStatus(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
+    if (status != 'Done') {
+      this.newTaskStatus = status;
+      this.showTaskForm('');
+    }
   }
 }

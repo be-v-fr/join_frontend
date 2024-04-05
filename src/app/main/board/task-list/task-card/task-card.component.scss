@@ -8,6 +8,7 @@
   padding: 16px;
   font-size: $font-small;
   cursor: grab;
+  transition: 75ms ease-out;
   .title {
     margin-top: 16px;
     margin-bottom: 8px;
@@ -32,6 +33,11 @@
     .counter {
       font-size: 12px;
     }
+  }
+  &:active {
+    cursor: grabbing;
+    transform: rotate(5deg);
+    transition: 75ms ease-out;
   }
 }
 

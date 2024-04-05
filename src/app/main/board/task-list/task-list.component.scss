@@ -46,7 +46,9 @@
     }
   }
 
-
-  .bg-red {
-    background: red;
+  .drop-zone-visualizer {
+    width: 100%;
+    height: 160px;
+    border: 1px dashed #a8a8a8;
+    border-radius: 24px;
   }

@@ -16,10 +16,9 @@
         </header>
     </section>
     <section class="tasks-by-status">
-        <app-task-list [status]="'To do'" [tasks]="getFilteredTasks('To do')" (addToStatusClick)="addToStatus('To do')" (taskClick)="viewTask($event)"></app-task-list>
-        <app-task-list [status]="'In progress'" [tasks]="getFilteredTasks('In progress')" (addToStatusClick)="addToStatus('In progress')" (taskClick)="viewTask($event)"></app-task-list>
-        <app-task-list [status]="'Await feedback'" [tasks]="getFilteredTasks('Await feedback')" (addToStatusClick)="addToStatus('Await feedback')" (taskClick)="viewTask($event)"></app-task-list>
-        <app-task-list [status]="'Done'" [tasks]="getFilteredTasks('Done')" (taskClick)="viewTask($event)"></app-task-list>
+        @for (status of statusList; track status) {
+            <app-task-list [status]="status" [tasks]="getFilteredTasks(status)" (addToStatusClick)="addToStatus(status)" (taskClick)="viewTask($event)"></app-task-list>
+        }
     </section>
 </div>
 <app-task-view *ngIf="viewTaskId != ''" [task]="getTaskById(viewTaskId)"
