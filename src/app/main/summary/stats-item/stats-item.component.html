@@ -1,2 +1,20 @@
-<p>{{value}}</p>
-{{name}}
+<div [ngClass]="name == 'Urgent' ? 'content-urgent' : 'content'" (click)="goToBoard()">
+    <div *ngIf="['To do', 'Done', 'Urgent'].includes(name)" [ngClass]="name == 'Urgent'? 'icon-bg-small-red' : 'icon-bg'">
+        @switch(name) {
+        @case('To do') {<img src="../../../assets/img/edit.svg" alt="to do" class="to-do-icon">}
+        @case('Done') {<img src="../../../assets/img/check.svg" alt="done" class="done-icon">}
+        @case('Urgent') {<img src="../../../assets/img/prio/task_prio_urgent_white.svg" alt="urgent" class="urgent-icon">}
+        }
+    </div>
+    <div class="info">
+        <p class="value">{{value}}</p>
+        <p class="name" [ngClass]="{'urgent': name == 'Urgent'}">{{name}}</p>
+    </div>
+    @if(name == 'Urgent') {
+    <div class="separator-grey"></div>
+    <div class="deadline">
+        <p class="value">{{deadline}}</p>
+        <p class="name urgent">Upcoming Deadline</p>
+    </div>
+    }
+</div>

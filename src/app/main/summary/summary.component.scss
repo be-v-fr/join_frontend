@@ -1,16 +1,24 @@
-@import '../../../styles.scss';
+@import "../../../styles.scss";
+
+.content {
+  width: 100%;
+  height: 100%;
+  @include flex($jc: flex-start, $ai: flex-start, $dir: column);
+  .content-main {
+    flex: 1;
+  }
+}
 
 .stats-container {
-    @include flex($g: 30px, $dir: column);
-    .stats-row {
-        width: 100%;
+  height: 100%;
+  @include flex($g: 30px, $dir: column);
+  .stats-row {
+    width: 100%;
+    flex: 1;
+    @include flex($g: 30px);
+    app-stats-item {
         flex: 1;
-        @include flex($g: 30px);  
+        height: 100%;
     }
-    .stats {
-        flex: 1;
-        background: white;
-        box-shadow: $shadow-subtle;
-        border-radius: 30px;
-    }      
+  }
 }

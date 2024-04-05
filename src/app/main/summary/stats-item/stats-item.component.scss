@@ -1,0 +1,97 @@
+@import "../../../../styles.scss";
+
+.content {
+  width: 100%;
+  height: 100%;
+  background: white;
+  box-shadow: $shadow-subtle;
+  border-radius: 30px;
+  padding: 24px;
+  @include flex($g: 18px);
+  transition: 100ms ease;
+  cursor: pointer;
+  .icon-bg {
+    width: 69px;
+    height: 69px;
+    background: $anthracite;
+    border-radius: 50%;
+    @include flex();
+    img {
+      display: block;
+    }
+    .to-do-icon {
+      width: 50%;
+      height: 50%;
+      filter: brightness(0) invert(1);
+    }
+    .done-icon {
+      width: 85%;
+      height: 85%;
+      filter: brightness(0) invert(1);
+    }
+  }
+  .icon-bg-small-red {
+    @extend .icon-bg;
+    width: 60px;
+    height: 60px;
+    background: #ff3d00;
+    .urgent-icon {
+      width: 60%;
+      height: 60%;
+    }
+  }
+  .info {
+    text-align: center;
+    height: 100%;
+    @include flex($dir: column);
+    .value {
+      font-size: 64px;
+      font-weight: 600;
+    }
+    .name {
+      font-size: $font-normal;
+      color: $anthracite;
+    }
+    .urgent {
+      font-size: $font-small;
+    }
+  }
+  .separator-grey {
+    background: $medium-light-grey;
+    height: 100px;
+    width: 2px;
+  }
+  .deadline {
+    @extend .info;
+    text-align: left;
+    align-items: flex-start;
+    .value {
+      font-size: $font-normal;
+      font-weight: 700;
+      color: $anthracite;
+      margin-bottom: 8px;
+    }
+  }
+  &:hover {
+    transition: 100ms ease;
+    background: $anthracite;
+    transform: scale(1.08);
+    .icon-bg {
+      background: white;
+      img {
+        filter: brightness(1) invert(0);
+      }
+    }
+    .icon-bg-small-red {
+      background: #ff3d00;
+    }
+    .info .value,
+    .info .name {
+      color: white;
+    }
+  }
+}
+.content-urgent {
+  @extend .content;
+  gap: 8%;
+}
