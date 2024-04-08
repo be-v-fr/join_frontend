@@ -91,7 +91,8 @@ form {
     input {
       width: 100%;
     }
-    img {
+    img,
+    app-password-icon {
       position: absolute;
       bottom: 0;
       right: 0;
@@ -108,14 +109,25 @@ form {
       @include flex($jc: flex-start, $g: 8px);
     }
     .link-blue {
+      @extend .bold-on-hover;
+      transition: 75ms ease;
       color: $light-blue;
-      &:hover {
+      p {
+        color: $light-blue;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+      &:hover, &:hover p {
+        transition: 75ms ease;
         text-decoration: underline;
         font-weight: 500;
       }
     }
     span,
-    a {
+    a,
+    p {
       font-size: $font-small;
     }
   }
