@@ -29,17 +29,8 @@
 }
 
 .subtask-container {
+  cursor: pointer;
   @include flex($jc: flex-start, $g: 16px);
-  .custom-checkbox {
-    width: 24px;
-    height: 24px;
-    background: url("../../../../assets/img/checkbox.svg");
-    background-size: 100%;
-    background-repeat: no-repeat;
-  }
-  .custom-checked {
-    background: url("../../../../assets/img/checkbox_checked.svg");
-  }
 }
 
 .edit-btns-container {

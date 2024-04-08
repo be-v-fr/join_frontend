@@ -1,14 +1,14 @@
 <div class="content">
 
-  <!-- if-Bedingung um Menu herum basteln! -->
-  <app-menu></app-menu>
+  <!-- statt Route Login prüfen! -->
+  <app-menu *ngIf="getCurrentRoute() != '/'"></app-menu>
   <!-- !! -->
 
 
   <div class="main">
 
-    <!-- if-Bedingung um Menu herum basteln! -->
-    <app-header></app-header>
+    <!-- statt Route Login prüfen! -->
+    <app-header *ngIf="getCurrentRoute() != '/'"></app-header>
     <!-- !! -->
 
     <div [ngClass]="getCurrentRoute() != '/contacts' ? 'padding-page' : 'page'">

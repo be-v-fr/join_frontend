@@ -1,0 +1,109 @@
+@import "../../styles.scss";
+
+$intro-duration: 800ms ease-in;
+$logo-starting-width: 274px;
+$logo-starting-height: $logo-starting-width * 1.219;
+
+.logo {
+  position: absolute;
+  background: $light-grey;
+  top: 64px;
+  left: 64px;
+  animation: intro-anchor $intro-duration;
+  @keyframes intro-anchor {
+    0% {
+      top: calc(50vh - $logo-starting-width / 2);
+      left: calc(50vw - $logo-starting-height / 2);
+    }
+    20% {
+      top: calc(50vh - $logo-starting-width / 2);
+      left: calc(50vw - $logo-starting-height / 2);
+    }
+    100% {
+      top: 64px;
+      left: 64px;
+    }
+  }
+  img {
+    width: 100px;
+    height: 122px;
+    animation: intro-img $intro-duration;
+    @keyframes intro-img {
+      0% {
+        width: $logo-starting-width;
+        height: $logo-starting-height;
+      }
+      20% {
+        width: $logo-starting-width;
+        height: $logo-starting-height;
+      }
+      100% {
+        width: 100px;
+        height: 122px;
+      }
+    }
+  }
+}
+
+.await-intro {
+  animation: await-intro $intro-duration;
+  @keyframes await-intro {
+    0% {
+      display: none;
+      opacity: 0;
+    }
+    99% {
+      display: none;
+      opacity: 0;
+    }
+    100% {
+      display: initial;
+      opacity: 1;
+    }
+  }
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  @include flex();
+  form {
+    width: 652px;
+    background: white;
+    box-shadow: $shadow-subtle;
+    border-radius: 30px;
+    padding: 48px 115px;
+    @include flex($g: 32px, $dir: column);
+    h2 {
+      margin: 0;
+      height: 89px;
+      background-image: linear-gradient($light-blue, $light-blue);
+      background-repeat: no-repeat;
+      background-size: 80% 3px;
+      background-position: bottom;
+    }
+    .form-field {
+      position: relative;
+      width: 100%;
+      input {
+        width: 100%;
+      }
+      img {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 24px;
+        width: 24px;
+        margin: var(--input-padding);
+      }
+    }
+    .remember-me {
+      width: 84%;
+      cursor: pointer;
+      @include flex($jc: flex-start, $g: 8px);
+    }
+    .btn-container {
+      @include flex($g: 35px);
+    }
+  }
+}

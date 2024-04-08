@@ -287,3 +287,14 @@ h5 {
   background: rgba(0, 0, 0, 0.1);
   @include flex();
 }
+
+.custom-checkbox {
+  width: 24px;
+  height: 24px;
+  background: url("./assets/img/checkbox.svg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+.custom-checked {
+  background: url("./assets/img/checkbox_checked.svg");
+}

@@ -1,1 +1,31 @@
-<p>log-in works!</p>
+<div class="content">
+    <a href="" class="logo">
+        <img src="assets/img/logo.svg" alt="JOIN">
+    </a>
+    @if(form == 'log in') {
+    <form class="await-intro">
+        <h2>Log in</h2>
+        <div class="form-field">
+            <input type="text" class="text-input" placeholder="Email">
+            <img src="../../assets/img/mail.svg" alt="email">
+        </div>
+        <div class="form-field">
+            <input type="password" class="text-input" placeholder="Password">
+            <img src="../../assets/img/login/lock.svg" alt="password">
+        </div>
+        <div class="remember-me prevent-select" (click)="toggleRememberMe()">
+            <div class="custom-checkbox" [ngClass]="{'custom-checked' : rememberLogIn}"></div>
+            <span>Remember me</span>
+        </div>
+        <div class="btn-container">
+            <button type="submit" class="btn-primary">Log in</button>
+            <button type="button" class="btn-secondary">Guest Log in</button>
+        </div>
+    </form>
+    <div class="sign"></div>
+
+    } @else {
+    <!-- sign up form -->
+    }
+
+</div>
