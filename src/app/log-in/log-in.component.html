@@ -2,9 +2,23 @@
     <a href="" class="logo">
         <img src="assets/img/logo.svg" alt="JOIN">
     </a>
-    @if(form == 'log in') {
+
     <form [ngClass]="{'await-intro': animate}">
-        <h2>Log in</h2>
+        <button type="button" *ngIf="form == 'Sign up'" (click)="toggleForm()" class="arrow-back">
+            <img src="assets/img/arrow-left-line.svg" alt="back">
+        </button>
+        <h2>
+            @switch(form) {
+            @case('Log in') {Log in}
+            @case('Sign up') {Sign up}
+            }
+        </h2>
+        @if(form == 'Sign up') {
+        <div class="form-field">
+            <input type="text" class="text-input" placeholder="Name">
+            <img src="../../assets/img/person.svg" alt="name">
+        </div>
+        }
         <div class="form-field">
             <input type="text" class="text-input" placeholder="Email">
             <img src="../../assets/img/mail.svg" alt="email">
@@ -13,55 +27,45 @@
             <input type="password" class="text-input" placeholder="Password">
             <img src="../../assets/img/login/lock.svg" alt="password">
         </div>
-        <div class="further-options">
+        @if(form == 'Sign up') {
+        <div class="form-field">
+            <input type="password" class="text-input" placeholder="Confirm password">
+            <img src="../../assets/img/login/lock.svg" alt="password">
+        </div>
+        }
+        <div class="further-options" [ngClass]="{'privacy-policy': form == 'Sign up'}">
+            @switch(form) {
+            @case('Log in') {
             <div class="checkbox-container prevent-select" (click)="toggleRememberMe()">
                 <div class="custom-checkbox" [ngClass]="{'custom-checked' : rememberLogIn}"></div>
                 <span>Remember me</span>
             </div>
             <a href="" class="link-blue">I forgot my password</a>
-        </div>
-        <div class="btn-container">
-            <button type="submit" class="btn-primary">Log in</button>
-            <button type="button" class="btn-secondary">Guest log in</button>
-        </div>
-    </form>
-    <div class="go-to-sign-up" [ngClass]="{'await-intro': animate}">
-        <span>Not a Join user?</span>
-        <button class="btn-primary" (click)="toggleForm()">Sign up</button>
-    </div>
-    } @else {
-    <form>
-        <button (click)="toggleForm()" class="arrow-back">
-            <img src="assets/img/arrow-left-line.svg" alt="back">
-        </button>
-        <h2>Sign up</h2>
-        <div class="form-field">
-            <input type="text" class="text-input" placeholder="Name">
-            <img src="../../assets/img/person.svg" alt="name">
-        </div>
-        <div class="form-field">
-            <input type="text" class="text-input" placeholder="Email">
-            <img src="../../assets/img/mail.svg" alt="email">
-        </div>
-        <div class="form-field">
-            <input type="password" class="text-input" placeholder="Password">
-            <img src="../../assets/img/login/lock.svg" alt="password">
-        </div>
-        <div class="form-field">
-            <input type="password" class="text-input" placeholder="Confirm password">
-            <img src="../../assets/img/login/lock.svg" alt="password">
-        </div>
-        <div class="further-options privacy-policy">
+            }
+            @case('Sign up') {
             <div class="checkbox-container prevent-select" (click)="togglePrivacyPolicy()">
                 <div class="custom-checkbox" [ngClass]="{'custom-checked' : rememberLogIn}"></div>
                 <span>I accept the <a href="" class="link-blue">privacy policy</a></span>
             </div>
+            }
+            }
         </div>
         <div class="btn-container">
+            @switch(form) {
+            @case('Log in') {
+            <button type="submit" class="btn-primary">Log in</button>
+            <button type="button" class="btn-secondary">Guest log in</button>
+            }
+            @case('Sign up') {
             <button type="submit" class="btn-primary">Sign up</button>
+            }
+            }
         </div>
     </form>
-    }
+    <div *ngIf="form == 'Log in'" class="go-to-sign-up" [ngClass]="{'await-intro': animate}">
+        <span>Not a Join user?</span>
+        <button class="btn-primary" (click)="toggleForm()">Sign up</button>
+    </div>
     <div class="legal-info" [ngClass]="{'await-intro': animate}">
         <a href="" name="Privacy policy" class="left-link">
             <p>Privacy policy</p>
