@@ -218,8 +218,24 @@ h5 {
   background: none;
 }
 
-.edit-btn {
+.bold-on-hover {
   position: relative;
+  &::after {
+    font-size: $font-small;
+    display: block;
+    content: attr(name);
+    font-weight: bold;
+    visibility: hidden;
+    overflow: hidden;
+    height: 0;
+  }
+  p {
+    position: absolute;
+  }
+}
+
+.edit-btn {
+  @extend .bold-on-hover;
   @include flex($jc: flex-start);
   img {
     display: inline-block;
@@ -229,19 +245,9 @@ h5 {
   }
   p {
     font-size: $font-small;
-    position: absolute;
     right: 4%;
     top: 3px;
     bottom: 3px;
-  }
-  &::after {
-    font-size: $font-small;
-    display: block;
-    content: attr(name);
-    font-weight: bold;
-    visibility: hidden;
-    overflow: hidden;
-    height: 0;
   }
   &:hover {
     img {

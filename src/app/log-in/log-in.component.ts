@@ -9,10 +9,21 @@ import { Component } from '@angular/core';
   styleUrl: './log-in.component.scss'
 })
 export class LogInComponent {
-form: 'log in' | 'sign up' = 'log in';
-rememberLogIn: boolean = false;
+  animate: boolean = true; 
+  form: 'log in' | 'sign up' = 'log in';
+  rememberLogIn: boolean = false;
+  acceptPrivacyPolicy: boolean = false;
 
-toggleRememberMe() {
-  this.rememberLogIn = !this.rememberLogIn;
-}
+  toggleForm() {
+    this.animate = false;
+    this.form == 'log in' ? this.form = 'sign up' : this.form = 'log in';
+  }
+
+  toggleRememberMe() {
+    this.rememberLogIn = !this.rememberLogIn;
+  }
+
+  togglePrivacyPolicy() {
+    this.acceptPrivacyPolicy = !this.acceptPrivacyPolicy;
+  }
 }
