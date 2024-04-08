@@ -1,41 +1,9 @@
-@if(formMode == 'Log in') {
-<form (ngSubmit)="onSubmit(logInForm)" #logInForm="ngForm">
-    <h2>{{formMode}}</h2>
-    <div class="form-field">
-        <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel"
-            [(ngModel)]="formData.email" required>
-        <img src="../../assets/img/mail.svg" alt="email">
-    </div>
-    <div class="form-field">
-        <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password" #password ngModel
-            [(ngModel)]="formData.password" required>
-        @if(formData.password.length > 0) {
-        <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('password')"></app-password-icon>
-        }
-        @else {
-        <app-password-icon [state]="'default'" (click)="toggleVisibility('password')"></app-password-icon>
-        }
-    </div>
-    <div class="further-options">
-        <div class="checkbox-container prevent-select" (click)="toggleRememberMe()">
-            <div class="custom-checkbox" [ngClass]="{'custom-checked' : rememberLogIn}"></div>
-            <span>Remember me</span>
-        </div>
-        <a href="" class="link-blue">I forgot my password</a>
-    </div>
-    <div class="btn-container">
-        <button type="submit" class="btn-primary">Log in</button>
-        <button type="button" class="btn-secondary">Guest log in</button>
-    </div>
-</form>
-}
-@else {
-<form (ngSubmit)="onSubmit(logInForm)" #logInForm="ngForm">
+<form (ngSubmit)="onSubmit(registrationForm)" #registrationForm="ngForm">
     <button type="button" (click)="toggleModeEmit()" class="arrow-back">
         <img src="assets/img/arrow-left-line.svg" alt="back">
     </button>
     <h2>{{formMode}}</h2>
-    <div class="form-field">
+    <div *ngIf="formMode == 'Sign up'" class="form-field">
         <input type="text" class="text-input" placeholder="Name" name="name" #name="ngModel" [(ngModel)]="formData.name"
             required>
         <img src="../../assets/img/person.svg" alt="name">
@@ -55,7 +23,7 @@
         <app-password-icon [state]="'default'" (click)="toggleVisibility('password')"></app-password-icon>
         }
     </div>
-    <div class="form-field">
+    <div *ngIf="formMode == 'Sign up'" class="form-field">
         <input type="{{passwordConfirmationFieldType}}" class="text-input" placeholder="Confirm password"
             name="passwordConfirmation" #passwordConfirmation ngModel [(ngModel)]="formData.passwordConfirmation"
             required>
@@ -66,7 +34,15 @@
         <app-password-icon [state]="'default'" (click)="toggleVisibility('confirmation')"></app-password-icon>
         }
     </div>
-    <div class="further-options privacy-policy">
+    <div class="further-options" [ngClass]="{'privacy-policy': formMode == 'Sign up'}">
+        @if(formMode == 'Log in') {
+        <div class="checkbox-container prevent-select" (click)="toggleRememberMe()">
+            <div class="custom-checkbox" [ngClass]="{'custom-checked' : rememberLogIn}"></div>
+            <span>Remember me</span>
+        </div>
+        <a href="" class="link-blue">I forgot my password</a>
+        }
+        @else {
         <div class="checkbox-container prevent-select" (click)="togglePrivacyPolicy()">
             <div class="custom-checkbox" [ngClass]="{'custom-checked' : acceptPrivacyPolicy}"></div>
             <span>
@@ -74,9 +50,17 @@
                 <a href="" class="link-blue" (click)="$event.stopPropagation()">privacy policy</a>
             </span>
         </div>
+        }
     </div>
     <div class="btn-container">
-        <button type="submit" class="btn-primary">Sign up</button>
+        @if(formMode == 'Log in') {
+        <button type="submit" class="btn-primary">Log in</button>
+        <button type="button" class="btn-secondary">Guest log in</button>
+        }
+        @else {
+        <div class="btn-container">
+            <button type="submit" class="btn-primary">Sign up</button>
+        </div>
+        }
     </div>
 </form>
-}
