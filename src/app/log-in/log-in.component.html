@@ -65,20 +65,18 @@
             <input type="{{passwordConfirmationFieldType}}" class="text-input" placeholder="Confirm password" name="passwordConfirmation" 
                 #passwordConfirmation="ngModel" [(ngModel)]="formData.passwordConfirmation" required>
                 @if(formData.passwordConfirmation.length > 0) {
-                    <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('password')"></app-password-icon>
+                    <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('confirmation')"></app-password-icon>
                     }
                     @else {
-                    <app-password-icon [state]="'default'" (click)="toggleVisibility('password')"></app-password-icon>
+                    <app-password-icon [state]="'default'" (click)="toggleVisibility('confirmation')"></app-password-icon>
                     }
         </div>
         <div class="further-options privacy-policy">
             <div class="checkbox-container prevent-select" (click)="togglePrivacyPolicy()">
-                <div class="custom-checkbox" [ngClass]="{'custom-checked' : rememberLogIn}"></div>
+                <div class="custom-checkbox" [ngClass]="{'custom-checked' : acceptPrivacyPolicy}"></div>
                 <span>
-                    I accept the
-                    <a href="" class="link-blue" name="privacy policy">
-                        <p>privacy policy</p>
-                    </a>
+                    <div>I accept the</div>
+                    <a href="" class="link-blue" (click)="$event.stopPropagation()">privacy policy</a>
                 </span>
             </div>
         </div>

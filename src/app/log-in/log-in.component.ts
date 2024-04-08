@@ -34,11 +34,13 @@ export class LogInComponent {
   ];
 
 ngOnInit() {
-  setTimeout(() => this.animate = false, 800)
+  setTimeout(() => this.animate = false, 800);
 }
 
   toggleFormMode() {
     this.formMode == 'Log in' ? this.formMode = 'Sign up' : this.formMode = 'Log in';
+    this.passwordFieldType = 'password';
+    this.passwordConfirmationFieldType = 'password'; 
   }
 
   toggleVisibility(field: 'password' | 'confirmation') {
@@ -51,13 +53,21 @@ ngOnInit() {
     }
   }
 
+
+  // FUNKTIONIERT NOCH NICHT FÜR SIGN UP-FORMULAR.
+  // MÖGLICHE LÖSUNG: KOMPONENTE FÜR LOG IN UND SIGN UP FORMULAR ERSTELLEN, ZWEI INSTANZEN AUF LOG IN SEITE EINRICHTEN
   focusLastPosition(field: 'password' | 'confirmation') {
-    let element: HTMLInputElement = this.passwordRef.nativeElement;
+    console.log(field);
+    let element: HTMLInputElement | null = null; 
+    if(field == 'password') {
+      element = this.passwordRef.nativeElement;
+    }
     if(field == 'confirmation') {
       element = this.passwordConfirmationRef.nativeElement;
     }
+    console.log(element);
     setTimeout(() => {
-      if (element) {
+      if (element != null) {
         element.focus();
         element.setSelectionRange(element.value.length, element.value.length);
       }
