@@ -1,0 +1,86 @@
+@import "../../../styles.scss";
+
+form {
+    position: relative;
+    width: 652px;
+    background: white;
+    box-shadow: $shadow-subtle;
+    border-radius: 30px;
+    padding: 48px 115px;
+    @include flex($g: 32px, $dir: column);
+    h2 {
+      margin: 0;
+      height: 89px;
+      background-image: linear-gradient($light-blue, $light-blue);
+      background-repeat: no-repeat;
+      background-size: 80% 3px;
+      background-position: bottom;
+    }
+    .form-field {
+      position: relative;
+      width: 100%;
+      input {
+        width: 100%;
+      }
+      img,
+      app-password-icon {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 24px;
+        width: 24px;
+        margin: var(--input-padding);
+      }
+    }
+    .further-options {
+      width: 84%;
+      @include flex($jc: space-between);
+      .checkbox-container {
+        cursor: pointer;
+        @include flex($jc: flex-start, $g: 8px);
+      }
+      .link-blue {
+        transition: 75ms ease;
+        font-size: $font-small;
+        color: $light-blue;
+        &:hover {
+          transition: 75ms ease;
+          text-decoration: underline;
+          font-weight: 500;
+        }
+      }
+      span {
+        font-size: $font-small;
+      }
+    }
+    .btn-container {
+      @include flex($g: 35px);
+    }
+    .privacy-policy {
+      justify-content: center;
+      span {
+        width: 200px;
+        @include flex($jc: space-between);
+      }
+    }
+    .arrow-back {
+      position: absolute;
+      top: 64px;
+      left: 64px;
+      @include flex();
+      img {
+        display: block;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        transition: 75ms ease;
+      }
+      &:hover {
+        img {
+          transition: 75ms ease;
+          background: $light-grey;
+          transform: scale(1.14);
+        }
+      }
+    }
+  }

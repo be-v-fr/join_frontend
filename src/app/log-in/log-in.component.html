@@ -2,89 +2,12 @@
     <a href="" class="logo">
         <img src="assets/img/logo.svg" alt="JOIN">
     </a>
-
-    @if(formMode == 'Log in') {
-    <form [ngClass]="{'await-intro': animate}" (ngSubmit)="onSubmit(logInForm)" #logInForm="ngForm">
-        <h2>{{formMode}}</h2>
-        <div class="form-field">
-            <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel" [(ngModel)]="formData.email" required>
-            <img src="../../assets/img/mail.svg" alt="email">
-        </div>
-        <div class="form-field">
-            <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password" #password ngModel
-                [(ngModel)]="formData.password" required>
-            @if(formData.password.length > 0) {
-            <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('password')"></app-password-icon>
-            }
-            @else {
-            <app-password-icon [state]="'default'" (click)="toggleVisibility('password')"></app-password-icon>
-            }
-        </div>
-        <div class="further-options">
-            <div class="checkbox-container prevent-select" (click)="toggleRememberMe()">
-                <div class="custom-checkbox" [ngClass]="{'custom-checked' : rememberLogIn}"></div>
-                <span>Remember me</span>
-            </div>
-            <a href="" class="link-blue">I forgot my password</a>
-        </div>
-        <div class="btn-container">
-            <button type="submit" class="btn-primary">Log in</button>
-            <button type="button" class="btn-secondary">Guest log in</button>
-        </div>
-    </form>
-    <div class="go-to-sign-up" [ngClass]="{'await-intro': animate}">
+    <app-registration-form [ngClass]="{'await-intro': animate}" [formMode]="formMode"
+        (toggleMode)="toggleFormMode()"></app-registration-form>
+    <div *ngIf="formMode == 'Log in'" class="go-to-sign-up" [ngClass]="{'await-intro': animate}">
         <span>Not a Join user?</span>
         <button class="btn-primary" (click)="toggleFormMode()">Sign up</button>
     </div>
-    }
-    @else {
-    <form [ngClass]="{'await-intro': animate}" (ngSubmit)="onSubmit(logInForm)" #logInForm="ngForm">
-        <button type="button" (click)="toggleFormMode()" class="arrow-back">
-            <img src="assets/img/arrow-left-line.svg" alt="back">
-        </button>
-        <h2>{{formMode}}</h2>
-        <div class="form-field">
-            <input type="text" class="text-input" placeholder="Name" name="name" #name="ngModel" [(ngModel)]="formData.name" required>
-            <img src="../../assets/img/person.svg" alt="name">
-        </div>
-        <div class="form-field">
-            <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel" [(ngModel)]="formData.email" required>
-            <img src="../../assets/img/mail.svg" alt="email">
-        </div>
-        <div class="form-field">
-            <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password" #password="ngModel"
-                [(ngModel)]="formData.password" required>
-                @if(formData.password.length > 0) {
-                    <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('password')"></app-password-icon>
-                    }
-                    @else {
-                    <app-password-icon [state]="'default'" (click)="toggleVisibility('password')"></app-password-icon>
-                    }
-        </div>
-        <div class="form-field">
-            <input type="{{passwordConfirmationFieldType}}" class="text-input" placeholder="Confirm password" name="passwordConfirmation" 
-                #passwordConfirmation="ngModel" [(ngModel)]="formData.passwordConfirmation" required>
-                @if(formData.passwordConfirmation.length > 0) {
-                    <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('confirmation')"></app-password-icon>
-                    }
-                    @else {
-                    <app-password-icon [state]="'default'" (click)="toggleVisibility('confirmation')"></app-password-icon>
-                    }
-        </div>
-        <div class="further-options privacy-policy">
-            <div class="checkbox-container prevent-select" (click)="togglePrivacyPolicy()">
-                <div class="custom-checkbox" [ngClass]="{'custom-checked' : acceptPrivacyPolicy}"></div>
-                <span>
-                    <div>I accept the</div>
-                    <a href="" class="link-blue" (click)="$event.stopPropagation()">privacy policy</a>
-                </span>
-            </div>
-        </div>
-        <div class="btn-container">
-            <button type="submit" class="btn-primary">Sign up</button>
-        </div>
-    </form>
-    }
     <div class="legal-info" [ngClass]="{'await-intro': animate}">
         <a href="" name="Privacy policy" class="left-link">
             <p>Privacy policy</p>
