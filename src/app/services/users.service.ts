@@ -67,7 +67,8 @@ export class UsersService {
     return {
       'uid': user.uid,
       'name': user.name,
-      'color': user.color
+      'color': user.color,
+      'contacts': user.contacts
     }
   }
 
@@ -82,12 +83,9 @@ export class UsersService {
   setUserObject(obj: any, uid: string): User {
     let user = new User('', '');
     user.uid = uid;
-    if (obj.name) {
-      user.name = obj.name;
-    }
-    if (obj.color) {
-      user.color = obj.color;
-    }
+    if (obj.name) {user.name = obj.name}
+    if (obj.color) {user.color = obj.color}
+    if (obj.contacts) {user.contacts = obj.contacts}
     return user;
   }
 }

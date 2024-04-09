@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../../../../models/task';
 import { TaskCardComponent } from './task-card/task-card.component';
-import { TasksService } from '../../../shared/tasks.service';
+import { TasksService } from '../../../services/tasks.service';
 import { CommonModule } from '@angular/common';
 
 @Component({

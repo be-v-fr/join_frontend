@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../../models/task';
-import { TasksService } from '../../shared/tasks.service';
+import { TasksService } from '../../services/tasks.service';
 import { TaskViewComponent } from './task-view/task-view.component';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { TaskListComponent } from './task-list/task-list.component';

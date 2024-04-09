@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Task } from '../../../models/task';
-import { TasksService } from '../../shared/tasks.service';
+import { TasksService } from '../../services/tasks.service';
 import { StatsItemComponent } from './stats-item/stats-item.component';
 import { HeadlineSloganComponent } from '../../templates/headline-slogan/headline-slogan.component';
 

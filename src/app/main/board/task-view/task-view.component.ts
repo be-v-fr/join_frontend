@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../../../../models/task';
-import { TasksService } from '../../../shared/tasks.service';
+import { TasksService } from '../../../services/tasks.service';
 import { User } from '../../../../models/user';
 import { TaskCategoryComponent } from '../task-list/task-card/task-category/task-category.component';
 import { ContactListItemComponent } from '../../contacts/contact-list-item/contact-list-item.component';
