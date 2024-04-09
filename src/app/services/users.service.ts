@@ -1,6 +1,5 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, collection, doc, collectionData, onSnapshot, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
-import { Observable, Subject } from 'rxjs';
 import { User } from '../../models/user';
 
 @Injectable({
@@ -9,7 +8,6 @@ import { User } from '../../models/user';
 
 export class UsersService {
   users: User[] = [];
-  private usersUpdate: Subject<void> = new Subject<void>();
   unsubUsers;
   firestore: Firestore = inject(Firestore);
 
@@ -27,12 +25,7 @@ export class UsersService {
       list.forEach((element: any) => {
         this.users.push(this.setUserObject(element.data(), element.uid));
       });
-      this.usersUpdate.next();
     });
-  }
-
-  getCurrentUsers(): Observable<void> {
-    return this.usersUpdate.asObservable();
   }
 
   getColRef() {

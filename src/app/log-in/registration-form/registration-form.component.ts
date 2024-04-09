@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, ViewChild, inject, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { PasswordIconComponent } from '../../templates/password-icon/password-icon.component';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration-form',
@@ -32,32 +34,44 @@ export class RegistrationFormComponent {
     'This email adress is not registered.',
     'Wrong password! Please try again.'
   ];
+  private authService = inject(AuthService);
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.authService.user$.subscribe(user =>{
+      if(user) {
+        this.authService.currentUserSig.set({
+          email: user.email!,
+          name: user.displayName!
+        });
+      } else {
+        this.authService.currentUserSig.set(null);
+      }
+    });
+  }
 
   toggleModeEmit() {
     this.toggleMode.emit();
   }
 
   toggleVisibility(field: 'password' | 'confirmation') {
-    if(field == 'password' && this.formData.password.length > 0) {
+    if (field == 'password' && this.formData.password.length > 0) {
       this.passwordFieldType = this.togglePasswordFieldType(this.passwordFieldType);
       this.focusLastPosition(field);
-    } else if(this.formData.passwordConfirmation.length > 0) {
+    } else if (this.formData.passwordConfirmation.length > 0) {
       this.passwordConfirmationFieldType = this.togglePasswordFieldType(this.passwordConfirmationFieldType);
       this.focusLastPosition(field);
     }
   }
 
-
-  // FUNKTIONIERT NOCH NICHT FÜR SIGN UP-FORMULAR.
-  // MÖGLICHE LÖSUNG: KOMPONENTE FÜR LOG IN UND SIGN UP FORMULAR ERSTELLEN, ZWEI INSTANZEN AUF LOG IN SEITE EINRICHTEN (ODER ÜBER INPUT-ATTRIBUT REGELN)
-  // ...SO SOLLTE ES MIT KEINEN FEHLERN MEHR BZGL. INITIALISIERUNG KOMMEN
   focusLastPosition(field: 'password' | 'confirmation') {
     console.log(field);
-    let element: HTMLInputElement | null = null; 
-    if(field == 'password') {
+    let element: HTMLInputElement | null = null;
+    if (field == 'password') {
       element = this.passwordRef.nativeElement;
     }
-    if(field == 'confirmation') {
+    if (field == 'confirmation') {
       element = this.passwordConfirmationRef.nativeElement;
     }
     console.log(element);
@@ -82,14 +96,36 @@ export class RegistrationFormComponent {
   }
 
   onSubmit(form: NgForm) {
-    switch (this.formMode) {
-      case ('Sign up'): {
-        console.log('sign up');
-        break;
-      }
-      case ('Log in'):
-      console.log('log in');
+    if(this.formMode == 'Log in') {
+      this.submitLogIn(form);
+    } else {
+      this.submitSignUp(form);
     }
-    console.log(form);
   }
+
+  submitLogIn(form: NgForm) {
+
+  }
+
+  submitSignUp(form: NgForm) {
+
+  }
+
+  // LOG IN:
+  // onSubmit(): void {
+  //   const rawForm = this.form.getRawValue();
+  //   this.authService.logIn(rawForm.email, rawForm.password).subscribe({
+  //     next: () => this.router.navigate((['/'])),
+  //     error: (err) => this.errorMsg = err.code
+  //   });
+  // }
+
+  // SIGN UP:
+  // onSubmit(): void {
+  //   const rawForm = this.form.getRawValue();
+  //   this.authService.register(rawForm.name, rawForm.email, rawForm.password).subscribe({
+  //     next: () => this.router.navigate((['/'])),
+  //     error: (err) => this.errorMsg = err.code
+  //   });
+  // }
 }
