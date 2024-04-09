@@ -1,12 +1,10 @@
-import {Contact} from './contact';
+import {Person} from './person';
 
-export class User extends Contact {
-    override email: string;
-    password: string;
+export class User extends Person {
+    uid: string;
 
-    constructor(name: string, email: string, password: string) {
+    constructor(name: string, uid: string) {
         super(name);
-        this.email = email;
-        this.password = password;
+        this.uid = uid;
     }
 }

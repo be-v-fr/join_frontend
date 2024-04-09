@@ -15,8 +15,8 @@ import { PrioIconComponent } from '../../../../templates/prio-icon/prio-icon.com
 })
 export class TaskCardComponent {
   users: User[] = [
-    new User('test 1', 'email 1', 'password 1'),
-    new User('test 2', 'email 2', 'password 2'),
+    new User('test 1', 'id 1'),
+    new User('test 2', 'id 2'),
   ];
   @Input() task: Task = new Task('');
 

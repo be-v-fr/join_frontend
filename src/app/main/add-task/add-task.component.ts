@@ -22,8 +22,8 @@ import { Router } from '@angular/router';
 export class AddTaskComponent implements OnInit {
   formClick: Subject<void> = new Subject<void>();
   users: User[] = [
-    new User('test 1', 'email 1', 'password 1'),
-    new User('test 2', 'email 2', 'password 2'),
+    new User('test 1', 'id 1'),
+    new User('test 2', 'id 2'),
   ];
   @Input() task: Task = new Task('');
   @Input() inOverlay: boolean = false;

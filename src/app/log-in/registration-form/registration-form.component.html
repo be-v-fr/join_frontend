@@ -1,5 +1,5 @@
 <form (ngSubmit)="onSubmit(registrationForm)" #registrationForm="ngForm">
-    <button type="button" (click)="toggleModeEmit()" class="arrow-back">
+    <button *ngIf="formMode == 'Sign up'" type="button" (click)="toggleModeEmit()" class="arrow-back">
         <img src="assets/img/arrow-left-line.svg" alt="back">
     </button>
     <h2>{{formMode}}</h2>
