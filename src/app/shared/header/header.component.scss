@@ -10,6 +10,7 @@ header {
     }
     .info {
         margin-right: 48px;
+        @include flex($g: 16px);
         .help {
             transition: 100ms ease;
             img {

@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 import { User } from '../../../models/user';
 import { Task } from '../../../models/task';
 import { ContactListItemComponent } from '../contacts/contact-list-item/contact-list-item.component';
-import { ContactIconComponent } from '../contacts/contact-list-item/contact-icon/contact-icon.component';
+import { PersonBadgeComponent } from '../../templates/person-badge/person-badge.component';
 import { TasksService } from '../../services/tasks.service';
 import { ToastNotificationComponent } from '../../templates/toast-notification/toast-notification.component';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [CommonModule, FormsModule, SubtaskComponent, ContactListItemComponent, ContactIconComponent, ToastNotificationComponent],
+  imports: [CommonModule, FormsModule, SubtaskComponent, ContactListItemComponent, PersonBadgeComponent, ToastNotificationComponent],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })

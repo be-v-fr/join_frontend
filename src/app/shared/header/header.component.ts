@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { User } from '../../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { UsersService } from '../../services/users.service';
+import { PersonBadgeComponent } from '../../templates/person-badge/person-badge.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [],
+  imports: [PersonBadgeComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

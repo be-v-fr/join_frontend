@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ContactIconComponent } from '../contact-list-item/contact-icon/contact-icon.component';
+import { PersonBadgeComponent } from '../../../templates/person-badge/person-badge.component';
 import { FormsModule } from '@angular/forms';
 import { Contact } from '../../../../models/contact';
 import { CloseBtnComponent } from '../../../templates/close-btn/close-btn.component';
@@ -8,7 +8,7 @@ import { CloseBtnComponent } from '../../../templates/close-btn/close-btn.compon
 @Component({
   selector: 'app-add-contact',
   standalone: true,
-  imports: [CommonModule, FormsModule, ContactIconComponent, CloseBtnComponent],
+  imports: [CommonModule, FormsModule, PersonBadgeComponent, CloseBtnComponent],
   templateUrl: './add-contact.component.html',
   styleUrl: './add-contact.component.scss'
 })

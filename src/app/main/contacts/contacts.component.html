@@ -17,8 +17,8 @@
         @if(selection >= 0) {
         <div class="contactData">
             <div class="name">
-                <app-contact-icon [name]="contacts[selection].name" [color]="contacts[selection].color"
-                    [large]="true"></app-contact-icon>
+                <app-person-badge [name]="contacts[selection].name" [color]="contacts[selection].color"
+                    [large]="true"></app-person-badge>
                 <div class="full-name-edit">
                     <p class="full-name">{{contacts[selection].name}}</p>
                     <div class="edit-btns-container">

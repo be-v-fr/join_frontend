@@ -2,14 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Task } from '../../../../../models/task';
 import { User } from '../../../../../models/user';
-import { ContactIconComponent } from '../../../contacts/contact-list-item/contact-icon/contact-icon.component';
+import { PersonBadgeComponent } from '../../../../templates/person-badge/person-badge.component';
 import { TaskCategoryComponent } from './task-category/task-category.component';
 import { PrioIconComponent } from '../../../../templates/prio-icon/prio-icon.component';
 
 @Component({
   selector: 'app-task-card',
   standalone: true,
-  imports: [CommonModule, ContactIconComponent, TaskCategoryComponent, PrioIconComponent],
+  imports: [CommonModule, PersonBadgeComponent, TaskCategoryComponent, PrioIconComponent],
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.scss'
 })

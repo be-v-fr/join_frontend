@@ -1,0 +1,8 @@
+<div class="prevent-select" [ngStyle]="{'background': color == '#000000' ? 'none' : color}" [ngClass]="{'large': large}"
+    [ngClass]="{'current-user': currentUser}">
+    @if(name.length > 0) {
+    {{getInitials()}}
+    } @else {
+    <img src="assets/img/person.svg">
+    }
+</div>

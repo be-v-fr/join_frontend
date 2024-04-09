@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ContactListItemComponent } from './contact-list-item/contact-list-item.component';
 import { Contact } from '../../../models/contact';
-import { ContactIconComponent } from './contact-list-item/contact-icon/contact-icon.component';
+import { PersonBadgeComponent } from '../../templates/person-badge/person-badge.component';
 import { EmailComponent } from './email/email.component';
 import { AddContactComponent } from './add-contact/add-contact.component';
 import { HeadlineSloganComponent } from '../../templates/headline-slogan/headline-slogan.component';
@@ -9,7 +9,7 @@ import { HeadlineSloganComponent } from '../../templates/headline-slogan/headlin
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [ContactListItemComponent, ContactIconComponent, EmailComponent, AddContactComponent, HeadlineSloganComponent],
+  imports: [ContactListItemComponent, PersonBadgeComponent, EmailComponent, AddContactComponent, HeadlineSloganComponent],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss'
 })

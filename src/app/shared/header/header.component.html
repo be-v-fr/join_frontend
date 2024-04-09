@@ -1,8 +1,11 @@
 <header>
     <span class="title">Kanban Project Management Tool</span>
     <div class="info">
-        <a href="" class="help" >
+        <a href="" class="help">
             <img src="../../../assets/img/menu/help.svg" alt="help">
         </a>
+        @if(currentUser) {
+        <app-person-badge [name]="currentUser.name" [currentUser]="true"></app-person-badge>
+        }
     </div>
 </header>

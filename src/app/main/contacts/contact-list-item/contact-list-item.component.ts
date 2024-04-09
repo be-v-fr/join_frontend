@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Contact } from '../../../../models/contact';
-import { ContactIconComponent } from './contact-icon/contact-icon.component';
+import { PersonBadgeComponent } from '../../../templates/person-badge/person-badge.component';
 import { EmailComponent } from '../email/email.component';
 
 @Component({
   selector: 'app-contact-list-item',
   standalone: true,
-  imports: [CommonModule, ContactIconComponent, EmailComponent],
+  imports: [CommonModule, PersonBadgeComponent, EmailComponent],
   templateUrl: './contact-list-item.component.html',
   styleUrl: './contact-list-item.component.scss'
 })

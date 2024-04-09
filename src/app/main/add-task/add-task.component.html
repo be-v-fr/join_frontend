@@ -33,7 +33,7 @@
                         <div class="assigned-icons">
                             @for(assignment of task.assigned; track assignment; let i = $index) {
                             @if(assignment) {
-                            <app-contact-icon [name]="users[i].name" [color]="users[i].color"></app-contact-icon>
+                            <app-person-badge [name]="users[i].name" [color]="users[i].color"></app-person-badge>
                             }
                             }
                         </div>

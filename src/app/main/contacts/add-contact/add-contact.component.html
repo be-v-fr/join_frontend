@@ -16,9 +16,9 @@
             <div class="separator"></div>
         </div>
         @if(mode == 'add') {
-            <app-contact-icon [large]="true"></app-contact-icon>
+            <app-person-badge [large]="true"></app-person-badge>
         } @else {
-            <app-contact-icon [name]="contact.name" [color]="contact.color" [large]="true"></app-contact-icon>
+            <app-person-badge [name]="contact.name" [color]="contact.color" [large]="true"></app-person-badge>
         }
         <form ngNativeValidate (submit)="onSubmit($event)">
             <app-close-btn (click)="cancel()" class="btn-close"></app-close-btn>

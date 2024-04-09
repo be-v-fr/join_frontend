@@ -1,5 +1,5 @@
 <div class="content" [ngClass]="instance == 'contacts' ? (selected ? 'in-contacts-selected' : 'in-contacts-default') : 'in-task'">
-    <app-contact-icon [name]="name" [color]="color"></app-contact-icon>
+    <app-person-badge [name]="name" [color]="color"></app-person-badge>
     <div class="data">
         <p>{{name}}</p>
         <app-email *ngIf="email" [email]="email"></app-email>
