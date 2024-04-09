@@ -25,12 +25,20 @@ export class AuthService {
             this.firebaseAuth,
             email,
             password
-        ).then(() => {});
+        ).then(() => { });
         return from(promise);
     }
 
     logOut(): Observable<void> {
         const promise = signOut(this.firebaseAuth);
         return from(promise);
+    }
+
+    getCurrentUid(): string | undefined {
+        if (this.firebaseAuth.currentUser) {
+            return this.firebaseAuth.currentUser['uid'];
+        } else {
+            return undefined;
+        }
     }
 }

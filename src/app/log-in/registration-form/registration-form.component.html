@@ -6,12 +6,12 @@
     <div *ngIf="formMode == 'Sign up'" class="form-field">
         <input type="text" class="text-input" placeholder="Name" name="name" #name="ngModel" [(ngModel)]="formData.name"
             required>
-        <img src="../../assets/img/person.svg" alt="name">
+        <img src="assets/img/person.svg" alt="name">
     </div>
     <div class="form-field">
         <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel"
-            [(ngModel)]="formData.email" required>
-        <img src="../../assets/img/mail.svg" alt="email">
+            [(ngModel)]="formData.email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+        <img src="assets/img/mail.svg" alt="email">
     </div>
     <div class="form-field">
         <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password" #password ngModel

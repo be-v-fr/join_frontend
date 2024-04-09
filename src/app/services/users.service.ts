@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, doc, collectionData, onSnapshot, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import { Firestore, collection, doc, collectionData, onSnapshot, setDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { User } from '../../models/user';
 
 @Injectable({
@@ -36,8 +36,8 @@ export class UsersService {
     return doc(this.getColRef(), uid);
   }
 
-  async addUser(user: User) {
-    await addDoc(this.getColRef(), this.getJsonFromUser(user))
+  async addUserByUid(user: User) {
+    await setDoc(this.getSingleDocRef(user.uid), this.getJsonFromUser(user))
       .catch((err: Error) => { console.error(err) });
   }
 
@@ -76,9 +76,9 @@ export class UsersService {
   setUserObject(obj: any, uid: string): User {
     let user = new User('', '');
     user.uid = uid;
-    if (obj.name) {user.name = obj.name}
-    if (obj.color) {user.color = obj.color}
-    if (obj.contacts) {user.contacts = obj.contacts}
+    if (obj.name) { user.name = obj.name }
+    if (obj.color) { user.color = obj.color }
+    if (obj.contacts) { user.contacts = obj.contacts }
     return user;
   }
 }

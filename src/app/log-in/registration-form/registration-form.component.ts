@@ -3,6 +3,8 @@ import { Component, Input, Output, EventEmitter, ElementRef, ViewChild, inject, 
 import { FormsModule, NgForm } from '@angular/forms';
 import { PasswordIconComponent } from '../../templates/password-icon/password-icon.component';
 import { AuthService } from '../../services/auth.service';
+import { User } from '../../../models/user';
+import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -35,12 +37,13 @@ export class RegistrationFormComponent {
     'Wrong password! Please try again.'
   ];
   private authService = inject(AuthService);
+  private usersService = inject(UsersService);
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.authService.user$.subscribe(user =>{
-      if(user) {
+    this.authService.user$.subscribe(user => {
+      if (user) {
         this.authService.currentUserSig.set({
           email: user.email!,
           name: user.displayName!
@@ -66,7 +69,6 @@ export class RegistrationFormComponent {
   }
 
   focusLastPosition(field: 'password' | 'confirmation') {
-    console.log(field);
     let element: HTMLInputElement | null = null;
     if (field == 'password') {
       element = this.passwordRef.nativeElement;
@@ -74,7 +76,6 @@ export class RegistrationFormComponent {
     if (field == 'confirmation') {
       element = this.passwordConfirmationRef.nativeElement;
     }
-    console.log(element);
     setTimeout(() => {
       if (element != null) {
         element.focus();
@@ -96,36 +97,48 @@ export class RegistrationFormComponent {
   }
 
   onSubmit(form: NgForm) {
-    if(this.formMode == 'Log in') {
-      this.submitLogIn(form);
-    } else {
-      this.submitSignUp(form);
+    if (form.submitted && this.isValid(form)) {
+      if (this.formMode == 'Log in') {
+        this.submitLogIn();
+      } else {
+        this.submitSignUp();
+      }
     }
   }
 
-  submitLogIn(form: NgForm) {
-
+  isValid(form: NgForm): boolean {
+    return form.form.valid && this.checkPasswordConfirmation();
   }
 
-  submitSignUp(form: NgForm) {
-
+  checkPasswordConfirmation(): boolean {
+    if(this.formMode == 'Log in') {
+      return true;
+    } else {
+      return this.formData.password == this.formData.passwordConfirmation;
+    }
   }
 
-  // LOG IN:
-  // onSubmit(): void {
-  //   const rawForm = this.form.getRawValue();
-  //   this.authService.logIn(rawForm.email, rawForm.password).subscribe({
-  //     next: () => this.router.navigate((['/'])),
-  //     error: (err) => this.errorMsg = err.code
-  //   });
-  // }
+  submitLogIn() {
+    this.authService.logIn(this.formData.email, this.formData.password).subscribe({
+      next: () => this.navigateToSummary(),
+      error: (err) => console.error(err)
+    });
+  }
 
-  // SIGN UP:
-  // onSubmit(): void {
-  //   const rawForm = this.form.getRawValue();
-  //   this.authService.register(rawForm.name, rawForm.email, rawForm.password).subscribe({
-  //     next: () => this.router.navigate((['/'])),
-  //     error: (err) => this.errorMsg = err.code
-  //   });
-  // }
+  submitSignUp() {
+    this.authService.register(this.formData.name, this.formData.email, this.formData.password).subscribe({
+      next: () => {
+        const uid = this.authService.getCurrentUid();
+        if(uid) {
+          this.usersService.addUserByUid(new User(this.formData.name, uid));
+        }
+        this.navigateToSummary();
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
+  navigateToSummary() {
+    this.router.navigate((['/summary'])); 
+  }
 }
