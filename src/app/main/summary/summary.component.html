@@ -20,8 +20,9 @@
         </div>
         <div class="greeting">
             <p class="greeting-msg">{{getGreeting()}}</p>
-            <!-- hier das Komma nicht vergessen, wenn als Gast eingeloggt -->
-            <p class="user-name">Bengt Früchtenicht</p>
+            @if(currentUserName) {
+            <p class="user-name">{{currentUserName}}</p>
+            }
         </div>
     </div>
 </div>

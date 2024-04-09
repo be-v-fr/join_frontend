@@ -21,7 +21,7 @@
         }
     </section>
 </div>
-<app-task-view *ngIf="viewTaskId != ''" [task]="getTaskById(viewTaskId)"
+<app-task-view *ngIf="viewTaskId != ''" [task]="getTaskById(viewTaskId)" [users]="users"
     (cancelOverlay)="closeTaskView()" (editThisTask)="showTaskForm(viewTaskId)"></app-task-view>
 @if(taskFormId != null) {
 <div class="overlay" [ngClass]="{'no-bg': viewTaskId != ''}" (click)="hideTaskForm()">

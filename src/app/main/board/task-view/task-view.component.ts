@@ -16,11 +16,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './task-view.component.scss'
 })
 export class TaskViewComponent {
-  users: User[] = [
-    new User('test 1', 'id 1'),
-    new User('test 2', 'id 2'),
-  ];
   @Input() task: Task = new Task('');
+  @Input() users: User[] = [];
   @Output() cancelOverlay = new EventEmitter<void>();
   @Output() editThisTask = new EventEmitter<void>();
 
