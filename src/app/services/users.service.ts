@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, collection, doc, collectionData, onSnapshot, setDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import { Observable, Subject } from 'rxjs';
 import { User } from '../../models/user';
 
 @Injectable({
@@ -8,6 +9,7 @@ import { User } from '../../models/user';
 
 export class UsersService {
   users: User[] = [];
+  private usersUpdate: Subject<void> = new Subject<void>();
   unsubUsers;
   firestore: Firestore = inject(Firestore);
 
@@ -23,9 +25,14 @@ export class UsersService {
     return onSnapshot(this.getColRef(), (list: any) => {
       this.users = [];
       list.forEach((element: any) => {
-        this.users.push(this.setUserObject(element.data(), element.uid));
+        this.users.push(this.setUserObject(element.data()));
       });
+      this.usersUpdate.next();
     });
+  }
+
+  getCurrentUsers(): Observable<void> {
+    return this.usersUpdate.asObservable();
   }
 
   getColRef() {
@@ -73,9 +80,9 @@ export class UsersService {
     return user;
   }
 
-  setUserObject(obj: any, uid: string): User {
+  setUserObject(obj: any): User {
     let user = new User('', '');
-    user.uid = uid;
+    if (obj.uid) { user.uid = obj.uid }
     if (obj.name) { user.name = obj.name }
     if (obj.color) { user.color = obj.color }
     if (obj.contacts) { user.contacts = obj.contacts }

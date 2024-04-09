@@ -41,19 +41,6 @@ export class RegistrationFormComponent {
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
-    this.authService.user$.subscribe(user => {
-      if (user) {
-        this.authService.currentUserSig.set({
-          email: user.email!,
-          name: user.displayName!
-        });
-      } else {
-        this.authService.currentUserSig.set(null);
-      }
-    });
-  }
-
   toggleModeEmit() {
     this.toggleMode.emit();
   }
@@ -111,7 +98,7 @@ export class RegistrationFormComponent {
   }
 
   checkPasswordConfirmation(): boolean {
-    if(this.formMode == 'Log in') {
+    if (this.formMode == 'Log in') {
       return true;
     } else {
       return this.formData.password == this.formData.passwordConfirmation;
@@ -129,7 +116,7 @@ export class RegistrationFormComponent {
     this.authService.register(this.formData.name, this.formData.email, this.formData.password).subscribe({
       next: () => {
         const uid = this.authService.getCurrentUid();
-        if(uid) {
+        if (uid) {
           this.usersService.addUserByUid(new User(this.formData.name, uid));
         }
         this.navigateToSummary();
@@ -139,6 +126,6 @@ export class RegistrationFormComponent {
   }
 
   navigateToSummary() {
-    this.router.navigate((['/summary'])); 
+    this.router.navigate((['/summary']));
   }
 }

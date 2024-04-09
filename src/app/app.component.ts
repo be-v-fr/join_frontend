@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { MenuComponent } from './shared/menu/menu.component';
 import { HeaderComponent } from './shared/header/header.component';
-import { Task } from '../models/task';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +13,6 @@ import { Task } from '../models/task';
 })
 export class AppComponent {
   title = 'join';
-  tasks: Task[] = [];
 
   constructor(private router: Router) {}
 
