@@ -30,9 +30,8 @@ export class AppComponent {
     this.authService.user$.subscribe(user => {
       const uid = this.authService.getCurrentUid();
       if (user && uid) {
-        this.usersService.getCurrentUsers().subscribe(() => {
-          const userData: User = this.usersService.getUserByUid(uid);
-          this.currentUser = userData;
+        this.usersService.getUsers().subscribe(() => {
+          this.currentUser = this.usersService.getUserByUid(uid);
           this.loggedIn = true;
         });
       } else {

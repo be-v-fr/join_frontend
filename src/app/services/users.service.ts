@@ -31,7 +31,7 @@ export class UsersService {
     });
   }
 
-  getCurrentUsers(): Observable<void> {
+  getUsers(): Observable<void> {
     return this.usersUpdate.asObservable();
   }
 

@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../../../../models/task';
 import { TaskCardComponent } from './task-card/task-card.component';
 import { TasksService } from '../../../services/tasks.service';
+import { User } from '../../../../models/user';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -13,6 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class TaskListComponent {
   @Input() tasks: Task[] = [];
+  @Input() users: User[] = [];
   @Input() status: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
   draggingOver: boolean = false;
   draggedTaskCard: HTMLElement | null = null;

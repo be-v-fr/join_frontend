@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, Output, OnInit, ViewChild, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, ElementRef, Input, Output, OnInit, ViewChild, OnDestroy, EventEmitter, inject } from '@angular/core';
 import { Subtask } from '../../../interfaces/subtask.interface';
 import { SubtaskComponent } from './subtask/subtask.component';
 import { FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { User } from '../../../models/user';
+import { UsersService } from '../../services/users.service';
 import { Task } from '../../../models/task';
 import { ContactListItemComponent } from '../contacts/contact-list-item/contact-list-item.component';
 import { PersonBadgeComponent } from '../../templates/person-badge/person-badge.component';
@@ -21,10 +22,9 @@ import { Router } from '@angular/router';
 })
 export class AddTaskComponent implements OnInit {
   formClick: Subject<void> = new Subject<void>();
-  users: User[] = [
-    new User('test 1', 'id 1'),
-    new User('test 2', 'id 2'),
-  ];
+  users: User[] = [];
+  private usersService = inject(UsersService);
+  private tasksService = inject(TasksService);
   @Input() task: Task = new Task('');
   @Input() inOverlay: boolean = false;
   @Input() status: 'To do' | 'In progress' | 'Await feedback' = 'To do';
@@ -35,14 +35,14 @@ export class AddTaskComponent implements OnInit {
   @Output() cancelled = new EventEmitter<void>();
 
 
-  constructor(private router: Router, private tasksService: TasksService) {
-  }
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.initAssigned();
     if(this.task.id == '') {
       this.task.status = this.status;
     }
+    this.users = this.usersService.users;
   }
 
   selectPrio(prio: 'Urgent' | 'Medium' | 'Low') {

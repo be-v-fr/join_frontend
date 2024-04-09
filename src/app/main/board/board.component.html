@@ -17,7 +17,7 @@
     </section>
     <section class="tasks-by-status">
         @for (status of statusList; track status) {
-            <app-task-list [status]="status" [tasks]="getFilteredTasks(status)" (addToStatusClick)="addToStatus(status)" (taskClick)="viewTask($event)"></app-task-list>
+            <app-task-list [status]="status" [tasks]="getFilteredTasks(status)" [users]="users" (addToStatusClick)="addToStatus(status)" (taskClick)="viewTask($event)"></app-task-list>
         }
     </section>
 </div>
