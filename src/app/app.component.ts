@@ -20,7 +20,10 @@ export class AppComponent {
   private usersService = inject(UsersService);
 
   currentUser: User | null | undefined = undefined;
+  loggedIn: boolean = false;
 
+  readonly MAIN_ROUTES = ['/summary', '/add_task', '/board', '/contacts'];
+  
   constructor(private router: Router) {}
 
   ngOnInit(): void {
@@ -30,6 +33,7 @@ export class AppComponent {
         this.usersService.getCurrentUsers().subscribe(() => {
           const userData: User = this.usersService.getUserByUid(uid);
           this.currentUser = userData;
+          this.loggedIn = true;
         });
       } else {
         this.currentUser = null;
