@@ -16,11 +16,11 @@ export class AddContactComponent {
   @Input() mode: 'add' | 'edit' = 'add';
   @Input() contact: Contact = new Contact('');
   @Output() cancelOverlay = new EventEmitter<void>();
-  @Output() afterSubmit = new EventEmitter<Contact>();
+  @Output() submit = new EventEmitter<Contact>();
 
   onSubmit(e: Event): void {
     e.preventDefault();
-    this.afterSubmit.emit(this.contact);
+    this.submit.emit(this.contact);
   }
 
   cancel() {

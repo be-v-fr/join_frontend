@@ -3,6 +3,7 @@
         <button class="btn-primary add-new" (click)="showContactOverlay('add')">
             Add new contact
             <img src="../../../assets/img/person_add.svg" alt="add new contact"></button>
+        @if(currentUser) {
         @for (contact of getSortedContacts(); track contact; let i = $index) {
         @if(hasNextLetter(i)) {
         <p class="letter">{{getFirstLetter(contact)}}</p>
@@ -11,16 +12,17 @@
         <app-contact-list-item [name]="contact.name" [email]="contact.email" [color]="contact.color"
             [selected]="i == selection" (click)="selectContact(i)"></app-contact-list-item>
         }
+        }
     </div>
     <div class="viewer">
         <app-headline-slogan [headline]="'Contacts'" [slogan]="'Better with a team'"></app-headline-slogan>
-        @if(selection >= 0) {
+        @if(selection >= 0 && currentUser) {
         <div class="contactData">
             <div class="name">
-                <app-person-badge [name]="contacts[selection].name" [color]="contacts[selection].color"
-                    [large]="true"></app-person-badge>
+                <app-person-badge [name]="currentUser.contacts[selection].name"
+                    [color]="currentUser.contacts[selection].color" [large]="true"></app-person-badge>
                 <div class="full-name-edit">
-                    <p class="full-name">{{contacts[selection].name}}</p>
+                    <p class="full-name">{{currentUser.contacts[selection].name}}</p>
                     <div class="edit-btns-container">
                         <button class="edit-btn" (click)="showContactOverlay('edit')" name="Edit">
                             <img src="../../../../assets/img/edit.svg" alt="edit contact">
@@ -33,15 +35,15 @@
                     </div>
                 </div>
             </div>
-            @if(contacts[selection].email || contacts[selection].phone) {
+            @if(currentUser.contacts[selection].email || currentUser.contacts[selection].phone) {
             <h3>Contact Information</h3>
-            @if(contacts[selection].email) {
+            @if(currentUser.contacts[selection].email) {
             <h4>Email</h4>
-            <app-email [email]="contacts[selection].email || ''"></app-email>
+            <app-email [email]="currentUser.contacts[selection].email || ''"></app-email>
             }
-            @if(contacts[selection].phone) {
+            @if(currentUser.contacts[selection].phone) {
             <h4>Phone</h4>
-            <a href="tel:{{contacts[selection].phone}}">{{contacts[selection].phone}}</a>
+            <a href="tel:{{currentUser.contacts[selection].phone}}">{{currentUser.contacts[selection].phone}}</a>
             }
             }
         </div>
@@ -50,8 +52,8 @@
 </div>
 @if(contactOverlay == 'add') {
 <app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="'add'"
-    (afterSubmit)="submitContact($event)"></app-add-contact>
-} @else if (contactOverlay == 'edit') {
-<app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="'edit'" [contact]="contacts[selection]"
-    (afterSubmit)="submitContact($event)"></app-add-contact>
+    (submit)="submitContact($event)"></app-add-contact>
+} @else if (contactOverlay == 'edit' && currentUser) {
+<app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="'edit'"
+    [contact]="currentUser.contacts[selection]" (submit)="submitContact($event)"></app-add-contact>
 }

@@ -14,7 +14,7 @@ import { AuthService } from './services/auth.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'join';
   private authService = inject(AuthService);
   private usersService = inject(UsersService);

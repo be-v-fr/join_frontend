@@ -9,4 +9,8 @@ export class User extends Person {
         super(name);
         this.uid = uid;
     }
+
+    addContact(contact: Contact) {
+        this.contacts.push(contact);
+    }
 }

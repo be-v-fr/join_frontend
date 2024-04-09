@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Task } from '../../../models/task';
 import { TasksService } from '../../services/tasks.service';
 import { AuthService} from '../../services/auth.service';
@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss'
 })
-export class SummaryComponent {
+export class SummaryComponent implements OnInit {
   private authService = inject(AuthService);
   tasks: Task[] = [];
   currentUserName: string | null = null;

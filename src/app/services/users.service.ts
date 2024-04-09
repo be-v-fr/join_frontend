@@ -51,8 +51,8 @@ export class UsersService {
   async updateUser(user: User) {
     if (user.uid) {
       let docRef = this.getSingleDocRef(user.uid);
-      let noteJson = this.getJsonFromUser(user);
-      await updateDoc(docRef, noteJson)
+      let userJson = this.getJsonFromUser(user);
+      await updateDoc(docRef, userJson)
         .catch((err: Error) => { console.error(err) });
     }
   }
@@ -68,14 +68,18 @@ export class UsersService {
       'uid': user.uid,
       'name': user.name,
       'color': user.color,
-      'contacts': user.contacts
+      'contacts': JSON.stringify(user.contacts)
     }
   }
 
   getUserByUid(uid: string): User {
     let user = new User('', '');
     this.users.forEach(u => {
-      if (u.uid == uid) { user = u }
+      if (u.uid == uid) {
+        user = u;
+        user.contacts = [];
+        for (let i = 0; i < u.contacts.length; i++) {user.contacts.push(u.contacts[i])}
+      }
     });
     return user;
   }

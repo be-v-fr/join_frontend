@@ -51,8 +51,8 @@ export class TasksService {
   async updateTask(task: Task) {
     if (task.id) {
       let docRef = this.getSingleDocRef(task.id);
-      let noteJson = this.getJsonFromTask(task);
-      await updateDoc(docRef, noteJson)
+      let taskJson = this.getJsonFromTask(task);
+      await updateDoc(docRef, taskJson)
         .catch((err: Error) => { console.error(err) });
     }
   }
