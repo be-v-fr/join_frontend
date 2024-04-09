@@ -8,7 +8,7 @@
   <div class="main">
 
     <!-- statt Route Login prüfen! -->
-    <app-header *ngIf="getCurrentRoute() != '/'"></app-header>
+    <app-header *ngIf="getCurrentRoute() != '/'" [currentUser]="currentUser"></app-header>
     <!-- !! -->
 
     <div [ngClass]="getCurrentRoute() != '/contacts' ? 'padding-page' : 'page'">
