@@ -44,4 +44,12 @@ export class User extends Person {
         contact.color = this.color;
         return contact;
     }
+
+    hasUserInContacts(user: User): boolean {
+        let res: boolean = false; 
+        this.contacts.forEach(c => {
+            if(c.uid && c.uid == user.uid) {res = true}
+        })
+        return res;
+    }
 }

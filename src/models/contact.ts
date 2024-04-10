@@ -12,7 +12,17 @@ export class Contact extends Person {
         this.phone = phone;
     }
 
-    isUser() {
-        return this.uid && this.uid.length > 0;
+    isUser(): boolean {
+        if(this.uid && this.uid.length > 0) {return true}
+        else {return false}
+    }
+
+    hasOptionalProperties(): boolean {
+        if(this.email || this.phone) {return true}
+        else {return false}
+    }
+
+    isUneditedUser(): boolean {
+        return this.isUser() && !this.hasOptionalProperties();
     }
 }

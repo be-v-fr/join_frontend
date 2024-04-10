@@ -23,7 +23,11 @@
         <form ngNativeValidate (submit)="onSubmit($event)">
             <app-close-btn (click)="cancel()" class="btn-close"></app-close-btn>
             <div class="form-field">
-                <input type="text" [(ngModel)]="contact.name" class="text-input" placeholder="Name" name="name" id="name" required>
+                @if(contact.uid && contact.uid.length > 0) {
+                    <input type="text" [(ngModel)]="contact.name" class="text-input" placeholder="Name" name="name" id="name" disabled>
+                } @else {
+                    <input type="text" [(ngModel)]="contact.name" class="text-input" placeholder="Name" name="name" id="name" required>
+                }
                 <img src="assets/img/person.svg">
             </div>
             <div class="form-field">

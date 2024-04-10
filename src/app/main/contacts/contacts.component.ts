@@ -44,8 +44,9 @@ export class ContactsComponent implements OnInit {
   getContactsWithUsers(): Contact[] {
     const contacts: Contact[] = this.usersService.getUserByUid(this.currentUser.uid).contacts;
     this.users.forEach(u => {
-      if (u.uid != this.currentUser.uid) { contacts.push(u.asContact()); }
-    });
+      if (u.uid != this.currentUser.uid && !this.currentUser.hasUserInContacts(u)) {
+        contacts.push(u.asContact());
+      }});
     return contacts;
   }
 
@@ -81,11 +82,16 @@ export class ContactsComponent implements OnInit {
       if (this.contactOverlay == 'add') {
         this.currentUser.addContact(contact);
       } else {
-        this.currentUser.contacts[this.selection] = contact;
+        this.sortedContacts[this.selection] = contact;
+        this.currentUser.contacts = this.filterOutUneditedUsers();
       }
       this.usersService.updateUser(this.currentUser);
     }
     this.cancelOverlay();
+  }
+
+  filterOutUneditedUsers() {
+    return this.sortedContacts.filter(c => !c.isUneditedUser());
   }
 
   cancelOverlay() {
