@@ -26,6 +26,7 @@ export class AddTaskComponent implements OnInit {
   private usersService = inject(UsersService);
   private tasksService = inject(TasksService);
   @Input() task: Task = new Task('');
+  dueTextInput: string = '';
   @Input() inOverlay: boolean = false;
   @Input() status: 'To do' | 'In progress' | 'Await feedback' = 'To do';
   @ViewChild('subtask') subtaskRef!: ElementRef;
@@ -35,14 +36,43 @@ export class AddTaskComponent implements OnInit {
   @Output() cancelled = new EventEmitter<void>();
 
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.initAssigned();
-    if(this.task.id == '') {
+    if (this.task.id == '') {
       this.task.status = this.status;
     }
     this.users = this.usersService.users;
+  }
+
+  dueToText(): string | undefined {
+    if (this.task.due && this.task.due.length > 0) {
+      const parts = this.task.due.split('-');
+      const year = parts[0];
+      let month: string | number = parseInt(parts[1]);
+      let day: string | number = parseInt(parts[2]);
+      month = (month < 10 ? '0' : '') + month;
+      day = (day < 10 ? '0' : '') + day;
+      return day + '/' + month + '/' + year;
+    } else {
+      return undefined;
+    }
+  }
+
+  textToDue(ev: Event) {
+    const target = ev.target as HTMLInputElement;
+    const value = target.value;
+    console.log(value);
+    if (value) {
+      const parts = value.split('/');
+      let day: string | number = parseInt(parts[0]);
+      let month: string | number = parseInt(parts[1]);
+      const year = parts[2];
+      day = (day < 10 ? '0' : '') + day;
+      month = (month < 10 ? '0' : '') + month;
+      this.task.due = year + '-' + month + '-' + day;
+    }
   }
 
   selectPrio(prio: 'Urgent' | 'Medium' | 'Low') {

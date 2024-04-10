@@ -54,6 +54,7 @@
                 <div class="form-field">
                     <label for="due">Due date<span class="marked-red">*</span></label>
                     <input type="date" [(ngModel)]="task.due" name="due" id="due">
+                    <input type="text" value="{{dueToText()}}" placeholder="dd/mm/yyyy" pattern="\d{2}/\d{2}/\d{4}" (change)="textToDue($event)">
                 </div>
                 <div class="form-field">
                     <label for="prio">Prio</label>

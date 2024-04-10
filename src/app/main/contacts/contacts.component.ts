@@ -76,8 +76,6 @@ export class ContactsComponent implements OnInit {
   }
 
   submitContact(contact: Contact) {
-    console.log('Vor Update:');
-    console.log(this.currentUser.contacts);
     if (this.currentUser) {
       if (this.contactOverlay == 'add') {
         this.currentUser.addContact(contact);
