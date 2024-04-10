@@ -1,5 +1,5 @@
 <div class="overlay" (click)="cancel()">
-    <div class="content" (click)="$event.stopPropagation()">
+    <div class="content" [ngClass]="translated ? 'slid-out' : 'slid-in'" (click)="$event.stopPropagation()">
         <div class="headline">
             <div class="headline-and-logo-container">
                 <img class="logo" src="../../../../assets/img/logo_white.svg" alt="logo">

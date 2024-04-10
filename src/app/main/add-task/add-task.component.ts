@@ -12,6 +12,7 @@ import { PersonBadgeComponent } from '../../templates/person-badge/person-badge.
 import { TasksService } from '../../services/tasks.service';
 import { ToastNotificationComponent } from '../../templates/toast-notification/toast-notification.component';
 import { Router } from '@angular/router';
+import { SlideComponent } from '../../templates/slide/slide.component';
 
 @Component({
   selector: 'app-add-task',
@@ -20,7 +21,7 @@ import { Router } from '@angular/router';
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
-export class AddTaskComponent implements OnInit {
+export class AddTaskComponent extends SlideComponent implements OnInit {
   formClick: Subject<void> = new Subject<void>();
   users: User[] = [];
   private usersService = inject(UsersService);
@@ -36,9 +37,13 @@ export class AddTaskComponent implements OnInit {
   @Output() cancelled = new EventEmitter<void>();
 
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    super();
+  }
 
-  ngOnInit() {
+  override ngOnInit() {
+    this.translated = this.inOverlay;
+    super.ngOnInit();
     this.initAssigned();
     if (this.task.id == '') {
       this.task.status = this.status;
@@ -60,7 +65,7 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
-  // HIER IST NOCH VALIDIERUNG NOTWENDIG (IN DER FUNKTION "dueToText()" JEDOCH NICHT)
+  // VALIDIERUNG MUSS NOCH HINZUGEFÜGT WERDEN !! (IN FUNKTION "dueToText()" NICHT)
   textToDue(ev: Event) {
     const target = ev.target as HTMLInputElement;
     const value = target.value;

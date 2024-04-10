@@ -1,5 +1,5 @@
 <div class="overlay" (click)="cancel()">
-    <div class="content" (click)="$event.stopPropagation()">
+    <div class="content" [ngClass]="translated ? 'slid-out' : 'slid-in'" (click)="$event.stopPropagation()">
         <div class="top-container">
             <app-task-category [category]="task.category"></app-task-category>
             <app-close-btn (click)="cancel()"></app-close-btn>

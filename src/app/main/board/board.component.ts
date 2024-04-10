@@ -24,6 +24,7 @@ export class BoardComponent {
   viewTaskId: string = '';
   taskFormId: string | null = null;
   newTaskStatus: 'To do' | 'In progress' | 'Await feedback' = 'To do';
+  taskFormWrapperTranslated: boolean = true;
 
   ngOnInit() {
     this.updateTasks();
@@ -56,7 +57,9 @@ export class BoardComponent {
   }
 
   hideTaskForm() {
-    this.taskFormId = null;
+    this.slideTaskFormWrapper();
+    setTimeout(() => this.taskFormId = null, 125);
+
   }
 
   addToStatus(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
@@ -64,5 +67,9 @@ export class BoardComponent {
       this.newTaskStatus = status;
       this.showTaskForm('');
     }
+  }
+
+  slideTaskFormWrapper() {
+    this.taskFormWrapperTranslated = !this.taskFormWrapperTranslated;
   }
 }

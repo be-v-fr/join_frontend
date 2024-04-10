@@ -304,3 +304,13 @@ h5 {
 .custom-checked {
   background: url("./assets/img/checkbox_checked.svg");
 }
+
+.slid-out {
+  transition: transform 125ms ease;
+  transform: translateX(100vw);
+}
+
+.slid-in {
+  transition: transform 125ms ease;
+  transform: translateX(0);
+}

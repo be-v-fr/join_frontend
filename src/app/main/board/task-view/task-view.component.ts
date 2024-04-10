@@ -7,6 +7,7 @@ import { ContactListItemComponent } from '../../contacts/contact-list-item/conta
 import { CloseBtnComponent } from '../../../templates/close-btn/close-btn.component';
 import { PrioIconComponent } from '../../../templates/prio-icon/prio-icon.component';
 import { CommonModule } from '@angular/common';
+import { SlideComponent } from '../../../templates/slide/slide.component';
 
 @Component({
   selector: 'app-task-view',
@@ -15,16 +16,19 @@ import { CommonModule } from '@angular/common';
   templateUrl: './task-view.component.html',
   styleUrl: './task-view.component.scss'
 })
-export class TaskViewComponent {
+export class TaskViewComponent extends SlideComponent {
   @Input() task: Task = new Task('');
   @Input() users: User[] = [];
   @Output() cancelOverlay = new EventEmitter<void>();
   @Output() editThisTask = new EventEmitter<void>();
 
-  constructor(private tasksService: TasksService) {}
+  constructor(private tasksService: TasksService) {
+    super();
+  }
 
   cancel() {
-    this.cancelOverlay.emit();
+    this.slideInOut();
+    setTimeout(() => this.cancelOverlay.emit(), 125);
   }
 
   toggleSubtaskStatus(index: number) {

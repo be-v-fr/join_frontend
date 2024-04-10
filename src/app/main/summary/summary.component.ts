@@ -15,10 +15,11 @@ import { CommonModule } from '@angular/common';
 })
 export class SummaryComponent implements OnInit {
   private authService = inject(AuthService);
+  private tasksService = inject(TasksService);
   tasks: Task[] = [];
   currentUserName: string | null = null;
 
-  constructor(private tasksService: TasksService) {
+  constructor() {
     this.tasks = this.tasksService.tasks;
   }
 
@@ -30,6 +31,12 @@ export class SummaryComponent implements OnInit {
         this.currentUserName = null;
       }
     });
+    this.updateTasks();
+    this.tasksService.getCurrentTasks().subscribe(() => this.updateTasks());
+  }
+
+  updateTasks() {
+    this.tasks = this.tasksService.tasks;
   }
 
   getFilteredTasks(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
