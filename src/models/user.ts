@@ -38,4 +38,10 @@ export class User extends Person {
             return contact;
         })
     }
+
+    asContact(): Contact {
+        let contact = new Contact(this.name, this.uid);
+        contact.color = this.color;
+        return contact;
+    }
 }

@@ -22,6 +22,7 @@ export class ContactsComponent implements OnInit {
 
   users: User[] = [];
   currentUser: User = new User('', '');
+  sortedContacts: Contact[] = [];
 
   selection: number = -1;
   contactOverlay: 'add' | 'edit' | null = null;
@@ -32,27 +33,34 @@ export class ContactsComponent implements OnInit {
       if (uid) {
         this.users = this.usersService.users;
         this.currentUser = this.usersService.getUserByUid(uid);
+        this.sortedContacts = this.getSortedContacts();
+        this.usersService.getUsers().subscribe(() => {
+          this.sortedContacts = this.getSortedContacts();
+        })
       }
     });
   }
 
-  getSortedContacts(): any[] {
-    return this.currentUser.contacts
-      .sort((a: Contact, b: Contact) => a.name > b.name ? 1 : -1);
+  getContactsWithUsers(): Contact[] {
+    const contacts: Contact[] = this.usersService.getUserByUid(this.currentUser.uid).contacts;
+    this.users.forEach(u => {
+      if (u.uid != this.currentUser.uid) { contacts.push(u.asContact()); }
+    });
+    return contacts;
+  }
+
+  getSortedContacts(): Contact[] {
+    return this.getContactsWithUsers().sort((a: Contact, b: Contact) => a.name > b.name ? 1 : -1);
   }
 
   getFirstLetter(contact: Contact): string {
-    if (contact.name) {
-      return contact.name.charAt(0).toUpperCase();
-    } else {
-      return '';
-    }
+    return contact.name.charAt(0).toUpperCase();
   }
 
   hasNextLetter(index: number) {
-    if (this.currentUser && index > 0) {
-      const current = this.getFirstLetter(this.currentUser.contacts[index]);
-      const previous = this.getFirstLetter(this.currentUser.contacts[index - 1]);
+    if (index > 0) {
+      const current = this.getFirstLetter(this.sortedContacts[index]);
+      const previous = this.getFirstLetter(this.sortedContacts[index - 1]);
       if (current == previous) { return false; }
     }
     return true;
