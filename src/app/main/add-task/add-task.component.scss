@@ -134,6 +134,18 @@ textarea,
   }
 }
 
+.due-text-input {
+  position: absolute;
+  padding: 0;
+  background: white;
+  left: 21px;
+  bottom: 5px;
+  width: calc(100% - 72px);
+  height: 40px;
+  border: none;
+  border-radius: 0;
+}
+
 .prio-btns {
   width: 100%;
   @include flex($jc: space-between, $g: 4%);
