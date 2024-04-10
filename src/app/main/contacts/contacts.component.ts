@@ -20,25 +20,24 @@ export class ContactsComponent implements OnInit {
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
 
+  users: User[] = [];
   currentUser: User = new User('', '');
 
   selection: number = -1;
   contactOverlay: 'add' | 'edit' | null = null;
 
-
-  // LADEN DER KONTAKTE FUNKTIONIERT NOCH NICHT 
   ngOnInit(): void {
     this.authService.user$.subscribe(() => {
       const uid = this.authService.getCurrentUid();
       if (uid) {
+        this.users = this.usersService.users;
         this.currentUser = this.usersService.getUserByUid(uid);
-        console.log(this.currentUser.contacts);
       }
     });
   }
 
   getSortedContacts(): any[] {
-    return [].slice.call(this.currentUser.contacts) // wieder vereinfacht probieren, wenn Laden funktioniert!!
+    return this.currentUser.contacts
       .sort((a: Contact, b: Contact) => a.name > b.name ? 1 : -1);
   }
 

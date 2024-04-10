@@ -68,28 +68,24 @@ export class UsersService {
       'uid': user.uid,
       'name': user.name,
       'color': user.color,
-      'contacts': JSON.stringify(user.contacts)
+      'contacts': user.getMapFromContacts()
     }
   }
 
   getUserByUid(uid: string): User {
     let user = new User('', '');
     this.users.forEach(u => {
-      if (u.uid == uid) {
-        user = u;
-        user.contacts = [];
-        for (let i = 0; i < u.contacts.length; i++) {user.contacts.push(u.contacts[i])}
-      }
+      if (u.uid == uid) { user = this.setUserObject(u) }
     });
     return user;
   }
 
   setUserObject(obj: any): User {
-    let user = new User('', '');
+    const user = new User('', '');
     if (obj.uid) { user.uid = obj.uid }
     if (obj.name) { user.name = obj.name }
     if (obj.color) { user.color = obj.color }
-    if (obj.contacts) { user.contacts = obj.contacts }
+    if (obj.contacts) { user.contacts = user.getContactsFromMap(obj.contacts) }
     return user;
   }
 }

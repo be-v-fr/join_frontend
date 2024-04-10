@@ -11,4 +11,8 @@ export class Contact extends Person {
         this.email = email;
         this.phone = phone;
     }
+
+    isUser() {
+        return this.uid && this.uid.length > 0;
+    }
 }
