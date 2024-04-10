@@ -60,10 +60,10 @@ export class AddTaskComponent implements OnInit {
     }
   }
 
+  // HIER IST NOCH VALIDIERUNG NOTWENDIG (IN DER FUNKTION "dueToText()" JEDOCH NICHT)
   textToDue(ev: Event) {
     const target = ev.target as HTMLInputElement;
     const value = target.value;
-    console.log(value);
     if (value) {
       const parts = value.split('/');
       let day: string | number = parseInt(parts[0]);
