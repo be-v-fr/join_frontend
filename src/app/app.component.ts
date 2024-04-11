@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { MenuComponent } from './shared/menu/menu.component';
@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
 
   currentUser: User | null | undefined = undefined;
   loggedIn: boolean = false;
+  showHeaderDropdown: boolean = false;
 
   readonly MAIN_ROUTES = ['/summary', '/add_task', '/board', '/contacts'];
   
@@ -46,5 +47,9 @@ export class AppComponent implements OnInit {
 
   getCurrentRoute() {
     return this.router.url;
+  }
+
+  closeHeaderDropdown() {
+    this.showHeaderDropdown = false;
   }
 }

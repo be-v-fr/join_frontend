@@ -1,28 +1,51 @@
-@import '../../../styles.scss';
+@import "../../../styles.scss";
+
+$right: 48px;
 
 header {
-    width: 100%;
-    height: 100%;
-    background: white;
-    @include flex($jc: space-between);
-    .title {
-        margin-left: 50px;
-    }
-    .info {
-        margin-right: 48px;
-        @include flex($g: 16px);
-        .help {
-            transition: 100ms ease;
-            img {
-                width: 20px;
-                height: 20px;
-            }
-            &:hover {
-                transition: 100ms ease;
-                img {
-                    transform: scale(1.2);
-                }
-            }
+  width: 100%;
+  height: 100%;
+  background: white;
+  @include flex($jc: space-between);
+  .title {
+    margin-left: 50px;
+  }
+  .info {
+    margin-right: $right;
+    @include flex($g: 16px);
+    .help {
+      transition: 100ms ease;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+      &:hover {
+        transition: 100ms ease;
+        img {
+          transform: scale(1.2);
         }
+      }
     }
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: $right;
+  padding: 20px 26px 20px;
+  border-radius: 20px 0 20px 20px;
+  background-color: $anthracite;
+  @include flex($ai: flex-start, $g: 16px, $dir: column);
+  font-size: $font-small;
+  a {
+    padding: 4px 0;
+    width: 100%;
+    color: $grey;
+    transition: 75ms ease;
+    &:hover {
+      transition: 75ms ease;
+      color: white;
+    }
+  }
 }

@@ -1,16 +1,8 @@
-<div class="content">
-
-  <!-- statt Route Login prüfen! -->
+<div class="content" (click)="closeHeaderDropdown()">
   <app-menu *ngIf="MAIN_ROUTES.includes(getCurrentRoute()) && loggedIn"></app-menu>
-  <!-- !! -->
-
-
   <div class="main">
-
-    <!-- statt Route Login prüfen! -->
-    <app-header *ngIf="MAIN_ROUTES.includes(getCurrentRoute()) && loggedIn" [currentUser]="currentUser"></app-header>
-    <!-- !! -->
-
+    <app-header *ngIf="MAIN_ROUTES.includes(getCurrentRoute()) && loggedIn" [currentUser]="currentUser"
+      [displayDropdown]="showHeaderDropdown" (updateDropdown)="showHeaderDropdown = $event"></app-header>
     <div [ngClass]="getCurrentRoute() != '/contacts' ? 'padding-page' : 'page'">
       @if(!MAIN_ROUTES.includes(getCurrentRoute()) || loggedIn) {
       <router-outlet></router-outlet>

@@ -1,7 +1,6 @@
 import { Injectable, inject } from "@angular/core";
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, user } from "@angular/fire/auth";
-import { Observable, from, of } from "rxjs";
-import { User } from "../../models/user";
+import { Observable, from } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -37,6 +36,7 @@ export class AuthService {
     logOut(): Observable<void> {
         if (this.guestLogIn) {
             this.guestLogIn = false;
+            this.setLocalGuestLogin(false);
             return new Observable<void>(o => o.complete()); // FUNKTIONSWEISE ÜBERPRÜFEN
         } else {
             const promise = signOut(this.firebaseAuth);

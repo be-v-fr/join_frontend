@@ -1,11 +1,17 @@
-<header>
+<header class="relative">
     <span class="title">Kanban Project Management Tool</span>
     <div class="info">
         <a href="" class="help">
             <img src="../../../assets/img/menu/help.svg" alt="help">
         </a>
         @if(currentUser) {
-        <app-person-badge [name]="currentUser.name" [currentUser]="true"></app-person-badge>
+        <app-person-badge [name]="currentUser.name" [currentUser]="true" (click)="$event.stopPropagation(); toggleDropdown()"></app-person-badge>
         }
+    </div>
+    <div *ngIf="displayDropdown" class="dropdown-menu">
+        <a href="">Help</a>
+        <a href="">Legal notice</a>
+        <a href="">Privacy policy</a>
+        <a (click)="logOut()">Log out</a>
     </div>
 </header>
