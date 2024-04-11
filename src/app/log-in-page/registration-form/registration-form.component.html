@@ -55,7 +55,7 @@
     <div class="btn-container">
         @if(formMode == 'Log in') {
         <button type="submit" class="btn-primary">Log in</button>
-        <button type="button" class="btn-secondary">Guest log in</button>
+        <button type="button" class="btn-secondary" (click)="logInAsGuest()">Guest log in</button>
         }
         @else {
         <div class="btn-container">

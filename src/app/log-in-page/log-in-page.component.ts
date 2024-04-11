@@ -3,13 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 
 @Component({
-  selector: 'app-log-in',
+  selector: 'app-log-in-page',
   standalone: true,
   imports: [CommonModule, RegistrationFormComponent],
-  templateUrl: './log-in.component.html',
-  styleUrl: './log-in.component.scss'
+  templateUrl: './log-in-page.component.html',
+  styleUrl: './log-in-page.component.scss'
 })
-export class LogInComponent implements OnInit {
+export class LogInPageComponent implements OnInit {
   animate: boolean = true;
   formMode: 'Log in' | 'Sign up' = 'Log in';
 

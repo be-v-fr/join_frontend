@@ -50,10 +50,14 @@ export class UsersService {
 
   async updateUser(user: User) {
     if (user.uid) {
+      if(user.uid == 'guest') {
+        user.saveLocalGuestContacts();
+      } else {
       let docRef = this.getSingleDocRef(user.uid);
       let userJson = this.getJsonFromUser(user);
       await updateDoc(docRef, userJson)
         .catch((err: Error) => { console.error(err) });
+      }
     }
   }
 
@@ -73,11 +77,15 @@ export class UsersService {
   }
 
   getUserByUid(uid: string): User {
-    let user = new User('', '');
-    this.users.forEach(u => {
-      if (u.uid == uid) { user = this.setUserObject(u) }
-    });
-    return user;
+    if (uid == 'guest') {
+      return new User('Guest', uid);
+    } else {
+      let user = new User('', '');
+      this.users.forEach(u => {
+        if (u.uid == uid) { user = this.setUserObject(u) }
+      });
+      return user;
+    }
   }
 
   setUserObject(obj: any): User {

@@ -106,6 +106,7 @@ export class RegistrationFormComponent {
   }
 
   submitLogIn() {
+    this.authService.setLocalGuestLogin(false);
     this.authService.logIn(this.formData.email, this.formData.password).subscribe({
       next: () => this.navigateToSummary(),
       error: (err) => console.error(err)
@@ -113,6 +114,7 @@ export class RegistrationFormComponent {
   }
 
   submitSignUp() {
+    this.authService.setLocalGuestLogin(false);
     this.authService.register(this.formData.name, this.formData.email, this.formData.password).subscribe({
       next: () => {
         const uid = this.authService.getCurrentUid();
@@ -127,5 +129,11 @@ export class RegistrationFormComponent {
 
   navigateToSummary() {
     this.router.navigate((['/summary']));
+  }
+
+  logInAsGuest() {
+    this.authService.logOut();
+    this.authService.logInAsGuest();
+    this.navigateToSummary();
   }
 }

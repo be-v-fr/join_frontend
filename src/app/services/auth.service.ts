@@ -1,6 +1,6 @@
-import { Injectable, inject, signal } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, user } from "@angular/fire/auth";
-import { Observable, from } from "rxjs";
+import { Observable, from, of } from "rxjs";
 import { User } from "../../models/user";
 
 @Injectable({
@@ -9,6 +9,7 @@ import { User } from "../../models/user";
 export class AuthService {
     firebaseAuth = inject(Auth);
     user$ = user(this.firebaseAuth);
+    guestLogIn: boolean = false;
 
     register(name: string, email: string, password: string): Observable<void> {
         const promise = createUserWithEmailAndPassword(
@@ -28,16 +29,42 @@ export class AuthService {
         return from(promise);
     }
 
+    logInAsGuest() {
+        this.guestLogIn = true;
+        this.setLocalGuestLogin(true);
+    }
+
     logOut(): Observable<void> {
-        const promise = signOut(this.firebaseAuth);
-        return from(promise);
+        if (this.guestLogIn) {
+            this.guestLogIn = false;
+            return new Observable<void>(o => o.complete()); // FUNKTIONSWEISE ÜBERPRÜFEN
+        } else {
+            const promise = signOut(this.firebaseAuth);
+            return from(promise);
+        }
     }
 
     getCurrentUid(): string | undefined {
-        if (this.firebaseAuth.currentUser) {
+        if (this.guestLogIn || this.getLocalGuestLogin()) {
+            return 'guest';
+        } else if (this.firebaseAuth.currentUser) {
+            this.setLocalGuestLogin(false);
             return this.firebaseAuth.currentUser['uid'];
         } else {
             return undefined;
+        }
+    }
+
+    setLocalGuestLogin(logIn: boolean) {
+        localStorage.setItem('as_guest', JSON.stringify(logIn));
+    }
+
+    getLocalGuestLogin(): boolean {
+        const item = localStorage.getItem('as_guest');
+        if (item) {
+            return JSON.parse(item);
+        } else {
+            return false;
         }
     }
 }

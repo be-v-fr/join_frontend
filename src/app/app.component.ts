@@ -27,9 +27,13 @@ export class AppComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.authService.user$.subscribe(user => {
+    this.authService.user$.subscribe(() => {
       const uid = this.authService.getCurrentUid();
-      if (user && uid) {
+      if (uid) {
+        if(uid == 'guest') {
+          this.currentUser = this.usersService.getUserByUid(uid);
+          this.loggedIn = true;
+        }
         this.usersService.getUsers().subscribe(() => {
           this.currentUser = this.usersService.getUserByUid(uid);
           this.loggedIn = true;
