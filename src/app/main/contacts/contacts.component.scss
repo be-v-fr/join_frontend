@@ -35,6 +35,7 @@
       height: 60px;
     }
     .contactData {
+      font-size: $font-small;
       .name {
         @include flex($jc: flex-start, $g: 54px);
         .full-name-edit {
@@ -49,6 +50,9 @@
       }
       app-email {
         margin-bottom: 16px;
+      }
+      .phone-nr {
+        color: black;
       }
     }
   }

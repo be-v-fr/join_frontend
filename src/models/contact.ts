@@ -3,9 +3,9 @@ import {Person} from './person';
 export class Contact extends Person {
     uid?: string;
     email?: string;
-    phone?: number;
+    phone?: string;
 
-    constructor(name: string, uid?: string, email?: string, phone?: number) {
+    constructor(name: string, uid?: string, email?: string, phone?: string) {
         super(name);
         this.uid = uid;
         this.email = email;

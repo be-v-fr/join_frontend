@@ -35,6 +35,7 @@ div {
     font-weight: 700;
     color: $light-blue;
     border: 3px solid $anthracite;
+    cursor: pointer;
     transition: 75ms ease;
     &:hover {
         transition: 75ms ease;
