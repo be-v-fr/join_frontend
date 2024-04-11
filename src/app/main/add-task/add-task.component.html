@@ -8,21 +8,26 @@
         }
         Task
     </h2>
-    <form (submit)="onSubmit($event)">
+    <form (submit)="onSubmit(taskForm)" #taskForm="ngForm">
         <div class="form-main">
             <div class="form-side">
-                <div class="form-field">
+                <div class="form-field relative"
+                    [ngClass]="{'validation-error': (title.touched || taskForm.submitted) && !title.valid}">
                     <label for="title">Title<span class="marked-red">*</span></label>
-                    <input type="text" [(ngModel)]="task.title" name="title" id="title" placeholder="Enter a title">
+                    <input type="text" [(ngModel)]="task.title" name="title" #title="ngModel"
+                        placeholder="Enter a title" required>
+                    @if((title.touched || taskForm.submitted) && !title.valid) {
+                    <p>A task title is required.</p>
+                    }
                 </div>
                 <div class="form-field">
                     <label for="description">Description</label>
-                    <textarea type="text" [(ngModel)]="task.description" name="description" id="description"
+                    <textarea type="text" [(ngModel)]="task.description" name="description" #description="ngModel"
                         placeholder="Enter a description"></textarea>
                 </div>
                 <div class="form-field">
                     <label for="assigend" (click)="$event.preventDefault()">Assigned to</label>
-                    <input type="hidden" [(ngModel)]="task.assigned" name="assigned" id="assigned">
+                    <input type="hidden" [(ngModel)]="task.assigned" name="assigned" #assigned="ngModel">
                     <div class="dropdown-container">
                         <div class="dropdown-input" (click)="toggleDropdown($event, 'assigned')">
                             Select contacts to assign
@@ -52,15 +57,21 @@
             </div>
             <div class="vertical-ruler"></div>
             <div class="form-side">
-                <div class="form-field relative">
+                <div class="form-field relative" [ngClass]="{'validation-error': ((due.touched || taskForm.submitted) && !due.valid) || true}">
                     <label for="due">Due date<span class="marked-red">*</span></label>
-                    <input type="date" class="prevent-select" [(ngModel)]="task.due" name="due" id="due">
-                    <input type="text" class="due-text-input" value="{{dueToText()}}" placeholder="dd/mm/yyyy" pattern="\d{2}/\d{2}/\d{4}" (change)="textToDue($event)">
+                    <input type="date" class="prevent-select" [(ngModel)]="task.due" name="due" #due="ngModel" required>
+                    <input type="text" class="due-text-input" value="{{dueToText()}}" placeholder="dd/mm/yyyy"
+                        pattern="\d{2}/\d{2}/\d{4}">
+                        @if(true) {
+                            <p>This date is in the past.</p>
+                        } @else if((due.touched || taskForm.submitted) && !due.valid) {
+                            <p>This is not a valid date.</p>
+                        }
                 </div>
                 <div class="form-field">
                     <label for="prio">Prio</label>
                     <div class="prio-btns">
-                        <input type="hidden" [(ngModel)]="task.prio" name="prio" id="prio">
+                        <input type="hidden" [(ngModel)]="task.prio" name="prio" #prio="ngModel">
                         <button type="button" (click)="selectPrio('Urgent')"
                             [ngClass]="{'selected urgent': task.prio == 'Urgent'}">
                             <span>Urgent</span>
@@ -93,7 +104,7 @@
                 <div class="form-field">
                     <label for="category" (click)="$event.preventDefault()">Category<span
                             class="marked-red">*</span></label>
-                    <input type="hidden" [(ngModel)]="task.category" name="category" id="category">
+                    <input type="hidden" [(ngModel)]="task.category" name="category" #category="ngModel">
                     <div class="dropdown-container">
                         <div class="dropdown-input" (click)="toggleDropdown($event, 'category')">
                             @if(task.category == null) {
@@ -114,7 +125,7 @@
                 </div>
                 <div class="form-field relative">
                     <label for="subtask">Subtasks</label>
-                    <input type="hidden" [(ngModel)]="task.subtasks" name="subtasks" id="subtasks">
+                    <input type="hidden" [(ngModel)]="task.subtasks" name="subtasks" #subtasks="ngModel">
                     <input type="text" name="subtask" #subtask placeholder="Add new subtask"
                         (keydown.enter)="addSubtask()">
                     <button type="button" (click)="addSubtask()" class="custom-input-btn">

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Input, Output, ViewChild, OnDestroy, EventEmitter, inject } from '@angular/core';
 import { Subtask } from '../../../interfaces/subtask.interface';
 import { SubtaskComponent } from './subtask/subtask.component';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, NgForm, ValidationErrors } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { User } from '../../../models/user';
 import { UsersService } from '../../services/users.service';
@@ -36,6 +36,7 @@ export class AddTaskComponent extends SlideComponent {
   showCategoryDropdown: boolean = false;
   showTaskAddedToast: boolean = false;
   @Output() cancelled = new EventEmitter<void>();
+  error: string = '';
 
 
   constructor(private router: Router) {
@@ -66,7 +67,6 @@ export class AddTaskComponent extends SlideComponent {
     }
   }
 
-  // VALIDIERUNG MUSS NOCH HINZUGEFÜGT WERDEN !! (IN FUNKTION "dueToText()" NICHT)
   textToDue(ev: Event) {
     const target = ev.target as HTMLInputElement;
     const value = target.value;
@@ -78,6 +78,8 @@ export class AddTaskComponent extends SlideComponent {
       day = (day < 10 ? '0' : '') + day;
       month = (month < 10 ? '0' : '') + month;
       this.task.due = year + '-' + month + '-' + day;
+    } else {
+      this.task.due = '';
     }
   }
 
@@ -133,15 +135,16 @@ export class AddTaskComponent extends SlideComponent {
     this.formClick.next();
   }
 
-  onSubmit(e: Event): void {
-    e.preventDefault();
-    if (this.task.id == '') {
-      this.tasksService.addTask(this.task);
-      this.showTaskAddedToast = true;
-      setTimeout(() => { this.inOverlay ? this.close() : this.router.navigate(['/board']) }, 700);
-    } else {
-      this.tasksService.updateTask(this.task);
-      this.close()
+  onSubmit(form: NgForm) {
+    if (form.submitted && form.form.valid) {
+      if (this.task.id == '') {
+        this.tasksService.addTask(this.task);
+        this.showTaskAddedToast = true;
+        setTimeout(() => { this.inOverlay ? this.close() : this.router.navigate(['/board']) }, 700);
+      } else {
+        this.tasksService.updateTask(this.task);
+        this.close()
+      }
     }
   }
 

@@ -3,20 +3,21 @@
         <img src="assets/img/arrow-left-line.svg" alt="back">
     </button>
     <h2>{{formMode}}</h2>
-    <div *ngIf="formMode == 'Sign up'" class="form-field" [ngClass]="{'validation-error': name.touched && !name.valid}">
+    <div *ngIf="formMode == 'Sign up'" class="form-field"
+        [ngClass]="{'validation-error': (name.touched || registrationForm.submitted) && !name.valid}">
         <input type="text" class="text-input" placeholder="Name" name="name" autocomplete="name" #name="ngModel"
             [(ngModel)]="formData.name" required>
         <img src="assets/img/person.svg" alt="name">
-        @if(name.touched && !name.valid) {
+        @if((name.touched || registrationForm.submitted) && !name.valid) {
         <p>Your name is required.</p>
         }
     </div>
     <div class="form-field"
-        [ngClass]="{'validation-error': (email.touched && !email.valid) || authError == 'invalid credential' || authError == 'email in use'}">
+        [ngClass]="{'validation-error': ((email.touched || registrationForm.submitted) && !email.valid) || authError == 'invalid credential' || authError == 'email in use'}">
         <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel"
             [(ngModel)]="formData.email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
         <img src="assets/img/mail.svg" alt="email">
-        @if(email.touched && !email.valid) {
+        @if((email.touched || registrationForm.submitted) && !email.valid) {
         <p>This is not a valid email adress.</p>
         }
         @else if(authError == 'email in use') {
