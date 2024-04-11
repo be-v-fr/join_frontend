@@ -7,7 +7,6 @@
   form {
     width: 100%;
     flex: 1;
-    padding-right: 60px;
     @include flex($dir: column);
     .form-main {
       width: 100%;
@@ -38,6 +37,11 @@
         @include flex($g: 16px);
       }
     }
+  }
+  .btn-close {
+    position: absolute;
+    right: 36px;
+    top: 60px;
   }
 }
 

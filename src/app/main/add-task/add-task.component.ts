@@ -13,11 +13,12 @@ import { TasksService } from '../../services/tasks.service';
 import { ToastNotificationComponent } from '../../templates/toast-notification/toast-notification.component';
 import { Router } from '@angular/router';
 import { SlideComponent } from '../../templates/slide/slide.component';
+import { CloseBtnComponent } from '../../templates/close-btn/close-btn.component';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [CommonModule, FormsModule, SubtaskComponent, ContactListItemComponent, PersonBadgeComponent, ToastNotificationComponent],
+  imports: [CommonModule, FormsModule, SubtaskComponent, ContactListItemComponent, PersonBadgeComponent, ToastNotificationComponent, CloseBtnComponent],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
