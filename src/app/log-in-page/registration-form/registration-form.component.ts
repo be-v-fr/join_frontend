@@ -48,6 +48,7 @@ export class RegistrationFormComponent {
   }
 
   toggleModeEmit() {
+    this.resetAuthError();
     this.toggleMode.emit();
   }
 
@@ -111,6 +112,12 @@ export class RegistrationFormComponent {
     }
   }
 
+  getAuthError(err: string) {
+    if (err.includes('auth/invalid-credential')) {return 'invalid credential'}
+    else if(err.includes('auth/email-already-in-use')) {return 'email in use'}
+    else return ''
+  }
+
   resetAuthError() {
     this.authError = '';
   }
@@ -120,12 +127,7 @@ export class RegistrationFormComponent {
     this.authService.setLocalRememberMe(this.rememberLogIn);
     this.authService.logIn(this.formData.email, this.formData.password).subscribe({
       next: () => this.navigateToSummary(),
-      error: (err) => {
-        this.authError = err.toString();
-        if (this.authError.includes('auth/invalid-credential')) {
-          this.authError = 'invalid credential';
-        }
-      }
+      error: (err) => this.authError = this.getAuthError(err.toString())
     });
   }
 
@@ -140,7 +142,7 @@ export class RegistrationFormComponent {
           }
           this.navigateToSummary();
         },
-        error: (err) => console.error(err)
+        error: (err) => this.authError = this.getAuthError(err.toString())
       });
     }
   }

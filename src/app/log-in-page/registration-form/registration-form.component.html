@@ -4,24 +4,28 @@
     </button>
     <h2>{{formMode}}</h2>
     <div *ngIf="formMode == 'Sign up'" class="form-field" [ngClass]="{'validation-error': name.touched && !name.valid}">
-        <input type="text" class="text-input" placeholder="Name" name="name" autocomplete="name" #name="ngModel" [(ngModel)]="formData.name"
-            required>
+        <input type="text" class="text-input" placeholder="Name" name="name" autocomplete="name" #name="ngModel"
+            [(ngModel)]="formData.name" required>
         <img src="assets/img/person.svg" alt="name">
         @if(name.touched && !name.valid) {
-            <p>Your name is required.</p>
+        <p>Your name is required.</p>
         }
     </div>
-    <div class="form-field" [ngClass]="{'validation-error': (email.touched && !email.valid) || authError.length > 0}">
+    <div class="form-field"
+        [ngClass]="{'validation-error': (email.touched && !email.valid) || authError == 'invalid credential' || authError == 'email in use'}">
         <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel"
             [(ngModel)]="formData.email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
         <img src="assets/img/mail.svg" alt="email">
         @if(email.touched && !email.valid) {
-            <p>This is not a valid email adress.</p>
+        <p>This is not a valid email adress.</p>
+        }
+        @else if(authError == 'email in use') {
+        <p>This email adress is already in use.</p>
         }
     </div>
-    <div class="form-field" [ngClass]="{'validation-error': authError.length > 0}">
-        <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password" autocomplete="current-password" #password="ngModel"
-            [(ngModel)]="formData.password" required>
+    <div class="form-field" [ngClass]="{'validation-error': authError == 'invalid credential'}">
+        <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password"
+            autocomplete="current-password" #password="ngModel" [(ngModel)]="formData.password" required>
         @if(formData.password.length > 0) {
         <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('password')"></app-password-icon>
         }
@@ -29,10 +33,11 @@
         <app-password-icon [state]="'default'" (click)="toggleVisibility('password')"></app-password-icon>
         }
         @if(authError == 'invalid credential') {
-            <p>Wrong email or password! Please try again.</p>
+        <p>Wrong email or password! Please try again.</p>
         }
     </div>
-    <div *ngIf="formMode == 'Sign up'" class="form-field" [ngClass]="{'validation-error': passwordConfirmation.touched && !checkPasswordConfirmation()}">
+    <div *ngIf="formMode == 'Sign up'" class="form-field"
+        [ngClass]="{'validation-error': passwordConfirmation.touched && !checkPasswordConfirmation()}">
         <input type="{{passwordConfirmationFieldType}}" class="text-input" placeholder="Confirm password"
             name="passwordConfirmation" #passwordConfirmation="ngModel" [(ngModel)]="formData.passwordConfirmation"
             required>
@@ -55,14 +60,16 @@
         <a href="" class="link-blue">I forgot my password</a>
         }
         @else {
-        <div class="checkbox-container prevent-select relative" [ngClass]="{'validation-error': registrationForm.submitted && !acceptPrivacyPolicy}" (click)="togglePrivacyPolicy()">
+        <div class="checkbox-container prevent-select relative"
+            [ngClass]="{'validation-error': registrationForm.submitted && !acceptPrivacyPolicy}"
+            (click)="togglePrivacyPolicy()">
             <div class="custom-checkbox" [ngClass]="{'custom-checked' : acceptPrivacyPolicy}"></div>
             <span>
                 <div>I accept the</div>
                 <a href="" class="link-blue" (click)="$event.stopPropagation()">privacy policy</a>
             </span>
             @if(registrationForm.submitted && !acceptPrivacyPolicy) {
-                <p>Accept the privacy policy to sign up.</p>  
+            <p>Accept the privacy policy to sign up.</p>
             }
         </div>
         }
