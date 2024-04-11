@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, Output, OnInit, ViewChild, OnDestroy, EventEmitter, inject } from '@angular/core';
+import { Component, ElementRef, Input, Output, ViewChild, OnDestroy, EventEmitter, inject } from '@angular/core';
 import { Subtask } from '../../../interfaces/subtask.interface';
 import { SubtaskComponent } from './subtask/subtask.component';
 import { FormsModule } from '@angular/forms';
@@ -22,7 +22,7 @@ import { CloseBtnComponent } from '../../templates/close-btn/close-btn.component
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
-export class AddTaskComponent extends SlideComponent implements OnInit {
+export class AddTaskComponent extends SlideComponent {
   formClick: Subject<void> = new Subject<void>();
   users: User[] = [];
   private usersService = inject(UsersService);

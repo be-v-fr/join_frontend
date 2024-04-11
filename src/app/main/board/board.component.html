@@ -17,19 +17,23 @@
     </section>
     <section class="tasks-by-status">
         @for (status of statusList; track status) {
-            <app-task-list [status]="status" [tasks]="getFilteredTasks(status)" [users]="users" (addToStatusClick)="addToStatus(status)" (taskClick)="viewTask($event)"></app-task-list>
+        <app-task-list [status]="status" [tasks]="getFilteredTasks(status)" (addToStatusClick)="addToStatus(status)"
+            (taskClick)="viewTask($event)"></app-task-list>
         }
     </section>
 </div>
-<app-task-view *ngIf="viewTaskId != ''" [task]="getTaskById(viewTaskId)" [users]="users"
-    (cancelOverlay)="closeTaskView()" (editThisTask)="showTaskForm(viewTaskId)"></app-task-view>
+<app-task-view *ngIf="viewTaskId != ''" [task]="getTaskById(viewTaskId)" (cancelOverlay)="closeTaskView()"
+    (editThisTask)="showTaskForm(viewTaskId)"></app-task-view>
 @if(taskFormId != null) {
 <div class="overlay" [ngClass]="{'no-bg': viewTaskId != ''}" (click)="hideTaskForm()">
-    <div class="task-form-wrapper" [ngClass]="taskFormWrapperTranslated ? 'slid-out' : 'slid-in'" (click)="$event.stopPropagation()">
+    <div class="task-form-wrapper" [ngClass]="taskFormWrapperTranslated ? 'slid-out' : 'slid-in'"
+        (click)="$event.stopPropagation()">
         @if(taskFormId == '') {
-            <app-add-task [status]="newTaskStatus" [inOverlay]="true" (cancelled)="hideTaskForm()" (slide)="slideTaskFormWrapper()"></app-add-task>
+        <app-add-task [status]="newTaskStatus" [inOverlay]="true" (cancelled)="hideTaskForm()"
+            (slide)="slideTaskFormWrapper()"></app-add-task>
         } @else {
-            <app-add-task [task]="getTaskById(taskFormId)" [inOverlay]="true" (cancelled)="hideTaskForm()" (slide)="slideTaskFormWrapper()"></app-add-task>
+        <app-add-task [task]="getTaskById(taskFormId)" [inOverlay]="true" (cancelled)="hideTaskForm()"
+            (slide)="slideTaskFormWrapper()"></app-add-task>
         }
     </div>
 </div>

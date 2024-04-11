@@ -35,6 +35,7 @@ export class ContactsComponent implements OnInit {
         this.currentUser = this.usersService.getUserByUid(uid);
         this.sortedContacts = this.getSortedContacts();
         this.usersService.getUsers().subscribe(() => {
+          this.users = this.usersService.users;
           this.sortedContacts = this.getSortedContacts();
         })
       }

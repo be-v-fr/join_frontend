@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { Task } from '../../../../../models/task';
 import { User } from '../../../../../models/user';
+import { UsersService } from '../../../../services/users.service';
 import { PersonBadgeComponent } from '../../../../templates/person-badge/person-badge.component';
 import { TaskCategoryComponent } from './task-category/task-category.component';
 import { PrioIconComponent } from '../../../../templates/prio-icon/prio-icon.component';
@@ -13,9 +14,14 @@ import { PrioIconComponent } from '../../../../templates/prio-icon/prio-icon.com
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.scss'
 })
-export class TaskCardComponent {
-  @Input() users: User[] = [];
+export class TaskCardComponent implements OnInit {
+  users: User[] = [];
   @Input() task: Task = new Task('');
+  private usersService = inject(UsersService);
+
+  ngOnInit(): void {
+    this.users = this.usersService.users;   
+  }
 
   printDescription() {
     let printed = this.task.description.slice(0,35);

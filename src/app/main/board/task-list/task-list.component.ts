@@ -14,14 +14,13 @@ import { CommonModule } from '@angular/common';
 })
 export class TaskListComponent {
   @Input() tasks: Task[] = [];
-  @Input() users: User[] = [];
   @Input() status: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
   draggingOver: boolean = false;
   draggedTaskCard: HTMLElement | null = null;
   @Output() addToStatusClick = new EventEmitter<void>();
   @Output() taskClick = new EventEmitter<string>();
 
-  constructor(private tasksService: TasksService) { }
+  constructor(private tasksService: TasksService) {}
 
   onTaskDragStart(ev: DragEvent, id: string) {
     ev.dataTransfer?.setData('text/plain', id);

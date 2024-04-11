@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { Task } from '../../../../models/task';
 import { TasksService } from '../../../services/tasks.service';
 import { User } from '../../../../models/user';
+import { UsersService } from '../../../services/users.service';
 import { TaskCategoryComponent } from '../task-list/task-card/task-category/task-category.component';
 import { ContactListItemComponent } from '../../contacts/contact-list-item/contact-list-item.component';
 import { CloseBtnComponent } from '../../../templates/close-btn/close-btn.component';
@@ -21,9 +22,16 @@ export class TaskViewComponent extends SlideComponent {
   @Input() users: User[] = [];
   @Output() cancelOverlay = new EventEmitter<void>();
   @Output() editThisTask = new EventEmitter<void>();
+  private usersService = inject(UsersService);
+  private tasksService = inject(TasksService);
 
-  constructor(private tasksService: TasksService) {
+  constructor() {
     super();
+  }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.users = this.usersService.users;   
   }
 
   cancel() {
