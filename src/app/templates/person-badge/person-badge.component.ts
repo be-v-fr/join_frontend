@@ -10,7 +10,7 @@ import { Component, Input } from '@angular/core';
 })
 export class PersonBadgeComponent {
   @Input() name: string = '';
-  @Input() color: string = '#000000';
+  @Input() color: string = '#d1d1d1';
   @Input() large?: boolean = false;
   @Input() currentUser?: boolean = false;
 

@@ -35,4 +35,9 @@ div {
     font-weight: 700;
     color: $light-blue;
     border: 3px solid $anthracite;
+    transition: 75ms ease;
+    &:hover {
+        transition: 75ms ease;
+        background: #e1e6ec;
+    }
 }
