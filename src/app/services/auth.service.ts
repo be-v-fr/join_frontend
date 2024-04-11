@@ -67,4 +67,17 @@ export class AuthService {
             return false;
         }
     }
+
+    setLocalRememberMe(remember: boolean) {
+        localStorage.setItem('remember_log_in', JSON.stringify(remember));
+    }
+
+    getLocalRememberMe() {
+        const item = localStorage.getItem('remember_log_in');
+        if (item) {
+            return JSON.parse(item);
+        } else {
+            return false;
+        }
+    }
 }

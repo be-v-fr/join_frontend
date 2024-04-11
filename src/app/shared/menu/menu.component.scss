@@ -55,7 +55,8 @@ nav {
 .other {
   width: 100%;
   margin-bottom: 64px;
-  @include flex($g: 4px, $dir: column);
+  padding-left: 58px;
+  @include flex($ai: flex-start, $g: 4px, $dir: column);
   a {
     height: 35px;
     color: $dark-grey;

@@ -3,18 +3,24 @@
         <img src="assets/img/arrow-left-line.svg" alt="back">
     </button>
     <h2>{{formMode}}</h2>
-    <div *ngIf="formMode == 'Sign up'" class="form-field">
-        <input type="text" class="text-input" placeholder="Name" name="name" #name="ngModel" [(ngModel)]="formData.name"
+    <div *ngIf="formMode == 'Sign up'" class="form-field" [ngClass]="{'validation-error': name.touched && !name.valid}">
+        <input type="text" class="text-input" placeholder="Name" name="name" autocomplete="name" #name="ngModel" [(ngModel)]="formData.name"
             required>
         <img src="assets/img/person.svg" alt="name">
+        @if(name.touched && !name.valid) {
+            <p>Your name is required.</p>
+        }
     </div>
-    <div class="form-field">
+    <div class="form-field" [ngClass]="{'validation-error': email.touched && !email.valid}">
         <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel"
             [(ngModel)]="formData.email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
         <img src="assets/img/mail.svg" alt="email">
+        @if(email.touched && !email.valid) {
+            <p>This is not a valid email adress.</p>
+        }
     </div>
     <div class="form-field">
-        <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password" #password ngModel
+        <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password" autocomplete="current-password" #password="ngModel"
             [(ngModel)]="formData.password" required>
         @if(formData.password.length > 0) {
         <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('password')"></app-password-icon>
@@ -23,15 +29,18 @@
         <app-password-icon [state]="'default'" (click)="toggleVisibility('password')"></app-password-icon>
         }
     </div>
-    <div *ngIf="formMode == 'Sign up'" class="form-field">
+    <div *ngIf="formMode == 'Sign up'" class="form-field" [ngClass]="{'validation-error': passwordConfirmation.touched && !checkPasswordConfirmation()}">
         <input type="{{passwordConfirmationFieldType}}" class="text-input" placeholder="Confirm password"
-            name="passwordConfirmation" #passwordConfirmation ngModel [(ngModel)]="formData.passwordConfirmation"
+            name="passwordConfirmation" #passwordConfirmation="ngModel" [(ngModel)]="formData.passwordConfirmation"
             required>
         @if(formData.passwordConfirmation.length > 0) {
         <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('confirmation')"></app-password-icon>
         }
         @else {
         <app-password-icon [state]="'default'" (click)="toggleVisibility('confirmation')"></app-password-icon>
+        }
+        @if(passwordConfirmation.touched && !checkPasswordConfirmation()) {
+        <p>Oops! Your passwords don\'t match.</p>
         }
     </div>
     <div class="further-options" [ngClass]="{'privacy-policy': formMode == 'Sign up'}">
@@ -43,12 +52,15 @@
         <a href="" class="link-blue">I forgot my password</a>
         }
         @else {
-        <div class="checkbox-container prevent-select" (click)="togglePrivacyPolicy()">
+        <div class="checkbox-container prevent-select relative" [ngClass]="{'validation-error': registrationForm.submitted && !acceptPrivacyPolicy}" (click)="togglePrivacyPolicy()">
             <div class="custom-checkbox" [ngClass]="{'custom-checked' : acceptPrivacyPolicy}"></div>
             <span>
                 <div>I accept the</div>
                 <a href="" class="link-blue" (click)="$event.stopPropagation()">privacy policy</a>
             </span>
+            @if(registrationForm.submitted && !acceptPrivacyPolicy) {
+                <p>Accept the privacy policy to sign up.</p>  
+            }
         </div>
         }
     </div>

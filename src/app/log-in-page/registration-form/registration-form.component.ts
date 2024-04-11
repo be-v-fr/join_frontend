@@ -21,7 +21,7 @@ export class RegistrationFormComponent {
   passwordConfirmationFieldType: 'password' | 'text' = 'password';
   @ViewChild('password') passwordRef!: ElementRef;
   @ViewChild('passwordConfirmation') passwordConfirmationRef!: ElementRef;
-  rememberLogIn: boolean = false;
+  rememberLogIn: boolean;
   acceptPrivacyPolicy: boolean = false;
   formData = {
     name: '',
@@ -30,16 +30,25 @@ export class RegistrationFormComponent {
     passwordConfirmation: ''
   };
   validationError: string[] = [
-    'This is not a valid email adress.',
-    'Accept the privacy policy to sign up.',
-    'Oops! Your passwords don\'t match.',
     'This email adress is not registered.',
     'Wrong password! Please try again.'
   ];
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    this.rememberLogIn = this.authService.getLocalRememberMe();
+    if (this.rememberLogIn) {
+      this.authService.user$.subscribe(() => {
+        const currentUser = this.authService.firebaseAuth.currentUser;
+        if(currentUser && currentUser.displayName) {this.formData['name'] = currentUser.displayName};
+        if(currentUser && currentUser.email) {this.formData['email'] = currentUser.email};
+        setTimeout(() => {
+          if (this.authService.getCurrentUid()) { this.navigateToSummary() }
+        }, 1200)
+      });
+    }
+  }
 
   toggleModeEmit() {
     this.toggleMode.emit();
@@ -107,6 +116,7 @@ export class RegistrationFormComponent {
 
   submitLogIn() {
     this.authService.setLocalGuestLogin(false);
+    this.authService.setLocalRememberMe(this.rememberLogIn);
     this.authService.logIn(this.formData.email, this.formData.password).subscribe({
       next: () => this.navigateToSummary(),
       error: (err) => console.error(err)
@@ -114,17 +124,19 @@ export class RegistrationFormComponent {
   }
 
   submitSignUp() {
-    this.authService.setLocalGuestLogin(false);
-    this.authService.register(this.formData.name, this.formData.email, this.formData.password).subscribe({
-      next: () => {
-        const uid = this.authService.getCurrentUid();
-        if (uid) {
-          this.usersService.addUserByUid(new User(this.formData.name, uid));
-        }
-        this.navigateToSummary();
-      },
-      error: (err) => console.error(err)
-    });
+    if (this.acceptPrivacyPolicy) {
+      this.authService.setLocalGuestLogin(false);
+      this.authService.register(this.formData.name, this.formData.email, this.formData.password).subscribe({
+        next: () => {
+          const uid = this.authService.getCurrentUid();
+          if (uid) {
+            this.usersService.addUserByUid(new User(this.formData.name, uid));
+          }
+          this.navigateToSummary();
+        },
+        error: (err) => console.error(err)
+      });
+    }
   }
 
   navigateToSummary() {
