@@ -139,6 +139,12 @@ button {
     color: $anthracite-darkened;
     border-color: $anthracite-darkened;
   }
+  &[disabled] {
+    color: $grey;
+    border-color: $grey;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
 }
 
 .btn-x {
