@@ -16,27 +16,36 @@
             <div class="separator"></div>
         </div>
         @if(mode == 'add') {
-            <app-person-badge [large]="true"></app-person-badge>
+        <app-person-badge [large]="true"></app-person-badge>
         } @else {
-            <app-person-badge [name]="contact.name" [color]="contact.color" [large]="true"></app-person-badge>
+        <app-person-badge [name]="contact.name" [color]="contact.color" [large]="true"></app-person-badge>
         }
-        <form ngNativeValidate (submit)="onSubmit($event)">
+        <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
             <app-close-btn (click)="cancel()" class="btn-close"></app-close-btn>
-            <div class="form-field">
-                @if(contact.uid && contact.uid.length > 0) {
-                    <input type="text" [(ngModel)]="contact.name" class="text-input" placeholder="Name" name="name" id="name" disabled>
-                } @else {
-                    <input type="text" [(ngModel)]="contact.name" class="text-input" placeholder="Name" name="name" id="name" required>
+            <div class="form-field"
+                [ngClass]="{'validation-error': (name.touched || contactForm.submitted) && !name.valid}">
+                <input type="text" [(ngModel)]="contact.name" class="text-input" placeholder="Name" name="name"
+                    #name="ngModel" required [disabled]="disableUserNameEdit">
+                @if((name.touched || contactForm.submitted) && !name.valid) {
+                <p>A contact name is required.</p>
                 }
                 <img src="assets/img/person.svg">
             </div>
-            <div class="form-field">
-                <input type="text" [(ngModel)]="contact.email" class="text-input" placeholder="Email" name="email">
-                <img src="assets/img/mail.svg">
+            <div class="form-field"
+                [ngClass]="{'validation-error': (email.touched || contactForm.submitted) && !email.valid}">
+                <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel"
+                    [(ngModel)]="contact.email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+                <img src="assets/img/mail.svg" alt="email">
+                @if((email.touched || contactForm.submitted) && !email.valid) {
+                <p>This is not a valid email adress.</p>
+                }
             </div>
-            <div class="form-field">
-                <input type="text" [(ngModel)]="contact.phone" class="text-input" placeholder="Phone" name="phone">
+            <div class="form-field" [ngClass]="{'validation-error': (phone.touched || contactForm.submitted) && !phone.valid}">
+                <input type="text" [(ngModel)]="contact.phone" class="text-input" placeholder="Phone" name="phone" #phone="ngModel" pattern="[\d+()-]*">
                 <img src="assets/img/contacts/call.svg">
+                @if((phone.touched || contactForm.submitted) && !phone.valid) {
+                    <p>This is not a valid phone number.</p>
+                    }
             </div>
             <div class="btns-submit">
                 @if(mode == 'add') {

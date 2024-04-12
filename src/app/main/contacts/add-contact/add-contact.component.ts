@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PersonBadgeComponent } from '../../../templates/person-badge/person-badge.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Contact } from '../../../../models/contact';
 import { CloseBtnComponent } from '../../../templates/close-btn/close-btn.component';
 import { SlideComponent } from '../../../templates/slide/slide.component';
@@ -18,10 +18,17 @@ export class AddContactComponent extends SlideComponent {
   @Input() contact: Contact = new Contact('');
   @Output() cancelOverlay = new EventEmitter<void>();
   @Output() submit = new EventEmitter<Contact>();
+  disableUserNameEdit: boolean = false;
 
-  onSubmit(e: Event): void {
-    e.preventDefault();
-    this.submit.emit(this.contact);
+  override ngOnInit() {
+    super.ngOnInit();
+    if (this.contact.uid && this.contact.uid.length > 0) {this.disableUserNameEdit = true}
+  }
+
+  onSubmit(form: NgForm): void {
+    if (form.submitted && form.form.valid) {
+      this.submit.emit(this.contact);
+    }
   }
 
   cancel() {
