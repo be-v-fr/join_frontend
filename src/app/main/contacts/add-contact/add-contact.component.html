@@ -41,7 +41,7 @@
                 }
             </div>
             <div class="form-field" [ngClass]="{'validation-error': (phone.touched || contactForm.submitted) && !phone.valid}">
-                <input type="text" [(ngModel)]="contact.phone" class="text-input" placeholder="Phone" name="phone" #phone="ngModel" pattern="[\d+()-]*">
+                <input type="text" [(ngModel)]="contact.phone" class="text-input" placeholder="Phone" name="phone" #phone="ngModel" pattern="[\d+()\- ]*">
                 <img src="assets/img/contacts/call.svg">
                 @if((phone.touched || contactForm.submitted) && !phone.valid) {
                     <p>This is not a valid phone number.</p>
@@ -62,7 +62,7 @@
                     <img src="../../../assets/img/check_white.svg" alt="create task">
                 </button>
                 } @else {
-                <button type="button" class="btn-secondary btn-x" (click)="cancel()">
+                <button type="button" class="btn-secondary btn-x" (click)="deleteContact()" [disabled]="disableUserNameEdit">
                     Delete
                 </button>
                 <button type="submit" class="btn-primary">

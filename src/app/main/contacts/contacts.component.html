@@ -19,8 +19,8 @@
         @if(selection >= 0) {
         <div class="contactData">
             <div class="name">
-                <app-person-badge [name]="sortedContacts[selection].name"
-                    [color]="sortedContacts[selection].color" [large]="true"></app-person-badge>
+                <app-person-badge [name]="sortedContacts[selection].name" [color]="sortedContacts[selection].color"
+                    [large]="true"></app-person-badge>
                 <div class="full-name-edit">
                     <p class="full-name">{{sortedContacts[selection].name}}</p>
                     <div class="edit-btns-container">
@@ -28,10 +28,12 @@
                             <img src="../../../../assets/img/edit.svg" alt="edit contact">
                             <p>Edit</p>
                         </button>
+                        @if(!sortedContacts[selection].uid) {
                         <button class="edit-btn" (click)="deleteSelectedContact()" name="Delete">
                             <img src="../../../../assets/img/remove.svg" alt="delete contact">
                             <p>Delete</p>
                         </button>
+                        }
                     </div>
                 </div>
             </div>
@@ -51,9 +53,8 @@
     </div>
 </div>
 @if(contactOverlay == 'add') {
-<app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="'add'"
-    (submit)="submitContact($event)"></app-add-contact>
+<app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="'add'" (submit)="submitContact($event)"></app-add-contact>
 } @else if (contactOverlay == 'edit' && currentUser) {
-<app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="'edit'"
-    [contact]="sortedContacts[selection]" (submit)="submitContact($event)"></app-add-contact>
+<app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="'edit'" [contact]="sortedContacts[selection]"
+    (submit)="submitContact($event)" (delete)="deleteSelectedContact()"></app-add-contact>
 }

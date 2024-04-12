@@ -8,11 +8,12 @@ import { PersonBadgeComponent } from '../../templates/person-badge/person-badge.
 import { EmailComponent } from './email/email.component';
 import { AddContactComponent } from './add-contact/add-contact.component';
 import { HeadlineSloganComponent } from '../../templates/headline-slogan/headline-slogan.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [ContactListItemComponent, PersonBadgeComponent, EmailComponent, AddContactComponent, HeadlineSloganComponent],
+  imports: [CommonModule, ContactListItemComponent, PersonBadgeComponent, EmailComponent, AddContactComponent, HeadlineSloganComponent],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss'
 })
@@ -104,9 +105,8 @@ export class ContactsComponent implements OnInit {
   }
 
   deleteSelectedContact() {
-    if (this.currentUser) {
       this.currentUser.contacts.splice(this.selection, 1);
       this.usersService.updateUser(this.currentUser);
-    }
+      this.selection = -1;
   }
 }

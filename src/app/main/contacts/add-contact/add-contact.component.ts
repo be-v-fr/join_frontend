@@ -18,6 +18,7 @@ export class AddContactComponent extends SlideComponent {
   @Input() contact: Contact = new Contact('');
   @Output() cancelOverlay = new EventEmitter<void>();
   @Output() submit = new EventEmitter<Contact>();
+  @Output() delete = new EventEmitter<void>();
   disableUserNameEdit: boolean = false;
 
   override ngOnInit() {
@@ -34,5 +35,10 @@ export class AddContactComponent extends SlideComponent {
   cancel() {
     this.slideInOut();
     setTimeout(() => this.cancelOverlay.emit(), 125);
+  }
+
+  deleteContact() {
+    this.delete.emit();
+    this.cancel();
   }
 }
