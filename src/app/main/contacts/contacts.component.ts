@@ -43,7 +43,7 @@ export class ContactsComponent implements OnInit {
   }
 
   getContactsWithUsers(): Contact[] {
-    const contacts: Contact[] = this.usersService.getUserByUid(this.currentUser.uid).contacts;
+    const contacts: Contact[] = this.currentUser.contacts;
     this.users.forEach(u => {
       if (u.uid != this.currentUser.uid && !this.currentUser.hasUserInContacts(u)) {
         contacts.push(u.asContact());
@@ -52,7 +52,7 @@ export class ContactsComponent implements OnInit {
   }
 
   getSortedContacts(): Contact[] {
-    return this.getContactsWithUsers().sort((a: Contact, b: Contact) => a.name > b.name ? 1 : -1);
+    return this.getContactsWithUsers().sort((a: Contact, b: Contact) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
   }
 
   getFirstLetter(contact: Contact): string {
@@ -84,9 +84,18 @@ export class ContactsComponent implements OnInit {
         this.sortedContacts[this.selection] = contact;
         this.currentUser.contacts = this.filterOutUneditedUsers();
       }
-      this.usersService.updateUser(this.currentUser);
+      this.updateContacts();
     }
     this.cancelOverlay();
+  }
+
+  updateContacts() {
+    if(this.currentUser.uid == 'guest') {
+      this.currentUser.saveLocalGuestContacts();
+      this.sortedContacts = this.getSortedContacts();
+    } else {
+      this.usersService.updateUser(this.currentUser);
+    }
   }
 
   filterOutUneditedUsers() {
