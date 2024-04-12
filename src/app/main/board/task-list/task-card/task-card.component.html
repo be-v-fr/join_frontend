@@ -9,7 +9,7 @@
         <div class="counter">{{getSubtasksDoneNumber()}}/{{task.subtasks.length}} Subtasks</div>
     </div>
     <div class="bottom-container" *ngIf="task.assigned.length > 0 || task.prio != null">
-        <div class="assigned-icons">
+        <div class="assigned-badges">
             @for(assignment of task.assigned; track assignment; let i = $index) {
             @if(assignment) {
             <app-person-badge [name]="users[i].name" [color]="users[i].color"></app-person-badge>

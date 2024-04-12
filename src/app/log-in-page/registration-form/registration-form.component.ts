@@ -35,7 +35,7 @@ export class RegistrationFormComponent {
   private usersService = inject(UsersService);
 
   constructor(private router: Router) {
-    this.authService.setLocalGuestLogin(false);
+    this.initRememberState();
     this.rememberLogIn = this.authService.getLocalRememberMe();
     if (this.rememberLogIn) {
       this.authService.user$.subscribe(() => {
@@ -46,6 +46,13 @@ export class RegistrationFormComponent {
           if (this.authService.getCurrentUid()) { this.navigateToSummary() }
         }, 1200)
       });
+    }
+  }
+
+  initRememberState() {
+    if(this.authService.getLocalGuestLogin()) {
+      this.authService.setLocalGuestLogin(false);
+      this.authService.setLocalRememberMe(false);
     }
   }
 

@@ -36,7 +36,7 @@
                                     [ngClass]="{'turn': showAssignedDropdown}">
                             </button>
                         </div>
-                        <div class="assigned-icons">
+                        <div class="assigned-badges">
                             @for(assignment of task.assigned; track assignment; let i = $index) {
                             @if(assignment) {
                             <app-person-badge [name]="users[i].name" [color]="users[i].color"></app-person-badge>

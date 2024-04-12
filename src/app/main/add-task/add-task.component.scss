@@ -127,13 +127,13 @@ textarea,
   }
 }
 
-.assigned-icons {
+.assigned-badges {
   position: absolute;
   left: 0;
   bottom: -48px;
   z-index: -1;
   display: flex;
-  app-contact-icon {
+  app-person-badge {
     margin-right: -12px;
   }
 }

@@ -47,12 +47,23 @@ export class AddTaskComponent extends SlideComponent {
   override ngOnInit() {
     this.translated = this.inOverlay;
     super.ngOnInit();
-    this.initAssigned();
     if (this.task.id == '') {
       this.task.due = '';
       this.task.status = this.status;
     }
+    this.initUsers();
+    this.initAssigned();
+  }
+
+  initUsers() {
     this.users = this.usersService.users;
+    this.usersService.getUsers().subscribe(() => {
+      this.users = this.usersService.users;
+    });
+  }
+
+  initAssigned() {
+    this.users.forEach(() => this.task.assigned.push(false));
   }
 
   ngAfterViewInit() {
@@ -132,10 +143,6 @@ export class AddTaskComponent extends SlideComponent {
       case 'category':
         this.showCategoryDropdown = !this.showCategoryDropdown;
     }
-  }
-
-  initAssigned() {
-    this.users.forEach(() => this.task.assigned.push(false));
   }
 
   toggleAssignment(index: number) {

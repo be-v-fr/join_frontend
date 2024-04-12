@@ -44,10 +44,10 @@
 .bottom-container {
   margin-top: 24px;
   @include flex($jc: space-between);
-  .assigned-icons {
+  .assigned-badges {
     flex: 1;
     display: flex;
-    app-contact-icon {
+    app-person-badge {
       margin-right: -12px;
     }
   }
