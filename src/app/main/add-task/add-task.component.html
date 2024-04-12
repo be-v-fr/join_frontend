@@ -57,13 +57,13 @@
             </div>
             <div class="vertical-ruler"></div>
             <div class="form-side">
-                <div class="form-field relative" [ngClass]="{'validation-error': ((due.touched || taskForm.submitted) && !due.valid) || true}">
+                <div class="form-field relative" [ngClass]="{'validation-error': ((due.touched || taskForm.submitted) && !due.valid) || dateError}" #dueContainer>
                     <label for="due">Due date<span class="marked-red">*</span></label>
-                    <input type="date" class="prevent-select" [(ngModel)]="task.due" name="due" #due="ngModel" required>
-                    <input type="text" class="due-text-input" value="{{dueToText()}}" placeholder="dd/mm/yyyy"
+                    <input type="date" class="prevent-select" [(ngModel)]="task.due" name="due" #due="ngModel" required (change)="validateDate()">
+                    <input type="text" class="due-text-input" value="{{dueToText()}}" placeholder="dd/mm/yyyy" (change)="textToDue($event)"
                         pattern="\d{2}/\d{2}/\d{4}">
-                        @if(true) {
-                            <p>This date is in the past.</p>
+                        @if(dateError) {
+                            <p>{{dateError}}</p>
                         } @else if((due.touched || taskForm.submitted) && !due.valid) {
                             <p>This is not a valid date.</p>
                         }

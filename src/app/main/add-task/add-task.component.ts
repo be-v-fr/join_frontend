@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, Output, ViewChild, OnDestroy, EventEmitter, inject } from '@angular/core';
+import { Component, ElementRef, Input, Output, ViewChild, AfterViewInit, OnDestroy, EventEmitter, inject } from '@angular/core';
 import { Subtask } from '../../../interfaces/subtask.interface';
 import { SubtaskComponent } from './subtask/subtask.component';
-import { FormControl, FormsModule, NgForm, ValidationErrors } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { User } from '../../../models/user';
 import { UsersService } from '../../services/users.service';
@@ -31,12 +31,13 @@ export class AddTaskComponent extends SlideComponent {
   dueTextInput: string = '';
   @Input() inOverlay: boolean = false;
   @Input() status: 'To do' | 'In progress' | 'Await feedback' = 'To do';
+  @ViewChild('dueContainer') dueContainerRef!: ElementRef;
   @ViewChild('subtask') subtaskRef!: ElementRef;
   showAssignedDropdown: boolean = false;
   showCategoryDropdown: boolean = false;
   showTaskAddedToast: boolean = false;
   @Output() cancelled = new EventEmitter<void>();
-  error: string = '';
+  dateError: string | null = null;
 
 
   constructor(private router: Router) {
@@ -48,9 +49,15 @@ export class AddTaskComponent extends SlideComponent {
     super.ngOnInit();
     this.initAssigned();
     if (this.task.id == '') {
+      this.task.due = '';
       this.task.status = this.status;
     }
     this.users = this.usersService.users;
+  }
+
+  ngAfterViewInit() {
+    const dueElement: HTMLInputElement = this.dueContainerRef.nativeElement.getElementsByTagName('input')[0];
+    dueElement.min = new Date().toISOString().split("T")[0];
   }
 
   dueToText(): string | undefined {
@@ -81,6 +88,32 @@ export class AddTaskComponent extends SlideComponent {
     } else {
       this.task.due = '';
     }
+    this.validateDate();
+  }
+
+  validateDate() {
+    this.dateError = '';
+    const selected = new Date(this.task.due);
+    const current = new Date();
+    if (selected.toString().includes('Invalid date') || this.task.due == '' || !this.validDueString()) {
+      this.dateError = 'This is not a valid date.';
+    } else if (selected < current) {
+      this.dateError = 'Date lies in the past.';
+    } else {
+      this.dateError = null;
+    }
+  }
+
+  validDueString() {
+    const parts = this.task.due.split('-');
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+      if (part.match(/^[0-9]+$/) == null) {
+        this.task.due = '';
+        return false
+      }
+    }
+    return true
   }
 
   selectPrio(prio: 'Urgent' | 'Medium' | 'Low') {

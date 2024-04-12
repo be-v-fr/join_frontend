@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../../../models/user';
 import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
+import { tick } from '@angular/core/testing';
 
 @Component({
   selector: 'app-registration-form',
@@ -19,8 +20,8 @@ export class RegistrationFormComponent {
   @Output() toggleMode = new EventEmitter<void>();
   passwordFieldType: 'password' | 'text' = 'password';
   passwordConfirmationFieldType: 'password' | 'text' = 'password';
-  @ViewChild('password') passwordRef!: ElementRef;
-  @ViewChild('passwordConfirmation') passwordConfirmationRef!: ElementRef;
+  @ViewChild('passwordContainer') passwordContainerRef!: ElementRef;
+  @ViewChild('passwordConfirmationContainer') passwordConfirmationContainerRef!: ElementRef;
   rememberLogIn: boolean;
   acceptPrivacyPolicy: boolean = false;
   formData = {
@@ -34,6 +35,7 @@ export class RegistrationFormComponent {
   private usersService = inject(UsersService);
 
   constructor(private router: Router) {
+    this.authService.setLocalGuestLogin(false);
     this.rememberLogIn = this.authService.getLocalRememberMe();
     if (this.rememberLogIn) {
       this.authService.user$.subscribe(() => {
@@ -65,10 +67,10 @@ export class RegistrationFormComponent {
   focusLastPosition(field: 'password' | 'confirmation') {
     let element: HTMLInputElement | null = null;
     if (field == 'password') {
-      element = this.passwordRef.nativeElement;
+      element = this.passwordContainerRef.nativeElement.getElementsByTagName('input')[0];
     }
     if (field == 'confirmation') {
-      element = this.passwordConfirmationRef.nativeElement;
+      element = this.passwordConfirmationContainerRef.nativeElement.getElementsByTagName('input')[0];
     }
     setTimeout(() => {
       if (element != null) {

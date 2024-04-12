@@ -24,8 +24,9 @@
         <p>This email adress is already in use.</p>
         }
     </div>
-    <div class="form-field" [ngClass]="{'validation-error': authError == 'invalid credential'}">
-        <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password"
+    <div class="form-field" #passwordContainer
+        [ngClass]="{'validation-error': (authError == 'invalid credential') || ((password.touched || registrationForm.submitted) && !password.valid)}">
+        <input type=" {{passwordFieldType}}" class="text-input" placeholder="Password" name="password"
             autocomplete="current-password" #password="ngModel" [(ngModel)]="formData.password" required>
         @if(formData.password.length > 0) {
         <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('password')"></app-password-icon>
@@ -35,10 +36,13 @@
         }
         @if(authError == 'invalid credential') {
         <p>Wrong email or password! Please try again.</p>
+        } @else if((password.touched || registrationForm.submitted) && !password.valid) {
+        <p>Please enter a valid password.</p>
         }
     </div>
     <div *ngIf="formMode == 'Sign up'" class="form-field"
-        [ngClass]="{'validation-error': passwordConfirmation.touched && !checkPasswordConfirmation()}">
+        [ngClass]="{'validation-error': passwordConfirmation.touched && !checkPasswordConfirmation()}"
+        #passwordConfirmationContainer>
         <input type="{{passwordConfirmationFieldType}}" class="text-input" placeholder="Confirm password"
             name="passwordConfirmation" #passwordConfirmation="ngModel" [(ngModel)]="formData.passwordConfirmation"
             required>
