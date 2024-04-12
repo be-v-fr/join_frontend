@@ -47,7 +47,8 @@ export class ContactsComponent implements OnInit {
     this.users.forEach(u => {
       if (u.uid != this.currentUser.uid && !this.currentUser.hasUserInContacts(u)) {
         contacts.push(u.asContact());
-      }});
+      }
+    });
     return contacts;
   }
 
@@ -90,12 +91,8 @@ export class ContactsComponent implements OnInit {
   }
 
   updateContacts() {
-    if(this.currentUser.uid == 'guest') {
-      this.currentUser.saveLocalGuestContacts();
-      this.sortedContacts = this.getSortedContacts();
-    } else {
-      this.usersService.updateUser(this.currentUser);
-    }
+    this.usersService.updateUser(this.currentUser);
+    this.sortedContacts = this.getSortedContacts();
   }
 
   filterOutUneditedUsers() {
