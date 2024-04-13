@@ -71,7 +71,7 @@ export class ContactsComponent implements OnInit {
   }
 
   selectContact(index: number) {
-    this.selection = index;
+    this.selection == index ? this.selection = -1 : this.selection = index;
   }
 
   showContactOverlay(mode: 'add' | 'edit') {
@@ -105,8 +105,8 @@ export class ContactsComponent implements OnInit {
   }
 
   deleteSelectedContact() {
-      this.currentUser.contacts.splice(this.selection, 1);
-      this.usersService.updateUser(this.currentUser);
-      this.selection = -1;
+    this.currentUser.contacts.splice(this.selection, 1);
+    this.usersService.updateUser(this.currentUser);
+    this.selection = -1;
   }
 }

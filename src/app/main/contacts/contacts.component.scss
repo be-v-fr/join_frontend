@@ -36,6 +36,7 @@
     }
     .contactData {
       font-size: $font-small;
+      animation: slide-in 125ms ease;
       .name {
         @include flex($jc: flex-start, $g: 54px);
         .full-name-edit {
@@ -53,6 +54,14 @@
       }
       .phone-nr {
         color: black;
+      }
+      @keyframes slide-in {
+        from {
+          transform: translateX(100vw);
+        }
+        to {
+          transform: translateX(0);
+        }
       }
     }
   }
