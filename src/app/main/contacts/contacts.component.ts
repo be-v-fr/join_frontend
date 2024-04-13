@@ -79,19 +79,17 @@ export class ContactsComponent implements OnInit {
   }
 
   submitContact(contact: Contact) {
-    if (this.currentUser) {
-      if (this.contactOverlay == 'add') {
-        this.currentUser.addContact(contact);
-      } else {
-        this.sortedContacts[this.selection] = contact;
-        this.currentUser.contacts = this.filterOutUneditedUsers();
-      }
-      this.updateContacts();
+    if (this.contactOverlay == 'add') {
+      this.currentUser.addContact(contact);
+    } else {
+      this.sortedContacts[this.selection] = contact;
     }
+    this.updateContacts();
     this.cancelOverlay();
   }
 
   updateContacts() {
+    this.currentUser.contacts = this.filterOutUneditedUsers();
     this.usersService.updateUser(this.currentUser);
     this.sortedContacts = this.getSortedContacts();
   }

@@ -53,8 +53,8 @@
     </div>
 </div>
 @if(contactOverlay == 'add') {
-<app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="'add'" (submit)="submitContact($event)"></app-add-contact>
+<app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="'add'" (contactSubmission)="submitContact($event)"></app-add-contact>
 } @else if (contactOverlay == 'edit' && currentUser) {
 <app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="'edit'" [contact]="sortedContacts[selection]"
-    (submit)="submitContact($event)" (delete)="deleteSelectedContact()"></app-add-contact>
+    (contactSubmission)="submitContact($event)" (delete)="deleteSelectedContact()"></app-add-contact>
 }

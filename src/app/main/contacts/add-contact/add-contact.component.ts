@@ -17,7 +17,7 @@ export class AddContactComponent extends SlideComponent {
   @Input() mode: 'add' | 'edit' = 'add';
   @Input() contact: Contact = new Contact('');
   @Output() cancelOverlay = new EventEmitter<void>();
-  @Output() submit = new EventEmitter<Contact>();
+  @Output() contactSubmission = new EventEmitter<Contact>();
   @Output() delete = new EventEmitter<void>();
   disableUserNameEdit: boolean = false;
 
@@ -28,7 +28,7 @@ export class AddContactComponent extends SlideComponent {
 
   onSubmit(form: NgForm): void {
     if (form.submitted && form.form.valid) {
-      this.submit.emit(this.contact);
+      this.contactSubmission.emit(this.contact);
     }
   }
 
