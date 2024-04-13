@@ -58,6 +58,18 @@ textarea,
   @extend .text-input;
 }
 
+.description {
+  height: 120px;
+  resize: vertical;
+  background-image: url(../../../assets/img/resize_handle.svg);
+  background-size: 19px;
+  background-repeat: no-repeat;
+  background-position: calc(100% - 5px) calc(100% - 4px);
+  &::-webkit-resizer {
+    display: none;
+  }
+}
+
 .dropdown-container {
   width: 100%;
   position: relative;
@@ -135,6 +147,27 @@ textarea,
   display: flex;
   app-person-badge {
     margin-right: -12px;
+  }
+}
+
+.due {
+  &::-webkit-calendar-picker-indicator {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    margin: 0;
+    background-image: url(../../../assets/img/calendar_icon.svg);
+    background-size: 24px;
+    cursor: pointer;
+    transition: 75ms ease;
+  }
+  &::-webkit-calendar-picker-indicator:hover {
+    background-image: url(../../../assets/img/calendar_icon_hover.svg);
+    transition: 75ms ease;
+  }
+  &::-webkit-calendar-picker-indicator:active {
+    background-image: url(../../../assets/img/calendar_icon_active.svg);
+    transition: 75ms ease;
   }
 }
 
