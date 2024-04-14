@@ -1,9 +1,11 @@
 <li [ngClass]="{'editing': editing}" (formClick)="cancel()">
     <p class="content" (dblclick)="edit()">
-        @if(!editing) {
+        @if(editing) {
+        <input #editInput [(ngModel)]="task.name">
+        }
+        @else {
         &bull;<span>{{task.name}}</span>
         }
-        <input #editInput [(ngModel)]="task.name" [ngClass]="{'hide': !editing}">
     </p>
     <div class="btns-container">
         @if(!editing) {

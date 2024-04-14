@@ -34,6 +34,13 @@ $font-tiny: 13px;
   --page-headline-margin: 64px;
 }
 
+@media (max-height: 1024px) {
+  :root {
+      --page-padding: 60px 60px;
+  }
+}
+
+
 html,
 body,
 p {
