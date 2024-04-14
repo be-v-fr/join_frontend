@@ -200,6 +200,11 @@ textarea,
       box-shadow: $shadow-stronger;
       transition: 75ms ease;
     }
+    @media screen and (max-width: 1280px) {
+      span {
+        font-size: $font-small;
+      }
+    }
   }
   .selected {
     color: white;
