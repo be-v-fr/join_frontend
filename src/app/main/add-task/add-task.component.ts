@@ -63,20 +63,18 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
   updateUsers() {
     this.users = this.usersService.users;
-    console.log(this.users);
     this.sortUsers();
   }
 
   sortUsers() {
     const uid = this.authService.getCurrentUid();
     this.users = this.users.sort((a: User, b: User) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
-    if(uid && uid != 'guest') {
+    if (uid && uid != 'guest') {
       const current = this.usersService.getUserByUid(uid);
       const index = this.users.indexOf(current);
       this.users.splice(index, 1)[0];
       this.users.unshift(current);
     }
-    console.log(this.users);
   }
 
   isCurrentUser(user: User): boolean {
@@ -164,8 +162,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
   toggleAssignment(uid: string) {
     const assigned: string[] = this.task.assigned;
-    if(assigned.includes(uid)) {
-      while(assigned.includes(uid)) {
+    if (assigned.includes(uid)) {
+      while (assigned.includes(uid)) {
         const index = assigned.indexOf(uid);
         assigned.splice(index, 1);
       }
@@ -178,15 +176,18 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
     this.task.category = category;
   }
 
-  addSubtask() {
-    const name = this.subtaskRef.nativeElement.value;
-    if (name) {
-      let newSubtask: Subtask = {
-        name: name,
+  addSubtask(ev?: Event) {
+    const input: HTMLInputElement = this.subtaskRef.nativeElement;
+    if (ev && input == document.activeElement) {
+      ev.preventDefault();
+      if (!input.value) { input.blur() }
+    }
+    if (input.value) {
+      this.task.subtasks.push({
+        name: input.value,
         status: 'To do'
-      };
-      this.task.subtasks.push(newSubtask);
-      this.subtaskRef.nativeElement.value = '';
+      });
+      input.value = '';
       this.scrollToBottom();
     }
   }

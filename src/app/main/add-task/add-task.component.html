@@ -132,7 +132,7 @@
                     <label for="subtask">Subtasks</label>
                     <input type="hidden" [(ngModel)]="task.subtasks" name="subtasks" #subtasks="ngModel">
                     <input type="text" name="subtask" #subtask placeholder="Add new subtask"
-                        (keydown.enter)="addSubtask()">
+                        (keydown.enter)="addSubtask($event)">
                     <button type="button" (click)="addSubtask()" class="custom-input-btn">
                         <img src="../../../assets/img/plus_icon.svg" alt="icon">
                     </button>
