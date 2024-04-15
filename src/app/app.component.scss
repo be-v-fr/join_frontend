@@ -1,32 +1,167 @@
-@import '../styles.scss';
+@import "../styles.scss";
 
 .content {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    app-menu {
-        width: 232px;
-    }
-    .main {
-        flex: 1;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        app-header {
-            height: 96px;
-            box-shadow: $shadow-subtle;
-            position: relative;
-            z-index: 1;
-        }
-        .page {
-            flex: 1;
-            min-height: 100px;
-            background: $light-grey;
-        }
-        .padding-page {
-            @extend .page;
-            padding: var(--page-padding);
-        }
-    }
+  width: 100%;
+  height: 100%;
 }
 
+.content-all {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  app-menu {
+    width: 232px;
+  }
+  .main {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    app-header {
+      height: 96px;
+      box-shadow: $shadow-subtle;
+      position: relative;
+      z-index: 1;
+    }
+    .page {
+      flex: 1;
+      min-height: 100px;
+      background: $light-grey;
+      overflow-y: auto;
+    }
+    .padding-page {
+      @extend .page;
+      padding: var(--page-padding);
+    }
+  }
+  @media screen and (max-width: 768px) {
+    flex-direction: column-reverse;
+    .main {
+      height: calc(100vh - 80px);
+      app-header {
+        height: 80px;
+      }
+    }
+    app-menu {
+      width: 100%;
+      height: 80px;
+    }
+    .page {
+      overflow: hidden;
+    }
+  }
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 61px;
+  margin: 0;
+  margin-bottom: var(--page-headline-margin);
+  @media screen and (max-width: 768px) {
+    font-size: $font-larger;
+  }
+}
+
+h3 {
+  font-weight: 400;
+  margin: 40px 0;
+}
+
+h4 {
+  margin-bottom: 16px;
+}
+
+h5 {
+  font-size: $font-medium;
+  color: $anthracite;
+}
+
+.btn-main {
+  padding: 15px 24px;
+  font-size: 21px;
+  border-radius: 10px;
+  @include flex($g: 4px);
+  transition: 75ms ease;
+  img {
+    display: block;
+  }
+  &:hover {
+    box-shadow: $shadow-stronger;
+    transition: 75ms ease;
+  }
+  &:active {
+    transition: 75ms ease;
+  }
+}
+
+.btn-primary {
+  @extend .btn-main;
+  color: white;
+  background: $anthracite;
+  font-weight: 700;
+  &:hover {
+    background: $light-blue;
+  }
+  &:active {
+    background: $anthracite-darkened;
+  }
+}
+
+.btn-secondary {
+  @extend .btn-main;
+  border: 1px solid $anthracite;
+  &:hover {
+    color: $light-blue;
+    border-color: $light-blue;
+  }
+  &:active {
+    color: $anthracite-darkened;
+    border-color: $anthracite-darkened;
+  }
+  &[disabled] {
+    color: $grey;
+    border-color: $grey;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+}
+
+.btn-x {
+  .img-container {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    img {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .secondary-hover,
+    .secondary-active {
+      opacity: 0;
+      transition: 75ms ease;
+    }
+  }
+  &:hover .img-container {
+    .secondary-neutral {
+      transition: 75ms ease;
+      opacity: 0;
+    }
+    .secondary-hover {
+      transition: 75ms ease;
+      opacity: 1;
+    }
+  }
+  &:active .img-container {
+    .secondary-hover {
+      transition: 75ms ease;
+      opacity: 0;
+    }
+    .secondary-active {
+      transition: 75ms ease;
+      opacity: 1;
+    }
+  }
+}

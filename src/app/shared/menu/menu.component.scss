@@ -6,65 +6,73 @@ nav {
   background: $anthracite;
   font-size: $font-small;
   @include flex($dir: column);
-}
-
-.logo {
-  margin-top: 64px;
-  width: 100px;
-}
-
-.main {
-  flex: 1;
-  width: 100%;
-  margin-bottom: 72%;
-  @include flex($dir: column, $g: 15px);
-  a {
+  .logo {
+    margin-top: 64px;
+    width: 100px;
+  }
+  .main {
+    flex: 1;
     width: 100%;
-    height: 46px;
-    color: $grey;
-    @include flex($g: 8px);
-    transition: 100ms ease;
-    img {
-      width: 30px;
-      height: 30px;
-    }
-    span {
-      width: 80px;
-      font-size: $font-small;
-    }
-    &:hover {
+    margin-bottom: 72%;
+    @include flex($dir: column, $g: 15px);
+    a {
+      width: 100%;
+      height: 46px;
+      color: $grey;
+      @include flex($g: 8px);
       transition: 100ms ease;
-      background: $anthracite-lightened;
+      img {
+        width: 30px;
+        height: 30px;
+      }
+      span {
+        width: 80px;
+        font-size: $font-small;
+      }
+      &:hover {
+        transition: 100ms ease;
+        background: $anthracite-lightened;
+      }
+      &:active {
+        @extend .current;
+      }
     }
-    &:active {
-      @extend .current;     
+    .current {
+      transition: 100ms ease;
+      background: $anthracite-darkened;
+      img {
+        filter: brightness(2);
+      }
+      span {
+        color: white;
+      }
     }
   }
-  .current {
-    transition: 100ms ease;
-    background: $anthracite-darkened;
-    img {
-      filter: brightness(2);
-    }
-    span {
-      color: white;
-    }    
-  }
-}
-
-.other {
-  width: 100%;
-  margin-bottom: 64px;
-  padding-left: 58px;
-  @include flex($ai: flex-start, $g: 4px, $dir: column);
-  a {
-    height: 35px;
-    color: $dark-grey;
-    transition: 75ms ease;
-    &:hover {
+  .other {
+    width: 100%;
+    margin-bottom: 64px;
+    padding-left: 58px;
+    @include flex($ai: flex-start, $g: 4px, $dir: column);
+    a {
+      height: 35px;
+      color: $dark-grey;
+      transition: 75ms ease;
+      &:hover {
         transition: 75ms ease;
         font-weight: 700;
-        color: #29ABE2;
+        color: #29abe2;
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    flex-direction: row;
+    .logo,
+    .other {
+      display: none;
+    }
+    .main {
+      flex-direction: row;
+      margin-bottom: 0;
     }
   }
 }

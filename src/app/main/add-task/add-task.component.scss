@@ -1,8 +1,8 @@
 @import "../../../styles.scss";
+@import "../../app.component.scss";
 
 .content {
-  width: 100%;
-  height: 100%;
+  @extend .content;
   @include flex($ai: flex-start, $dir: column);
   form {
     width: 100%;
@@ -31,9 +31,14 @@
       position: relative;
       width: 100%;
       flex: 1;
-      @include flex($jc: space-between, $ai: flex-end);
-      .btns-submit {
-        @include flex($g: 16px);
+      @include flex($ai: flex-end);
+      .bottom-container {
+        width: 100%;
+        @include flex($jc: space-between, $ai: flex-end);
+        .btns-submit {
+          margin-top: 16px;
+          @include flex($g: 16px);
+        }
       }
     }
   }
@@ -41,6 +46,24 @@
     position: absolute;
     right: 36px;
     top: 60px;
+  }
+  @media screen and (max-width: 1024px) {
+    display: initial;
+    .form-main {
+      flex-direction: column;
+    }
+    .vertical-ruler {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    form {
+      flex: 0;
+      max-height: calc(100% - 80px - 80px);
+    }
+    .form-main {
+      overflow-y: scroll;
+    }
   }
 }
 
@@ -147,6 +170,11 @@ textarea,
   app-person-badge {
     margin-right: -12px;
   }
+  @media screen and (max-width: 1024px) {
+    position: relative;
+    top: 6px;
+    bottom: 0;
+  }
 }
 
 .due {
@@ -246,4 +274,8 @@ textarea,
   margin-top: 3px;
   overflow-x: hidden;
   overflow-y: auto;
+  @media screen and (max-width: 1024px) {
+    position: relative;
+    left: 0;
+  }
 }

@@ -35,12 +35,16 @@ $font-tiny: 13px;
   @media screen and (max-height: 1024px) {
     --page-padding: 60px 60px;
     --add-task-form-gap: 24px;
+    --page-headline-margin: 40px;
   }
   @media screen and (max-width: 1280px) {
-      --page-padding: 40px 30px;
-      --add-task-form-gap: 14px;
+    --page-padding: 40px 30px;
+    --add-task-form-gap: 14px;
+    --page-headline-margin: 40px;
   }
-  // bis 15px runter
+  @media screen and (max-width: 768px) {
+    --page-padding: 15px;
+  }
 }
 
 html,
@@ -106,96 +110,6 @@ button {
   cursor: pointer;
 }
 
-.btn-main {
-  padding: 15px 24px;
-  font-size: 21px;
-  border-radius: 10px;
-  @include flex($g: 4px);
-  transition: 75ms ease;
-  img {
-    display: block;
-  }
-  &:hover {
-    box-shadow: $shadow-stronger;
-    transition: 75ms ease;
-  }
-  &:active {
-    transition: 75ms ease;
-  }
-}
-
-.btn-primary {
-  @extend .btn-main;
-  color: white;
-  background: $anthracite;
-  font-weight: 700;
-  &:hover {
-    background: $light-blue;
-  }
-  &:active {
-    background: $anthracite-darkened;
-  }
-}
-
-.btn-secondary {
-  @extend .btn-main;
-  border: 1px solid $anthracite;
-  &:hover {
-    color: $light-blue;
-    border-color: $light-blue;
-  }
-  &:active {
-    color: $anthracite-darkened;
-    border-color: $anthracite-darkened;
-  }
-  &[disabled] {
-    color: $grey;
-    border-color: $grey;
-    box-shadow: none;
-    cursor: not-allowed;
-  }
-}
-
-.btn-x {
-  .img-container {
-    position: relative;
-    width: 24px;
-    height: 24px;
-    img {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-    .secondary-hover,
-    .secondary-active {
-      opacity: 0;
-      transition: 75ms ease;
-    }
-  }
-  &:hover .img-container {
-    .secondary-neutral {
-      transition: 75ms ease;
-      opacity: 0;
-    }
-    .secondary-hover {
-      transition: 75ms ease;
-      opacity: 1;
-    }
-  }
-  &:active .img-container {
-    .secondary-hover {
-      transition: 75ms ease;
-      opacity: 0;
-    }
-    .secondary-active {
-      transition: 75ms ease;
-      opacity: 1;
-    }
-  }
-}
-
 input,
 textarea,
 .dropdown-input {
@@ -205,27 +119,6 @@ textarea,
 
 .dropdown-input {
   @extend .prevent-select;
-}
-
-h2 {
-  font-weight: 700;
-  font-size: 61px;
-  margin: 0;
-  margin-bottom: var(--page-headline-margin);
-}
-
-h3 {
-  font-weight: 400;
-  margin: 40px 0;
-}
-
-h4 {
-  margin-bottom: 16px;
-}
-
-h5 {
-  font-size: $font-medium;
-  color: $anthracite;
 }
 
 .marked-red {

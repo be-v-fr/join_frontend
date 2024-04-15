@@ -1,8 +1,8 @@
 @import "../../../styles.scss";
+@import "../../app.component.scss";
 
 .content {
-  width: 100%;
-  height: 100%;
+  @extend .content;
   @include flex($jc: flex-start, $ai: flex-start, $dir: column);
   .title {
     margin-bottom: var(--page-headline-margin);

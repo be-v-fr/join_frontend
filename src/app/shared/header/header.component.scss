@@ -7,6 +7,13 @@ header {
   height: 100%;
   background: white;
   @include flex($jc: space-between);
+  .logo {
+    img {
+      width: 32px;
+      height: 39px;
+    }
+    display: none;
+  }
   .title {
     margin-left: 50px;
   }
@@ -25,6 +32,14 @@ header {
           transform: scale(1.2);
         }
       }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .logo {
+      display: initial;
+    }
+    .title {
+      display: none;
     }
   }
 }

@@ -1,4 +1,4 @@
-<div class="content" (click)="closeHeaderDropdown()">
+<div class="content-all" (click)="closeHeaderDropdown()">
   <app-menu *ngIf="MAIN_ROUTES.includes(getCurrentRoute()) && loggedIn"></app-menu>
   <div class="main">
     <app-header *ngIf="MAIN_ROUTES.includes(getCurrentRoute()) && loggedIn" [currentUser]="currentUser"

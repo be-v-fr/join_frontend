@@ -22,8 +22,8 @@
                 </div>
                 <div class="form-field">
                     <label for="description">Description</label>
-                    <textarea class="description" type="text" [(ngModel)]="task.description" name="description" #description="ngModel"
-                        placeholder="Enter a description"></textarea>
+                    <textarea class="description" type="text" [(ngModel)]="task.description" name="description"
+                        #description="ngModel" placeholder="Enter a description"></textarea>
                 </div>
                 <div class="form-field">
                     <label for="assigend" (click)="$event.preventDefault()">Assigned to</label>
@@ -57,16 +57,19 @@
             </div>
             <div class="vertical-ruler"></div>
             <div class="form-side">
-                <div class="form-field relative" [ngClass]="{'validation-error': ((due.touched || taskForm.submitted) && !due.valid) || dateError}" #dueContainer>
+                <div class="form-field relative"
+                    [ngClass]="{'validation-error': ((due.touched || taskForm.submitted) && !due.valid) || dateError}"
+                    #dueContainer>
                     <label for="due">Due date<span class="marked-red">*</span></label>
-                    <input type="date" class="due prevent-select" [(ngModel)]="task.due" name="due" #due="ngModel" required (change)="validateDate()">
-                    <input type="text" class="due-text-input" value="{{dueToText()}}" placeholder="dd/mm/yyyy" (change)="textToDue($event)"
-                        pattern="\d{2}/\d{2}/\d{4}">
-                        @if(dateError) {
-                            <p>{{dateError}}</p>
-                        } @else if((due.touched || taskForm.submitted) && !due.valid) {
-                            <p>This is not a valid date.</p>
-                        }
+                    <input type="date" class="due prevent-select" [(ngModel)]="task.due" name="due" #due="ngModel"
+                        required (change)="validateDate()">
+                    <input type="text" class="due-text-input" value="{{dueToText()}}" placeholder="dd/mm/yyyy"
+                        (change)="textToDue($event)" pattern="\d{2}/\d{2}/\d{4}">
+                    @if(dateError) {
+                    <p>{{dateError}}</p>
+                    } @else if((due.touched || taskForm.submitted) && !due.valid) {
+                    <p>This is not a valid date.</p>
+                    }
                 </div>
                 <div class="form-field">
                     <label for="prio">Prio</label>
@@ -141,39 +144,40 @@
                     [formClick]="formClick.asObservable()"></app-subtask>
                 }
             </ul>
-            <p class="font-small"><span class="marked-red">*</span>This field is required</p>
-            <div class="btns-submit">
-                @if(task.id == '') {
-                @if(inOverlay) {
-                <button type="button" class="btn-secondary btn-x" (click)="close()">
-                    Cancel
-                    <div class="img-container">
-                        <img src="../../../assets/img/cancel.svg" class="secondary-neutral" alt="clear">
-                        <img src="../../../assets/img/cancel_hover.svg" class="secondary-hover" alt="clear">
-                        <img src="../../../assets/img/cancel_active.svg" class="secondary-active" alt="clear">
-                    </div>
-                </button>
-                } @else {
-                <button type="reset" class="btn-secondary btn-x">
-                    Clear
-                    <div class="img-container">
-                        <img src="../../../assets/img/cancel.svg" class="secondary-neutral" alt="clear">
-                        <img src="../../../assets/img/cancel_hover.svg" class="secondary-hover" alt="clear">
-                        <img src="../../../assets/img/cancel_active.svg" class="secondary-active" alt="clear">
-                    </div>
-                </button>
-                }
-                }
-                <button type="submit" class="btn-primary">
+            <div class="bottom-container">
+                <p class="font-small"><span class="marked-red">*</span>This field is required</p>
+                <div class="btns-submit">
                     @if(task.id == '') {
-                    Create Task
+                    @if(inOverlay) {
+                    <button type="button" class="btn-secondary btn-x" (click)="close()">
+                        Cancel
+                        <div class="img-container">
+                            <img src="../../../assets/img/cancel.svg" class="secondary-neutral" alt="clear">
+                            <img src="../../../assets/img/cancel_hover.svg" class="secondary-hover" alt="clear">
+                            <img src="../../../assets/img/cancel_active.svg" class="secondary-active" alt="clear">
+                        </div>
+                    </button>
                     } @else {
-                    Ok
+                    <button type="reset" class="btn-secondary btn-x">
+                        Clear
+                        <div class="img-container">
+                            <img src="../../../assets/img/cancel.svg" class="secondary-neutral" alt="clear">
+                            <img src="../../../assets/img/cancel_hover.svg" class="secondary-hover" alt="clear">
+                            <img src="../../../assets/img/cancel_active.svg" class="secondary-active" alt="clear">
+                        </div>
+                    </button>
                     }
-                    <img src="../../../assets/img/check_white.svg" alt="create task">
-                </button>
+                    }
+                    <button type="submit" class="btn-primary">
+                        @if(task.id == '') {
+                        Create Task
+                        } @else {
+                        Ok
+                        }
+                        <img src="../../../assets/img/check_white.svg" alt="create task">
+                    </button>
+                </div>
             </div>
-
         </div>
     </form>
 </div>

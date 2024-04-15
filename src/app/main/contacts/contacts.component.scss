@@ -1,8 +1,8 @@
 @import "../../../styles.scss";
+@import "../../app.component.scss";
 
 .content {
-  width: 100%;
-  height: 100%;
+  @extend .content;
   @include flex($ai: flex-start);
   .list {
     width: 33.3%;
