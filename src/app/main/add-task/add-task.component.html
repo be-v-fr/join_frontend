@@ -44,11 +44,13 @@
                             }
                         </div>
                         <ul class="dropdown-assigned" *ngIf="showAssignedDropdown">
-                            @for (user of users; track user; let i = $index) {
-                            <li class="assigned-li" (click)="$event.stopPropagation(); toggleAssignment(i)">
-                                <app-contact-list-item [name]="user.name" [color]="user.color" [instance]="'task'">
+                            @for (user of users; track user) {
+                            <li class="assigned-li" (click)="$event.stopPropagation(); toggleAssignment(user.uid)">
+                                <app-contact-list-item [name]="user.name" [designateAsYou]="isCurrentUser(user)"
+                                    [color]="user.color" [instance]="'task'">
                                 </app-contact-list-item>
-                                <div class="custom-checkbox" [ngClass]="{'custom-checked' : task.assigned[i]}"></div>
+                                <div class="custom-checkbox" [ngClass]="{'custom-checked' : task.isAssignedTo(user)}">
+                                </div>
                             </li>
                             }
                         </ul>

@@ -56,7 +56,7 @@ export class TasksService {
         .catch((err: Error) => { console.error(err) });
     }
   }
-  
+
   async deleteTask(id: string) {
     let docRef = this.getSingleDocRef(id);
     await deleteDoc(docRef)
@@ -81,7 +81,7 @@ export class TasksService {
   getTaskById(id: string): Task {
     let task = new Task('');
     this.tasks.forEach(t => {
-      if(t.id == id) {task = t}
+      if (t.id == id) { task = t }
     });
     return task;
   }
@@ -91,18 +91,17 @@ export class TasksService {
   }
 
   setTaskObject(obj: any, id: string): Task {
-    const defaultTask = new Task('null');
-    return {
-      id: id || defaultTask.id,
-      title: obj.title || defaultTask.title,
-      description: obj.description || defaultTask.description,
-      assigned: obj.assigned || defaultTask.assigned,
-      due: obj.due || defaultTask.due,
-      prio: obj.prio || defaultTask.prio,
-      category: obj.category || defaultTask.category,
-      subtasks: obj.subtasks || defaultTask.subtasks,
-      timestamp: obj.timestamp || defaultTask.timestamp,
-      status: obj.status || defaultTask.status
-    };
+    const task = new Task('null');
+    task.id = id;
+    if (obj.title) { task.title = obj.title }
+    if (obj.description) { task.description = obj.description }
+    if (obj.assigned) { task.assigned = obj.assigned }
+    if (obj.due) { task.due = obj.due }
+    if (obj.prio) { task.prio = obj.prio }
+    if (obj.category) { task.category = obj.category }
+    if (obj.subtasks) { task.subtasks = obj.subtasks }
+    if (obj.timestamp) { task.timestamp = obj.timestamp }
+    if (obj.status) { task.status = obj.status }
+    return task;
   }
 }

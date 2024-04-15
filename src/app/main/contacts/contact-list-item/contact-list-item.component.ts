@@ -17,4 +17,5 @@ export class ContactListItemComponent {
   @Input() color: string = '#DDDDDD';
   @Input() instance: 'contacts' | 'task' = 'contacts';
   @Input() selected?: boolean = false;
+  @Input() designateAsYou?: boolean = false;
 }

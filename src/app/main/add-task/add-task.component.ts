@@ -6,6 +6,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { User } from '../../../models/user';
 import { UsersService } from '../../services/users.service';
+import { AuthService } from '../../services/auth.service';
 import { Task } from '../../../models/task';
 import { ContactListItemComponent } from '../contacts/contact-list-item/contact-list-item.component';
 import { PersonBadgeComponent } from '../../templates/person-badge/person-badge.component';
@@ -25,6 +26,7 @@ import { CloseBtnComponent } from '../../templates/close-btn/close-btn.component
 export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   formClick: Subject<void> = new Subject<void>();
   users: User[] = [];
+  private authService = inject(AuthService);
   private usersService = inject(UsersService);
   private tasksService = inject(TasksService);
   @Input() task: Task = new Task('');
@@ -40,7 +42,6 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   @Output() cancelled = new EventEmitter<void>();
   dateError: string | null = null;
 
-
   constructor(private router: Router) {
     super();
   }
@@ -53,18 +54,33 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
       this.task.status = this.status;
     }
     this.initUsers();
-    this.initAssigned();
   }
 
   initUsers() {
-    this.users = this.usersService.users;
-    this.usersService.getUsers().subscribe(() => {
-      this.users = this.usersService.users;
-    });
+    this.updateUsers();
+    this.usersService.getUsers().subscribe(() => this.updateUsers());
   }
 
-  initAssigned() {
-    this.users.forEach(() => this.task.assigned.push(false));
+  updateUsers() {
+    this.users = this.usersService.users;
+    console.log(this.users);
+    this.sortUsers();
+  }
+
+  sortUsers() {
+    const uid = this.authService.getCurrentUid();
+    this.users = this.users.sort((a: User, b: User) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
+    if(uid && uid != 'guest') {
+      const current = this.usersService.getUserByUid(uid);
+      const index = this.users.indexOf(current);
+      this.users.splice(index, 1)[0];
+      this.users.unshift(current);
+    }
+    console.log(this.users);
+  }
+
+  isCurrentUser(user: User): boolean {
+    return user.uid == this.authService.getCurrentUid();
   }
 
   ngAfterViewInit() {
@@ -146,8 +162,16 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
     }
   }
 
-  toggleAssignment(index: number) {
-    this.task.assigned[index] = !this.task.assigned[index];
+  toggleAssignment(uid: string) {
+    const assigned: string[] = this.task.assigned;
+    if(assigned.includes(uid)) {
+      while(assigned.includes(uid)) {
+        const index = assigned.indexOf(uid);
+        assigned.splice(index, 1);
+      }
+    } else {
+      assigned.push(uid);
+    }
   }
 
   setCategory(category: 'Technical Task' | 'User Story') {

@@ -5,7 +5,7 @@ export class Task {
     id: string;
     title: string;
     description: string = '';
-    assigned: boolean[] = [];
+    assigned: string[] = [];
     due: string;
     prio: 'Urgent' | 'Medium' | 'Low' | null;
     category: 'Technical Task' | 'User Story';
@@ -19,6 +19,10 @@ export class Task {
         this.due = getCurrentDate();
         this.prio = 'Medium';
         this.category = 'Technical Task';
+    }
+
+    isAssignedTo(user: User): boolean {
+        return this.assigned.includes(user.uid);
     }
 }
 

@@ -1,7 +1,10 @@
 <div class="content" [ngClass]="instance == 'contacts' ? (selected ? 'in-contacts-selected' : 'in-contacts-default') : 'in-task'">
     <app-person-badge [name]="name" [color]="color"></app-person-badge>
     <div class="data">
-        <p>{{name}}</p>
+        <p>
+            {{name}}
+            @if(designateAsYou) {(you)}
+        </p>
         <app-email *ngIf="email" [email]="email"></app-email>
     </div>
 </div>
