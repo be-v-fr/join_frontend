@@ -22,7 +22,7 @@ import { CloseBtnComponent } from '../../templates/close-btn/close-btn.component
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
-export class AddTaskComponent extends SlideComponent {
+export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   formClick: Subject<void> = new Subject<void>();
   users: User[] = [];
   private usersService = inject(UsersService);
@@ -31,6 +31,7 @@ export class AddTaskComponent extends SlideComponent {
   dueTextInput: string = '';
   @Input() inOverlay: boolean = false;
   @Input() status: 'To do' | 'In progress' | 'Await feedback' = 'To do';
+  @ViewChild('content') contentRef!: ElementRef;
   @ViewChild('dueContainer') dueContainerRef!: ElementRef;
   @ViewChild('subtask') subtaskRef!: ElementRef;
   showAssignedDropdown: boolean = false;
@@ -162,7 +163,16 @@ export class AddTaskComponent extends SlideComponent {
       };
       this.task.subtasks.push(newSubtask);
       this.subtaskRef.nativeElement.value = '';
+      this.scrollToBottom();
     }
+  }
+
+  scrollToBottom() {
+    setTimeout(() => {
+      const formElement: HTMLElement = this.contentRef.nativeElement.getElementsByTagName('form')[0];
+      formElement.scrollTop = formElement.scrollHeight;
+    }, 0);
+
   }
 
   deleteSubtask(index: number) {

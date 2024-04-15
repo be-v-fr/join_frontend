@@ -1,4 +1,4 @@
-<div class="content" (click)="handleGeneralClick()">
+<div class="content" (click)="handleGeneralClick()" #content>
     <app-close-btn *ngIf="inOverlay" (click)="close()" class="btn-close"></app-close-btn>
     <h2>
         @if(task.id == '') {
