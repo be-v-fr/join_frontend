@@ -40,10 +40,19 @@ export class SubtaskComponent implements OnInit {
   edit() {
     this.editing = true;
     this.previousName = this.task.name;
-    this.editInputRef.nativeElement.focus();
+    this.focusLastPosition();
   }
 
-  confirm() {
+  focusLastPosition() {
+    setTimeout(() => {
+      const input: HTMLInputElement = this.editInputRef.nativeElement;
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
+      }, 0);
+  }
+
+  confirm(ev?: Event) {
+    if(ev && this.editInputRef.nativeElement == document.activeElement) {ev.stopPropagation()}
     this.editing = false;
     this.taskChange.emit(this.task);
   }

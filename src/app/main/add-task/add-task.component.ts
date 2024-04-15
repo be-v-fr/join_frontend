@@ -197,7 +197,6 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
       const formElement: HTMLElement = this.contentRef.nativeElement.getElementsByTagName('form')[0];
       formElement.scrollTop = formElement.scrollHeight;
     }, 0);
-
   }
 
   deleteSubtask(index: number) {
