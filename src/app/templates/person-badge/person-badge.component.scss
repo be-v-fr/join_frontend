@@ -41,4 +41,10 @@ div {
         transition: 75ms ease;
         background: #e1e6ec;
     }
+    @media screen and (max-width: 768px) {
+        width: 40px;
+        height: 40px;
+        font-size: $font-tiny;
+        border-width: 2px;
+    }
 }

@@ -1,7 +1,5 @@
 @import "../../../styles.scss";
 
-$right: 48px;
-
 header {
   width: 100%;
   height: 100%;
@@ -9,6 +7,7 @@ header {
   @include flex($jc: space-between);
   .logo {
     img {
+      display: block;
       width: 32px;
       height: 39px;
     }
@@ -18,7 +17,7 @@ header {
     margin-left: 50px;
   }
   .info {
-    margin-right: $right;
+    margin-right: 48px;
     @include flex($g: 16px);
     .help {
       transition: 100ms ease;
@@ -34,33 +33,47 @@ header {
       }
     }
   }
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 48px;
+    padding: 20px 26px 20px;
+    border-radius: 20px 0 20px 20px;
+    background-color: $anthracite;
+    @include flex($ai: flex-start, $g: 16px, $dir: column);
+    font-size: $font-small;
+    a {
+      padding: 4px 0;
+      width: 100%;
+      color: $grey;
+      transition: 75ms ease;
+      &:hover {
+        transition: 75ms ease;
+        color: white;
+      }
+    }
+  }
+  @media screen and (max-width: 1280px) {
+    .info {
+      margin-right: 40px;
+    }
+    .dropdown-menu {
+      right: 40px;
+    }
+  }
   @media screen and (max-width: 768px) {
     .logo {
       display: initial;
+      margin-left: 16px;
     }
-    .title {
+    .title, .help {
       display: none;
     }
-  }
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  right: $right;
-  padding: 20px 26px 20px;
-  border-radius: 20px 0 20px 20px;
-  background-color: $anthracite;
-  @include flex($ai: flex-start, $g: 16px, $dir: column);
-  font-size: $font-small;
-  a {
-    padding: 4px 0;
-    width: 100%;
-    color: $grey;
-    transition: 75ms ease;
-    &:hover {
-      transition: 75ms ease;
-      color: white;
+    .info {
+      margin-right: 16px;
+    }
+    .dropdown-menu {
+      right: 16px;
     }
   }
 }

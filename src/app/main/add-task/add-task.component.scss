@@ -31,12 +31,12 @@
       position: relative;
       width: 100%;
       flex: 1;
-      @include flex($ai: flex-end);
+      @include flex($g: 16px, $dir: column);
       .bottom-container {
+        flex: 1;
         width: 100%;
         @include flex($jc: space-between, $ai: flex-end);
         .btns-submit {
-          margin-top: 16px;
           @include flex($g: 16px);
         }
       }
@@ -60,9 +60,30 @@
     form {
       flex: 0;
       max-height: calc(100% - 80px - 80px);
-    }
-    .form-main {
       overflow-y: scroll;
+      padding-top: 120px;
+      .form-bottom .bottom-container {
+        align-items: center;
+        background: $light-grey;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 80px;
+        padding: 16px;
+        @media screen and (max-width: 350px) {
+          padding: 10px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 640px) {
+    .btn-secondary {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .bottom-container .font-small, span {
+      font-size: $font-tiny;
     }
   }
 }
@@ -116,6 +137,9 @@ textarea,
       transition: 75ms ease;
       z-index: -1;
     }
+    @media screen and (max-width: 768px) {
+      padding-top: 26px;
+    }
   }
   .dropdown-arrow-btn {
     @extend .custom-input-btn;
@@ -130,6 +154,8 @@ textarea,
 
 .dropdown-assigned {
   @extend .dropdown-menu;
+  max-height: 294px;
+  overflow-y: auto;
   li {
     @include flex($jc: space-between);
     cursor: pointer;
@@ -159,6 +185,9 @@ textarea,
       transition: 75ms ease;
     }
   }
+  @media screen and (max-height: 1024px) {
+    max-height: 228px;    
+  }
 }
 
 .assigned-badges {
@@ -182,7 +211,7 @@ textarea,
     width: 24px;
     height: 24px;
     padding: 0;
-    margin: 0;
+    margin-right: -8px;
     background-image: url(../../../assets/img/calendar_icon.svg);
     background-size: 24px;
     cursor: pointer;
@@ -233,6 +262,16 @@ textarea,
         font-size: $font-small;
       }
     }
+    @media screen and (max-width: 768px) {
+      height: 41px;
+      padding: 10px;
+    }
+    @media screen and (max-width: 480px) {
+      span {
+        font-size: $font-tiny;
+      }
+      padding: 6px;
+    }
   }
   .selected {
     color: white;
@@ -275,6 +314,7 @@ textarea,
   overflow-x: hidden;
   overflow-y: auto;
   @media screen and (max-width: 1024px) {
+    width: 100%;
     position: relative;
     left: 0;
   }

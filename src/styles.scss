@@ -43,7 +43,12 @@ $font-tiny: 13px;
     --page-headline-margin: 40px;
   }
   @media screen and (max-width: 768px) {
-    --page-padding: 15px;
+    --input-padding: 10px 21px;
+    --page-padding: 16px;
+  }
+  @media screen and (max-width: 350px) {
+    --input-padding: 10px 21px;
+    --page-padding: 10px;
   }
 }
 
@@ -79,6 +84,9 @@ textarea {
   font-family: "Inter";
   font-weight: 400;
   font-size: $font-normal;
+  @media screen and (max-width: 768px) {
+    font-size: $font-small;
+  }
 }
 
 .text-input {

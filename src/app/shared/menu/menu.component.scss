@@ -71,8 +71,28 @@ nav {
       display: none;
     }
     .main {
+      height: 100%;
       flex-direction: row;
       margin-bottom: 0;
+      @include flex($jc: space-around, $g: 0);
+      a {
+        width: 80px;
+        height: 100%;
+        border-radius: 16px;
+        @include flex($g: 4px, $dir: column);
+        span {
+          font-size: 14px;
+          text-align: center;
+        }
+        @media screen and (max-width: 350px) {
+          width: 72px;
+          img {
+            width: 24px;
+            height: 24px;            
+          }
+        }
+      }
     }
   }
+
 }
