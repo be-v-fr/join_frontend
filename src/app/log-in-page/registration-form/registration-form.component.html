@@ -1,7 +1,5 @@
 <form (ngSubmit)="onSubmit(registrationForm)" #registrationForm="ngForm" (change)="resetAuthError()">
-    <button *ngIf="formMode == 'Sign up'" type="button" (click)="toggleModeEmit()" class="arrow-back">
-        <img src="assets/img/arrow-left-line.svg" alt="back">
-    </button>
+    <app-arrow-back-btn *ngIf="formMode == 'Sign up'" (click)="toggleModeEmit()" class="arrow-back"></app-arrow-back-btn>
     <h2>{{formMode}}</h2>
     <div *ngIf="formMode == 'Sign up'" class="form-field"
         [ngClass]="{'validation-error': (name.touched || registrationForm.submitted) && !name.valid}">

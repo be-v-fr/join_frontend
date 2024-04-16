@@ -7,11 +7,12 @@ import { User } from '../../../models/user';
 import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
 import { tick } from '@angular/core/testing';
+import { ArrowBackBtnComponent } from '../../templates/arrow-back-btn/arrow-back-btn.component';
 
 @Component({
   selector: 'app-registration-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, PasswordIconComponent],
+  imports: [CommonModule, FormsModule, PasswordIconComponent, ArrowBackBtnComponent],
   templateUrl: './registration-form.component.html',
   styleUrl: './registration-form.component.scss'
 })

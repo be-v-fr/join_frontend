@@ -1,0 +1,19 @@
+@import '../../../styles.scss';
+
+button {
+    @include flex();
+    img {
+      display: block;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      transition: 75ms ease;
+    }
+    &:hover {
+      img {
+        transition: 75ms ease;
+        background: $light-grey;
+        transform: scale(1.14);
+      }
+    }
+}

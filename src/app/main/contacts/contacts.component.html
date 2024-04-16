@@ -14,8 +14,10 @@
         }
         }
     </div>
-    <div class="viewer">
-        <app-headline-slogan [headline]="'Contacts'" [slogan]="'Better with a team'"></app-headline-slogan>
+    <div [ngClass]="contactViewerResponsive == 'desktop' ? 'viewer-desktop' : 'viewer-mobile'" #viewer>
+        <div class="headline-container">
+            <app-headline-slogan [headline]="'Contacts'" [slogan]="'Better with a team'"></app-headline-slogan>
+        </div>
         @if(selection >= 0) {
         <div class="contactData">
             <div class="name">
@@ -53,7 +55,8 @@
     </div>
 </div>
 @if(contactOverlay == 'add') {
-<app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="'add'" (contactSubmission)="submitContact($event)"></app-add-contact>
+<app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="'add'"
+    (contactSubmission)="submitContact($event)"></app-add-contact>
 } @else if (contactOverlay == 'edit' && currentUser) {
 <app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="'edit'" [contact]="sortedContacts[selection]"
     (contactSubmission)="submitContact($event)" (delete)="deleteSelectedContact()"></app-add-contact>

@@ -4,65 +4,75 @@
 .content {
   @extend .content;
   @include flex($ai: flex-start);
-  .list {
-    width: 33.3%;
-    height: 100%;
-    background: white;
-    padding: 24px 50px;
-    overflow-y: auto;
-    box-shadow: $shadow-subtle;
-    .add-new {
-      width: 100%;
-      gap: 16px;
+}
+.list {
+  min-width: 350px;
+  width: 33.3%;
+  height: 100%;
+  background: white;
+  padding: 24px 50px;
+  overflow-y: auto;
+  box-shadow: $shadow-subtle;
+  .add-new {
+    width: 100%;
+    gap: 16px;
+  }
+  .letter {
+    padding: 17px 36px;
+    margin-top: 6px;
+  }
+  .horizontal-ruler {
+    width: 100%;
+    height: 1px;
+    background: $medium-light-grey;
+    margin: 8px 0;
+  }
+}
+.viewer-desktop {
+  height: 100%;
+  flex: 1;
+  padding: var(--page-padding);
+  app-headline-slogan {
+    width: 100%;
+    height: 60px;
+  }
+  .contactData {
+    font-size: $font-small;
+    animation: slide-in 125ms ease;
+    .name {
+      @include flex($jc: flex-start, $g: 54px);
+      .full-name-edit {
+          .full-name {
+              font-size: $font-larger;
+          }
+          .edit-btns-container {
+              margin-top: 8px;
+              display: flex;
+          }
+      }
     }
-    .letter {
-      padding: 17px 36px;
-      margin-top: 6px;
+    app-email {
+      margin-bottom: 16px;
     }
-    .horizontal-ruler {
-      width: 100%;
-      height: 1px;
-      background: $medium-light-grey;
-      margin: 8px 0;
+    .phone-nr {
+      color: black;
+    }
+    @keyframes slide-in {
+      from {
+        transform: translateX(100vw);
+      }
+      to {
+        transform: translateX(0);
+      }
     }
   }
-  .viewer {
-    height: 100%;
-    flex: 1;
+  @media screen and (max-width: 1440px) {
+    padding: 60px 40px;
+  }
+  @media screen and (max-width: 1280px) {
     padding: var(--page-padding);
-    app-headline-slogan {
-      width: 100%;
-      height: 60px;
-    }
-    .contactData {
-      font-size: $font-small;
-      animation: slide-in 125ms ease;
-      .name {
-        @include flex($jc: flex-start, $g: 54px);
-        .full-name-edit {
-            .full-name {
-                font-size: $font-larger;
-            }
-            .edit-btns-container {
-                margin-top: 8px;
-                display: flex;
-            }
-        }
-      }
-      app-email {
-        margin-bottom: 16px;
-      }
-      .phone-nr {
-        color: black;
-      }
-      @keyframes slide-in {
-        from {
-          transform: translateX(100vw);
-        }
-        to {
-          transform: translateX(0);
-        }
-      }
-    }
   }
+}
+.viewer-mobile {
+  @extend .viewer-desktop;
 }

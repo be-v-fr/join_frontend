@@ -24,7 +24,7 @@
     @extend .separator;
     display: none;
   }
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1280px) {
     @include flex($jc: flex-start, $ai: flex-start, $g: 8px, $dir: column);
     .separator-desktop {
       display: none;

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, AfterViewInit, ElementRef, ViewChild, Renderer2, HostListener } from '@angular/core';
 import { ContactListItemComponent } from './contact-list-item/contact-list-item.component';
 import { Contact } from '../../../models/contact';
 import { User } from '../../../models/user';
@@ -9,15 +9,16 @@ import { EmailComponent } from './email/email.component';
 import { AddContactComponent } from './add-contact/add-contact.component';
 import { HeadlineSloganComponent } from '../../templates/headline-slogan/headline-slogan.component';
 import { CommonModule } from '@angular/common';
+import { ArrowBackBtnComponent } from '../../templates/arrow-back-btn/arrow-back-btn.component';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
-  imports: [CommonModule, ContactListItemComponent, PersonBadgeComponent, EmailComponent, AddContactComponent, HeadlineSloganComponent],
+  imports: [CommonModule, ContactListItemComponent, PersonBadgeComponent, EmailComponent, AddContactComponent, HeadlineSloganComponent, ArrowBackBtnComponent],
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss'
 })
-export class ContactsComponent implements OnInit {
+export class ContactsComponent implements OnInit, AfterViewInit {
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
 
@@ -27,6 +28,8 @@ export class ContactsComponent implements OnInit {
 
   selection: number = -1;
   contactOverlay: 'add' | 'edit' | null = null;
+  @ViewChild('viewer') contactViewerRef!: ElementRef;
+  contactViewerResponsive: 'desktop' | 'mobile' = 'desktop';
 
   ngOnInit(): void {
     this.authService.user$.subscribe(() => {
@@ -41,6 +44,20 @@ export class ContactsComponent implements OnInit {
         })
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.setContactViewerResponsive();
+  }
+
+  setContactViewerResponsive() {
+    const width = this.contactViewerRef.nativeElement.offsetWidth;
+    width >= 698 ? this.contactViewerResponsive = 'desktop' : this.contactViewerResponsive = 'mobile';
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.setContactViewerResponsive();
   }
 
   getContactsWithUsers(): Contact[] {
