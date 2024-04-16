@@ -22,7 +22,7 @@
             <app-arrow-back-btn (click)="unselectContact()"></app-arrow-back-btn>
         </div>
         @if(selection >= 0) {
-        <div class="contactData">
+        <div class="contact-data">
             <div class="name">
                 <app-person-badge [name]="sortedContacts[selection].name" [color]="sortedContacts[selection].color"
                     [responsive]="contactViewerResponsive" [large]="true"></app-person-badge>
@@ -56,7 +56,7 @@
         </div>
         }
         <button class="btn-primary btn-viewer-options"
-            (click)="$event.stopPropagation(); toggleEditMenuResponsive(true)">
+            (click)="$event.stopPropagation(); toggleEditMenuResponsive()">
             <img src="assets/img/contacts/more_vert.svg" alt="options">
         </button>
     </div>

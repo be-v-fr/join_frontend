@@ -51,7 +51,7 @@
       display: none;
     }
   }
-  .contactData {
+  .contact-data {
     font-size: $font-small;
     animation: slide-in 125ms ease;
     .name {
@@ -90,34 +90,40 @@
 }
 .viewer-mobile {
   @extend .viewer-desktop;
-  .contactData {
+  .contact-data {
     font-size: $font-small;
     .name {
       gap: 20px;
       .full-name-edit {
         .full-name {
           font-size: 36px;
+          @media screen and (max-width: 480px) {
+            font-size: $font-large;
+          }
+          @media screen and (max-width: 350px) {
+            font-size: $font-medium;
+          }
         }
       }
     }
   }
 }
-@media screen and (max-width: 1024px) {
-  .btn-responsive {
-    position: fixed;
-    right: 24px;
-    bottom: 24px;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    box-shadow: $shadow-stronger;
-    @include flex();
-    img {
-      display: block;
+.content {
+  background: white;
+  @media screen and (max-width: 1024px) {
+    .btn-responsive {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      box-shadow: $shadow-stronger;
+      @include flex();
+      img {
+        display: block;
+      }
     }
-  }
-  .content {
-    background: white;
     .list {
       width: 480px;
       box-shadow: none;
@@ -144,9 +150,9 @@
       background: $light-grey;
       animation: slide-in 125ms ease;
       .headline-container app-arrow-back-btn {
-          display: block;
-        }
-      .contactData {
+        display: block;
+      }
+      .contact-data {
         animation: none;
       }
       .edit-btns-container {
@@ -155,13 +161,16 @@
         position: fixed;
         z-index: 2;
         right: -50vw;
-        bottom: 24px;
+        bottom: 20px;
         width: 118px;
         min-height: 80px;
         padding: 20px 10px;
         border-radius: 20px 20px 0 20px;
         @include flex($ai: flex-start, $g: 16px, $dir: column);
         transition: 250ms ease-in;
+        @media screen and (max-width: 768px) {
+          bottom: 80px + 20px;
+        }
       }
       .show-responsive-menu {
         right: 0;
@@ -169,11 +178,11 @@
       }
     }
   }
-}
-@media screen and (max-width: 768px) {
-  .btn-responsive {
-    position: fixed;
-    right: 12px;
-    bottom: 80px + 24px;
+  @media screen and (max-width: 768px) {
+    .btn-responsive {
+      position: fixed;
+      right: 12px;
+      bottom: 80px + 24px;
+    }
   }
 }

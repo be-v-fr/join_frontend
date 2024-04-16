@@ -34,6 +34,14 @@ div {
         width: 42px;
         height: 42px;
     }
+    @media screen and (max-width: 350px) {
+        width: 64px;
+        height: 64px;
+        img {
+            width: 36px;
+            height: 36px;
+        }        
+    }
 }
 
 .current-user {

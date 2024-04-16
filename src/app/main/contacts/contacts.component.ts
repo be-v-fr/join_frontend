@@ -132,6 +132,10 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   }
 
   toggleEditMenuResponsive(show?: boolean) {
-    show ? this.showEditMenuResponsive = show : this.showEditMenuResponsive = !this.showEditMenuResponsive;
+    if(show == true || show == false) {
+      this.showEditMenuResponsive = show;
+    } else {
+      this.showEditMenuResponsive = !this.showEditMenuResponsive;
+    }
   }
 }
