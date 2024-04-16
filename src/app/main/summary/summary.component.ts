@@ -5,11 +5,12 @@ import { AuthService} from '../../services/auth.service';
 import { StatsItemComponent } from './stats-item/stats-item.component';
 import { HeadlineSloganComponent } from '../../templates/headline-slogan/headline-slogan.component';
 import { CommonModule } from '@angular/common';
+import { GreetingComponent } from './greeting/greeting.component';
 
 @Component({
   selector: 'app-summary',
   standalone: true,
-  imports: [CommonModule, StatsItemComponent, HeadlineSloganComponent],
+  imports: [CommonModule, StatsItemComponent, HeadlineSloganComponent, GreetingComponent],
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss'
 })
@@ -68,16 +69,5 @@ export class SummaryComponent implements OnInit {
     return month + ' ' + day + ', ' + year;
   }
 
-  getGreeting(): string {
-    const currentHour = new Date().getHours();
-    let greeting: string = '';
-    if(currentHour < 4) {greeting = 'Good evening'}
-    else if(currentHour < 11) {greeting = 'Good morning'}
-    else if(currentHour < 18) {greeting = 'Good day'}
-    else {greeting = 'Good evening'}
-    if(this.currentUserName) {
-      greeting = greeting + ',';
-    }
-    return greeting;
-  }
+
 }
