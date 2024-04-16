@@ -1,8 +1,9 @@
-<div class="content">
+<div class="content relative">
     <div class="list">
         <button class="btn-primary add-new" (click)="showContactOverlay('add')">
-            Add new contact
-            <img src="../../../assets/img/person_add.svg" alt="add new contact"></button>
+            <span>Add new contact</span>
+            <img src="../../../assets/img/person_add.svg" alt="add new contact">
+        </button>
         @if(currentUser) {
         @for (contact of sortedContacts; track contact; let i = $index) {
         @if(hasNextLetter(i)) {
@@ -14,15 +15,16 @@
         }
         }
     </div>
-    <div [ngClass]="contactViewerResponsive == 'desktop' ? 'viewer-desktop' : 'viewer-mobile'" #viewer>
+    <div #viewer [ngClass]="{'viewer-desktop': contactViewerResponsive == 'desktop', 'viewer-mobile': contactViewerResponsive == 'mobile', 'show-on-contact-selection': selection != -1}">
         <div class="headline-container">
             <app-headline-slogan [headline]="'Contacts'" [slogan]="'Better with a team'"></app-headline-slogan>
+            <app-arrow-back-btn (click)="selectContact(-1)"></app-arrow-back-btn>
         </div>
         @if(selection >= 0) {
         <div class="contactData">
             <div class="name">
-                <app-person-badge [name]="sortedContacts[selection].name" [color]="sortedContacts[selection].color" [responsive]="contactViewerResponsive"
-                    [large]="true"></app-person-badge>
+                <app-person-badge [name]="sortedContacts[selection].name" [color]="sortedContacts[selection].color"
+                    [responsive]="contactViewerResponsive" [large]="true"></app-person-badge>
                 <div class="full-name-edit">
                     <p class="full-name">{{sortedContacts[selection].name}}</p>
                     <div class="edit-btns-container">
@@ -52,6 +54,9 @@
             }
         </div>
         }
+        <button class="btn-primary btn-viewer-options">
+            <img src="assets/img/contacts/more_vert.svg" alt="options">
+        </button>
     </div>
 </div>
 @if(contactOverlay == 'add') {

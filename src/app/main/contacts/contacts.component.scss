@@ -4,6 +4,13 @@
 .content {
   @extend .content;
   @include flex($ai: flex-start);
+  .btn-responsive {
+    display: flex;
+  }
+  .btn-viewer-options {
+    @extend .btn-responsive;
+    display: none;
+  }
 }
 .list {
   min-width: 350px;
@@ -14,6 +21,7 @@
   overflow-y: auto;
   box-shadow: $shadow-subtle;
   .add-new {
+    @extend .btn-responsive;
     width: 100%;
     gap: 16px;
   }
@@ -32,9 +40,15 @@
   height: 100%;
   flex: 1;
   padding: var(--page-padding);
-  app-headline-slogan {
+  .headline-container {
     width: 100%;
-    height: 60px;
+    @include flex($jc: space-between, $ai: flex-start);
+    app-headline-slogan {
+      flex: 1;
+    }
+    app-arrow-back-btn {
+      display: none;
+    }
   }
   .contactData {
     font-size: $font-small;
@@ -83,10 +97,67 @@
         .full-name {
           font-size: 36px;
         }
-        .edit-btns-container {
+      }
+    }
+  }
+}
+@media screen and (max-width: 1024px) {
+  .btn-responsive {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    box-shadow: $shadow-stronger;
+    @include flex();
+    img {
+      display: block;
+    }
+  }
+  .content {
+    background: white;
+    .list {
+      width: 480px;
+      box-shadow: none;
+      .add-new {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        span {
           display: none;
         }
       }
     }
+    .viewer-desktop,
+    .viewer-mobile {
+      display: none;
+    }
+    .show-on-contact-selection {
+      display: initial;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: $light-grey;
+      animation: slide-in 125ms ease;
+      .headline-container app-arrow-back-btn {
+          display: block;
+        }
+      .contactData {
+        animation: none;
+      }
+      .btn-viewer-options {
+
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .btn-responsive {
+    position: fixed;
+    right: 12px;
+    bottom: 80px + 24px;
   }
 }

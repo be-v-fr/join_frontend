@@ -112,6 +112,9 @@ h5 {
   color: white;
   background: $anthracite;
   font-weight: 700;
+  span {
+    font-weight: inherit;
+  }
   &:hover {
     background: $light-blue;
   }
