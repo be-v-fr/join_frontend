@@ -19,7 +19,7 @@
         [ngClass]="{'viewer-desktop': contactViewerResponsive == 'desktop', 'viewer-mobile': contactViewerResponsive == 'mobile', 'show-on-contact-selection': selection != -1}">
         <div class="headline-container">
             <app-headline-slogan [headline]="'Contacts'" [slogan]="'Better with a team'"></app-headline-slogan>
-            <app-arrow-back-btn (click)="selectContact(-1)"></app-arrow-back-btn>
+            <app-arrow-back-btn (click)="unselectContact()"></app-arrow-back-btn>
         </div>
         @if(selection >= 0) {
         <div class="contactData">

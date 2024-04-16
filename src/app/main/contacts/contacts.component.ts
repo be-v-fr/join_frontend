@@ -92,6 +92,11 @@ export class ContactsComponent implements OnInit, AfterViewInit {
     this.selection == index ? this.selection = -1 : this.selection = index;
   }
 
+  unselectContact() {
+    this.selection = -1;
+    this.toggleEditMenuResponsive(false);
+  }
+
   showContactOverlay(mode: 'add' | 'edit') {
     this.contactOverlay = mode;
   }
@@ -123,7 +128,7 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   deleteSelectedContact() {
     this.currentUser.contacts.splice(this.selection, 1);
     this.usersService.updateUser(this.currentUser);
-    this.selection = -1;
+    this.unselectContact();
   }
 
   toggleEditMenuResponsive(show?: boolean) {
