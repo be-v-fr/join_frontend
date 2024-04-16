@@ -9,13 +9,13 @@
     font-weight: 700;
     color: $light-blue;
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 1024px) {
     position: fixed;
     z-index: -1;
-    left: 0;
+    left: 232px;
     right: 0;
-    top: 80px;
-    bottom: 80px;
+    top: 96px;
+    bottom: 0;
     @include flex();
     background: $light-grey;
     animation: greet 1400ms;
@@ -33,5 +33,12 @@
         z-index: 1;
       }
     }
+  }
+  @media screen and (max-width: 768px) {
+    position: fixed;
+    z-index: -1;
+    left: 0;
+    top: 80px;
+    bottom: 80px;
   }
 }

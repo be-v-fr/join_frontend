@@ -90,6 +90,30 @@
       color: white;
     }
   }
+  @media screen and (max-width: 768px) {
+    padding: 20px;
+    gap: 10px;
+    .icon-bg,
+    .icon-bg-small-red {
+      width: 40px;
+      height: 40px;
+    }
+    .info {
+      .value {
+        font-size: $font-larger;
+      }
+      .name {
+        font-size: 14px;
+      }
+    }
+    .deadline .value {
+      font-size: $font-small;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    padding: 12px;
+    gap: 8px;
+  }
 }
 .content-urgent {
   @extend .content;

@@ -21,6 +21,12 @@
     flex: 1;
     @include flex($g: 60px);
   }
+  @media screen and (max-width: 1024px) {
+    .content-main {
+      gap: 0;
+      margin-bottom: 108px;
+    }
+  }
 }
 
 .stats-container {
@@ -34,6 +40,21 @@
     app-stats-item {
       flex: 1;
       height: 100%;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    max-width: 480px;
+    max-height: 450px;
+    gap: 16px;
+    .stats-row {
+      gap: 16px;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    gap: 10px;
+    max-height: calc(100vh - 80px - 80px - 108px);
+    .stats-row {
+      gap: 10px;
     }
   }
 }

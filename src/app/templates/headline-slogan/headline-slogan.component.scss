@@ -41,4 +41,12 @@
       font-size: $font-normal;
     }
   }
+  @media screen and (max-height: 720px) {
+    margin-bottom: 12px;
+  }
+  @media screen and (max-height: 640px) {
+    .separator, span {
+      display: none;
+    }
+  }
 }
