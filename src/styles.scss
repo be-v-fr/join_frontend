@@ -232,6 +232,9 @@ textarea,
 .slid-out {
   transition: transform 125ms ease;
   transform: translateX(100vw);
+  @media screen and (max-width: 768px) {
+  transform: translateY(100vh);
+  }
 }
 
 .slid-in {
