@@ -11,8 +11,9 @@ import { Component, Input } from '@angular/core';
 export class PersonBadgeComponent {
   @Input() name: string = '';
   @Input() color: string = '#d1d1d1';
-  @Input() large?: boolean = false;
-  @Input() currentUser?: boolean = false;
+  @Input() large?: boolean;
+  @Input() currentUser?: boolean;
+  @Input() responsive?: 'desktop' | 'mobile';
 
   getInitials() {
     const nameParts: string[] = this.name.split(' ');

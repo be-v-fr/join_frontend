@@ -1,4 +1,4 @@
-<div class="prevent-select" [ngStyle]="{'background': currentUser ? '' : color}" [ngClass]="{'large': large, 'current-user': currentUser}">
+<div class="prevent-select" [ngStyle]="{'background': currentUser ? '' : color}" [ngClass]="{'large-desktop': large, 'large-mobile': large && responsive == 'mobile', 'current-user': currentUser}">
     @if(name && name.length > 0) {
     {{getInitials()}}
     } @else {

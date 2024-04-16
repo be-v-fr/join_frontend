@@ -42,13 +42,13 @@
     .name {
       @include flex($jc: flex-start, $g: 54px);
       .full-name-edit {
-          .full-name {
-              font-size: $font-larger;
-          }
-          .edit-btns-container {
-              margin-top: 8px;
-              display: flex;
-          }
+        .full-name {
+          font-size: $font-larger;
+        }
+        .edit-btns-container {
+          margin-top: 8px;
+          display: flex;
+        }
       }
     }
     app-email {
@@ -75,4 +75,18 @@
 }
 .viewer-mobile {
   @extend .viewer-desktop;
+  .contactData {
+    font-size: $font-small;
+    .name {
+      gap: 20px;
+      .full-name-edit {
+        .full-name {
+          font-size: 36px;
+        }
+        .edit-btns-container {
+          display: none;
+        }
+      }
+    }
+  }
 }

@@ -47,7 +47,7 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.setContactViewerResponsive();
+    setTimeout(() => { this.setContactViewerResponsive() }, 0);
   }
 
   setContactViewerResponsive() {
