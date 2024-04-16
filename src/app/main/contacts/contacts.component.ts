@@ -30,6 +30,7 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   contactOverlay: 'add' | 'edit' | null = null;
   @ViewChild('viewer') contactViewerRef!: ElementRef;
   contactViewerResponsive: 'desktop' | 'mobile' = 'desktop';
+  showEditMenuResponsive: boolean = false;
 
   ngOnInit(): void {
     this.authService.user$.subscribe(() => {
@@ -123,5 +124,9 @@ export class ContactsComponent implements OnInit, AfterViewInit {
     this.currentUser.contacts.splice(this.selection, 1);
     this.usersService.updateUser(this.currentUser);
     this.selection = -1;
+  }
+
+  toggleEditMenuResponsive(show?: boolean) {
+    show ? this.showEditMenuResponsive = show : this.showEditMenuResponsive = !this.showEditMenuResponsive;
   }
 }

@@ -2,6 +2,7 @@
 @import "../../app.component.scss";
 
 .content {
+  overflow-x: hidden;
   @extend .content;
   @include flex($ai: flex-start);
   .btn-responsive {
@@ -148,8 +149,23 @@
       .contactData {
         animation: none;
       }
-      .btn-viewer-options {
-
+      .edit-btns-container {
+        background: white;
+        box-shadow: $shadow-stronger;
+        position: fixed;
+        z-index: 2;
+        right: -50vw;
+        bottom: 24px;
+        width: 118px;
+        min-height: 80px;
+        padding: 20px 10px;
+        border-radius: 20px 20px 0 20px;
+        @include flex($ai: flex-start, $g: 16px, $dir: column);
+        transition: 250ms ease-in;
+      }
+      .show-responsive-menu {
+        right: 0;
+        transition: 250ms ease-out;
       }
     }
   }

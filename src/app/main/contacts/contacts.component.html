@@ -15,7 +15,8 @@
         }
         }
     </div>
-    <div #viewer [ngClass]="{'viewer-desktop': contactViewerResponsive == 'desktop', 'viewer-mobile': contactViewerResponsive == 'mobile', 'show-on-contact-selection': selection != -1}">
+    <div #viewer (click)="$event.stopPropagation(); toggleEditMenuResponsive(false)"
+        [ngClass]="{'viewer-desktop': contactViewerResponsive == 'desktop', 'viewer-mobile': contactViewerResponsive == 'mobile', 'show-on-contact-selection': selection != -1}">
         <div class="headline-container">
             <app-headline-slogan [headline]="'Contacts'" [slogan]="'Better with a team'"></app-headline-slogan>
             <app-arrow-back-btn (click)="selectContact(-1)"></app-arrow-back-btn>
@@ -27,7 +28,7 @@
                     [responsive]="contactViewerResponsive" [large]="true"></app-person-badge>
                 <div class="full-name-edit">
                     <p class="full-name">{{sortedContacts[selection].name}}</p>
-                    <div class="edit-btns-container">
+                    <div class="edit-btns-container" [ngClass]="{'show-responsive-menu': showEditMenuResponsive}">
                         <button class="edit-btn" (click)="showContactOverlay('edit')" name="Edit">
                             <img src="../../../../assets/img/edit.svg" alt="edit contact">
                             <p>Edit</p>
@@ -54,7 +55,8 @@
             }
         </div>
         }
-        <button class="btn-primary btn-viewer-options">
+        <button class="btn-primary btn-viewer-options"
+            (click)="$event.stopPropagation(); toggleEditMenuResponsive(true)">
             <img src="assets/img/contacts/more_vert.svg" alt="options">
         </button>
     </div>
