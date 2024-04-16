@@ -9,4 +9,29 @@
     font-weight: 700;
     color: $light-blue;
   }
+  @media screen and (max-width: 768px) {
+    position: fixed;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    top: 80px;
+    bottom: 80px;
+    @include flex();
+    background: $light-grey;
+    animation: greet 1400ms;
+    @keyframes greet {
+      0% {
+        opacity: 1;
+        z-index: 1;
+      }
+      65% {
+        opacity: 1;
+        z-index: 1;
+      }
+      100% {
+        opacity: 0;
+        z-index: 1;
+      }
+    }
+  }
 }

@@ -30,8 +30,9 @@ export class GreetingComponent implements OnInit {
     else if(currentHour < 18) {greeting = 'Good day'}
     else {greeting = 'Good evening'}
     if(this.currentUserName) {
-      greeting = greeting + ',';
+      return greeting + ',';
+    } else {
+      return greeting + '!';      
     }
-    return greeting;
   }
 }
