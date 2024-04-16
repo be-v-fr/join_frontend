@@ -1,5 +1,5 @@
 <div class="content">
-    <a href="" class="logo">
+    <a href="" class="logo" [ngClass]="{'intro': animate}">
         <img src="assets/img/logo.svg" alt="JOIN">
     </a>
     <app-registration-form [ngClass]="{'await-intro': animate}" [formMode]="formMode"

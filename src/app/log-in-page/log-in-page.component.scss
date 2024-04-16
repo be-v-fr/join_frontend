@@ -1,5 +1,5 @@
-@import '../../styles.scss';
-@import '../app.component.scss';
+@import "../../styles.scss";
+@import "../app.component.scss";
 
 $intro-duration: 800ms ease-in;
 $logo-starting-width: 274px;
@@ -16,6 +16,12 @@ $logo-starting-height: $logo-starting-width * 1.219;
   background: $light-grey;
   top: 64px;
   left: 64px;
+  img {
+    width: 100px;
+    height: 122px;
+  }
+}
+.intro {
   animation: intro-anchor $intro-duration;
   @keyframes intro-anchor {
     0% {
@@ -32,8 +38,6 @@ $logo-starting-height: $logo-starting-width * 1.219;
     }
   }
   img {
-    width: 100px;
-    height: 122px;
     animation: intro-img $intro-duration;
     @keyframes intro-img {
       0% {
@@ -51,7 +55,6 @@ $logo-starting-height: $logo-starting-width * 1.219;
     }
   }
 }
-
 .await-intro {
   animation: await-intro $intro-duration;
   @keyframes await-intro {
@@ -69,7 +72,6 @@ $logo-starting-height: $logo-starting-width * 1.219;
     }
   }
 }
-
 .go-to-sign-up {
   position: fixed;
   top: 60px;
@@ -80,7 +82,6 @@ $logo-starting-height: $logo-starting-width * 1.219;
     font-weight: 500;
   }
 }
-
 .legal-info {
   position: fixed;
   left: 0;
@@ -113,5 +114,52 @@ $logo-starting-height: $logo-starting-width * 1.219;
     p {
       left: 0;
     }
+  }
+}
+@media screen and (max-width: 768px) {
+  .logo {
+    top: 32px;
+    left: 32px;
+    img {
+      width: 64px;
+      height: 78px;
+    }
+  }
+  .intro {
+    animation: intro-anchor-responsive $intro-duration;
+    @keyframes intro-anchor-responsive {
+      0% {
+        top: calc(50vh - $logo-starting-width / 4);
+        left: calc(50vw - $logo-starting-height / 4);
+      }
+      15% {
+        top: calc(50vh - $logo-starting-width / 4);
+        left: calc(50vw - $logo-starting-height / 4);
+      }
+      100% {
+        top: 32px;
+        left: 32px;
+      }
+    }
+    img {
+      animation: intro-img-responsive $intro-duration;
+      @keyframes intro-img-responsive {
+        0% {
+          width: calc($logo-starting-width / 2);
+          height: calc($logo-starting-height / 2);
+        }
+        15% {
+          width: calc($logo-starting-width / 2);
+          height: calc($logo-starting-height / 2);
+        }
+        100% {
+          width: 64px;
+          height: 78px;
+        }
+      }
+    }
+  }
+  app-registration-form {
+    width: 100%;
   }
 }
