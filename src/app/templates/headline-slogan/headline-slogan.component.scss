@@ -1,19 +1,44 @@
-@import '../../../styles.scss';
-@import '../../app.component.scss';
+@import "../../../styles.scss";
+@import "../../app.component.scss";
+
+.separator {
+  background: $light-blue;
+}
 
 .content {
-    margin-bottom: var(--page-headline-margin);
-    @include flex($jc: flex-start, $g: 30px);
-    h2 {
-      margin: 0;
+  margin-bottom: var(--page-headline-margin);
+  @include flex($jc: flex-start, $g: 30px);
+  h2 {
+    margin: 0;
+  }
+  .separator-desktop {
+    @extend .separator;
+    height: 56px;
+    width: 3px;
+  }
+  span {
+    font-size: $font-large;
+    color: $anthracite;
+  }
+  .separator-mobile {
+    @extend .separator;
+    display: none;
+  }
+  @media screen and (max-width: 1024px) {
+    @include flex($jc: flex-start, $ai: flex-start, $g: 8px, $dir: column);
+    .separator-desktop {
+      display: none;
     }
-    .separator {
-      height: 56px;
-      width: 3px;
-      background: $light-blue;
+    .separator-mobile {
+      display: block;
+      margin-top: 8px;
+      height: 3px;
+      width: 90px;
     }
+  }
+  @media screen and (max-width: 768px) {
     span {
-      font-size: $font-large;
-      color: $anthracite;
+      font-size: $font-normal;
     }
+  }
 }
