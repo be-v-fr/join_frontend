@@ -11,7 +11,7 @@ $logo-starting-height: $logo-starting-width * 1.219;
 
 .logo {
   position: absolute;
-  background: $light-grey;
+  // background: $light-grey;
   top: 64px;
   left: 64px;
   img {
@@ -52,6 +52,10 @@ $logo-starting-height: $logo-starting-width * 1.219;
       }
     }
   }
+}
+.logo-white {
+  @extend .logo;
+  display: none;
 }
 .await-intro {
   animation: await-intro $intro-duration;
@@ -118,10 +122,24 @@ $logo-starting-height: $logo-starting-width * 1.219;
   .logo-wrapper {
     width: 100%;
     margin-top: 16px;
+    padding-left: 16px;
     .logo {
       position: initial;
-      padding-left: 16px;
       img {
+        width: 64px;
+        height: 78px;
+      }
+    }
+    @keyframes intro-img-responsive {
+      0% {
+        width: calc($logo-starting-width / 2);
+        height: calc($logo-starting-height / 2);
+      }
+      15% {
+        width: calc($logo-starting-width / 2);
+        height: calc($logo-starting-height / 2);
+      }
+      100% {
         width: 64px;
         height: 78px;
       }
@@ -145,25 +163,63 @@ $logo-starting-height: $logo-starting-width * 1.219;
       }
       img {
         animation: intro-img-responsive $intro-duration;
-        @keyframes intro-img-responsive {
-          0% {
-            width: calc($logo-starting-width / 2);
-            height: calc($logo-starting-height / 2);
-          }
-          15% {
-            width: calc($logo-starting-width / 2);
-            height: calc($logo-starting-height / 2);
-          }
-          100% {
-            width: 64px;
-            height: 78px;
-          }
+      }
+    }
+    .logo-white {
+      display: initial;
+      position: absolute;
+      z-index: -1;
+      animation: logo-white-responsive $intro-duration;
+      @keyframes logo-white-responsive {
+        0% {
+          display: initial;
+          top: calc(50vh - $logo-starting-width / 4);
+          left: calc(50vw - $logo-starting-height / 4);
+          opacity: 1;
+          z-index: 1;
+        }
+        15% {
+          display: initial;
+          top: calc(50vh - $logo-starting-width / 4);
+          left: calc(50vw - $logo-starting-height / 4);
+          opacity: 0.7;
+          z-index: 1;
+        }
+        100% {
+          display: initial;
+          top: 16px;
+          left: 16px;
+          opacity: 0;
+          z-index: 1;
         }
       }
+      img {
+        animation: intro-img-responsive $intro-duration;
+      }      
     }
   }
   .content {
     @include flex($g: 8px, $dir: column);
+    animation: intro-bg $intro-duration;
+    position: initial;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    @keyframes intro-bg {
+      0% {
+        position: fixed;
+        background-color: #2a3647ff;
+      }
+      15% {
+        position: fixed;
+        background-color: #2a3647ff;
+      }
+      100% {
+        position: fixed;
+        background-color: #2a364700;
+      }
+    }
     min-height: calc(100% - var(--page-padding));
     overflow-y: auto;
     app-registration-form {
