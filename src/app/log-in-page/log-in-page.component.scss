@@ -6,8 +6,6 @@ $logo-starting-width: 274px;
 $logo-starting-height: $logo-starting-width * 1.219;
 
 .content {
-  width: 100%;
-  height: 100%;
   @include flex();
 }
 
@@ -117,49 +115,80 @@ $logo-starting-height: $logo-starting-width * 1.219;
   }
 }
 @media screen and (max-width: 768px) {
-  .logo {
-    top: 32px;
-    left: 32px;
-    img {
-      width: 64px;
-      height: 78px;
-    }
-  }
-  .intro {
-    animation: intro-anchor-responsive $intro-duration;
-    @keyframes intro-anchor-responsive {
-      0% {
-        top: calc(50vh - $logo-starting-width / 4);
-        left: calc(50vw - $logo-starting-height / 4);
-      }
-      15% {
-        top: calc(50vh - $logo-starting-width / 4);
-        left: calc(50vw - $logo-starting-height / 4);
-      }
-      100% {
-        top: 32px;
-        left: 32px;
+  .logo-wrapper {
+    width: 100%;
+    margin-top: 16px;
+    .logo {
+      position: initial;
+      padding-left: 16px;
+      img {
+        width: 64px;
+        height: 78px;
       }
     }
-    img {
-      animation: intro-img-responsive $intro-duration;
-      @keyframes intro-img-responsive {
+    .intro {
+      position: absolute;
+      animation: intro-anchor-responsive $intro-duration;
+      @keyframes intro-anchor-responsive {
         0% {
-          width: calc($logo-starting-width / 2);
-          height: calc($logo-starting-height / 2);
+          top: calc(50vh - $logo-starting-width / 4);
+          left: calc(50vw - $logo-starting-height / 4);
         }
         15% {
-          width: calc($logo-starting-width / 2);
-          height: calc($logo-starting-height / 2);
+          top: calc(50vh - $logo-starting-width / 4);
+          left: calc(50vw - $logo-starting-height / 4);
         }
         100% {
-          width: 64px;
-          height: 78px;
+          top: 16px;
+          left: 16px;
+        }
+      }
+      img {
+        animation: intro-img-responsive $intro-duration;
+        @keyframes intro-img-responsive {
+          0% {
+            width: calc($logo-starting-width / 2);
+            height: calc($logo-starting-height / 2);
+          }
+          15% {
+            width: calc($logo-starting-width / 2);
+            height: calc($logo-starting-height / 2);
+          }
+          100% {
+            width: 64px;
+            height: 78px;
+          }
         }
       }
     }
   }
-  app-registration-form {
-    width: 100%;
+  .content {
+    @include flex($g: 8px, $dir: column);
+    min-height: calc(100% - var(--page-padding));
+    overflow-y: auto;
+    app-registration-form {
+      width: 100%;
+    }
+    .sub-container {
+      flex: 1;
+    }
+    .sub-container-bottom {
+      @extend .sub-container;
+      @include flex($ai: space-around, $g: 4px, $dir: column);
+      .go-to-sign-up {
+        flex: 1;
+        position: initial;
+        @include flex($ai: flex-end, $g: 35px);
+        * {
+          height: 51px;
+          @include flex($jc: flex-start);
+        }
+      }
+      .legal-info {
+        flex: 1;
+        position: initial;
+        gap: 32px;
+      }
+    }
   }
 }

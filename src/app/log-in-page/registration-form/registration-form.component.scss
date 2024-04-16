@@ -86,11 +86,47 @@ form {
   }
   @media screen and (max-width: 768px) {
     width: 100%;
+    h2 {
+      height: 72px;
+    }
+    .btn-container {
+      @include flex($g: 21px, $dir: column);
+      width: 50%;
+      button {
+        min-width: 128px;
+        max-width: 100%;
+      }
+    }
   }
   @media screen and (max-width: 640px) {
     padding: 32px 16px;
+    .arrow-back {
+      top: 40px;
+      left: 32px;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    padding: 20px 10px;
+    .arrow-back {
+      top: 32px;
+      left: 24px;
+    }
+    .further-options {
+      width: 90%;
+      @include flex($ai: flex-start, $g: 8px, $dir: column);
+    }
+    .btn-container {
+      width: 60%;
+      button {
+        font-size: $font-small;
+        font-weight: 700;
+        height: 51px;
+      }
+    }
   }
   @media screen and (max-width: 350px) {
-    padding: 20px 10px;
+    .arrow-back {
+      left: 10px;
+    }
   }
 }

@@ -1,19 +1,23 @@
 <div class="content">
-    <a href="" class="logo" [ngClass]="{'intro': animate}">
-        <img src="assets/img/logo.svg" alt="JOIN">
-    </a>
+    <div class="logo-wrapper sub-container">
+        <a href="" class="logo" [ngClass]="{'intro': animate}">
+            <img src="assets/img/logo.svg" alt="JOIN">
+        </a>
+    </div>
     <app-registration-form [ngClass]="{'await-intro': animate}" [formMode]="formMode"
         (toggleMode)="toggleFormMode()"></app-registration-form>
-    <div *ngIf="formMode == 'Log in'" class="go-to-sign-up" [ngClass]="{'await-intro': animate}">
-        <span>Not a Join user?</span>
-        <button class="btn-primary" (click)="toggleFormMode()">Sign up</button>
-    </div>
-    <div class="legal-info" [ngClass]="{'await-intro': animate}">
-        <a href="" name="Privacy policy" class="left-link">
-            <p>Privacy policy</p>
-        </a>
-        <a href="" name="Legal notice" class="right-link">
-            <p>Legal notice</p>
-        </a>
+    <div class="sub-container-bottom">
+        <div *ngIf="formMode == 'Log in'" class="go-to-sign-up" [ngClass]="{'await-intro': animate}">
+            <span>Not a Join user?</span>
+            <button class="btn-primary" (click)="toggleFormMode()">Sign up</button>
+        </div>
+        <div class="legal-info" [ngClass]="{'await-intro': animate}">
+            <a href="" name="Privacy policy" class="left-link">
+                <p>Privacy policy</p>
+            </a>
+            <a href="" name="Legal notice" class="right-link">
+                <p>Legal notice</p>
+            </a>
+        </div>
     </div>
 </div>
