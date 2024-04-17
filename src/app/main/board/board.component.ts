@@ -5,6 +5,7 @@ import { TasksService } from '../../services/tasks.service';
 import { TaskViewComponent } from './task-view/task-view.component';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { TaskListComponent } from './task-list/task-list.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-board',
@@ -16,10 +17,10 @@ import { TaskListComponent } from './task-list/task-list.component';
 export class BoardComponent {
   tasks: Task[] = [];
   private tasksService = inject(TasksService);
+  private router = inject(Router);
   statusList: ('To do' | 'In progress' | 'Await feedback' | 'Done')[] = ['To do', 'In progress', 'Await feedback', 'Done'];
   viewTaskId: string = '';
   taskFormId: string | null = null;
-  newTaskStatus: 'To do' | 'In progress' | 'Await feedback' = 'To do';
   taskFormWrapperTranslated: boolean = true;
 
   ngOnInit() {
@@ -54,13 +55,12 @@ export class BoardComponent {
   hideTaskForm() {
     this.slideTaskFormWrapper();
     setTimeout(() => this.taskFormId = null, 125);
-
   }
 
   addToStatus(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
     if (status != 'Done') {
-      this.newTaskStatus = status;
-      this.showTaskForm('');
+      this.tasksService.newTaskStatus = status;
+      window.innerWidth > 768 ? this.showTaskForm('') : this.router.navigate(['/add_task']);   
     }
   }
 

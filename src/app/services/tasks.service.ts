@@ -10,6 +10,7 @@ import { Task } from '../../models/task';
 export class TasksService {
   tasks: Task[] = [];
   private tasksUpdate: Subject<void> = new Subject<void>();
+  newTaskStatus: 'To do' | 'In progress' | 'Await feedback' = 'To do';
   unsubTasks;
   firestore: Firestore = inject(Firestore);
 

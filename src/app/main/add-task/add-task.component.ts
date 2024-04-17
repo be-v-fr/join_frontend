@@ -32,7 +32,6 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   @Input() task: Task = new Task('');
   dueTextInput: string = '';
   @Input() inOverlay: boolean = false;
-  @Input() status: 'To do' | 'In progress' | 'Await feedback' = 'To do';
   @ViewChild('content') contentRef!: ElementRef;
   @ViewChild('dueContainer') dueContainerRef!: ElementRef;
   @ViewChild('subtask') subtaskRef!: ElementRef;
@@ -51,7 +50,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
     super.ngOnInit();
     if (this.task.id == '') {
       this.task.due = '';
-      this.task.status = this.status;
+      this.task.status = this.tasksService.newTaskStatus;
     }
     this.initUsers();
   }

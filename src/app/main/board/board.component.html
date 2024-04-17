@@ -29,7 +29,7 @@
     <div class="task-form-wrapper" [ngClass]="taskFormWrapperTranslated ? 'slid-out' : 'slid-in'"
         (click)="$event.stopPropagation()">
         @if(taskFormId == '') {
-        <app-add-task [status]="newTaskStatus" [inOverlay]="true" (cancelled)="hideTaskForm()"
+        <app-add-task [inOverlay]="true" (cancelled)="hideTaskForm()"
             (slide)="slideTaskFormWrapper()"></app-add-task>
         } @else {
         <app-add-task [task]="getTaskById(taskFormId)" [inOverlay]="true" (cancelled)="hideTaskForm()"
