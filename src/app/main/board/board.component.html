@@ -26,7 +26,7 @@
     (editThisTask)="showTaskForm(viewTaskId)"></app-task-view>
 @if(taskFormId != null) {
 <div class="overlay" [ngClass]="{'no-bg': viewTaskId != ''}" (click)="hideTaskForm()">
-    <div class="task-form-wrapper" [ngClass]="taskFormWrapperTranslated ? 'slid-out' : 'slid-in'"
+    <div class="task-form-wrapper" [ngClass]="{'slid-out': taskFormWrapperTranslated && taskFormId == '', 'slid-in': !taskFormWrapperTranslated, 'edit-task-wrapper': taskFormId != ''}"
         (click)="$event.stopPropagation()">
         @if(taskFormId == '') {
         <app-add-task [inOverlay]="true" (cancelled)="hideTaskForm()"

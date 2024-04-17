@@ -1,4 +1,4 @@
-<div class="content" (click)="handleGeneralClick()" #content>
+<div class="content" [ngClass]="{'overlay-custom-column-layout': inOverlay && task.id != ''}" (click)="handleGeneralClick()" #content>
     <app-close-btn *ngIf="inOverlay" (click)="close()" class="btn-close"></app-close-btn>
     <h2>
         @if(task.id == '') {
@@ -106,7 +106,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="form-field">
+                <div class="form-field" [ngClass]="{'d-none': inOverlay}">
                     <label for="category" (click)="$event.preventDefault()">Category<span
                             class="marked-red">*</span></label>
                     <input type="hidden" [(ngModel)]="task.category" name="category" #category="ngModel">

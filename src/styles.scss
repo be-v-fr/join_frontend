@@ -70,6 +70,10 @@ body {
   scroll-behavior: smooth;
 }
 
+.d-none {
+  display: none !important;
+}
+
 .prevent-select {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
@@ -139,7 +143,7 @@ textarea,
 }
 
 .no-bg {
-  background: none;
+  background: none !important;
 }
 
 .bold-on-hover {
@@ -239,7 +243,7 @@ textarea,
 
 .slid-in {
   transition: transform 125ms ease;
-  transform: translateX(0);
+  transform: translateX(0) translateY(0);
 }
 
 .validation-error {

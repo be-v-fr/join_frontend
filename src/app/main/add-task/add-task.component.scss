@@ -1,6 +1,16 @@
 @import "../../../styles.scss";
 @import "../../app.component.scss";
 
+@mixin column-layout() {
+  display: initial;
+  .form-main {
+    flex-direction: column;
+  }
+  .vertical-ruler {
+    display: none;
+  }
+}
+
 .content {
   @extend .content;
   @include flex($ai: flex-start, $dir: column);
@@ -49,13 +59,7 @@
     top: 60px;
   }
   @media screen and (max-width: 1024px) {
-    display: initial;
-    .form-main {
-      flex-direction: column;
-    }
-    .vertical-ruler {
-      display: none;
-    }
+    @include column-layout();
   }
   @media screen and (max-width: 768px) {
     form {
@@ -82,7 +86,8 @@
     }
   }
   @media screen and (max-width: 480px) {
-    .bottom-container .font-small, span {
+    .bottom-container .font-small,
+    span {
       font-size: $font-tiny;
     }
   }
@@ -186,7 +191,7 @@ textarea,
     }
   }
   @media screen and (max-height: 1024px) {
-    max-height: 228px;    
+    max-height: 228px;
   }
 }
 
@@ -317,5 +322,17 @@ textarea,
     width: 100%;
     position: relative;
     left: 0;
+  }
+}
+
+.overlay-custom-column-layout {
+  @include column-layout();
+  h2 {
+    display: none;
+  }
+  .assigned-badges {
+    position: relative;
+    top: 6px;
+    bottom: 0;
   }
 }
