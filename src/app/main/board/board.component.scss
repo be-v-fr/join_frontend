@@ -18,7 +18,7 @@
     @include flex($g: 32px);
 
     .search-container {
-      @include flex();
+      @include flex($jc: flex-start);
       background: white;
       height: 48px;
 
@@ -86,3 +86,68 @@
     border-radius: 30px;
   }
 }
+
+@media screen and (max-width: 1280px) {
+  .content header .search-container {
+    width: 296px;
+    .text-input {
+      width: calc(100% - 48px);
+    }
+  }
+}
+@media screen and (max-width: 1024px) {
+  .overlay .task-form-wrapper {
+    width: 90%;
+  }
+  .top-section {
+    header {
+      gap: 16px;
+      .search-container .text-input {
+        padding: 8px 16px;
+      }
+      .btn-primary {
+        width: 48px;
+        padding: 0;
+        span {
+          display: none;
+        }
+      }
+    }
+    @media screen and (max-width: 860px) {
+      position: relative;
+      margin-bottom: 96px;
+      header {
+        @include flex(
+          $jc: flex-start,
+          $ai: flex-end,
+          $g: 40px,
+          $dir: column-reverse
+        );
+        .search-container {
+          position: absolute;
+          left: 0;
+          right: 0;
+          width: auto;
+          top: 96px;
+        }
+        .btn-primary {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+    @media screen and (max-width: 768px) {
+      margin-bottom: 104px;
+      header .search-container {
+        top: 88px;
+      }
+    }
+    @media screen and (max-height: 640px) {
+      margin-bottom: 72px;
+      header .search-container {
+        top: 64px;
+      }
+    }
+  }
+}
+//SCHRIFTGRÖßEN
