@@ -46,6 +46,11 @@
 
 @media screen and (max-width: 768px) {
   .overlay .content {
+    max-width: 90%;
     padding: 32px 24px;
+    @media screen and (max-width: 480px) {
+      max-width: 95%;
+      padding: 24px 16px;
+    }
   }
 }
