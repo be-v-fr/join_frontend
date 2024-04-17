@@ -3,7 +3,7 @@
 
 .content {
   @extend .content;
-  @include flex($dir: column);
+  @include flex($jc: flex-start, $dir: column);
 }
 
 .top-section {
@@ -62,10 +62,18 @@
   flex: 1;
   width: 100%;
   overflow-y: auto;
-  @include flex($g: 26px);
+  @include flex($jc: flex-start, $ai: flex-start, $g: 26px);
   app-task-list {
     flex: 1;
     height: 100%;
+  }
+  @media screen and (max-width: 1440px) {
+    flex: initial;
+    flex-wrap: wrap;
+    app-task-list {
+      flex: 0;
+      height: fit-content;
+    }
   }
 }
 
