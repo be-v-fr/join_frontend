@@ -65,7 +65,7 @@
                     <label for="due">Due date<span class="marked-red">*</span></label>
                     <input type="date" class="due prevent-select" [(ngModel)]="task.due" name="due" #due="ngModel"
                         required (change)="validateDate()">
-                    <input type="text" class="due-text-input" value="{{dueToText()}}" placeholder="dd/mm/yyyy"
+                    <input type="text" class="due-text-input" value="{{task.getDueToText()}}" placeholder="dd/mm/yyyy"
                         (change)="textToDue($event)" pattern="\d{2}/\d{2}/\d{4}">
                     @if(dateError) {
                     <p>{{dateError}}</p>

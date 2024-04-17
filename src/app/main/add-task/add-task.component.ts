@@ -86,20 +86,6 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
     dueElement.min = new Date().toISOString().split("T")[0];
   }
 
-  dueToText(): string | undefined {
-    if (this.task.due && this.task.due.length > 0) {
-      const parts = this.task.due.split('-');
-      const year = parts[0];
-      let month: string | number = parseInt(parts[1]);
-      let day: string | number = parseInt(parts[2]);
-      month = (month < 10 ? '0' : '') + month;
-      day = (day < 10 ? '0' : '') + day;
-      return day + '/' + month + '/' + year;
-    } else {
-      return undefined;
-    }
-  }
-
   textToDue(ev: Event) {
     const target = ev.target as HTMLInputElement;
     const value = target.value;

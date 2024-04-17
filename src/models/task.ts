@@ -24,6 +24,20 @@ export class Task {
     isAssignedTo(user: User): boolean {
         return this.assigned.includes(user.uid);
     }
+
+    getDueToText(): string | undefined {
+        if (this.due && this.due.length > 0) {
+            const parts = this.due.split('-');
+            const year = parts[0];
+            let month: string | number = parseInt(parts[1]);
+            let day: string | number = parseInt(parts[2]);
+            month = (month < 10 ? '0' : '') + month;
+            day = (day < 10 ? '0' : '') + day;
+            return day + '/' + month + '/' + year;
+        } else {
+            return undefined;
+        }
+    }
 }
 
 function getCurrentDate(): string {

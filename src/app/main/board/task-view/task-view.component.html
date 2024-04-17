@@ -9,7 +9,7 @@
         <table class="due-prio-table">
             <tr>
                 <td>Due date:</td>
-                <td>{{task.due}}</td>
+                <td>{{task.getDueToText()}}</td>
             </tr>
             <tr *ngIf="task.prio != null">
                 <td>Priority:</td>
