@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, Input, Output, ViewChild, AfterViewInit, OnDestroy, EventEmitter, inject } from '@angular/core';
-import { Subtask } from '../../../interfaces/subtask.interface';
 import { SubtaskComponent } from './subtask/subtask.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';

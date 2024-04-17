@@ -5,6 +5,7 @@
   @extend .content;
   @include flex($ai: flex-start, $dir: column);
   form {
+    overflow-y: auto;
     width: 100%;
     flex: 1;
     @include flex($dir: column);
@@ -60,7 +61,6 @@
     form {
       flex: 0;
       max-height: calc(100% - 80px - 80px);
-      overflow-y: scroll;
       padding-top: 120px;
       .form-bottom .bottom-container {
         align-items: center;

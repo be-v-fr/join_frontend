@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../../models/task';
 import { TasksService } from '../../services/tasks.service';
@@ -57,10 +57,16 @@ export class BoardComponent {
     setTimeout(() => this.taskFormId = null, 125);
   }
 
+  // In case the add task form is opened in an overlay, this listener checks whether the window has been resized below the breakpoint width and triggers a function that closes the overlay in that case
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    if (this.taskFormId != null && window.innerWidth <= 768) { this.taskFormId = null; }
+  }
+
   addToStatus(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
     if (status != 'Done') {
       this.tasksService.newTaskStatus = status;
-      window.innerWidth > 768 ? this.showTaskForm('') : this.router.navigate(['/add_task']);   
+      window.innerWidth > 768 ? this.showTaskForm('') : this.router.navigate(['/add_task']);
     }
   }
 
