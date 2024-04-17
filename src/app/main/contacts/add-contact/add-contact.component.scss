@@ -20,6 +20,9 @@ $overlay-content-padding: 50px;
   height: 100%;
   padding: 0 $overlay-content-padding;
   @include flex($ai: flex-start, $g: 12px, $dir: column);
+  .btn-close-bright {
+    display: none;
+  }
   .headline-and-logo-container {
     width: 100%;
     position: relative;
@@ -55,7 +58,7 @@ form {
   padding-right: $overlay-content-padding;
   position: relative;
   @include flex($ai: flex-start, $dir: column);
-  .btn-close {
+  .btn-close-dark {
     position: absolute;
     right: $overlay-content-padding;
     top: -80px;
@@ -110,32 +113,104 @@ form {
           display: none;
         }
       }
-      .btn-secondary {
+      .btn-cancel {
         display: none;
       }
     }
     @media screen and (max-width: 1024px) {
+      height: 85%;
       background: linear-gradient(to bottom, #00000000 20%, white 20%);
-      @include flex($ai: flex-start, $g: 80px, $dir: column);
+      @include flex($jc: flex-start, $ai: flex-start, $g: 80px, $dir: column);
       .headline {
         border-radius: 30px 30px 0 0;
         width: 100%;
-        height: 40%;
+        height: 45%;
         padding: 10px;
+        .btn-close-bright {
+          display: initial;
+          position: absolute;
+          top: 20px;
+          right: 10px;
+        }
       }
       app-person-badge {
         position: absolute;
-        left: calc(50% - 120px / 2);
-        top: calc(43.5% - 120px / 2);
+        top: 45%;
+        bottom: 55%;
+        left: 0;
+        right: 0;
+        margin: 0;
+        @include flex();
       }
       form {
         flex: 0;
         width: 100%;
-        height: 60%;
+        height: 55%;
         padding: 10px;
-        .btn-main {
-          padding: 10px;
+        .btn-close-dark {
+          display: none;
         }
+        .btns-submit {
+          width: 100%;
+          .btn-main {
+            padding: 10px;
+          }
+        }
+      }
+    }
+    @media screen and (max-height: 840px) {
+      .headline {
+        height: 40%;
+      }
+      app-person-badge {
+        top: 40%;
+        bottom: 60%;
+      }
+      form {
+        height: 60%;
+        .form-field {
+          margin-bottom: 20px;
+        }
+      }
+    }
+    @media screen and (max-height: 720px) {
+      .headline {
+        height: 35%;
+      }
+      app-person-badge {
+        top: 35%;
+        bottom: 65%;
+      }
+      form {
+        height: 65%;
+        .form-field {
+          margin-bottom: 20px;
+        }
+        .btns-submit {
+          margin-top: 12px;
+          @media screen and (max-height: 640px) {
+            margin: 0;
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 640px) {
+      .headline {
+        height: 30%;
+        h2 {
+          font-size: 36px;
+        }
+        p,
+        .separator {
+          display: none;
+        }
+      }
+      app-person-badge {
+        top: 30%;
+        bottom: 70%;
+      }
+      form {
+        height: 70%;
       }
     }
   }

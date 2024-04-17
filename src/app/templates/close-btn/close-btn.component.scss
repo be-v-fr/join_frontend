@@ -16,3 +16,12 @@ button {
     transition: 75ms ease;
   }
 }
+.bright {
+  img {
+    filter: brightness(8);
+  }
+  &:hover {
+    background: none;
+    transform: scale(1.14);
+  } 
+}

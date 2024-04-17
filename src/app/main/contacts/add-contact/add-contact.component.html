@@ -1,6 +1,7 @@
 <div class="overlay" (click)="cancel()">
     <div class="content" [ngClass]="translated ? 'slid-out' : 'slid-in'" (click)="$event.stopPropagation()">
-        <div class="headline">
+        <div class="headline relative">
+            <app-close-btn (click)="cancel()" class="btn-close-bright" [bright]="true"></app-close-btn>
             <div class="headline-and-logo-container">
                 <img class="logo" src="../../../../assets/img/logo_white.svg" alt="logo">
                 <h2>
@@ -21,7 +22,7 @@
         <app-person-badge [name]="contact.name" [color]="contact.color" [large]="true"></app-person-badge>
         }
         <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
-            <app-close-btn (click)="cancel()" class="btn-close"></app-close-btn>
+            <app-close-btn (click)="cancel()" class="btn-close-dark"></app-close-btn>
             <div class="form-field"
                 [ngClass]="{'validation-error': (name.touched || contactForm.submitted) && !name.valid}">
                 <input type="text" [(ngModel)]="contact.name" class="text-input" placeholder="Name" name="name"
@@ -49,7 +50,7 @@
             </div>
             <div class="btns-submit">
                 @if(mode == 'add') {
-                <button type="button" class="btn-secondary btn-x" (click)="cancel()">
+                <button type="button" class="btn-secondary btn-x btn-cancel" (click)="cancel()">
                     Cancel
                     <div class="img-container">
                         <img src="../../../assets/img/cancel.svg" class="secondary-neutral" alt="clear">

@@ -1,5 +1,15 @@
 @import '../../../styles.scss';
 
+@mixin large-responsive-size() {
+    width: 80px;
+    height: 80px;
+    font-size: $font-large;
+    img {
+        width: 42px;
+        height: 42px;
+    }   
+}
+
 div {
     width: 42px;
     height: 42px;
@@ -25,15 +35,12 @@ div {
         width: 64px;
         height: 64px;
     }
+    @media screen and (max-height: 720px) {
+        @include large-responsive-size();     
+    }
 }
 .large-mobile {
-    width: 80px;
-    height: 80px;
-    font-size: $font-large;
-    img {
-        width: 42px;
-        height: 42px;
-    }
+    @include large-responsive-size();
     @media screen and (max-width: 350px) {
         width: 64px;
         height: 64px;
