@@ -16,7 +16,7 @@
     right: 0;
     top: 96px;
     bottom: 0;
-    @include flex();
+    @include flex($dir: column);
     background: $light-grey;
     animation: greet 1400ms;
     @keyframes greet {
