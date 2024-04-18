@@ -64,7 +64,7 @@
             <div class="custom-checkbox" [ngClass]="{'custom-checked' : rememberLogIn}"></div>
             <span>Remember me</span>
         </div>
-        <a href="" class="link-blue">I forgot my password</a>
+        <a (click)="sendPasswordResetEmail()" class="link-blue" *ngIf="authError == 'invalid credential'">I forgot my password</a>
         }
         @else {
         <div class="checkbox-container prevent-select relative"
@@ -93,4 +93,4 @@
         }
     </div>
 </form>
-<app-toast-notification [message]="'You signed up successfully'" [show]="showSignedUpToast"></app-toast-notification>
+<app-toast-notification [message]="toastMsg" [show]="showToastMsg"></app-toast-notification>

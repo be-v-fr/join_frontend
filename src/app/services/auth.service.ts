@@ -1,5 +1,6 @@
 import { Injectable, inject } from "@angular/core";
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, user } from "@angular/fire/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 import { Observable, from } from "rxjs";
 
 @Injectable({
@@ -28,6 +29,14 @@ export class AuthService {
         return from(promise);
     }
 
+    resetPassword(email: string): Observable<void> {
+        const promise = sendPasswordResetEmail(
+            this.firebaseAuth,
+            email
+        ).then(() => { });
+        return from(promise);        
+    }
+
     logInAsGuest() {
         this.guestLogIn = true;
         this.setLocalGuestLogin(true);
@@ -37,7 +46,7 @@ export class AuthService {
         if (this.guestLogIn) {
             this.guestLogIn = false;
             this.setLocalGuestLogin(false);
-            return new Observable<void>(o => o.complete()); // FUNKTIONSWEISE ÜBERPRÜFEN
+            return new Observable<void>(o => o.complete());
         } else {
             const promise = signOut(this.firebaseAuth);
             return from(promise);

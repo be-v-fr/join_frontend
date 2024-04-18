@@ -17,6 +17,8 @@ $height: 74px;
         height: $height;
         border-radius: 20px;
         padding: 0 25px;
+        width: auto;
+        max-width: 100%;
         @include flex();
 
         .board-icon {

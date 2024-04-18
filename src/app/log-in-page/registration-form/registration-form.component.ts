@@ -35,7 +35,8 @@ export class RegistrationFormComponent {
   authError: string = '';
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
-  showSignedUpToast: boolean = false;
+  toastMsg: string = '';
+  showToastMsg: boolean = false;
 
   constructor(private router: Router) {
     this.initRememberState();
@@ -152,7 +153,8 @@ export class RegistrationFormComponent {
           if (uid) {
             this.usersService.addUserByUid(new User(this.formData.name, uid));
           }
-          this.showSignedUpToast = true;
+          this.toastMsg = 'You signed up successfully';
+          this.showToastMsg = true;
           setTimeout(() => this.navigateToSummary(), 700);
         },
         error: (err) => {
@@ -170,5 +172,20 @@ export class RegistrationFormComponent {
     this.authService.logOut();
     this.authService.logInAsGuest();
     this.navigateToSummary();
+  }
+
+  sendPasswordResetEmail() {
+    this.authService.resetPassword(this.formData.email).subscribe({
+      next: () => {
+        this.toastMsg = 'A reset link has been sent to your email address';
+        this.showToastMsg = true;
+        setTimeout(() => location.reload(), 2000);
+      },
+      error: () => {
+        this.toastMsg = 'Oops! An error occurred';
+        this.showToastMsg = true;
+        setTimeout(() => location.reload(), 2000);
+      }
+    });
   }
 }
