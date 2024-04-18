@@ -114,6 +114,25 @@
     padding: 12px;
     gap: 8px;
   }
+  @media screen and (max-height: 600px) {
+    padding: 8px;
+    .icon-bg,
+    .icon-bg-small-red {
+      width: 36px;
+      height: 36px;
+    }
+    .info {
+      .value {
+        font-size: 36px;
+      }
+      .name {
+        font-size: 12px;
+      }
+    }
+    .deadline .value {
+      font-size: $font-tiny;
+    }
+  }
 }
 .content-urgent {
   @extend .content;

@@ -1,5 +1,5 @@
-@import "../../../styles.scss";
-@import "../../app.component.scss";
+@import '../../../styles.scss';
+@import '../../app.component.scss';
 
 .content {
   @extend .content;
@@ -22,9 +22,9 @@
     @include flex($g: 60px);
   }
   @media screen and (max-width: 1024px) {
+    margin-bottom: 108px;
     .content-main {
       gap: 0;
-      margin-bottom: 108px;
     }
   }
 }
@@ -55,6 +55,16 @@
     max-height: calc(100vh - 80px - 80px - 108px);
     .stats-row {
       gap: 10px;
+    }
+  }
+}
+.content {
+  @media screen and (max-height: 540px) {
+    overflow-x: hidden;
+    overflow-y: auto;
+    .content-main {
+      flex: none;
+      height: fit-content;
     }
   }
 }
