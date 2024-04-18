@@ -8,11 +8,12 @@ import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
 import { tick } from '@angular/core/testing';
 import { ArrowBackBtnComponent } from '../../templates/arrow-back-btn/arrow-back-btn.component';
+import { ToastNotificationComponent } from '../../templates/toast-notification/toast-notification.component';
 
 @Component({
   selector: 'app-registration-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, PasswordIconComponent, ArrowBackBtnComponent],
+  imports: [CommonModule, FormsModule, PasswordIconComponent, ArrowBackBtnComponent, ToastNotificationComponent],
   templateUrl: './registration-form.component.html',
   styleUrl: './registration-form.component.scss'
 })
@@ -34,6 +35,7 @@ export class RegistrationFormComponent {
   authError: string = '';
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
+  showSignedUpToast: boolean = false;
 
   constructor(private router: Router) {
     this.initRememberState();
@@ -150,7 +152,8 @@ export class RegistrationFormComponent {
           if (uid) {
             this.usersService.addUserByUid(new User(this.formData.name, uid));
           }
-          this.navigateToSummary();
+          this.showSignedUpToast = true;
+          setTimeout(() => this.navigateToSummary(), 700);
         },
         error: (err) => {
           this.authError = this.getAuthError(err.toString())
