@@ -20,6 +20,6 @@
         }
         </div>
         }
-        <div *ngIf="draggingOver && dragStartStatus != status" class="drop-zone-visualizer"></div>
+        <div *ngIf="draggingOver && dragStartStatus != status" class="drop-zone-visualizer" [ngStyle]="{'height.px': dragCardHeight}"></div>
     </div>
 </div>

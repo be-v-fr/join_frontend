@@ -22,6 +22,8 @@ export class BoardComponent {
   viewTaskId: string = '';
   taskFormId: string | null = null;
   taskFormWrapperTranslated: boolean = true;
+  dragCardHeight: number = 160;
+  dragStartStatus: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
 
   ngOnInit() {
     this.updateTasks();
@@ -72,5 +74,13 @@ export class BoardComponent {
 
   slideTaskFormWrapper() {
     this.taskFormWrapperTranslated = !this.taskFormWrapperTranslated;
+  }
+
+  setDragCardHeight(height: number) {
+    this.dragCardHeight = height;
+  }
+
+  setDragStartStatus(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
+    this.dragStartStatus = status;
   }
 }

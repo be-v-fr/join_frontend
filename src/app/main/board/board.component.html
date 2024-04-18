@@ -18,7 +18,9 @@
     <section class="tasks-by-status">
         @for (status of statusList; track status) {
         <app-task-list [status]="status" [tasks]="getFilteredTasks(status)" (addToStatusClick)="addToStatus(status)"
-            (taskClick)="viewTask($event)"></app-task-list>
+            (taskClick)="viewTask($event)" (setDragCardHeight)="setDragCardHeight($event)"
+            [dragCardHeight]="dragCardHeight" (setDragStartStatus)="setDragStartStatus($event)"
+            [dragStartStatus]="dragStartStatus"></app-task-list>
         }
     </section>
 </div>
@@ -26,11 +28,11 @@
     (editThisTask)="showTaskForm(viewTaskId)"></app-task-view>
 @if(taskFormId != null) {
 <div class="overlay" [ngClass]="{'no-bg': viewTaskId != ''}" (click)="hideTaskForm()">
-    <div class="task-form-wrapper" [ngClass]="{'slid-out': taskFormWrapperTranslated && taskFormId == '', 'slid-in': !taskFormWrapperTranslated, 'edit-task-wrapper': taskFormId != ''}"
+    <div class="task-form-wrapper"
+        [ngClass]="{'slid-out': taskFormWrapperTranslated && taskFormId == '', 'slid-in': !taskFormWrapperTranslated, 'edit-task-wrapper': taskFormId != ''}"
         (click)="$event.stopPropagation()">
         @if(taskFormId == '') {
-        <app-add-task [inOverlay]="true" (cancelled)="hideTaskForm()"
-            (slide)="slideTaskFormWrapper()"></app-add-task>
+        <app-add-task [inOverlay]="true" (cancelled)="hideTaskForm()" (slide)="slideTaskFormWrapper()"></app-add-task>
         } @else {
         <app-add-task [task]="getTaskById(taskFormId)" [inOverlay]="true" (cancelled)="hideTaskForm()"
             (slide)="slideTaskFormWrapper()"></app-add-task>

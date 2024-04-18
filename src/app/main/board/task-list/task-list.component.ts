@@ -18,23 +18,26 @@ export class TaskListComponent {
   draggingOver: boolean = false;
   private lastDragOver: number = 0;
   draggedTaskCard: HTMLElement | null = null;
-  dragStartStatus: 'To do' | 'In progress' | 'Await feedback' | 'Done' | null = null;
+  @Input() dragStartStatus: 'To do' | 'In progress' | 'Await feedback' | 'Done' | null = null;
+  @Output() setDragStartStatus = new EventEmitter<'To do' | 'In progress' | 'Await feedback' | 'Done'>();
   @Output() addToStatusClick = new EventEmitter<void>();
   @Output() taskClick = new EventEmitter<string>();
+  @Input() dragCardHeight: number = 0;
+  @Output() setDragCardHeight = new EventEmitter<number>();
 
-  constructor(private tasksService: TasksService) {}
+  constructor(private tasksService: TasksService) { }
 
   onTaskDragStart(ev: DragEvent, id: string) {
     ev.dataTransfer?.setData('text/plain', id);
     this.draggedTaskCard = ev.target as HTMLElement;
-    this.dragStartStatus = this.status;
+    this.setDragStartStatus.emit(this.status);
+    this.setDragCardHeight.emit(this.draggedTaskCard.offsetHeight);
   }
 
   onTaskDragEnd() {
     if (this.draggedTaskCard != null) {
       this.draggedTaskCard = null;
     }
-    this.dragStartStatus = null;
   }
 
   onTaskDragEnter(ev: DragEvent) {
@@ -61,7 +64,7 @@ export class TaskListComponent {
   // It only unsets the current dragging state in case neither "(dragenter)" nor "(dragover)" have been re-triggered 20ms after "(dragleave)" 
   async unsetDraggingOverAfterWaiting() {
     setTimeout(() => {
-      if(Date.now() - this.lastDragOver > 20) {
+      if (Date.now() - this.lastDragOver > 20) {
         this.lastDragOver = 0;
         this.draggingOver = false;
       }
