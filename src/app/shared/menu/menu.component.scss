@@ -3,12 +3,15 @@
 nav {
   width: 100%;
   height: 100%;
+  padding: 64px 0;
   background: $anthracite;
   font-size: $font-small;
   @include flex($dir: column);
   .logo {
-    margin-top: 64px;
     width: 100px;
+    img {
+      width: 100%;
+    }
   }
   .main {
     flex: 1;
@@ -50,7 +53,6 @@ nav {
   }
   .other {
     width: 100%;
-    margin-bottom: 64px;
     padding-left: 58px;
     @include flex($ai: flex-start, $g: 4px, $dir: column);
     a {
@@ -61,6 +63,42 @@ nav {
         transition: 75ms ease;
         font-weight: 700;
         color: #29abe2;
+      }
+    }
+  }
+  @media screen and (min-width: 768px) {
+    @media screen and (max-height: 800px) {
+      justify-content: space-between;
+      .main {
+        margin-bottom: 0;
+      }
+    }
+    @media screen and (max-height: 640px) {
+      padding: 40px 0;
+      .logo {
+        width: 80px;
+      }
+      .main {
+        gap: 6px;
+        a {
+          height: 40px;
+          span {
+            font-size: 14px;
+          }
+          img {
+            width: 24px;
+            height: 24px;
+          }
+        }
+      }
+      .other a {
+        height: 28px;
+        font-size: $font-tiny;
+      }
+    }
+    @media screen and (max-height: 480px) {
+      .other {
+        display: none;
       }
     }
   }
@@ -88,11 +126,10 @@ nav {
           width: 72px;
           img {
             width: 24px;
-            height: 24px;            
+            height: 24px;
           }
         }
       }
     }
   }
-
 }
