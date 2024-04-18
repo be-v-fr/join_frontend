@@ -20,6 +20,6 @@
         }
         </div>
         }
-        <div class="drop-zone-visualizer" [ngClass]="{'show-drop-zone': draggingOver}"></div>
+        <div *ngIf="draggingOver && dragStartStatus != status" class="drop-zone-visualizer"></div>
     </div>
 </div>

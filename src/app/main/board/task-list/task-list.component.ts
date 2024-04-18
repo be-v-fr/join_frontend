@@ -18,6 +18,7 @@ export class TaskListComponent {
   draggingOver: boolean = false;
   private lastDragOver: number = 0;
   draggedTaskCard: HTMLElement | null = null;
+  dragStartStatus: 'To do' | 'In progress' | 'Await feedback' | 'Done' | null = null;
   @Output() addToStatusClick = new EventEmitter<void>();
   @Output() taskClick = new EventEmitter<string>();
 
@@ -26,12 +27,14 @@ export class TaskListComponent {
   onTaskDragStart(ev: DragEvent, id: string) {
     ev.dataTransfer?.setData('text/plain', id);
     this.draggedTaskCard = ev.target as HTMLElement;
+    this.dragStartStatus = this.status;
   }
 
   onTaskDragEnd() {
     if (this.draggedTaskCard != null) {
       this.draggedTaskCard = null;
     }
+    this.dragStartStatus = null;
   }
 
   onTaskDragEnter(ev: DragEvent) {
@@ -54,6 +57,8 @@ export class TaskListComponent {
     this.unsetDraggingOverAfterWaiting();
   }
 
+  // this function uses the "this.lastDragOver" property as a workaround for the premature "(dragleave)" emitting that occurs by default.
+  // It only unsets the current dragging state in case neither "(dragenter)" nor "(dragover)" have been re-triggered 20ms after "(dragleave)" 
   async unsetDraggingOverAfterWaiting() {
     setTimeout(() => {
       if(Date.now() - this.lastDragOver > 20) {
