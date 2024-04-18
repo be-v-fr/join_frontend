@@ -2,13 +2,11 @@
     <section class="top-section">
         <h2>Board</h2>
         <header>
-            <div class="search-container relative text-input">
-                <input type="search" class="text-input" placeholder="Find task">
+            <form class="search-container relative text-input" #searchForm="ngForm">
+                <input type="search" name="search" class="text-input" #search [(ngModel)]="searchFilter" placeholder="Find task">
                 <div class="separator"></div>
-                <button type="button" class="search-icon">
-                    <img src="../../../assets/img/search.svg" alt="search">
-                </button>
-            </div>
+                    <img class="search-icon" src="../../../assets/img/search.svg" alt="search">
+            </form>
             <button class="btn-primary" (click)="showTaskForm('')">
                 <span>Add task</span>
                 <img src="../../../assets/img/plus_icon_white.svg" alt="add task">

@@ -36,14 +36,10 @@
       }
 
       .search-icon {
+        display: block;
         width: 32px;
         height: 32px;
-        margin: 10px 17px 10px 6px;
-
-        img {
-          width: 32px;
-          height: 32px;
-        }
+        margin: 10px 12px;
       }
     }
 

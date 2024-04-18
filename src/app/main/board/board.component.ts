@@ -6,11 +6,12 @@ import { TaskViewComponent } from './task-view/task-view.component';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [CommonModule, TaskListComponent, TaskViewComponent, AddTaskComponent],
+  imports: [CommonModule, FormsModule, TaskListComponent, TaskViewComponent, AddTaskComponent],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
@@ -24,6 +25,7 @@ export class BoardComponent {
   taskFormWrapperTranslated: boolean = true;
   dragCardHeight: number = 160;
   dragStartStatus: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
+  searchFilter: string = '';
 
   ngOnInit() {
     this.updateTasks();
@@ -35,7 +37,16 @@ export class BoardComponent {
   }
 
   getFilteredTasks(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
-    return this.tasksService.getFilteredTasks(status);
+    const tasksFilteredByStatus = this.tasksService.getFilteredTasks(status);
+    return tasksFilteredByStatus.filter(t => this.taskFitsSearch(t));
+  }
+
+  taskFitsSearch(task: Task): boolean {
+    const title = task.title.toLowerCase();
+    const description = task.description.toLowerCase();
+    const searchFilter = this.searchFilter.toLowerCase();
+    if(!title.includes(searchFilter) && !description.includes(searchFilter)) {return false}
+    return true;
   }
 
   getTaskById(id: string): Task {
