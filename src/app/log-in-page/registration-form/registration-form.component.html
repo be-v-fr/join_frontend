@@ -24,7 +24,7 @@
     </div>
     <div class="form-field" #passwordContainer
         [ngClass]="{'validation-error': (authError == 'invalid credential') || ((password.touched || registrationForm.submitted) && !password.valid)}">
-        <input type=" {{passwordFieldType}}" class="text-input" placeholder="Password" name="password"
+        <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password"
             autocomplete="current-password" #password="ngModel" [(ngModel)]="formData.password" required>
         @if(formData.password.length > 0) {
         <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('password')"></app-password-icon>
