@@ -114,4 +114,10 @@ form {
       left: 10px;
     }
   }
+  @media screen and (max-height: 500px) {
+    gap: 8px;
+    .btn-container {
+      gap: 8px;
+    }
+  }
 }

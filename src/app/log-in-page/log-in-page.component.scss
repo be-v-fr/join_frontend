@@ -11,7 +11,6 @@ $logo-starting-height: $logo-starting-width * 1.219;
 
 .logo {
   position: absolute;
-  // background: $light-grey;
   top: 64px;
   left: 64px;
   img {
@@ -118,6 +117,31 @@ $logo-starting-height: $logo-starting-width * 1.219;
     }
   }
 }
+.sub-container-bottom {
+  @extend .sub-container;
+}
+@media screen and (min-width: 769px) {
+  @media screen and (max-height: 800px) {
+    .content {
+      @include flex($jc: space-between, $ai: flex-start);
+      .logo {
+        position: initial;
+      }
+      .go-to-sign-up {
+        position: initial;
+        @include flex($ai: flex-end, $g: 16px, $dir: column);
+      }
+      app-registration-form {
+        height: 100%;
+        @include flex();
+      }
+      .sub-container,
+      .sub-container-bottom {
+        flex: 1;
+      }
+    }
+  }
+}
 @media screen and (max-width: 768px) {
   .logo-wrapper {
     width: 100%;
@@ -195,7 +219,7 @@ $logo-starting-height: $logo-starting-width * 1.219;
       }
       img {
         animation: intro-img-responsive $intro-duration;
-      }      
+      }
     }
   }
   .content {
@@ -229,7 +253,6 @@ $logo-starting-height: $logo-starting-width * 1.219;
       flex: 1;
     }
     .sub-container-bottom {
-      @extend .sub-container;
       @include flex($ai: space-around, $g: 4px, $dir: column);
       .go-to-sign-up {
         flex: 1;
