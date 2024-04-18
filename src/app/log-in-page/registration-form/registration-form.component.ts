@@ -152,7 +152,9 @@ export class RegistrationFormComponent {
           }
           this.navigateToSummary();
         },
-        error: (err) => this.authError = this.getAuthError(err.toString())
+        error: (err) => {
+          this.authError = this.getAuthError(err.toString())
+        }
       });
     }
   }

@@ -24,7 +24,7 @@
     </div>
     <div class="form-field" #passwordContainer
         [ngClass]="{'validation-error': (authError == 'invalid credential') || ((password.touched || registrationForm.submitted) && !password.valid)}">
-        <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password"
+        <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password" minlength="6"
             autocomplete="current-password" #password="ngModel" [(ngModel)]="formData.password" required>
         @if(formData.password.length > 0) {
         <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('password')"></app-password-icon>
@@ -35,7 +35,11 @@
         @if(authError == 'invalid credential') {
         <p>Wrong email or password! Please try again.</p>
         } @else if((password.touched || registrationForm.submitted) && !password.valid) {
-        <p>Please enter a valid password.</p>
+            @if(formMode == 'Sign up' && password.value.length < 6) {
+                <p>Your password must contain at least 6 characters.</p>
+            } @else {
+                <p>Please enter a valid password.</p>
+            }
         }
     </div>
     <div *ngIf="formMode == 'Sign up'" class="form-field"
