@@ -16,6 +16,7 @@ export class TaskListComponent {
   @Input() tasks: Task[] = [];
   @Input() status: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
   draggingOver: boolean = false;
+  private lastDragOver: number = 0;
   draggedTaskCard: HTMLElement | null = null;
   @Output() addToStatusClick = new EventEmitter<void>();
   @Output() taskClick = new EventEmitter<string>();
@@ -34,22 +35,32 @@ export class TaskListComponent {
   }
 
   onTaskDragEnter(ev: DragEvent) {
-    console.log('enter!');
-    ev.preventDefault();
-    this.draggingOver = true;
+    this.setDraggingOver(ev);
   }
 
 
   onTaskDragOver(ev: DragEvent) {
-    console.log('over!');
+    this.setDraggingOver(ev);
+  }
+
+  setDraggingOver(ev: DragEvent) {
     ev.preventDefault();
     this.draggingOver = true;
+    this.lastDragOver = Date.now();
   }
 
   onTaskDragLeave(ev: DragEvent) {
-    console.log('leave!');
     ev.preventDefault();
-    this.draggingOver = false;
+    this.unsetDraggingOverAfterWaiting();
+  }
+
+  async unsetDraggingOverAfterWaiting() {
+    setTimeout(() => {
+      if(Date.now() - this.lastDragOver > 20) {
+        this.lastDragOver = 0;
+        this.draggingOver = false;
+      }
+    }, 20);
   }
 
   onTaskDrop(ev: DragEvent) {
