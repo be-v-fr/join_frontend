@@ -69,8 +69,17 @@ form {
     top: 64px;
     left: 64px;
   }
+  @media screen and (max-height: 500px) {
+    max-width: calc(100vw - 320px);
+    padding: 20px 10px;
+    gap: 8px;
+    .btn-container {
+      gap: 8px;
+    }
+  }
   @media screen and (max-width: 768px) {
     width: 100%;
+    max-width: 100%;
     h2 {
       height: 72px;
     }
@@ -112,12 +121,6 @@ form {
   @media screen and (max-width: 350px) {
     .arrow-back {
       left: 10px;
-    }
-  }
-  @media screen and (max-height: 500px) {
-    gap: 8px;
-    .btn-container {
-      gap: 8px;
     }
   }
 }

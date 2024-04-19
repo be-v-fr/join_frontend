@@ -142,6 +142,20 @@ $logo-starting-height: $logo-starting-width * 1.219;
     }
   }
 }
+@media screen and (max-height: 500px) {
+  app-registration-form {
+    margin-bottom: 32px;
+  }
+  .go-to-sign-up * {
+    font-size: $font-small;
+  }
+  @media screen and (min-width: 769px) {
+.legal-info {
+ right: 36px;
+ @include flex($ai: flex-end, $g: 16px, $dir: column);
+}
+  }
+}
 @media screen and (max-width: 768px) {
   .logo-wrapper {
     width: 100%;
