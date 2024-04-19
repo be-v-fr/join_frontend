@@ -49,6 +49,16 @@
       app-header {
         height: 80px;
       }
+      .page-wrapper {
+        .page {
+          overflow: hidden;
+        }
+        .task-responsive {
+          margin-bottom: 10px;
+          height: calc(100% - 76px);
+          overflow-y: auto;
+        }
+      }
     }
     app-menu {
       width: 100%;
@@ -56,12 +66,6 @@
       @media screen and (max-width: 350px) {
         height: 72px;
       }
-    }
-    .page {
-      overflow: hidden;
-    }
-    .task-responsive-padding {
-      margin-bottom: 10px;
     }
   }
 }

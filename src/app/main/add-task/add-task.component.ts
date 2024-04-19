@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { User } from '../../../models/user';
 import { UsersService } from '../../services/users.service';
 import { AuthService } from '../../services/auth.service';
+import { AutoscrollService } from '../../services/autoscroll.service';
 import { Task } from '../../../models/task';
 import { ContactListItemComponent } from '../contacts/contact-list-item/contact-list-item.component';
 import { PersonBadgeComponent } from '../../templates/person-badge/person-badge.component';
@@ -28,6 +29,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
   private tasksService = inject(TasksService);
+  private scrollService = inject(AutoscrollService);
   @Input() task: Task = new Task('');
   dueTextInput: string = '';
   @Input() inOverlay: boolean = false;
@@ -178,8 +180,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
   scrollToBottom() {
     setTimeout(() => {
-      const formElement: HTMLElement = this.contentRef.nativeElement.getElementsByTagName('form')[0];
-      formElement.scrollTop = formElement.scrollHeight;
+      this.scrollService.scrollToElement('page');
     }, 0);
   }
 

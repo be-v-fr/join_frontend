@@ -4,7 +4,7 @@
     <app-header *ngIf="MAIN_ROUTES.includes(getCurrentRoute()) && loggedIn" [currentUser]="currentUser"
       [displayDropdown]="showHeaderDropdown" (updateDropdown)="showHeaderDropdown = $event"></app-header>
     <div class="page-wrapper" [ngClass]="{'scrollable': getCurrentRoute() != '/contacts'}">
-      <div class="page" [ngClass]="{'padding': getCurrentRoute() != '/contacts', 'task-responsive-padding': getCurrentRoute() == '/add_task'}">
+      <div class="page" id="page" [ngClass]="{'padding': getCurrentRoute() != '/contacts','task-responsive': getCurrentRoute() == '/add_task'}">
         @if(!MAIN_ROUTES.includes(getCurrentRoute()) || loggedIn) {
         <router-outlet></router-outlet>
         }
