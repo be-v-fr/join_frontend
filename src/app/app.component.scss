@@ -10,7 +10,8 @@
 }
 
 .content-all {
-  overflow: hidden;
+  @extend .scrollable;
+  overflow-x: hidden;
   display: flex;
   width: 100%;
   height: 100%;
@@ -51,7 +52,7 @@
       }
       .page-wrapper {
         .page {
-          overflow: hidden;
+          overflow-x: hidden;
         }
         .task-responsive {
           margin-bottom: 10px;
