@@ -4,7 +4,7 @@
 .content {
   @extend .content;
   @include flex($jc: flex-start, $ai: flex-start, $dir: column);
-  overflow-x: hidden;
+  overflow: visible;
   .title {
     margin-bottom: var(--page-headline-margin);
     @include flex($g: 30px);
@@ -22,7 +22,7 @@
     flex: 1;
     @include flex($g: 60px);
   }
-  @media screen and (max-width: 1024px) {
+  @media screen and (max-width: 1280px) {
     .content-main {
       gap: 0;
     }
@@ -59,8 +59,12 @@
   }
 }
 .content {
+  @media screen and (max-height: 920px) {
+    .stats-container {
+      gap: 16px;
+    }
+  }
   @media screen and (max-height: 540px) {
-    overflow-y: auto;
     .content-main {
       flex: none;
       height: fit-content;

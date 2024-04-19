@@ -32,11 +32,8 @@
     .page-wrapper {
       flex: 1;
       width: 100%;
-      .page {
-        background: $light-grey;
-      }
-      .padding-page {
-        @extend .page;
+      background: $light-grey;
+      .padding {
         padding: var(--page-padding);
       }
     }
