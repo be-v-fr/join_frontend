@@ -1,5 +1,5 @@
-<li [ngClass]="{'editing': editing}" (formClick)="cancel()">
-    <p class="content" (dblclick)="edit()">
+<div class="subtask-content" [ngClass]="{'editing': editing}" (formClick)="cancel()">
+    <p class="name" (dblclick)="edit()">
         @if(editing) {
         <input #editInput [(ngModel)]="task.name" (keydown.enter)="confirm($event)">
         }
@@ -22,4 +22,4 @@
             <img src="../../../../assets/img/remove.svg" alt="remove subtask">
         </button>
     </div>
-</li>
+</div>

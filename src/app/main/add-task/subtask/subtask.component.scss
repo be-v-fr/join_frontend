@@ -1,4 +1,4 @@
-@import "../add-task.component.scss";
+@import '../../../../styles.scss';
 
 input {
   background: none;
@@ -7,14 +7,14 @@ input {
   margin: 0;
 }
 
-li {
+.subtask-content {
   border-radius: 10px;
   padding: 4px 16px;
-  height: 32px;
+  height: 100%;
   background: none;
   width: 100%;
   @include flex($jc: space-between);
-  .content {
+  .name {
     @include flex($jc: flex-start);
     span,
     input {

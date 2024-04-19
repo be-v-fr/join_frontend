@@ -1,4 +1,5 @@
-<div class="content" [ngClass]="{'overlay-custom-column-layout': inOverlay && task.id != ''}" (click)="handleGeneralClick()" #content>
+<div class="content" [ngClass]="{'overlay-custom-column-layout': inOverlay && task.id != ''}"
+    (click)="handleGeneralClick()" #content>
     <app-close-btn *ngIf="inOverlay" (click)="close()" class="btn-close"></app-close-btn>
     <h2>
         @if(task.id == '') {
@@ -142,8 +143,10 @@
         <div class="form-bottom">
             <ul class="subtasks-list" (click)="$event.stopPropagation()">
                 @for (subtask of task.subtasks; track subtask; let i = $index) {
-                <app-subtask [(task)]="task.subtasks[i]" (delete)="deleteSubtask(i)"
-                    [formClick]="formClick.asObservable()"></app-subtask>
+                <li>
+                    <app-subtask [(task)]="task.subtasks[i]" (delete)="deleteSubtask(i)"
+                        [formClick]="formClick.asObservable()"></app-subtask>
+                </li>
                 }
             </ul>
             <div class="bottom-container">
