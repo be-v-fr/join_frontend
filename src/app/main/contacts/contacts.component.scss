@@ -14,7 +14,7 @@
   }
 }
 .list {
-  min-width: 350px;
+  min-width: 380px;
   width: 33.3%;
   height: calc(100vh - 96px);
   background: white;
@@ -111,7 +111,7 @@
   background: white;
   @media screen and (max-width: 1024px) {
     .btn-responsive {
-      position: fixed;
+      position: absolute;
       right: 24px;
       bottom: 24px;
       width: 56px;
@@ -157,7 +157,7 @@
       .edit-btns-container {
         background: white;
         box-shadow: $shadow-stronger;
-        position: fixed;
+        position: absolute;
         z-index: 2;
         right: -50vw;
         bottom: 20px;
@@ -167,9 +167,6 @@
         border-radius: 20px 20px 0 20px;
         @include flex($ai: flex-start, $g: 16px, $dir: column);
         transition: 250ms ease-in;
-        @media screen and (max-width: 768px) {
-          bottom: 80px + 20px;
-        }
       }
       .show-responsive-menu {
         right: 0;
@@ -178,10 +175,15 @@
     }
   }
   @media screen and (max-width: 768px) {
+    .list {
+      padding: var(--page-padding);
+      min-width: auto;
+      width: 100%;
+      height: calc(100vh - 80px - 80px);
+    }
     .btn-responsive {
-      position: fixed;
+      position: absolute;
       right: 12px;
-      bottom: 80px + 24px;
     }
   }
 }
