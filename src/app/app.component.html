@@ -3,10 +3,13 @@
   <div class="main">
     <app-header *ngIf="MAIN_ROUTES.includes(getCurrentRoute()) && loggedIn" [currentUser]="currentUser"
       [displayDropdown]="showHeaderDropdown" (updateDropdown)="showHeaderDropdown = $event"></app-header>
-    <div class="page" [ngClass]="{'padding-page': getCurrentRoute() != '/contacts', 'task-responsive-padding': getCurrentRoute() == '/add_task'}">
-      @if(!MAIN_ROUTES.includes(getCurrentRoute()) || loggedIn) {
-      <router-outlet></router-outlet>
-      }
+    <div class="page-wrapper" [ngClass]="{'scrollable': getCurrentRoute() != '/contacts'}">
+      <div class="page"
+        [ngClass]="{'padding-page': getCurrentRoute() != '/contacts', 'task-responsive-padding': getCurrentRoute() == '/add_task'}">
+        @if(!MAIN_ROUTES.includes(getCurrentRoute()) || loggedIn) {
+        <router-outlet></router-outlet>
+        }
+      </div>
     </div>
   </div>
 </div>

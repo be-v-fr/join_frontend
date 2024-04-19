@@ -1,5 +1,5 @@
-@import "../../../styles.scss";
-@import "../../app.component.scss";
+@import '../../../styles.scss';
+@import '../../app.component.scss';
 
 .content {
   overflow-x: hidden;
@@ -16,10 +16,9 @@
 .list {
   min-width: 350px;
   width: 33.3%;
-  height: 100%;
+  height: calc(100vh - 96px);
   background: white;
   padding: 24px 50px;
-  overflow-y: auto;
   box-shadow: $shadow-subtle;
   .add-new {
     @extend .btn-responsive;

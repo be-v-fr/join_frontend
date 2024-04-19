@@ -5,6 +5,10 @@
   height: 100%;
 }
 
+.scrollable {
+  overflow-y: auto;
+}
+
 .content-all {
   overflow: hidden;
   display: flex;
@@ -20,19 +24,21 @@
     flex-direction: column;
     app-header {
       height: 96px;
+      width: 100%;
       box-shadow: $shadow-subtle;
       position: relative;
       z-index: 1;
     }
-    .page {
+    .page-wrapper {
       flex: 1;
-      min-height: 100px;
-      background: $light-grey;
-      overflow-y: auto;
-    }
-    .padding-page {
-      @extend .page;
-      padding: var(--page-padding);
+      width: 100%;
+      .page {
+        background: $light-grey;
+      }
+      .padding-page {
+        @extend .page;
+        padding: var(--page-padding);
+      }
     }
   }
   @media screen and (max-width: 768px) {
