@@ -36,6 +36,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   @ViewChild('content') contentRef!: ElementRef;
   @ViewChild('dueContainer') dueContainerRef!: ElementRef;
   @ViewChild('subtask') subtaskRef!: ElementRef;
+  @ViewChild('subtasksList') subtasksList!: ElementRef
   showAssignedDropdown: boolean = false;
   showCategoryDropdown: boolean = false;
   showTaskAddedToast: boolean = false;
@@ -179,8 +180,10 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   }
 
   scrollToBottom() {
+    const subtasksList = this.subtasksList.nativeElement;
     setTimeout(() => {
-      this.scrollService.scrollToElement('page');
+      this.scrollService.scrollToBottom('page');
+      subtasksList.scrollTop = subtasksList.scrollHeight;
     }, 0);
   }
 

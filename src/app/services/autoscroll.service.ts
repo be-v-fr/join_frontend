@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class AutoscrollService {
     constructor() { }
 
-    scrollToElement(elementId: string) {
+    scrollToBottom(elementId: string) {
         const element = document.getElementById(elementId);
         if (element) {
             element.scrollTop = element.scrollHeight;

@@ -141,7 +141,7 @@
             </div>
         </div>
         <div class="form-bottom">
-            <ul class="subtasks-list" (click)="$event.stopPropagation()">
+            <ul class="subtasks-list" #subtasksList (click)="$event.stopPropagation()">
                 @for (subtask of task.subtasks; track subtask; let i = $index) {
                 <li>
                     <app-subtask [(task)]="task.subtasks[i]" (delete)="deleteSubtask(i)"
