@@ -54,17 +54,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
       this.task.due = '';
       this.task.status = this.tasksService.newTaskStatus;
     }
-    this.initUsers();
-  }
-
-  initUsers() {
-    this.updateUsers();
-    this.usersService.getUsers().subscribe(() => this.updateUsers());
-  }
-
-  updateUsers() {
     this.users = this.usersService.users;
-    this.sortUsers();
   }
 
   sortUsers() {

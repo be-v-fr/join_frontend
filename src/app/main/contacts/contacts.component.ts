@@ -33,18 +33,16 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   showEditMenuResponsive: boolean = false;
 
   ngOnInit(): void {
-    this.authService.user$.subscribe(() => {
-      const uid = this.authService.getCurrentUid();
-      if (uid) {
+    const uid = this.authService.getCurrentUid();
+    if (uid) {
+      this.users = this.usersService.users;
+      this.currentUser = this.usersService.getUserByUid(uid);
+      this.sortedContacts = this.getSortedContacts();
+      this.usersService.getUsers().subscribe(() => {
         this.users = this.usersService.users;
-        this.currentUser = this.usersService.getUserByUid(uid);
         this.sortedContacts = this.getSortedContacts();
-        this.usersService.getUsers().subscribe(() => {
-          this.users = this.usersService.users;
-          this.sortedContacts = this.getSortedContacts();
-        })
-      }
-    });
+      })
+    }
   }
 
   ngAfterViewInit(): void {
@@ -132,7 +130,7 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   }
 
   toggleEditMenuResponsive(show?: boolean) {
-    if(show == true || show == false) {
+    if (show == true || show == false) {
       this.showEditMenuResponsive = show;
     } else {
       this.showEditMenuResponsive = !this.showEditMenuResponsive;

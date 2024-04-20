@@ -11,7 +11,7 @@
                     [deadline]="printDate(getMostUrgent())"></app-stats-item>
             </div>
             <div class="stats-row">
-                <app-stats-item [name]="'Tasks in board'" [value]="tasks.length" class="stats"></app-stats-item>
+                <app-stats-item [name]="'Tasks in board'" [value]="getTaskNumber()" class="stats"></app-stats-item>
                 <app-stats-item [name]="'Tasks in progress'" [value]="getFilteredTasks('In progress').length"
                     class="stats"></app-stats-item>
                 <app-stats-item [name]="'Awaiting feedback'" [value]="getFilteredTasks('Await feedback').length"

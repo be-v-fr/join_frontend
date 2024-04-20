@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, HostListener } from '@angular/core';
+import { Component, inject, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../../models/task';
 import { TasksService } from '../../services/tasks.service';
@@ -16,7 +16,6 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './board.component.scss'
 })
 export class BoardComponent {
-  tasks: Task[] = [];
   private tasksService = inject(TasksService);
   private router = inject(Router);
   statusList: ('To do' | 'In progress' | 'Await feedback' | 'Done')[] = ['To do', 'In progress', 'Await feedback', 'Done'];
@@ -26,15 +25,6 @@ export class BoardComponent {
   dragCardHeight: number = 160;
   dragStartStatus: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
   searchFilter: string = '';
-
-  ngOnInit() {
-    this.updateTasks();
-    this.tasksService.getCurrentTasks().subscribe(() => this.updateTasks());
-  }
-
-  updateTasks() {
-    this.tasks = this.tasksService.tasks;
-  }
 
   getFilteredTasks(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
     const tasksFilteredByStatus = this.tasksService.getFilteredTasks(status);

@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Firestore, collection, doc, collectionData, onSnapshot, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
-import { Observable, Subject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Task } from '../../models/task';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { Task } from '../../models/task';
 
 export class TasksService {
   tasks: Task[] = [];
-  private tasksUpdate: Subject<void> = new Subject<void>();
+  tasks$: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
   newTaskStatus: 'To do' | 'In progress' | 'Await feedback' = 'To do';
   unsubTasks;
   firestore: Firestore = inject(Firestore);
@@ -28,12 +28,12 @@ export class TasksService {
       list.forEach((element: any) => {
         this.tasks.push(this.setTaskObject(element.data(), element.id));
       });
-      this.tasksUpdate.next();
+      this.tasks$.next(this.tasks);
     });
   }
 
-  getCurrentTasks(): Observable<void> {
-    return this.tasksUpdate.asObservable();
+  getCurrentTasks(): Observable<Task[]> {
+    return this.tasks$.asObservable();
   }
 
   getColRef() {

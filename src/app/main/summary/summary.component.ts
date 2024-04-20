@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { Task } from '../../../models/task';
 import { TasksService } from '../../services/tasks.service';
 import { AuthService} from '../../services/auth.service';
@@ -14,30 +14,28 @@ import { GreetingComponent } from './greeting/greeting.component';
   templateUrl: './summary.component.html',
   styleUrl: './summary.component.scss'
 })
-export class SummaryComponent implements OnInit {
+export class SummaryComponent implements OnDestroy {
   private authService = inject(AuthService);
+  unsubAuth;
   private tasksService = inject(TasksService);
-  tasks: Task[] = [];
   currentUserName: string | null = null;
 
   constructor() {
-    this.tasks = this.tasksService.tasks;
+    this.unsubAuth = this.subAuth;
   }
 
-  ngOnInit(): void {
-    this.authService.user$.subscribe(user => {
+  ngOnDestroy(): void {
+    this.unsubAuth();
+  }
+
+  subAuth() {
+    return this.authService.user$.subscribe(user => {
       if (user) {
         this.currentUserName = user.displayName;
       } else {
         this.currentUserName = null;
       }
     });
-    this.updateTasks();
-    this.tasksService.getCurrentTasks().subscribe(() => this.updateTasks());
-  }
-
-  updateTasks() {
-    this.tasks = this.tasksService.tasks;
   }
 
   getFilteredTasks(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
@@ -45,7 +43,11 @@ export class SummaryComponent implements OnInit {
   }
 
   getUrgent() {
-    return this.tasks.filter(t => t.prio == 'Urgent');
+    return this.tasksService.tasks.filter(t => t.prio == 'Urgent');
+  }
+
+  getTaskNumber() {
+    return this.tasksService.tasks.length;
   }
 
   getMostUrgent() {
