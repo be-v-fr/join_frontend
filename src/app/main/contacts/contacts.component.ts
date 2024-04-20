@@ -110,13 +110,8 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   }
 
   updateContacts() {
-    this.currentUser.contacts = this.filterOutUneditedUsers();
     this.usersService.updateUser(this.currentUser);
     this.sortedContacts = this.getSortedContacts();
-  }
-
-  filterOutUneditedUsers() {
-    return this.sortedContacts.filter(c => !c.isUneditedUser());
   }
 
   cancelOverlay() {
