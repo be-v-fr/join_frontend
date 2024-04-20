@@ -22,7 +22,6 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
 
-  users: User[] = [];
   currentUser: User = new User('', '');
   sortedContacts: Contact[] = [];
 
@@ -35,14 +34,13 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const uid = this.authService.getCurrentUid();
     if (uid) {
-      this.users = this.usersService.users;
       this.currentUser = this.usersService.getUserByUid(uid);
       this.sortedContacts = this.getSortedContacts();
-      this.usersService.getUsers().subscribe(() => {
-        this.users = this.usersService.users;
-        this.sortedContacts = this.getSortedContacts();
-      })
     }
+  }
+
+  getUsers(): User[] {
+    return this.usersService.users;
   }
 
   ngAfterViewInit(): void {
@@ -61,7 +59,7 @@ export class ContactsComponent implements OnInit, AfterViewInit {
 
   getContactsWithUsers(): Contact[] {
     const contacts: Contact[] = this.currentUser.contacts;
-    this.users.forEach(u => {
+    this.getUsers().forEach(u => {
       if (u.uid != this.currentUser.uid && !this.currentUser.hasUserInContacts(u)) {
         contacts.push(u.asContact());
       }

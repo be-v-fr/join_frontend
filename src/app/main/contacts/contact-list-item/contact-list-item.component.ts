@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Contact } from '../../../../models/contact';
 import { PersonBadgeComponent } from '../../../templates/person-badge/person-badge.component';
 import { EmailComponent } from '../email/email.component';
 

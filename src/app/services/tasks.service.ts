@@ -9,7 +9,6 @@ import { Task } from '../../models/task';
 
 export class TasksService {
   tasks: Task[] = [];
-  tasks$: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
   newTaskStatus: 'To do' | 'In progress' | 'Await feedback' = 'To do';
   unsubTasks;
   firestore: Firestore = inject(Firestore);
@@ -28,12 +27,7 @@ export class TasksService {
       list.forEach((element: any) => {
         this.tasks.push(this.setTaskObject(element.data(), element.id));
       });
-      this.tasks$.next(this.tasks);
     });
-  }
-
-  getCurrentTasks(): Observable<Task[]> {
-    return this.tasks$.asObservable();
   }
 
   getColRef() {
