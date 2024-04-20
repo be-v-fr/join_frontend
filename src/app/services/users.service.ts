@@ -9,7 +9,7 @@ import { User } from '../../models/user';
 
 export class UsersService {
   users: User[] = [];
-  private usersUpdate: Subject<void> = new Subject<void>();
+  users$: Subject<void> = new Subject<void>();
   unsubUsers;
   firestore: Firestore = inject(Firestore);
 
@@ -27,12 +27,8 @@ export class UsersService {
       list.forEach((element: any) => {
         this.users.push(this.setUserObject(element.data()));
       });
-      this.usersUpdate.next();
+      this.users$.next();
     });
-  }
-
-  getUsers(): Observable<void> {
-    return this.usersUpdate.asObservable();
   }
 
   getColRef() {

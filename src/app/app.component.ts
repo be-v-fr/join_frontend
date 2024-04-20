@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { MenuComponent } from './shared/menu/menu.component';
@@ -14,7 +14,7 @@ import { AuthService } from './services/auth.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'join';
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
@@ -24,21 +24,13 @@ export class AppComponent implements OnInit {
   showHeaderDropdown: boolean = false;
 
   readonly MAIN_ROUTES = ['/summary', '/add_task', '/board', '/contacts'];
-  
-  constructor(private router: Router) {}
 
-  ngOnInit(): void {
+  constructor(private router: Router) {
     this.authService.user$.subscribe(() => {
       const uid = this.authService.getCurrentUid();
       if (uid) {
-        if(uid == 'guest') {
-          this.currentUser = this.usersService.getUserByUid(uid);
-          this.loggedIn = true;
-        }
-        this.usersService.getUsers().subscribe(() => {
-          this.currentUser = this.usersService.getUserByUid(uid);
-          this.loggedIn = true;
-        });
+        this.currentUser = this.usersService.getUserByUid(uid);
+        this.loggedIn = true;
       } else {
         this.currentUser = null;
       }

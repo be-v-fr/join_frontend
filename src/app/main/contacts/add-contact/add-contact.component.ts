@@ -27,6 +27,7 @@ export class AddContactComponent extends SlideComponent {
   }
 
   onSubmit(form: NgForm): void {
+    console.log('submit!');
     if (form.submitted && form.form.valid) {
       this.contactSubmission.emit(this.contact);
     }
