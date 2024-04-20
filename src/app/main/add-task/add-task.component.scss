@@ -335,9 +335,6 @@ textarea,
 
 .overlay-custom-column-layout {
   @include column-layout();
-  h2 {
-    display: none;
-  }
   .assigned-badges {
     position: relative;
     top: 6px;
