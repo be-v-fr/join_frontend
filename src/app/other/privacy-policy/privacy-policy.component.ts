@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { HeadlineOtherComponent } from '../../templates/headline-other/headline-other.component';
+import { AutoscrollService } from '../../services/autoscroll.service';
 
 @Component({
   selector: 'app-privacy-policy',
@@ -9,5 +10,9 @@ import { HeadlineOtherComponent } from '../../templates/headline-other/headline-
   styleUrl: './privacy-policy.component.scss'
 })
 export class PrivacyPolicyComponent {
+  private autoscrollService = inject(AutoscrollService);
 
+  scrollIntoView(elementId: string) {
+    this.autoscrollService.scrollIntoView(elementId);
+  }
 }

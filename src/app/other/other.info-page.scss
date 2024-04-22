@@ -14,6 +14,17 @@
         font-weight: 400;
     }
 
+    a {
+        color: $link-blue;
+        text-decoration: none;
+        transition: 75ms ease;
+
+        &:hover {
+            text-decoration: underline;
+            transition: 75ms ease;
+        }
+    }
+
     ol li {
         padding-left: 32px;
 
@@ -33,6 +44,7 @@
             font-size: $font-large;
             font-weight: 700;
         }
+
         @media screen and (max-width: 480px) {
             padding-left: 12px;
         }
