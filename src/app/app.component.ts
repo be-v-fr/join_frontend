@@ -33,6 +33,7 @@ export class AppComponent {
         this.loggedIn = true;
       } else {
         this.currentUser = null;
+        this.router.navigate((['']));
       }
     });
   }

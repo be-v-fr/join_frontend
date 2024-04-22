@@ -1,0 +1,10 @@
+@import "../../../styles.scss";
+@import "../../app.component.scss";
+
+.content {
+    margin-bottom: var(--page-headline-margin);
+    @include flex($jc: space-between);
+    h2 {
+      margin: 0;
+    }
+}
