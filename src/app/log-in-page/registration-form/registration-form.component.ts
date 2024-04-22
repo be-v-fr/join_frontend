@@ -5,7 +5,7 @@ import { PasswordIconComponent } from '../../templates/password-icon/password-ic
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../../models/user';
 import { UsersService } from '../../services/users.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { tick } from '@angular/core/testing';
 import { ArrowBackBtnComponent } from '../../templates/arrow-back-btn/arrow-back-btn.component';
 import { ToastNotificationComponent } from '../../templates/toast-notification/toast-notification.component';
@@ -13,7 +13,7 @@ import { ToastNotificationComponent } from '../../templates/toast-notification/t
 @Component({
   selector: 'app-registration-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, PasswordIconComponent, ArrowBackBtnComponent, ToastNotificationComponent],
+  imports: [CommonModule, RouterModule, FormsModule, PasswordIconComponent, ArrowBackBtnComponent, ToastNotificationComponent],
   templateUrl: './registration-form.component.html',
   styleUrl: './registration-form.component.scss'
 })

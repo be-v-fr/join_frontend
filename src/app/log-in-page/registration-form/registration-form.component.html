@@ -73,7 +73,7 @@
             <div class="custom-checkbox" [ngClass]="{'custom-checked' : acceptPrivacyPolicy}"></div>
             <span>
                 <div>I accept the</div>
-                <a href="" class="link-blue" (click)="$event.stopPropagation()">privacy policy</a>
+                <a [routerLink]="['/privacy_policy']" target="_blank" class="link-blue" (click)="$event.stopPropagation()">privacy policy</a>
             </span>
             @if(registrationForm.submitted && !acceptPrivacyPolicy) {
             <p>Accept the privacy policy to sign up.</p>
