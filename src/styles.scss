@@ -32,20 +32,24 @@ $font-tiny: 13px;
   --input-padding: 12px 21px;
   --add-task-form-gap: 44px;
   --page-headline-margin: 64px;
+
   @media screen and (max-height: 1024px) {
     --page-padding: 60px 60px;
     --add-task-form-gap: 24px;
     --page-headline-margin: 40px;
   }
+
   @media screen and (max-width: 1280px) {
     --page-padding: 40px 30px;
     --add-task-form-gap: 14px;
     --page-headline-margin: 40px;
   }
+
   @media screen and (max-width: 768px) {
     --input-padding: 10px 21px;
     --page-padding: 16px;
   }
+
   @media screen and (max-width: 350px) {
     --input-padding: 10px 21px;
     --page-padding: 10px;
@@ -64,9 +68,12 @@ body {
 }
 
 * {
-  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-  -moz-box-sizing: border-box; /* Firefox, other Gecko */
-  box-sizing: border-box; /* Opera/IE 8+ */
+  -webkit-box-sizing: border-box;
+  /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;
+  /* Firefox, other Gecko */
+  box-sizing: border-box;
+  /* Opera/IE 8+ */
   scroll-behavior: smooth;
 }
 
@@ -75,9 +82,12 @@ body {
 }
 
 .prevent-select {
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+  -webkit-user-select: none;
+  /* Safari */
+  -ms-user-select: none;
+  /* IE 10 and IE 11 */
+  user-select: none;
+  /* Standard syntax */
 }
 
 body,
@@ -89,6 +99,7 @@ textarea {
   font-family: "Inter";
   font-weight: 400;
   font-size: $font-normal;
+
   @media screen and (max-width: 768px) {
     font-size: $font-small;
   }
@@ -98,9 +109,11 @@ textarea {
   border: 1px solid $medium-light-grey;
   border-radius: 10px;
   transition: 50ms ease-out;
+
   &::placeholder {
     color: $medium-light-grey;
   }
+
   &:focus {
     transition: 50ms ease-out;
     border-color: $light-blue;
@@ -148,6 +161,7 @@ textarea,
 
 .bold-on-hover {
   position: relative;
+
   &::after {
     font-size: $font-small;
     display: block;
@@ -157,6 +171,7 @@ textarea,
     overflow: hidden;
     height: 0;
   }
+
   p {
     position: absolute;
   }
@@ -165,24 +180,27 @@ textarea,
 .edit-btn {
   @extend .bold-on-hover;
   @include flex($jc: flex-start);
+
   img {
     display: inline-block;
     width: 24px;
     height: 24px;
     transition: 75ms ease;
   }
+
   p {
     font-size: $font-small;
     right: 4%;
     top: 3px;
     bottom: 3px;
   }
+
   &:hover {
     img {
-      filter: invert(56%) sepia(80%) saturate(2198%) hue-rotate(166deg)
-        brightness(102%) contrast(77%);
+      filter: invert(56%) sepia(80%) saturate(2198%) hue-rotate(166deg) brightness(102%) contrast(77%);
       transition: 75ms ease;
     }
+
     p {
       font-weight: 700;
       color: $light-blue;
@@ -197,6 +215,7 @@ textarea,
   height: 24px;
   width: 24px;
   margin: var(--input-padding);
+
   img {
     width: 24px;
     height: 24px;
@@ -204,6 +223,7 @@ textarea,
     background-color: none;
     transition: transform 250ms ease, background-color 75ms ease;
     transform: rotate(0deg);
+
     &:hover {
       background-color: #d2e3ff;
       transition: transform 250ms ease, background-color 75ms ease;
@@ -229,6 +249,7 @@ textarea,
   background-size: 100%;
   background-repeat: no-repeat;
 }
+
 .custom-checked {
   background: url("./assets/img/checkbox_checked.svg");
 }
@@ -236,8 +257,9 @@ textarea,
 .slid-out {
   transition: transform 125ms ease;
   transform: translateX(100vw);
+
   @media screen and (max-width: 768px) {
-  transform: translateY(100vh);
+    transform: translateY(100vh);
   }
 }
 
@@ -251,6 +273,7 @@ textarea,
     transition: 50ms ease-out;
     border-color: $error-red;
   }
+
   p {
     font-size: $font-tiny;
     color: $error-red;

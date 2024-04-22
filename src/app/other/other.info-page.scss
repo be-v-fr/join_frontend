@@ -1,0 +1,47 @@
+@import "../../styles.scss";
+@import "../app.component.scss";
+
+.light-blue {
+    color: $light-blue;
+}
+
+.content {
+
+    p,
+    span,
+    li {
+        font-size: $font-small;
+        font-weight: 400;
+    }
+
+    ol li {
+        padding-left: 32px;
+
+        .li-content {
+            position: relative;
+            top: -7px;
+            margin-bottom: 10px;
+
+            h4 {
+                font-weight: 700;
+                font-size: $font-normal;
+                margin: 0;
+            }
+        }
+
+        &::marker {
+            font-size: $font-large;
+            font-weight: 700;
+        }
+        @media screen and (max-width: 480px) {
+            padding-left: 12px;
+        }
+    }
+}
+
+h3 {
+    font-weight: 700;
+    font-size: $font-large;
+    margin-top: 28px;
+    margin-bottom: 20px;
+}

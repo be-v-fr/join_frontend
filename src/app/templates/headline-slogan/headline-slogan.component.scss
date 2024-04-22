@@ -6,6 +6,7 @@
 }
 
 .content {
+  height: fit-content;
   margin-bottom: var(--page-headline-margin);
   @include flex($jc: flex-start, $g: 30px);
   h2 {

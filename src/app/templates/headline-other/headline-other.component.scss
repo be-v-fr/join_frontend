@@ -2,9 +2,11 @@
 @import "../../app.component.scss";
 
 .content {
-    margin-bottom: var(--page-headline-margin);
-    @include flex($jc: space-between);
-    h2 {
-      margin: 0;
-    }
+  height: auto;
+  margin-bottom: var(--page-headline-margin);
+  @include flex($jc: space-between);
+
+  h2 {
+    margin: 0;
+  }
 }
