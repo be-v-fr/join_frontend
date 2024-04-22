@@ -20,6 +20,7 @@ export class AppComponent implements OnDestroy {
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
   private guestSub = new Subscription();
+  private usersSub = new Subscription();
 
   currentUser: User | null | undefined = undefined;
   loggedIn: boolean = false;
@@ -40,16 +41,21 @@ export class AppComponent implements OnDestroy {
     this.authService.user$.subscribe(() => {
       const uid = this.authService.getCurrentUid();
       if (uid) {
-        this.currentUser = this.usersService.getUserByUid(uid);
+        this.usersSub = this.subUsersInit(uid);
         if (uid == 'guest') {
           this.guestSub = this.subGuestLogOut();
         }
         this.loggedIn = true;
-        console.log(uid);
-        console.log(this.usersService.getUserByUid(uid));
       } else {
         this.localLogOut()
       }
+    });
+  }
+
+  subUsersInit(uid: string): Subscription {
+    return this.usersService.users$.subscribe(() => {
+      this.currentUser = this.usersService.getUserByUid(uid)
+      this.usersSub.unsubscribe();
     });
   }
 
