@@ -41,6 +41,9 @@
       flex: 1;
       height: 100%;
     }
+    .urgent-item {
+      @include flex();
+    }
   }
   @media screen and (max-width: 768px) {
     max-width: 480px;

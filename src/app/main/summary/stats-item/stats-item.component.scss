@@ -137,4 +137,10 @@
 .content-urgent {
   @extend .content;
   gap: 8%;
+  max-width: 100%;
+  transition: 100ms ease;
+  &:hover {
+    max-width: 96%;
+    transition: 100ms ease;
+  }
 }

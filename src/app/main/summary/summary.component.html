@@ -7,7 +7,7 @@
                 <app-stats-item [name]="'Done'" [value]="getFilteredTasks('Done').length"></app-stats-item>
             </div>
             <div class="stats-row stats">
-                <app-stats-item [name]="'Urgent'" [value]="getUrgent().length"
+                <app-stats-item class="urgent-item" [name]="'Urgent'" [value]="getUrgent().length"
                     [deadline]="printDate(getMostUrgent())"></app-stats-item>
             </div>
             <div class="stats-row">
