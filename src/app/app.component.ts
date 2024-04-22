@@ -45,6 +45,8 @@ export class AppComponent implements OnDestroy {
           this.guestSub = this.subGuestLogOut();
         }
         this.loggedIn = true;
+        console.log(uid);
+        console.log(this.usersService.getUserByUid(uid));
       } else {
         this.localLogOut()
       }

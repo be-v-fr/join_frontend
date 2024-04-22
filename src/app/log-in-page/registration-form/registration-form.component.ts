@@ -155,7 +155,7 @@ export class RegistrationFormComponent {
           }
           this.toastMsg = 'You signed up successfully';
           this.showToastMsg = true;
-          setTimeout(() => this.navigateToSummary(), 700);
+          setTimeout(() => this.toggleModeEmit(), 700);
         },
         error: (err) => {
           this.authError = this.getAuthError(err.toString())
