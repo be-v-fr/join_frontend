@@ -1,7 +1,7 @@
 <div class="content-all" (click)="closeHeaderDropdown()">
-  <app-menu *ngIf="MAIN_ROUTES.includes(getCurrentRoute()) && loggedIn"></app-menu>
+  <app-menu *ngIf="!onLogInPage() && loggedIn"></app-menu>
   <div class="main">
-    <app-header *ngIf="MAIN_ROUTES.includes(getCurrentRoute()) && loggedIn" [currentUser]="currentUser"
+    <app-header *ngIf="!onLogInPage() && loggedIn" [currentUser]="currentUser"
       [displayDropdown]="showHeaderDropdown" (updateDropdown)="showHeaderDropdown = $event"></app-header>
     <div class="page-wrapper" [ngClass]="{'scrollable': getCurrentRoute() != '/contacts'}">
       <div class="page" id="page" [ngClass]="{'padding': getCurrentRoute() != '/contacts','task-responsive': getCurrentRoute() == '/add_task'}">

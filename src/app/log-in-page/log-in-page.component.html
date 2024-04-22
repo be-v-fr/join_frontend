@@ -15,10 +15,10 @@
             <button class="btn-primary" (click)="toggleFormMode()">Sign up</button>
         </div>
         <div class="legal-info" [ngClass]="{'await-intro': animate}">
-            <a href="" name="Privacy policy" class="left-link">
+            <a [routerLink]="['/privacy_policy']" name="Privacy policy" class="left-link">
                 <p>Privacy policy</p>
             </a>
-            <a href="" name="Legal notice" class="right-link">
+            <a [routerLink]="['/legal_notice']" name="Legal notice" class="right-link">
                 <p>Legal notice</p>
             </a>
         </div>

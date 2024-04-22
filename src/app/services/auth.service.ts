@@ -1,7 +1,7 @@
 import { Injectable, inject } from "@angular/core";
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, user } from "@angular/fire/auth";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { Observable, from } from "rxjs";
+import { Observable, Subject, from } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -9,6 +9,7 @@ import { Observable, from } from "rxjs";
 export class AuthService {
     firebaseAuth = inject(Auth);
     user$ = user(this.firebaseAuth);
+    guestLogOut$: Subject<void> = new Subject<void>();
     guestLogIn: boolean = false;
 
     register(name: string, email: string, password: string): Observable<void> {
@@ -46,6 +47,7 @@ export class AuthService {
         if (this.guestLogIn) {
             this.guestLogIn = false;
             this.setLocalGuestLogin(false);
+            this.guestLogOut$.next();
             return new Observable<void>(o => o.complete());
         } else {
             const promise = signOut(this.firebaseAuth);

@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, OnDestroy } from '@angular/core';
 import { Firestore, collection, doc, collectionData, onSnapshot, setDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { Observable, Subject } from 'rxjs';
 import { User } from '../../models/user';
@@ -7,7 +7,7 @@ import { User } from '../../models/user';
   providedIn: 'root'
 })
 
-export class UsersService {
+export class UsersService implements OnDestroy {
   users: User[] = [];
   users$: Subject<void> = new Subject<void>();
   unsubUsers;

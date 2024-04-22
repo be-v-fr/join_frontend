@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, OnDestroy } from '@angular/core';
 import { Firestore, collection, doc, collectionData, onSnapshot, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Task } from '../../models/task';
@@ -7,7 +7,7 @@ import { Task } from '../../models/task';
   providedIn: 'root'
 })
 
-export class TasksService {
+export class TasksService implements OnDestroy {
   tasks: Task[] = [];
   newTaskStatus: 'To do' | 'In progress' | 'Await feedback' = 'To do';
   unsubTasks;

@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-log-in-page',
   standalone: true,
-  imports: [CommonModule, RegistrationFormComponent],
+  imports: [CommonModule, RegistrationFormComponent, RouterModule],
   templateUrl: './log-in-page.component.html',
   styleUrl: './log-in-page.component.scss'
 })
