@@ -75,11 +75,13 @@ export class TaskListComponent {
     ev.preventDefault();
     this.draggingOver = false;
     const id = ev.dataTransfer?.getData('text/plain');
-    if (id) {
-      let task = this.tasksService.getTaskById(id);
-      task.status = this.status;
-      this.tasksService.updateTask(task);
-    }
+    if (id) {this.updateTaskStatus(id)}
+  }
+
+  updateTaskStatus(taskId: string) {
+    let task = this.tasksService.getTaskById(taskId);
+    task.status = this.status;
+    this.tasksService.updateTask(task);
   }
 
   addToStatus() {

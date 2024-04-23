@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, AfterViewInit, ElementRef, ViewChild, Renderer2, HostListener } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, AfterViewInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { ContactListItemComponent } from './contact-list-item/contact-list-item.component';
 import { Contact } from '../../../models/contact';
 import { User } from '../../../models/user';
@@ -10,6 +10,7 @@ import { AddContactComponent } from './add-contact/add-contact.component';
 import { HeadlineSloganComponent } from '../../templates/headline-slogan/headline-slogan.component';
 import { CommonModule } from '@angular/common';
 import { ArrowBackBtnComponent } from '../../templates/arrow-back-btn/arrow-back-btn.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-contacts',
@@ -18,9 +19,10 @@ import { ArrowBackBtnComponent } from '../../templates/arrow-back-btn/arrow-back
   templateUrl: './contacts.component.html',
   styleUrl: './contacts.component.scss'
 })
-export class ContactsComponent implements OnInit, AfterViewInit {
+export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
+  private usersSub = new Subscription();
 
   users: User[] = [];
   currentUser: User = new User('', '');
@@ -35,14 +37,27 @@ export class ContactsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     const uid = this.authService.getCurrentUid();
     if (uid) {
-      this.users = this.usersService.users;
       this.currentUser = this.usersService.getUserByUid(uid);
-      this.sortedContacts = this.getSortedContacts();
-      this.usersService.users$.subscribe(() => {
-        this.users = this.usersService.users;
-        this.sortedContacts = this.getSortedContacts();
-      })
+      this.initUsers();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.usersSub.unsubscribe();
+  }
+
+  initUsers() {
+    this.setUsers();
+    this.usersSub = this.subUsers()
+  }
+
+  setUsers() {
+    this.users = this.usersService.users;
+    this.sortedContacts = this.getSortedContacts();
+  }
+
+  subUsers(): Subscription {
+    return this.usersService.users$.subscribe(() => this.setUsers());
   }
 
   ngAfterViewInit(): void {

@@ -52,12 +52,9 @@ export class SummaryComponent implements OnDestroy {
 
   getMostUrgent() {
     const urgentTasks: Task[] = this.getUrgent();
-    if (urgentTasks.length == 0) {
-      return '';
-    } else {
-      urgentTasks.sort((a, b) => {
-        return a.due.localeCompare(b.due);
-      });
+    if (urgentTasks.length == 0) {return ''}
+    else {
+      urgentTasks.sort((a, b) => {return a.due.localeCompare(b.due)});
       return urgentTasks[0].due;
     }
   }
@@ -70,6 +67,4 @@ export class SummaryComponent implements OnDestroy {
     const year = date.getFullYear();
     return month + ' ' + day + ', ' + year;
   }
-
-
 }
