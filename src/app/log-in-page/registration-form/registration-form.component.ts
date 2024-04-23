@@ -43,9 +43,7 @@ export class RegistrationFormComponent {
     this.rememberLogIn = this.authService.getLocalRememberMe();
     if (this.rememberLogIn) {
       this.authService.user$.subscribe(() => {
-        const currentUser = this.authService.firebaseAuth.currentUser;
-        if (currentUser && currentUser.displayName) { this.formData['name'] = currentUser.displayName };
-        if (currentUser && currentUser.email) { this.formData['email'] = currentUser.email };
+        this.initFormData();
         setTimeout(() => {
           if (this.authService.getCurrentUid()) { this.navigateToSummary() }
         }, 1200)
@@ -53,8 +51,14 @@ export class RegistrationFormComponent {
     }
   }
 
+  initFormData() {
+    const currentUser = this.authService.firebaseAuth.currentUser;
+    if (currentUser && currentUser.displayName) { this.formData['name'] = currentUser.displayName };
+    if (currentUser && currentUser.email) { this.formData['email'] = currentUser.email };
+  }
+
   initRememberState() {
-    if(this.authService.getLocalGuestLogin()) {
+    if (this.authService.getLocalGuestLogin()) {
       this.authService.setLocalGuestLogin(false);
       this.authService.setLocalRememberMe(false);
     }
@@ -77,17 +81,19 @@ export class RegistrationFormComponent {
 
   focusLastPosition(field: 'password' | 'confirmation') {
     let element: HTMLInputElement | null = null;
-    if (field == 'password') {
-      element = this.passwordContainerRef.nativeElement.getElementsByTagName('input')[0];
-    }
-    if (field == 'confirmation') {
-      element = this.passwordConfirmationContainerRef.nativeElement.getElementsByTagName('input')[0];
-    }
+    if (field == 'password') { element = this.getFieldContainerRefInput(this.passwordContainerRef) }
+    if (field == 'confirmation') { element = this.getFieldContainerRefInput(this.passwordConfirmationContainerRef) }
+    if (element != null) { this.focusLastCharacter(element) }
+  }
+
+  getFieldContainerRefInput(containerRef: ElementRef): HTMLInputElement {
+    return containerRef.nativeElement.getElementsByTagName('input')[0];
+  }
+
+  focusLastCharacter(input: HTMLInputElement) {
     setTimeout(() => {
-      if (element != null) {
-        element.focus();
-        element.setSelectionRange(element.value.length, element.value.length);
-      }
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
     });
   }
 
@@ -105,11 +111,8 @@ export class RegistrationFormComponent {
 
   onSubmit(form: NgForm) {
     if (form.submitted && this.isValid(form)) {
-      if (this.formMode == 'Log in') {
-        this.submitLogIn();
-      } else {
-        this.submitSignUp();
-      }
+      if (this.formMode == 'Log in') { this.submitLogIn() }
+      else { this.submitSignUp() }
     }
   }
 
@@ -118,16 +121,13 @@ export class RegistrationFormComponent {
   }
 
   checkPasswordConfirmation(): boolean {
-    if (this.formMode == 'Log in') {
-      return true;
-    } else {
-      return this.formData.password == this.formData.passwordConfirmation;
-    }
+    if (this.formMode == 'Log in') { return true }
+    else { return this.formData.password == this.formData.passwordConfirmation }
   }
 
   getAuthError(err: string) {
-    if (err.includes('auth/invalid-credential')) {return 'invalid credential'}
-    else if(err.includes('auth/email-already-in-use')) {return 'email in use'}
+    if (err.includes('auth/invalid-credential')) { return 'invalid credential' }
+    else if (err.includes('auth/email-already-in-use')) { return 'email in use' }
     else return ''
   }
 
@@ -155,18 +155,18 @@ export class RegistrationFormComponent {
       this.authService.register(this.formData.name, this.formData.email, this.formData.password).subscribe({
         next: () => {
           const uid = this.authService.getCurrentUid();
-          if (uid) {
-            this.usersService.addUserByUid(new User(this.formData.name, uid));
-          }
-          this.toastMsg = 'You signed up successfully';
-          this.showToastMsg = true;
-          setTimeout(() => this.toggleModeEmit(), 700);
+          if (uid) { this.usersService.addUserByUid(new User(this.formData.name, uid)) }
+          this.transferAfterSignUp();
         },
-        error: (err) => {
-          this.authError = this.getAuthError(err.toString())
-        }
+        error: (err) => this.authError = this.getAuthError(err.toString())
       });
     }
+  }
+
+  transferAfterSignUp() {
+    this.toastMsg = 'You signed up successfully';
+    this.showToastMsg = true;
+    setTimeout(() => this.toggleModeEmit(), 700);
   }
 
   navigateToSummary() {
@@ -181,16 +181,14 @@ export class RegistrationFormComponent {
 
   sendPasswordResetEmail() {
     this.authService.resetPassword(this.formData.email).subscribe({
-      next: () => {
-        this.toastMsg = 'A reset link has been sent to your email address';
-        this.showToastMsg = true;
-        setTimeout(() => location.reload(), 2000);
-      },
-      error: () => {
-        this.toastMsg = 'Oops! An error occurred';
-        this.showToastMsg = true;
-        setTimeout(() => location.reload(), 2000);
-      }
+      next: () => this.toastNotificationWithReload('A reset link has been sent to your email address'),
+      error: () => this.toastNotificationWithReload('Oops! An error occurred')
     });
+  }
+
+  toastNotificationWithReload(msg: string) {
+    this.toastMsg = msg;
+    this.showToastMsg = true;
+    setTimeout(() => location.reload(), 2000);
   }
 }
