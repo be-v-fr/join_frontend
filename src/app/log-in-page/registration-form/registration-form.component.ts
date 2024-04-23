@@ -136,7 +136,12 @@ export class RegistrationFormComponent {
   }
 
   submitLogIn() {
-    this.authService.setLocalGuestLogin(false);
+    this.authService.logOut().subscribe({
+      next: () => this.logIn()
+    });
+  }
+
+  logIn() {
     this.authService.setLocalRememberMe(this.rememberLogIn);
     this.authService.logIn(this.formData.email, this.formData.password).subscribe({
       next: () => this.navigateToSummary(),

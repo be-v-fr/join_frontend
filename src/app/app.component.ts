@@ -35,12 +35,14 @@ export class AppComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.guestSub.unsubscribe();
+    this.usersSub.unsubscribe();
   }
 
   subAuth() {
     this.authService.user$.subscribe(() => {
       const uid = this.authService.getCurrentUid();
       if (uid) {
+        this.currentUser = this.usersService.getUserByUid(uid);
         this.usersSub = this.subUsersInit(uid);
         if (uid == 'guest') {
           this.guestSub = this.subGuestLogOut();
@@ -55,7 +57,7 @@ export class AppComponent implements OnDestroy {
   subUsersInit(uid: string): Subscription {
     return this.usersService.users$.subscribe(() => {
       this.currentUser = this.usersService.getUserByUid(uid)
-      this.usersSub.unsubscribe();
+      console.log(this.currentUser);
     });
   }
 
