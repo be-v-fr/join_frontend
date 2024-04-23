@@ -57,7 +57,6 @@ export class AppComponent implements OnDestroy {
   subUsersInit(uid: string): Subscription {
     return this.usersService.users$.subscribe(() => {
       this.currentUser = this.usersService.getUserByUid(uid)
-      console.log(this.currentUser);
     });
   }
 
