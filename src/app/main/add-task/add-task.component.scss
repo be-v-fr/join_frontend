@@ -3,11 +3,21 @@
 
 @mixin column-layout() {
   display: initial;
+
   .form-main {
     flex-direction: column;
   }
+
   .vertical-ruler {
     display: none;
+  }
+}
+
+@media screen and (min-width: 481px) {
+
+  .btn-primary,
+  .btn-secondary {
+    height: 56px;
   }
 }
 
@@ -15,60 +25,70 @@
   @extend .content;
   min-height: 660px;
   @include flex($ai: flex-start, $dir: column);
+
   form {
     width: 100%;
     flex: 1;
-  padding-bottom: 24px;
+    padding-bottom: 24px;
     @include flex($dir: column);
+
     .form-main {
       width: 100%;
       display: flex;
       gap: var(--add-task-form-gap);
+
       .form-side {
         height: 100%;
         flex: 1;
         @include flex($jc: flex-start, $ai: flex-start, $g: 24px, $dir: column);
+
         .form-field {
           width: 100%;
-          @include flex(
-            $jc: flex-start,
+          @include flex($jc: flex-start,
             $ai: flex-start,
             $g: 8px,
-            $dir: column
-          );
+            $dir: column);
+
           label {
             color: $anthracite;
           }
         }
       }
     }
+
     .form-bottom {
       position: relative;
       width: 100%;
       flex: 1;
       @include flex($g: 16px, $dir: column);
+
       .bottom-container {
         flex: 1;
         width: 100%;
         @include flex($jc: space-between, $ai: flex-end);
+
         .btns-submit {
           @include flex($g: 16px);
         }
       }
     }
   }
+
   .btn-close {
     position: absolute;
     right: 36px;
     top: 60px;
   }
+
   @media screen and (max-width: 1024px) {
     @include column-layout();
   }
+
   @media screen and (max-width: 768px) {
     form {
       flex: 0;
       padding-bottom: 16px;
+
       .form-bottom .bottom-container {
         align-items: center;
         background: $light-grey;
@@ -77,18 +97,22 @@
         right: 0;
         bottom: 80px;
         padding: 16px;
+
         @media screen and (max-width: 350px) {
           padding: 10px;
         }
       }
     }
   }
+
   @media screen and (max-width: 640px) {
     .btn-secondary {
       display: none;
     }
   }
+
   @media screen and (max-width: 480px) {
+
     .bottom-container .font-small,
     span {
       font-size: $font-tiny;
@@ -116,6 +140,7 @@ textarea,
   background-size: 19px;
   background-repeat: no-repeat;
   background-position: calc(100% - 5px) calc(100% - 4px);
+
   &::-webkit-resizer {
     display: none;
   }
@@ -125,9 +150,11 @@ textarea,
   width: 100%;
   position: relative;
   z-index: 1;
+
   .dropdown-input {
     background: white;
   }
+
   .dropdown-menu {
     list-style-type: none;
     position: absolute;
@@ -139,20 +166,24 @@ textarea,
     border-radius: 10px;
     background: white;
     z-index: -1;
+
     li {
       padding: var(--input-padding);
       border-radius: 10px;
       transition: 75ms ease;
       z-index: -1;
     }
+
     @media screen and (max-width: 768px) {
       padding-top: 26px;
     }
   }
+
   .dropdown-arrow-btn {
     @extend .custom-input-btn;
     top: 0;
     z-index: 1;
+
     .turn {
       transition: transform 250ms ease, background-color 75ms ease;
       transform: rotate(180deg);
@@ -164,9 +195,11 @@ textarea,
   @extend .dropdown-menu;
   max-height: 294px;
   overflow-y: auto;
+
   li {
     @include flex($jc: space-between);
     cursor: pointer;
+
     .custom-checkbox {
       width: 24px;
       height: 24px;
@@ -174,25 +207,31 @@ textarea,
       background-size: 100%;
       background-repeat: no-repeat;
     }
+
     .custom-checked {
       background: url("../../../assets/img/checkbox_checked.svg");
     }
+
     &:hover {
       color: white;
       background-color: $anthracite;
       transition: 75ms ease;
+
       .custom-checkbox {
         background: url("../../../assets/img/checkbox_white.svg");
       }
+
       .custom-checked {
         background: url("../../../assets/img/checkbox_white_checked.svg");
       }
     }
+
     &:active {
       background: $anthracite-darkened;
       transition: 75ms ease;
     }
   }
+
   @media screen and (max-height: 1024px) {
     max-height: 228px;
   }
@@ -204,9 +243,11 @@ textarea,
   bottom: -48px;
   z-index: -1;
   display: flex;
+
   app-person-badge {
     margin-right: -12px;
   }
+
   @media screen and (max-width: 1024px) {
     position: relative;
     top: 6px;
@@ -225,10 +266,12 @@ textarea,
     cursor: pointer;
     transition: 75ms ease;
   }
+
   &::-webkit-calendar-picker-indicator:hover {
     background-image: url(../../../assets/img/calendar_icon_hover.svg);
     transition: 75ms ease;
   }
+
   &::-webkit-calendar-picker-indicator:active {
     background-image: url(../../../assets/img/calendar_icon_active.svg);
     transition: 75ms ease;
@@ -250,6 +293,7 @@ textarea,
 .prio-btns {
   width: 100%;
   @include flex($jc: space-between, $g: 4%);
+
   button {
     flex: 1;
     background: white;
@@ -258,43 +302,53 @@ textarea,
     height: 56px;
     @include flex($g: 8px);
     transition: 75ms ease;
+
     img {
       width: 20px;
     }
+
     &:hover {
       box-shadow: $shadow-stronger;
       transition: 75ms ease;
     }
+
     @media screen and (max-width: 1280px) {
       span {
         font-size: $font-small;
       }
     }
+
     @media screen and (max-width: 768px) {
       height: 41px;
       padding: 10px;
     }
+
     @media screen and (max-width: 480px) {
       span {
         font-size: $font-tiny;
       }
+
       padding: 6px;
     }
   }
+
   .selected {
     color: white;
     font-weight: 600;
     box-shadow: none;
     transition: 75ms ease;
   }
+
   .urgent {
     background: #ff3d00;
     transition: 75ms ease;
   }
+
   .medium {
     background: #ff7a00;
     transition: 75ms ease;
   }
+
   .low {
     background: #7ae229;
     transition: 75ms ease;
@@ -303,6 +357,7 @@ textarea,
 
 .dropdown-category {
   @extend .dropdown-menu;
+
   li:hover {
     background: #eeeeee;
     transition: 75ms ease;
@@ -321,13 +376,16 @@ textarea,
   margin-top: 3px;
   overflow-x: hidden;
   overflow-y: auto;
+
   li {
     height: 32px;
+
     app-subtask {
       width: 100%;
       height: 100%,
     }
   }
+
   @media screen and (max-width: 1024px) {
     width: 100%;
     position: relative;
@@ -337,6 +395,7 @@ textarea,
 
 .overlay-custom-column-layout {
   @include column-layout();
+
   .assigned-badges {
     position: relative;
     top: 6px;
