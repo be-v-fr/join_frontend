@@ -1,5 +1,5 @@
-<div class="subtask-content" [ngClass]="{'editing': editing}" (formClick)="cancel()">
-    <p class="name" (dblclick)="edit()">
+<div class="subtask-content" [ngClass]="{'editing': editing}" (dblclick)="edit()" (formClick)="cancel()">
+    <p class="name">
         @if(editing) {
         <input #editInput [(ngModel)]="task.name" (keydown.enter)="confirm($event)">
         }
@@ -7,7 +7,7 @@
         &bull;<span>{{task.name}}</span>
         }
     </p>
-    <div class="btns-container">
+    <div class="btns-container prevent-select">
         @if(!editing) {
         <button type="button" (click)="edit()">
             <img src="../../../../assets/img/edit.svg" alt="edit subtask">
