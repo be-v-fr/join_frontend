@@ -51,18 +51,26 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   override ngOnInit() {
     this.translated = this.inOverlay;
     super.ngOnInit();
+    this.initFormData();
+    this.users = this.usersService.users;
+  }
+
+  initFormData() {
     if (this.inputTask.id == '') {
       this.formData.due = '';
       this.formData.status = this.tasksService.newTaskStatus;
     } else {
       this.formData = this.tasksService.setTaskObject(this.inputTask, this.inputTask.id);
     }
-    this.users = this.usersService.users;
   }
 
   sortUsers() {
-    const uid = this.authService.getCurrentUid();
     this.users = this.users.sort((a: User, b: User) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
+    this.putCurrentUserFirst();
+  }
+
+  putCurrentUserFirst() {
+    const uid = this.authService.getCurrentUid();
     if (uid && uid != 'guest') {
       const current = this.usersService.getUserByUid(uid);
       const index = this.users.indexOf(current);
@@ -83,25 +91,26 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   textToDue(ev: Event) {
     const target = ev.target as HTMLInputElement;
     const value = target.value;
-    if (value) {
-      const parts = value.split('/');
-      let day: string | number = parseInt(parts[0]);
-      let month: string | number = parseInt(parts[1]);
-      const year = parts[2];
-      day = (day < 10 ? '0' : '') + day;
-      month = (month < 10 ? '0' : '') + month;
-      this.formData.due = year + '-' + month + '-' + day;
-    } else {
-      this.formData.due = '';
-    }
+    if (value) {this.transformTextToDateInputFormat(value)}
+    else {this.formData.due = ''}
     this.validateDate();
+  }
+
+  transformTextToDateInputFormat(text: string) {
+    const parts = text.split('/');
+    let day: string | number = parseInt(parts[0]);
+    let month: string | number = parseInt(parts[1]);
+    const year = parts[2];
+    day = (day < 10 ? '0' : '') + day;
+    month = (month < 10 ? '0' : '') + month;
+    this.formData.due = year + '-' + month + '-' + day;
   }
 
   validateDate() {
     this.dateError = '';
     const selected = new Date(this.formData.due);
     const current = new Date();
-    if (selected.toString().includes('Invalid date') || this.formData.due == '' || !this.validDueString()) {
+    if (selected.toString().includes('Invalid date') || this.formData.due == '' || !this.checkDueValidity()) {
       this.dateError = 'This is not a valid date.';
     } else if (selected < current) {
       this.dateError = 'Date lies in the past.';
@@ -110,7 +119,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
     }
   }
 
-  validDueString() {
+  checkDueValidity() {
     const parts = this.formData.due.split('-');
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
@@ -126,11 +135,17 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
     this.formData.prio != prio ? this.formData.prio = prio : this.formData.prio = null;
   }
 
-  toggleDropdown(e: Event, name: 'assigned' | 'category') {
-    e.stopPropagation();
-    if (e.target != null) {
-      (e.target as HTMLInputElement).blur();
-    }
+  toggleDropdown(ev: Event, name: 'assigned' | 'category') {
+    this.handleToggleDropdownEvent(ev);
+    this.toggleDropdownByName(name);
+  }
+
+  handleToggleDropdownEvent(ev: Event) {
+    ev.stopPropagation();
+    if (ev.target != null) (ev.target as HTMLInputElement).blur();
+  }
+
+  toggleDropdownByName(name: 'assigned' | 'category') {
     switch (name) {
       case 'assigned':
         this.showAssignedDropdown = !this.showAssignedDropdown;
@@ -147,9 +162,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
         const index = assigned.indexOf(uid);
         assigned.splice(index, 1);
       }
-    } else {
-      assigned.push(uid);
-    }
+    } else {assigned.push(uid)}
   }
 
   setCategory(category: 'Technical Task' | 'User Story') {
@@ -158,18 +171,24 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
   addSubtask(ev?: Event) {
     const input: HTMLInputElement = this.subtaskRef.nativeElement;
-    if (ev && input == document.activeElement) {
-      ev.preventDefault();
-      if (!input.value) { input.blur() }
-    }
+    if (ev && input == document.activeElement) {this.handleSubtaskEvent(ev, input)}
     if (input.value) {
-      this.formData.subtasks.push({
-        name: input.value,
-        status: 'To do'
-      });
+      this.pushSubtasks(input.value);
       input.value = '';
       this.scrollToBottom();
     }
+  }
+
+  handleSubtaskEvent(ev: Event, input: HTMLInputElement) {
+    ev.preventDefault();
+    if (!input.value) { input.blur() }
+  }
+
+  pushSubtasks(title: string) {
+    this.formData.subtasks.push({
+      name: title,
+      status: 'To do'
+    });
   }
 
   scrollToBottom() {
