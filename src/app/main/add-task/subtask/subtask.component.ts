@@ -4,6 +4,11 @@ import { Subtask } from '../../../../interfaces/subtask.interface';
 import { FormsModule } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 
+
+/**
+ * This component displays a Task's Subtask.
+ * It shows the task ('name') in an editable manner.
+ */
 @Component({
   selector: 'app-subtask',
   standalone: true,
@@ -20,43 +25,65 @@ export class SubtaskComponent implements OnInit {
   previousName: string = '';
   @Output() taskChange = new EventEmitter<Subtask>();
   @Output() delete = new EventEmitter<boolean>();
-  private formSubscription: Subscription | undefined;
-  @Input() formClick: Observable<void> | undefined;
+  private formSubscription = new Subscription();
+  @Input() formClick = new Observable<void>();
   @ViewChild('editInput') editInputRef!: ElementRef;
 
+
+  /**
+   * Subscribe to form click observable from parent component; call "cancel()" method in case the form is clicked directly.
+   * Save previous task name to reload when editing is aborted.
+   */
   ngOnInit() {
-    if (this.formClick) {
-      this.formSubscription = this.formClick.subscribe(() => this.cancel());
-    }
+    this.formSubscription = this.formClick.subscribe(() => this.cancel());
     this.previousName = this.task.name;
   }
 
+
+  /**
+   * Unsubscribe when component is destroyed.
+   */
   ngOnDestroy() {
-    if (this.formSubscription) {
-      this.formSubscription.unsubscribe();
-    }
+    this.formSubscription.unsubscribe();
   }
 
+
+  /**
+   * Edit subtask. Save previous name to redeem in case editing is aborted.
+   */
   edit() {
     this.editing = true;
     this.previousName = this.task.name;
     this.focusLastPosition();
   }
 
+
+  /**
+   * Focus input element at last character
+   */
   focusLastPosition() {
     setTimeout(() => {
       const input: HTMLInputElement = this.editInputRef.nativeElement;
       input.focus();
       input.setSelectionRange(input.value.length, input.value.length);
-      }, 0);
+    }, 0);
   }
 
-  confirm(ev?: Event) {
-    if(ev && this.editInputRef.nativeElement == document.activeElement) {ev.stopPropagation()}
+
+  /**
+   * Confirm subtask editing
+   * @param enter keydown.enter event
+   */
+  confirm(enter?: Event) {
+    if (enter && this.editInputRef.nativeElement == document.activeElement) { enter.stopPropagation() }
     this.editing = false;
     this.taskChange.emit(this.task);
   }
 
+
+  /**
+   * Cancel subtask editing
+   */
   cancel() {
     if (this.editing) {
       this.task.name = this.previousName;
@@ -64,6 +91,10 @@ export class SubtaskComponent implements OnInit {
     }
   }
 
+
+  /**
+   * Delete this subtask
+   */
   deleteTask() {
     this.delete.emit(true);
   }
