@@ -45,6 +45,11 @@ export class RegistrationFormComponent implements OnDestroy {
   toastMsg: string = '';
   showToastMsg: boolean = false;
 
+
+  /**
+   * Initialize router and "remember me" feature; apply feature if applicable
+   * @param router instance of Router
+   */
   constructor(private router: Router) {
     this.initRememberState();
     this.rememberLogIn = this.authService.getLocalRememberMe();
