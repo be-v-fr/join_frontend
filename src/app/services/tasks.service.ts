@@ -2,6 +2,10 @@ import { Injectable, inject, OnDestroy } from '@angular/core';
 import { Firestore, collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { Task } from '../../models/task';
 
+
+/**
+ * This injectable handles generic tasks operations, including Firestore communication.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -12,14 +16,27 @@ export class TasksService implements OnDestroy {
   unsubTasks;
   firestore: Firestore = inject(Firestore);
 
+
+  /**
+   * Create subscription
+   */
   constructor() {
     this.unsubTasks = this.subTasks();
   }
 
+
+  /**
+   * Unsubscribe
+   */
   ngOnDestroy() {
     this.unsubTasks();
   }
 
+
+  /**
+   * Subscribe to Firestore "tasks" collection to synchronize "tasks" array
+   * @returns subscription
+   */
   subTasks() {
     return onSnapshot(this.getColRef(), (list: any) => {
       this.tasks = [];
@@ -29,19 +46,41 @@ export class TasksService implements OnDestroy {
     });
   }
 
+
+  /**
+   * Get reference to Firestore "tasks" collection
+   * @returns reference
+   */
   getColRef() {
     return collection(this.firestore, 'tasks');
   }
 
+
+  /**
+   * Get reference to single Firestore task document
+   * @param id Firestore task ID
+   * @returns reference
+   */
   getSingleDocRef(id: string) {
     return doc(this.getColRef(), id);
   }
 
+
+  /**
+   * Add task to Firestore collection
+   * @param task task to be added
+   */
   async addTask(task: Task) {
     await addDoc(this.getColRef(), this.getJsonFromTask(task))
       .catch((err: Error) => { console.error(err) });
   }
 
+
+  /**
+   * Update task in Firestore collection.
+   * The update will only be executed if the task (i.e., its Firestore ID) exists in the Firestore collection.
+   * @param task task to be updated
+   */
   async updateTask(task: Task) {
     if (task.id) {
       let docRef = this.getSingleDocRef(task.id);
@@ -51,12 +90,23 @@ export class TasksService implements OnDestroy {
     }
   }
 
+
+  /**
+   * Delete task from Firestore collection
+   * @param id Firestore task ID of task to be deleted
+   */
   async deleteTask(id: string) {
     let docRef = this.getSingleDocRef(id);
     await deleteDoc(docRef)
       .catch((err: Error) => { console.error(err) });
   }
 
+
+  /**
+   * Transform task object properties to JSON
+   * @param task task to be transformed
+   * @returns JSON
+   */
   getJsonFromTask(task: Task): {} {
     return {
       'id': task.id,
@@ -72,6 +122,12 @@ export class TasksService implements OnDestroy {
     }
   }
 
+
+  /**
+   * Retrieve a complete task object from task ID
+   * @param id Firestore task ID
+   * @returns task object
+   */
   getTaskById(id: string): Task {
     let task = new Task('');
     this.tasks.forEach(t => {
@@ -80,10 +136,23 @@ export class TasksService implements OnDestroy {
     return task;
   }
 
-  getFilteredTasks(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
+
+  /**
+   * Get tasks filtered by task status
+   * @param status task status
+   * @returns filtered tasks array
+   */
+  getFilteredTasks(status: 'To do' | 'In progress' | 'Await feedback' | 'Done'): Task[] {
     return this.tasks.filter(t => t.status == status);
   }
 
+
+  /**
+   * Set "Task" object from "any" object and ID
+   * @param obj any object (should consist of task properties)
+   * @param id Firestore task ID
+   * @returns task object
+   */
   setTaskObject(obj: any, id: string): Task {
     const task = new Task('null');
     task.id = id;
