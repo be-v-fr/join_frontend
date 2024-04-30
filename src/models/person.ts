@@ -1,12 +1,25 @@
+/**
+ * This class serves as a super class for "User" and "Contact".
+ */
 export class Person {
     name: string;
     color: string;
 
+
+    /**
+     * Create person object from name. In doing so, generate a random color for the person's badge.
+     * @param name name of personn
+     */
     constructor(name: string) {
         this.name = name;
         this.color = this.getRandomColor();
     }
 
+
+    /**
+     * Randomly select color from USER_COLORS (see below) 
+     * @returns color (hexadecimal string)
+     */
     getRandomColor(): string {
         return USER_COLORS[Math.floor(Math.random() * USER_COLORS.length)];
     }
