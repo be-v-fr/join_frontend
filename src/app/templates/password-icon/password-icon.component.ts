@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
+
+/**
+ * This component displays the icon marking a password input field.
+ * Depending on the input state, there a three different icons.
+ */
 @Component({
   selector: 'app-password-icon',
   standalone: true,

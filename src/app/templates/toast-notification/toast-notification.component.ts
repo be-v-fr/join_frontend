@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
+
+/**
+ * This component displays a toast notification sliding in from below the viewport.
+ */
 @Component({
   selector: 'app-toast-notification',
   standalone: true,

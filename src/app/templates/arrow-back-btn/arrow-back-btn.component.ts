@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 
+
+/**
+ * This component displays a small blue arrow button pointing to the left ("back").
+ */
 @Component({
   selector: 'app-arrow-back-btn',
   standalone: true,

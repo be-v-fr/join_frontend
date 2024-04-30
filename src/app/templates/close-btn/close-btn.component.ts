@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
+
+/**
+ * This component displays a button in X shape.
+ */
 @Component({
   selector: 'app-close-btn',
   standalone: true,

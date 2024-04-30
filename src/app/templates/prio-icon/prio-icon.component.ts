@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
 
+
+/**
+ * This component displays a priority icon (i.e., one of three icons corresponding to the three priority values).
+ */
 @Component({
   selector: 'app-prio-icon',
   standalone: true,

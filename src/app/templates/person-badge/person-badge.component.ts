@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
+
+/**
+ * This component displays a badge showing a Person's initials and individual background color.
+ * There are some optional variables for styling in different contexts. 
+ */
 @Component({
   selector: 'app-person-badge',
   standalone: true,
@@ -15,6 +20,11 @@ export class PersonBadgeComponent {
   @Input() currentUser?: boolean;
   @Input() responsive?: 'desktop' | 'mobile';
 
+
+  /**
+   * Get capitalized initials from "name"
+   * @returns initials
+   */
   getInitials() {
     const nameParts: string[] = this.name.split(' ');
     const capitalized = nameParts.map(part => part.charAt(0).toUpperCase()).join('');
