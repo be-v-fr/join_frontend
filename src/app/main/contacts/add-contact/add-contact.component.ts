@@ -6,6 +6,10 @@ import { Contact } from '../../../../models/contact';
 import { CloseBtnComponent } from '../../../templates/close-btn/close-btn.component';
 import { SlideComponent } from '../../../templates/slide/slide.component';
 
+
+/**
+ * This component displays the "add contact" or "edit contact" form within an overlay.
+ */
 @Component({
   selector: 'app-add-contact',
   standalone: true,
@@ -22,6 +26,12 @@ export class AddContactComponent extends SlideComponent {
   @Output() delete = new EventEmitter<void>();
   disableUserNameEdit: boolean = false;
 
+
+  /**
+   * Extend super class "ngOnInit()" method by form data initialization.
+   * Also disable name editing in case the contact is another user (rather than a manually added contact),
+   * which is marked by an existing Firebase user ID ("uid").
+   */
   override ngOnInit() {
     super.ngOnInit();
     if (this.mode = 'edit') {
@@ -30,17 +40,31 @@ export class AddContactComponent extends SlideComponent {
     }
   }
 
+
+  /**
+   * Submit form if valid by emitting he corresponding event to the parent component
+   * @param form add/edit contact form
+   */
   onSubmit(form: NgForm): void {
     if (form.submitted && form.form.valid) {
       this.contactSubmission.emit(this.formData);
     }
   }
 
+
+  /**
+   * Cancel this form/overlay with slide animation
+   */
   cancel() {
     this.slideInOut();
     setTimeout(() => this.cancelOverlay.emit(), 125);
   }
 
+
+  /**
+   * Delete this contact.
+   * The delete button is disabled if the contact is a user.
+   */
   deleteContact() {
     this.delete.emit();
     this.cancel();
