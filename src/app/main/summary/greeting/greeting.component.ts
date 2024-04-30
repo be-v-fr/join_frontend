@@ -1,6 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
+import { Subscription } from 'rxjs';
 
+
+/**
+ * This component displays a personalized greeting formula to the user, which also corresponds the time of day. 
+ */
 @Component({
   selector: 'app-greeting',
   standalone: true,
@@ -8,12 +13,18 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './greeting.component.html',
   styleUrl: './greeting.component.scss'
 })
-export class GreetingComponent implements OnInit {
+export class GreetingComponent implements OnInit, OnDestroy {
   private authService = inject(AuthService);
+  authSub = new Subscription();
   currentUserName: string | null = null;
 
+
+  /**
+   * Subscribe to "authService.user$" to retrieve user name.
+   * The local user name is set to "null" in case guest log in is being used.
+   */
   ngOnInit(): void {
-    this.authService.user$.subscribe(user => {
+    this.authSub = this.authService.user$.subscribe(user => {
       if (user) {
         this.currentUserName = user.displayName;
       } else {
@@ -22,6 +33,19 @@ export class GreetingComponent implements OnInit {
     });
   }
 
+
+  /**
+   * Unsubscribe
+   */
+  ngOnDestroy(): void {
+    this.authSub.unsubscribe();
+  }
+
+
+  /**
+   * Generate greeting by time of day and user name
+   * @returns greeting formula (does not yet include actual user name)
+   */
   getGreeting(): string {
     const currentHour = new Date().getHours();
     let greeting: string = '';
