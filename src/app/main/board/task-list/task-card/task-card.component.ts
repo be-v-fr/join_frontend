@@ -7,6 +7,10 @@ import { PersonBadgeComponent } from '../../../../templates/person-badge/person-
 import { TaskCategoryComponent } from './task-category/task-category.component';
 import { PrioIconComponent } from '../../../../templates/prio-icon/prio-icon.component';
 
+
+/**
+ * This component displays a task as a small card which can be clicked to edit.
+ */
 @Component({
   selector: 'app-task-card',
   standalone: true,
@@ -19,18 +23,28 @@ export class TaskCardComponent implements OnInit {
   @Input() task: Task = new Task('');
   private usersService = inject(UsersService);
 
+
+  /**
+   * Initialize users array
+   */
   ngOnInit(): void {
     this.users = this.usersService.users;   
   }
 
-  printDescription() {
+
+  /**
+   * This function prints the task description as displayed to the user.
+   * The description is only to be displayed up to a certain length.
+   * Thus, longer descriptions are cut off, which is signaled to the user by adding dots ("...").
+   * @returns transformed description
+   */
+  printDescription(): String {
     let printed = this.task.description.slice(0,35);
     if(this.task.description.length > 36) {
       for (let i = 36; i < this.task.description.length; i++) {
         const char = this.task.description.charAt(i);
-        if(this.noBreak(char)) {
-          printed = printed + char;
-        } else {
+        if(!this.isBreak(char)) {printed = printed + char}
+        else {
           printed = printed + '...';
           break;
         }
@@ -39,11 +53,22 @@ export class TaskCardComponent implements OnInit {
     return printed;
   }
 
-  noBreak(char: string): boolean {
+
+  /**
+   * Check if a character marks a cesura/break between words
+   * @param char character to check
+   * @returns check result 
+   */
+  isBreak(char: string): boolean {
     const cesura = [' ', ',', '.', ':', '!', '?'];
-    return !cesura.includes(char);
+    return cesura.includes(char);
   }
 
+
+  /**
+   * This function returns the number of subtasks whose status is set to "Done"
+   * @returns "Done" number
+   */
   getSubtasksDoneNumber(): number {
     return this.task.subtasks.filter(s => s.status == 'Done').length;
   }

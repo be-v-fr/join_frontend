@@ -8,6 +8,12 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+
+/**
+ * This component displays the task board.
+ * It contains an overview of all tasks sorted by their respective status.
+ * It also contains a search function to filter tasks.
+ */
 @Component({
   selector: 'app-board',
   standalone: true,
@@ -26,11 +32,24 @@ export class BoardComponent {
   dragStartStatus: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
   searchFilter: string = '';
 
-  getFilteredTasks(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
+
+  /**
+   * Apply both status und search filter to tasks array
+   * @param status task status
+   * @returns filtered tasks 
+   */
+  getFilteredTasks(status: 'To do' | 'In progress' | 'Await feedback' | 'Done'): Task[] {
     const tasksFilteredByStatus = this.tasksService.getFilteredTasks(status);
     return tasksFilteredByStatus.filter(t => this.taskFitsSearch(t));
   }
 
+
+  /**
+   * Check whether a task fits the current search filter (which means that it will still be displayed when applying the filter).
+   * The search filter is applied only to the task title and task description.
+   * @param task task to be checked
+   * @returns check result
+   */
   taskFitsSearch(task: Task): boolean {
     const title = task.title.toLowerCase();
     const description = task.description.toLowerCase();
@@ -39,33 +58,69 @@ export class BoardComponent {
     return true;
   }
 
+
+  /**
+   * This function returns a full task by its ID
+   * @param id Firestore task ID
+   * @returns task
+   */
   getTaskById(id: string): Task {
     return this.tasksService.getTaskById(id);
   }
 
+
+  /**
+   * This function sets the "viewTaskId" property, which will result in displaying the "task view" component
+   * @param id Firestore task ID
+   */
   viewTask(id: string) {
     this.viewTaskId = id;
   }
 
+
+  /**
+   * This functon closes the "task view" component/overlay by unsetting the "viewTaskId" property
+   */
   closeTaskView() {
     this.viewTaskId = '';
   }
 
+
+  /**
+   * Show the "add task" component.
+   * Leaving "id" empty ('') will result in "add" mode. Using an actual ID will result in editing the corresponding task.
+   * @param id Firestore task ID
+   */
   showTaskForm(id: string) {
     this.taskFormId = id;
   }
 
+
+  /**
+   * Hide "add task" component with slide animation.
+   */
   hideTaskForm() {
     this.slideTaskFormWrapper();
     setTimeout(() => this.taskFormId = null, 125);
   }
 
-  // In case the add task form is opened in an overlay, this listener checks whether the window has been resized below the breakpoint width and triggers a function that closes the overlay in that case
+
+  /**
+   * When the "add task" form is opened from the board, it depends on the screen resolution whether the form is displayed in an overlay or using router navigation.
+   * Smaller screens will use router navigation.
+   * In case the screen resolution is reduced below a certain threshold while the form is displayed in an overlay, close the overlay.
+   * In this case, the user will have to click another time to open the form. The previous form data will be lost since it is never saved or loaded. 
+   */
   @HostListener('window:resize', ['$event'])
   onResize() {
     if (this.taskFormId != null && window.innerWidth <= 768) { this.taskFormId = null; }
   }
 
+
+  /**
+   * Set task status to be used for "add task" initialization in adding mode (not for editing tasks)
+   * @param status task status/list
+   */
   addToStatus(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
     if (status != 'Done') {
       this.tasksService.newTaskStatus = status;
@@ -73,14 +128,30 @@ export class BoardComponent {
     }
   }
 
+
+  /**
+   * Trigger slide animation for "add task" component
+   */
   slideTaskFormWrapper() {
     this.taskFormWrapperTranslated = !this.taskFormWrapperTranslated;
   }
 
+
+  /**
+   * Set "dragCardHeight" property to a certain height in pixels.
+   * The height should be retrieved from the currently dragged task card HTML element.
+   * @param height card height
+   */
   setDragCardHeight(height: number) {
     this.dragCardHeight = height;
   }
 
+
+  /**
+   * Set "dragStarStatus" property to a certain task status.
+   * The status should be retrieved from the currently dragged task card HTML element or the task list containing it. 
+   * @param status task status
+   */
   setDragStartStatus(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
     this.dragStartStatus = status;
   }

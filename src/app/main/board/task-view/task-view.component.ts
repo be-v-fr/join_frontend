@@ -10,6 +10,12 @@ import { PrioIconComponent } from '../../../templates/prio-icon/prio-icon.compon
 import { CommonModule } from '@angular/common';
 import { SlideComponent } from '../../../templates/slide/slide.component';
 
+
+/**
+ * This component displays a "task viewer" within an overlay.
+ * The viewer contains more detailed information than the "task card" component.
+ * It also allows task editing.
+ */
 @Component({
   selector: 'app-task-view',
   standalone: true,
@@ -25,31 +31,57 @@ export class TaskViewComponent extends SlideComponent {
   private usersService = inject(UsersService);
   private tasksService = inject(TasksService);
 
+
+  /**
+   * Call super constructor
+   */
   constructor() {
     super();
   }
 
+
+  /**
+   * Extend super class "ngOnInit()" method by initializing users array
+   */
   override ngOnInit(): void {
     super.ngOnInit();
     this.users = this.usersService.users;   
   }
 
+
+  /**
+   * Cancel task viewer overlay with slide animation
+   */
   cancel() {
     this.slideInOut();
     setTimeout(() => this.cancelOverlay.emit(), 125);
   }
 
+
+  /**
+   * Toggle subtask status between options "To do" and "Done".
+   * Immediately update the task in Firestore.
+   * @param index subtask array index
+   */
   toggleSubtaskStatus(index: number) {
     const subtask = this.task.subtasks[index];
-    subtask.status == 'To do' ? subtask.status = 'Done' : subtask.status = 'To do';
+    subtask.status = (subtask.status == 'To do' ? 'Done' : 'To do');
     this.tasksService.updateTask(this.task);
   }
 
+
+  /**
+   * Completely delete this task
+   */
   deleteTask() {
     this.cancel();
     this.tasksService.deleteTask(this.task.id);
   }
 
+
+  /**
+   * Edit this task (aside from subtask checking) by emitting the corresponding event to the parent component
+   */
   editTask() {
     this.editThisTask.emit();
   }
