@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { PersonBadgeComponent } from '../../../templates/person-badge/person-badge.component';
 import { EmailComponent } from '../email/email.component';
 
+
+/**
+ * This component displays a contact card including name and badge.
+ */
 @Component({
   selector: 'app-contact-list-item',
   standalone: true,

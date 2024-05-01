@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HeadlineOtherComponent } from '../../templates/headline-other/headline-other.component';
+import { EmailComponent } from '../../main/contacts/email/email.component';
 
 
 /**
@@ -8,7 +9,7 @@ import { HeadlineOtherComponent } from '../../templates/headline-other/headline-
 @Component({
   selector: 'app-help',
   standalone: true,
-  imports: [HeadlineOtherComponent],
+  imports: [HeadlineOtherComponent, EmailComponent],
   templateUrl: './help.component.html',
   styleUrl: './help.component.scss'
 })

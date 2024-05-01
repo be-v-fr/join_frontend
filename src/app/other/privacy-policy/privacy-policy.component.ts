@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { HeadlineOtherComponent } from '../../templates/headline-other/headline-other.component';
 import { AutoscrollService } from '../../services/autoscroll.service';
+import { EmailComponent } from '../../main/contacts/email/email.component';
 
 
 /**
@@ -9,7 +10,7 @@ import { AutoscrollService } from '../../services/autoscroll.service';
 @Component({
   selector: 'app-privacy-policy',
   standalone: true,
-  imports: [HeadlineOtherComponent],
+  imports: [HeadlineOtherComponent, EmailComponent],
   templateUrl: './privacy-policy.component.html',
   styleUrl: './privacy-policy.component.scss'
 })

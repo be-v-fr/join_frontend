@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
 
+
+/**
+ * This component displays a linked email address.
+ */
 @Component({
   selector: 'app-email',
   standalone: true,

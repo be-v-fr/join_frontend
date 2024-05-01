@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HeadlineOtherComponent } from '../../templates/headline-other/headline-other.component';
+import { EmailComponent } from '../../main/contacts/email/email.component';
 
 
 /**
@@ -8,7 +9,7 @@ import { HeadlineOtherComponent } from '../../templates/headline-other/headline-
 @Component({
   selector: 'app-legal-notice',
   standalone: true,
-  imports: [HeadlineOtherComponent],
+  imports: [HeadlineOtherComponent, EmailComponent],
   templateUrl: './legal-notice.component.html',
   styleUrl: './legal-notice.component.scss'
 })
