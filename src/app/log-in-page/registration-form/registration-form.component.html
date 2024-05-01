@@ -13,7 +13,7 @@
     <div class="form-field"
         [ngClass]="{'validation-error': ((email.touched || registrationForm.submitted) && !email.valid) || authError == 'invalid credential' || authError == 'email in use'}">
         <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel"
-            [(ngModel)]="formData.email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+            [(ngModel)]="formData.email" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
         <img src="assets/img/mail.svg" alt="email">
         @if((email.touched || registrationForm.submitted) && !email.valid) {
         <p>This is not a valid email adress.</p>
