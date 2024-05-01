@@ -76,7 +76,7 @@ export class SummaryComponent implements OnDestroy {
    * Get total number of tasks in board
    * @returns number of tasks
    */
-  getTaskNumber(): Number {
+  getTaskNumber(): number {
     return this.tasksService.tasks.length;
   }
 
