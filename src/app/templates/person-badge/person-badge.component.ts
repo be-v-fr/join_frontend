@@ -28,6 +28,6 @@ export class PersonBadgeComponent {
   getInitials() {
     const nameParts: string[] = this.name.split(' ');
     const capitalized = nameParts.map(part => part.charAt(0).toUpperCase()).join('');
-    return capitalized;
+    return capitalized.substring(0,3);
   }
 }
