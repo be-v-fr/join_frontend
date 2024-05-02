@@ -270,12 +270,29 @@ export class RegistrationFormComponent implements OnDestroy {
       this.authService.register(this.formData.name, this.formData.email, this.formData.password).subscribe({
         next: () => {
           const uid = this.authService.getCurrentUid();
-          if (uid) { this.usersService.addUserByUid(new User(this.formData.name, uid)) }
+          if (uid) {
+            this.usersService.addUserByUid(this.initNewUser(uid));
+          }
           this.transferAfterSignUp();
         },
         error: (err) => this.authError = this.getAuthError(err.toString())
       });
     }
+  }
+
+
+  /**
+   * Initialize new user for Firestore by
+   * - creating the ID-indexed user object
+   * - adding the user and its email to its own contact list
+   * @param uid Firebase user ID
+   * @returns initialized user object
+   */
+  initNewUser(uid: string): User {
+    let user = new User(this.formData.name, uid);
+    user.contacts.push(user.asContact());
+    user.contacts[0].email = this.formData.email;
+    return user;
   }
 
 

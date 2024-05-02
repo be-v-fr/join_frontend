@@ -121,7 +121,7 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
   getContactsWithUsers(): Contact[] {
     const contacts: Contact[] = this.currentUser.contacts;
     this.users.forEach(u => {
-      if (u.uid != this.currentUser.uid && !this.currentUser.hasUserInContacts(u)) {contacts.push(u.asContact())}
+      if (!this.currentUser.hasUserInContacts(u)) {contacts.push(u.asContact())}
     });
     return contacts;
   }
