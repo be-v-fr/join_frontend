@@ -81,6 +81,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
       this.formData.status = this.tasksService.newTaskStatus;
     } else {
       this.formData = this.tasksService.setTaskObject(this.inputTask, this.inputTask.id);
+      console.log(this.formData);
     }
   }
 
