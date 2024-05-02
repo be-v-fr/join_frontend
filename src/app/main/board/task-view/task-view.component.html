@@ -34,7 +34,7 @@
             @for (subtask of task.subtasks; track subtask; let i = $index) {
             <div class="subtask-container" (click)="toggleSubtaskStatus(i)">
                 <div class="custom-checkbox" [ngClass]="{'custom-checked' : subtask.status == 'Done'}"></div>
-                <p>{{subtask.name}}</p>
+                <p class="subtask">{{subtask.name}}</p>
             </div>
             }
         </div>

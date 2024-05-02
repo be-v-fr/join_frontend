@@ -7,6 +7,7 @@
     width: 525px;
     max-height: 80%;
     padding: 48px 40px;
+    overflow-wrap: anywhere;
     @include flex($ai: flex-start, $g: 24px, $dir: column);
     h2 {
       margin-bottom: 0;
@@ -29,8 +30,14 @@
 }
 
 .subtask-container {
+  width: 100%;
   cursor: pointer;
   @include flex($jc: flex-start, $g: 16px);
+  .subtask {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .edit-btns-container {

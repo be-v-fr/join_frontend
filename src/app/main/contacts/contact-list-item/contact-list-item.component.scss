@@ -2,6 +2,14 @@
 
 .content {
   @include flex($jc: flex-start);
+  .data {
+    max-width: calc(100% - 80px);
+    p,
+    app-email {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 }
 
 .in-contacts {

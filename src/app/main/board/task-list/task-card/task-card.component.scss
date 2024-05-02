@@ -8,6 +8,7 @@
   border-radius: 24px;
   padding: 16px;
   font-size: $font-small;
+  overflow-wrap: anywhere;
   cursor: grab;
   transition: 75ms ease-out;
   .title {
