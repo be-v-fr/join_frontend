@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { MenuComponent } from './shared/menu/menu.component';
@@ -34,11 +34,13 @@ export class AppComponent implements OnDestroy {
 
 
   /**
-   * Create instance of router and subscribe to authentication service
+   * Create instance of router and subscribe to authentication service.
+   * Call landscape mode prevention for mobile devices.
    * @param router instance of Router
    */
   constructor(private router: Router) {
     this.authSub = this.subAuth();
+    this.preventLandscape();
   }
 
 
@@ -64,9 +66,9 @@ export class AppComponent implements OnDestroy {
       if (uid) {
         this.currentUser = this.usersService.getUserByUid(uid);
         this.usersSub = this.subUsersInit(uid);
-        if (uid == 'guest') {this.guestSub = this.subGuestLogOut()}
+        if (uid == 'guest') { this.guestSub = this.subGuestLogOut() }
         this.loggedIn = true;
-      } else {this.localLogOut()}
+      } else { this.localLogOut() }
     });
   }
 
@@ -125,5 +127,21 @@ export class AppComponent implements OnDestroy {
    */
   closeHeaderDropdown() {
     this.showHeaderDropdown = false;
+  }
+
+
+  /**
+   * Prevent landscape mode on orientation change
+   */
+  preventLandscape() {
+    if (screen.orientation) {
+      screen.orientation.addEventListener("change", function () {
+        if (screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") {
+          document.getElementsByTagName('body')[0].style.transform = "rotate(0)";
+        } else if (screen.orientation.type === "landscape-primary" || screen.orientation.type === "landscape-secondary") {
+          document.getElementsByTagName('body')[0].style.transform = "rotate(90deg)";
+        }
+      });
+    }
   }
 }

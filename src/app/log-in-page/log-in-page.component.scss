@@ -124,7 +124,7 @@ $logo-starting-height: $logo-starting-width * 1.219;
   @media screen and (max-height: 800px) {
     .content {
       @include flex($jc: space-between, $ai: flex-start);
-      .logo {
+      .logo-after-animation {
         position: initial;
       }
       .go-to-sign-up {
