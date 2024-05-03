@@ -317,6 +317,20 @@ textarea,
   }
 }
 
+.subtask-active-btns {
+  position: absolute;
+  bottom: 0;
+  right: -6px;
+  height: 24px;
+  margin: var(--input-padding);
+  @include flex($g: 4px);
+  .custom-input-btn {
+    position: relative;
+    margin: 0;
+    right: auto;
+  }
+}
+
 .subtasks-list {
   position: absolute;
   top: 0;

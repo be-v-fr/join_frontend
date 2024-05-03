@@ -126,11 +126,23 @@
                 <div class="form-field relative">
                     <label for="subtask">Subtasks</label>
                     <input type="hidden" [(ngModel)]="formData.subtasks" name="subtasks" #subtasks="ngModel">
-                    <input type="text" name="subtask" #subtask placeholder="Add new subtask"
+                    <input type="text" name="subtask" #subtask placeholder="Add new subtask" (keyup)="subtask.focus()"
                         (keydown.enter)="addSubtask($event)">
-                    <button type="button" (click)="addSubtask()" class="custom-input-btn">
+                    @if(subtask.value) {
+                    <div class="subtask-active-btns">
+                        <button type="button" (click)="subtask.value = ''" class="custom-input-btn">
+                            <img src="../../../assets/img/cancel.svg" alt="icon">
+                        </button>
+                        <div class="vertical-ruler"></div>
+                        <button type="button" (click)="addSubtask()" class="custom-input-btn">
+                            <img src="../../../assets/img/check.svg" alt="icon">
+                        </button>
+                    </div>
+                    } @else {
+                    <button type="button" (click)="subtask.focus()" class="custom-input-btn">
                         <img src="../../../assets/img/plus_icon.svg" alt="icon">
                     </button>
+                    }
                 </div>
             </div>
         </div>
