@@ -118,23 +118,11 @@ export class RegistrationFormComponent implements OnDestroy {
   toggleVisibility(field: 'password' | 'confirmation') {
     if (field == 'password' && this.formData.password.length > 0) {
       this.passwordFieldType = this.togglePasswordFieldType(this.passwordFieldType);
-      this.focusLastPosition(field);
+      this.focusLastCharacter(this.getFieldContainerRefInput(this.passwordContainerRef));
     } else if (this.formData.passwordConfirmation.length > 0) {
       this.passwordConfirmationFieldType = this.togglePasswordFieldType(this.passwordConfirmationFieldType);
-      this.focusLastPosition(field);
+      this.focusLastCharacter(this.getFieldContainerRefInput(this.passwordConfirmationContainerRef));
     }
-  }
-
-
-  /**
-   * Focus the last position of the password input field
-   * @param field password/password confirmation field identifier
-   */
-  focusLastPosition(field: 'password' | 'confirmation') {
-    let element: HTMLInputElement | null = null;
-    if (field == 'password') { element = this.getFieldContainerRefInput(this.passwordContainerRef) }
-    if (field == 'confirmation') { element = this.getFieldContainerRefInput(this.passwordConfirmationContainerRef) }
-    if (element != null) { this.focusLastCharacter(element) }
   }
 
 

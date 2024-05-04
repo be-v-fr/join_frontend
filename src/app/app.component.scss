@@ -100,7 +100,7 @@ h5 {
 }
 
 .btn-main {
-  padding: 15px 24px;
+  padding: 14px 23px;
   font-size: 21px;
   border-radius: 10px;
   @include flex($g: 4px);
@@ -129,14 +129,17 @@ h5 {
   color: white;
   background: $anthracite;
   font-weight: 700;
+  border: 1px solid $anthracite;
   span {
     font-weight: inherit;
   }
   &:hover {
     background: $light-blue;
+    border-color: $light-blue;
   }
   &:active {
     background: $anthracite-darkened;
+    border-color: $anthracite-darkened;
   }
 }
 
