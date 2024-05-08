@@ -2,7 +2,7 @@
     (click)="handleGeneralClick()" #content>
     <app-close-btn *ngIf="inOverlay" (click)="close()" class="btn-close"></app-close-btn>
     <h2 *ngIf="formData.id == ''">Add Task</h2>
-    <form (submit)="onSubmit(taskForm)" #taskForm="ngForm">
+    <form (submit)="onSubmit(taskForm)" #taskForm="ngForm" [ngClass]="{'form-padding-bottom': !inOverlay}">
         <div class="form-main">
             <div class="form-side">
                 <div class="form-field relative"
@@ -155,7 +155,7 @@
                 </li>
                 }
             </ul>
-            <div class="bottom-container">
+            <div class="bottom-container" [ngClass]="{'bottom-container-mobile-fixed': formData.id == ''}">
                 <p class="font-small"><span class="marked-red">*</span>This field is required</p>
                 <div class="btns-submit">
                     @if(formData.id == '') {
