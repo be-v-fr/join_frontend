@@ -128,22 +128,4 @@ export class AppComponent implements OnDestroy {
   closeHeaderDropdown() {
     this.showHeaderDropdown = false;
   }
-
-
-  /**
-   * Prevent landscape mode on orientation change
-   */
-  preventLandscape() {
-    const body: HTMLElement = document.getElementsByTagName('body')[0];
-    if (screen.orientation) {
-      screen.orientation.addEventListener("change", () => {
-        if ((screen.orientation.type === "portrait-primary" || screen.orientation.type === "portrait-secondary") || window.innerWidth > 1024) {
-          body.style.transform = "rotate(0)";
-        } else if ((screen.orientation.type === "landscape-primary" || screen.orientation.type === "landscape-secondary") && window.innerWidth <= 1024) {
-          body.style.transform = "rotate(90deg)";
-        }
-      });
-      window.addEventListener("resize", () => {if(body.style.transform && window.innerWidth > 1024) {body.style.transform = "rotate(0)"}});
-    }
-  }
 }
