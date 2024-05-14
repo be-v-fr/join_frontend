@@ -40,7 +40,6 @@ export class AppComponent implements OnDestroy {
    */
   constructor(private router: Router) {
     this.authSub = this.subAuth();
-    this.preventLandscape();
   }
 
 
