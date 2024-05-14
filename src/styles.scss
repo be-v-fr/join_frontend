@@ -65,6 +65,7 @@ p {
 body {
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
 }
 
 * {
@@ -265,6 +266,7 @@ textarea,
 
   @media screen and (max-width: 768px) {
     transform: translateY(100vh);
+    transform: translateY(100dvh);
   }
 }
 

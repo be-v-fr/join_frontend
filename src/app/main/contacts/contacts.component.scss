@@ -17,6 +17,7 @@
   min-width: 380px;
   width: 33.3%;
   height: calc(100vh - 96px);
+  height: calc(100dvh - 96px);
   background: white;
   padding: 24px 50px;
   box-shadow: $shadow-subtle;
@@ -180,6 +181,7 @@
       min-width: auto;
       width: 100%;
       height: calc(100vh - 80px - 80px);
+      height: calc(100dvh - 80px - 80px);
     }
     .btn-responsive {
       position: absolute;
