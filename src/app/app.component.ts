@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, HostListener } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { MenuComponent } from './shared/menu/menu.component';

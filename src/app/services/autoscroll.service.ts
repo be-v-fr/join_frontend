@@ -28,4 +28,11 @@ export class AutoscrollService {
         const element = document.getElementById(elementId);
         if (element) {element.scrollTop = element.scrollHeight}
     }
+
+
+    scrollWhileDragging(scrollSpeed: number) {
+        const wrapper = document.getElementById('pageWrapper');
+        if(wrapper) {wrapper.scrollBy(0, scrollSpeed);
+        }
+    }
 }

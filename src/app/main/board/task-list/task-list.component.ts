@@ -3,6 +3,7 @@ import { Task } from '../../../../models/task';
 import { TaskCardComponent } from './task-card/task-card.component';
 import { TasksService } from '../../../services/tasks.service';
 import { CommonModule } from '@angular/common';
+import { AutoscrollService } from '../../../services/autoscroll.service';
 
 
 /**
@@ -22,19 +23,21 @@ export class TaskListComponent {
   draggingOver: boolean = false;
   private lastDragOver: number = 0;
   draggedTaskCard: HTMLElement | null = null;
+  dragYStart: number = 0;
   @Input() dragStartStatus: 'To do' | 'In progress' | 'Await feedback' | 'Done' | null = null;
   @Output() setDragStartStatus = new EventEmitter<'To do' | 'In progress' | 'Await feedback' | 'Done'>();
   @Output() addToStatusClick = new EventEmitter<void>();
   @Output() taskClick = new EventEmitter<string>();
   @Input() dragCardHeight: number = 0;
   @Output() setDragCardHeight = new EventEmitter<number>();
+  @Output() dragging = new EventEmitter<boolean>();
 
 
   /**
    * Create TasksService instance
    * @param tasksService instance of TasksService
    */
-  constructor(private tasksService: TasksService) { }
+  constructor(private tasksService: TasksService, private scrollService: AutoscrollService) { }
 
 
   /**
@@ -48,8 +51,19 @@ export class TaskListComponent {
   onTaskDragStart(ev: DragEvent, id: string) {
     ev.dataTransfer?.setData('text/plain', id);
     this.draggedTaskCard = ev.target as HTMLElement;
+    this.dragYStart = ev.clientY;
     this.setDragStartStatus.emit(this.status);
     this.setDragCardHeight.emit(this.draggedTaskCard.offsetHeight);
+  }
+
+
+  /**
+   * Enable vertical scrolling (without additional click, purely by moving the cursor) while dragging
+   * @param ev task drag event
+   */
+  onDrag(ev: DragEvent) {
+    const dragSpeed = ev.clientY - this.dragYStart;
+    this.scrollService.scrollWhileDragging(dragSpeed);
   }
 
 
