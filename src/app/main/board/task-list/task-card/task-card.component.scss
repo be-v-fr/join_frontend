@@ -11,6 +11,41 @@
   overflow-wrap: anywhere;
   cursor: grab;
   transition: 75ms ease-out;
+  .top-container {
+    width: 100%;
+    @include flex($jc: space-between);
+    app-arrow-back-btn {
+      display: none;
+      transform: rotate(180deg);
+      @media screen and (max-width: 1440px) {
+        display: initial;
+      }
+    }
+  }
+  .dropdown-menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 12px;
+    border-radius: 14px;
+    background-color: $anthracite;
+    @include flex($ai: flex-start, $g: 4px, $dir: column);
+    font-size: $font-small;
+    .close-btn-container {
+      width: 100%;
+      @include flex($jc: flex-end);
+    }
+    a {
+      padding: 4px 0;
+      width: 100%;
+      color: $grey;
+      transition: 75ms ease;
+      &:hover {
+        transition: 75ms ease;
+        color: white;
+      }
+    }
+  }
   .title {
     margin-top: 16px;
     margin-bottom: 8px;

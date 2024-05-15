@@ -4,6 +4,7 @@ import { TaskCardComponent } from './task-card/task-card.component';
 import { TasksService } from '../../../services/tasks.service';
 import { CommonModule } from '@angular/common';
 import { AutoscrollService } from '../../../services/autoscroll.service';
+import { Subject } from 'rxjs';
 
 
 /**
@@ -27,6 +28,7 @@ export class TaskListComponent {
   @Input() dragStartStatus: 'To do' | 'In progress' | 'Await feedback' | 'Done' | null = null;
   @Output() setDragStartStatus = new EventEmitter<'To do' | 'In progress' | 'Await feedback' | 'Done'>();
   @Output() addToStatusClick = new EventEmitter<void>();
+  @Input() closingTaskStatusDropdown: Subject<void> = new Subject<void>();
   @Output() taskClick = new EventEmitter<string>();
   @Input() dragCardHeight: number = 0;
   @Output() setDragCardHeight = new EventEmitter<number>();

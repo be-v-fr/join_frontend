@@ -7,6 +7,7 @@ import { AddTaskComponent } from '../add-task/add-task.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 
 /**
@@ -31,6 +32,7 @@ export class BoardComponent {
   dragCardHeight: number = 160;
   dragStartStatus: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
   searchFilter: string = '';
+  closingTaskStatusDropdown: Subject<void> = new Subject<void>();
 
 
   /**
@@ -148,11 +150,19 @@ export class BoardComponent {
 
 
   /**
-   * Set "dragStarStatus" property to a certain task status.
+   * Set "dragStartStatus" property to a certain task status.
    * The status should be retrieved from the currently dragged task card HTML element or the task list containing it. 
    * @param status task status
    */
   setDragStartStatus(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
     this.dragStartStatus = status;
+  }
+
+
+  /**
+   * Close dropdown menu in "task card" element (child of "task list" element)
+   */
+  closeTaskStatusDropdown() {
+    this.closingTaskStatusDropdown.next();
   }
 }

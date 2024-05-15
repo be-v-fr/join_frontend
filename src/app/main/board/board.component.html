@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" (click)="closeTaskStatusDropdown()">
     <section class="top-section">
         <h2>Board</h2>
         <header>
@@ -18,7 +18,7 @@
         <app-task-list [status]="status" [tasks]="getFilteredTasks(status)" (addToStatusClick)="addToStatus(status)"
             (taskClick)="viewTask($event)" (setDragCardHeight)="setDragCardHeight($event)"
             [dragCardHeight]="dragCardHeight" (setDragStartStatus)="setDragStartStatus($event)"
-            [dragStartStatus]="dragStartStatus"></app-task-list>
+            [dragStartStatus]="dragStartStatus" [closingTaskStatusDropdown]="closingTaskStatusDropdown"></app-task-list>
         }
     </section>
 </div>

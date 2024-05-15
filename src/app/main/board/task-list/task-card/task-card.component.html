@@ -1,5 +1,17 @@
-<div class="content">
-    <app-task-category [category]="task.category"></app-task-category>
+<div class="content relative">
+    <div class="top-container">
+        <app-task-category [category]="task.category"></app-task-category>
+        <app-arrow-back-btn (click)="$event.stopPropagation(); toggleDropdown()"></app-arrow-back-btn>
+    </div>
+    <div *ngIf="displayDropdown" (click)="$event.stopPropagation()" class="dropdown-menu">
+        <div class="close-btn-container">
+            <app-close-btn [bright]="true" (click)="$event.stopPropagation(); toggleDropdown()"></app-close-btn>
+        </div>
+        <a *ngIf="task.status != 'To do'" (click)="setStatus('To do')">{{'To do'}}</a>
+        <a *ngIf="task.status != 'In progress'" (click)="setStatus('In progress')">{{'In progress'}}</a>
+        <a *ngIf="task.status != 'Await feedback'" (click)="setStatus('Await feedback')">{{'Await feedback'}}</a>
+        <a *ngIf="task.status != 'Done'" (click)="setStatus('Done')">{{'Done'}}</a>
+    </div>
     <p class="title">{{task.title}}</p>
     <p class="description" *ngIf="task.description.length > 0">{{printDescription()}}</p>
     <div class="subtasks-diagram" *ngIf="task.subtasks.length > 0">
