@@ -274,7 +274,7 @@ export class RegistrationFormComponent implements OnDestroy {
    * Initialize new user for Firestore by
    * - creating the ID-indexed user object
    * - adding the user and its email to its own contact list
-   * - adding the webpage developer as an additional contact to show his email address
+   * - adding the website developer as an additional contact to show his email address
    * @param uid Firebase user ID
    * @returns initialized user object
    */
