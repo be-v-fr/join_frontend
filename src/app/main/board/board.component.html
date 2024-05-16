@@ -30,10 +30,10 @@
         [ngClass]="{'slid-out': taskFormWrapperTranslated && taskFormId == '', 'slid-in': !taskFormWrapperTranslated, 'edit-task-wrapper': taskFormId != ''}"
         (click)="$event.stopPropagation()">
         @if(taskFormId == '') {
-        <app-add-task [inOverlay]="true" (cancelled)="hideTaskForm()" (slide)="slideTaskFormWrapper()"></app-add-task>
+        <app-add-task [inOverlay]="true" (cancelled)="hideTaskForm()" (slide)="slideTaskFormWrapper()" id="overlayTaskForm"></app-add-task>
         } @else {
         <app-add-task [task]="getTaskById(taskFormId)" [inOverlay]="true" (cancelled)="hideTaskForm()"
-            (slide)="slideTaskFormWrapper()"></app-add-task>
+            (slide)="slideTaskFormWrapper()" id="overlayTaskForm"></app-add-task>
         }
     </div>
 </div>

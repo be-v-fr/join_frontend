@@ -303,7 +303,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   scrollToBottom() {
     const subtasksList = this.subtasksList.nativeElement;
     setTimeout(() => {
-      this.scrollService.scrollToBottom('page');
+      this.inOverlay ? this.scrollService.scrollToBottom('overlayTaskForm') : this.scrollService.scrollToBottom('page');
       subtasksList.scrollTop = subtasksList.scrollHeight;
     }, 0);
   }
