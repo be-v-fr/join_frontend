@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
 import { User } from '../../../models/user';
 import { UsersService } from '../../services/users.service';
+import { Contact } from '../../../models/contact';
 import { Router, RouterModule } from '@angular/router';
 import { ArrowBackBtnComponent } from '../../templates/arrow-back-btn/arrow-back-btn.component';
 import { ToastNotificationComponent } from '../../templates/toast-notification/toast-notification.component';
@@ -273,6 +274,7 @@ export class RegistrationFormComponent implements OnDestroy {
    * Initialize new user for Firestore by
    * - creating the ID-indexed user object
    * - adding the user and its email to its own contact list
+   * - adding the webpage developer as an additional contact to show his email address
    * @param uid Firebase user ID
    * @returns initialized user object
    */
@@ -280,6 +282,8 @@ export class RegistrationFormComponent implements OnDestroy {
     let user = new User(this.formData.name, uid);
     user.contacts.push(user.asContact());
     user.contacts[0].email = this.formData.email;
+    user.contacts.push(new Contact('Bengt Früchtenicht', 'fq1e3Q5ZshWuOvAKZrIO3JgJNio2', 'kontakt@bengt-fruechtenicht.de'));
+    console.log(user.contacts);
     return user;
   }
 
