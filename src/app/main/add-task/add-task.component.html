@@ -101,7 +101,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="form-field" [ngClass]="{'d-none': inOverlay}">
+                <div class="form-field" [ngClass]="{'d-none': formData.id != ''}">
                     <label for="category" (click)="$event.preventDefault()">Category<span
                             class="marked-red">*</span></label>
                     <input type="hidden" [(ngModel)]="formData.category" name="category" #category="ngModel">
