@@ -16,7 +16,7 @@
                 </div>
                 <div class="form-field">
                     <label for="description">Description</label>
-                    <textarea class="description" type="text" [(ngModel)]="formData.description" name="description"
+                    <textarea class="description" [ngClass]="{'custom-resizer': isWebkitSupported()}" type="text" [(ngModel)]="formData.description" name="description"
                         #description="ngModel" placeholder="Enter a description"></textarea>
                 </div>
                 <div class="form-field">

@@ -125,6 +125,9 @@ textarea,
 .description {
   height: 120px;
   resize: vertical;
+}
+
+.custom-resizer {
   background-image: url(../../../assets/img/resize_handle.svg);
   background-size: 19px;
   background-repeat: no-repeat;

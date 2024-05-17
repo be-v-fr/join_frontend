@@ -87,6 +87,15 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
+   * Check webkit support of running browser
+   * @returns check result
+   */
+  isWebkitSupported(): boolean {
+    return 'WebkitAppearance' in document.documentElement.style && !('MozAppearance' in document.documentElement.style);
+  }
+
+
+  /**
    * Sort users alphabetically, but put the current user first
    */
   sortUsers() {
@@ -135,8 +144,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   textToDue(change: Event) {
     const target = change.target as HTMLInputElement;
     const value = target.value;
-    if (value) {this.transformTextToDateInputFormat(value)}
-    else {this.formData.due = ''}
+    if (value) { this.transformTextToDateInputFormat(value) }
+    else { this.formData.due = '' }
     this.validateDate();
   }
 
@@ -165,8 +174,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
     const current = new Date();
     if (selected.toString().includes('Invalid date') || this.formData.due == '' || !this.checkDueValidity()) {
       this.dateError = 'This is not a valid date.';
-    } else if (selected < current) {this.dateError = 'Date lies in the past.'}
-    else {this.dateError = null}
+    } else if (selected < current) { this.dateError = 'Date lies in the past.' }
+    else { this.dateError = null }
   }
 
 
@@ -244,7 +253,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
         const index = assigned.indexOf(uid);
         assigned.splice(index, 1);
       }
-    } else {assigned.push(uid)}
+    } else { assigned.push(uid) }
   }
 
 
@@ -263,7 +272,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    */
   addSubtask(ev?: Event) {
     const input: HTMLInputElement = this.subtaskRef.nativeElement;
-    if (ev && input == document.activeElement) {this.handleSubtaskEvent(ev, input)}
+    if (ev && input == document.activeElement) { this.handleSubtaskEvent(ev, input) }
     if (input.value) {
       this.pushSubtasks(input.value);
       input.value = '';
