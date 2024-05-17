@@ -50,7 +50,7 @@ export class TaskCardComponent implements OnInit {
   printDescription(): String {
     let printed = this.task.description.slice(0,35);
     if(this.task.description.length > 36) {
-      for (let i = 36; i < this.task.description.length; i++) {
+      for (let i = 35; i < this.task.description.length; i++) {
         const char = this.task.description.charAt(i);
         if(!this.isBreak(char)) {printed = printed + char}
         else {
