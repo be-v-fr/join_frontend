@@ -254,10 +254,14 @@ textarea,
   background: url("./assets/img/checkbox.svg");
   background-size: 100%;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 .custom-checked {
   background: url("./assets/img/checkbox_checked.svg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .slid-out {
