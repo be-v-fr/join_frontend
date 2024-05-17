@@ -21,7 +21,7 @@
                 </td>
             </tr>
         </table>
-        <div *ngIf="task.assigned.length > 0">
+        <div class="assigned-container" *ngIf="task.assigned.length > 0">
             <p>Assigned to:</p>
             @for(assignment of task.assigned; track assignment; let i = $index) {
             @if(assignment) {
