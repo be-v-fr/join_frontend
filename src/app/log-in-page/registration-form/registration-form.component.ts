@@ -241,10 +241,9 @@ export class RegistrationFormComponent implements OnDestroy {
    */
   logIn() {
     this.authService.setLocalRememberMe(this.rememberLogIn);
-    this.authService.logIn(this.formData.email, this.formData.password).subscribe({
-      next: () => this.navigateToSummary(),
-      error: (err) => this.authError = this.getAuthError(err.toString())
-    });
+    this.authService.logIn(this.formData.name, this.formData.password)
+      .then(() => this.navigateToSummary())
+      .catch((err) => this.authError = this.getAuthError(err.toString()));
   }
 
 
@@ -256,16 +255,18 @@ export class RegistrationFormComponent implements OnDestroy {
   submitSignUp() {
     if (this.acceptPrivacyPolicy) {
       this.authService.setLocalGuestLogin(false);
-      this.authService.register(this.formData.name, this.formData.email, this.formData.password).subscribe({
-        next: () => {
+      this.authService.register(this.formData.name, this.formData.email, this.formData.password)
+        .then(() => {
           const uid = this.authService.getCurrentUid();
           if (uid) {
             this.usersService.addUserByUid(this.initNewUser(uid));
           }
           this.transferAfterSignUp();
-        },
-        error: (err) => this.authError = this.getAuthError(err.toString())
-      });
+        })
+        .catch((err) => {
+          console.error(err);
+          this.authError = this.getAuthError(err.toString())
+        });
     }
   }
 

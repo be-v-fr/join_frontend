@@ -1,7 +1,9 @@
 import { Injectable, inject } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, user } from "@angular/fire/auth";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { Observable, Subject, from } from "rxjs";
+import { Observable, Subject, from, lastValueFrom } from "rxjs";
+import { environment } from "../../environments/environment.development";
 
 
 /**
@@ -18,6 +20,9 @@ export class AuthService {
     guestLogOut$: Subject<void> = new Subject<void>();
     guestLogIn: boolean = false;
 
+    constructor(
+        private http: HttpClient,
+    ) { }
 
     /**
      * Register user
@@ -26,13 +31,14 @@ export class AuthService {
      * @param password user password
      * @returns authentication result
      */
-    register(name: string, email: string, password: string): Observable<void> {
-        const promise = createUserWithEmailAndPassword(
-            this.firebaseAuth,
-            email,
-            password
-        ).then(response => updateProfile(response.user, { displayName: name }));
-        return from(promise);
+    async register(username: string, email: string, password: string): Promise<Object> {
+        const url = environment.BASE_URL + 'api/register';
+        const body = {
+            username: username,
+            email: email,
+            password: password,
+        };
+        return lastValueFrom(this.http.post(url, body));
     }
 
 
@@ -42,13 +48,13 @@ export class AuthService {
      * @param password user password
      * @returns authentication result
      */
-    logIn(email: string, password: string): Observable<void> {
-        const promise = signInWithEmailAndPassword(
-            this.firebaseAuth,
-            email,
-            password
-        ).then(() => { });
-        return from(promise);
+    logIn(username: string, password: string): Promise<Object> {
+        const url = environment.BASE_URL + 'api/login';
+        const body = {
+            username: username,
+            password: password,
+        };
+        return lastValueFrom(this.http.post(url, body));
     }
 
 
@@ -62,7 +68,7 @@ export class AuthService {
             this.firebaseAuth,
             email
         ).then(() => { });
-        return from(promise);        
+        return from(promise);
     }
 
 

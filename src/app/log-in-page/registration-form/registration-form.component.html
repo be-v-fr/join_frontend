@@ -1,7 +1,7 @@
 <form (ngSubmit)="onSubmit(registrationForm)" #registrationForm="ngForm" (change)="resetAuthError()">
     <app-arrow-back-btn *ngIf="formMode == 'Sign up'" (click)="toggleModeEmit()" class="arrow-back"></app-arrow-back-btn>
     <h2>{{formMode}}</h2>
-    <div *ngIf="formMode == 'Sign up'" class="form-field"
+    <div class="form-field"
         [ngClass]="{'validation-error': (name.touched || registrationForm.submitted) && !name.valid}">
         <input type="text" class="text-input" placeholder="Name" name="name" autocomplete="name" #name="ngModel"
             [(ngModel)]="formData.name" required>
@@ -10,7 +10,7 @@
         <p>Your name is required.</p>
         }
     </div>
-    <div class="form-field"
+    <div class="form-field" *ngIf="formMode == 'Sign up'" 
         [ngClass]="{'validation-error': ((email.touched || registrationForm.submitted) && !email.valid) || authError == 'invalid credential' || authError == 'email in use'}">
         <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel"
             [(ngModel)]="formData.email" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
