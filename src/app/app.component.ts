@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { MenuComponent } from './shared/menu/menu.component';
@@ -19,7 +19,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'join';
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
@@ -40,6 +40,13 @@ export class AppComponent implements OnDestroy {
    */
   constructor(private router: Router) {
     this.authSub = this.subAuth();
+  }
+
+
+  ngOnInit(): void {
+    this.authService.syncUser()
+      .then(() => console.log('init user complete!'))
+      .catch(e => console.error(e));
   }
 
 
@@ -65,7 +72,6 @@ export class AppComponent implements OnDestroy {
       if (uid) {
         this.currentUser = this.usersService.getUserByUid(uid);
         this.usersSub = this.subUsersInit(uid);
-        if (uid == 'guest') { this.guestSub = this.subGuestLogOut() }
         this.loggedIn = true;
       } else { this.localLogOut() }
     });
@@ -81,15 +87,6 @@ export class AppComponent implements OnDestroy {
     return this.usersService.users$.subscribe(() => {
       this.currentUser = this.usersService.getUserByUid(uid)
     });
-  }
-
-
-  /**
-   * Subscribe to authService.guestLogOut$ to enable reaction to logging out when logged in as guest.
-   * @returns subscription
-   */
-  subGuestLogOut(): Subscription {
-    return this.authService.guestLogOut$.subscribe(() => this.localLogOut());
   }
 
 

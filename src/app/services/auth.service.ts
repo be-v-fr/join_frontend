@@ -1,9 +1,11 @@
 import { Injectable, inject } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, user } from "@angular/fire/auth";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { Observable, Subject, from, lastValueFrom } from "rxjs";
 import { environment } from "../../environments/environment.development";
+import { Router } from "@angular/router";
+import { User } from "../../models/user";
 
 
 /**
@@ -17,11 +19,12 @@ import { environment } from "../../environments/environment.development";
 export class AuthService {
     firebaseAuth = inject(Auth);
     user$ = user(this.firebaseAuth);
-    guestLogOut$: Subject<void> = new Subject<void>();
     guestLogIn: boolean = false;
+    currentUser: User | null = null;
 
     constructor(
         private http: HttpClient,
+        private router: Router,
     ) { }
 
     /**
@@ -32,7 +35,7 @@ export class AuthService {
      * @returns authentication result
      */
     async register(username: string, email: string, password: string): Promise<Object> {
-        const url = environment.BASE_URL + 'api/register';
+        const url = environment.BASE_URL + 'register';
         const body = {
             username: username,
             email: email,
@@ -49,12 +52,24 @@ export class AuthService {
      * @returns authentication result
      */
     logIn(username: string, password: string): Promise<Object> {
-        const url = environment.BASE_URL + 'api/login';
+        const url = environment.BASE_URL + 'login';
         const body = {
             username: username,
             password: password,
         };
         return lastValueFrom(this.http.post(url, body));
+    }
+
+
+    async syncUser(): Promise<User> {
+        const url = environment.BASE_URL + 'users/current';
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Token ' + localStorage.getItem('token'))
+        const resp = await lastValueFrom(this.http.get(url, {
+          headers: headers 
+        }));
+        this.currentUser = resp as User;
+        return this.currentUser;
     }
 
 
@@ -64,10 +79,7 @@ export class AuthService {
      * @returns authentication result
      */
     resetPassword(email: string): Observable<void> {
-        const promise = sendPasswordResetEmail(
-            this.firebaseAuth,
-            email
-        ).then(() => { });
+        const promise: Promise<void> = new Promise(() => { });
         return from(promise);
     }
 
@@ -86,16 +98,22 @@ export class AuthService {
      * Log out (both as guest and registered user)
      * @returns log out result
      */
-    logOut(): Observable<void> {
+    logOut(): void {
         if (this.guestLogIn) {
             this.guestLogIn = false;
             this.setLocalGuestLogin(false);
-            this.guestLogOut$.next();
-            return new Observable<void>(o => o.complete());
-        } else {
-            const promise = signOut(this.firebaseAuth);
-            return from(promise);
         }
+        this.deleteLocalSessionToken();
+        this.currentUser = null;
+        this.router.navigateByUrl('');
+    }
+
+
+    /**
+     * This function removes the session token from the local storage (not from the server!).
+     */
+    deleteLocalSessionToken(): void {
+        localStorage.removeItem('token');
     }
 
 
@@ -106,9 +124,9 @@ export class AuthService {
     getCurrentUid(): string | undefined {
         if (this.guestLogIn || this.getLocalGuestLogin()) {
             return 'guest';
-        } else if (this.firebaseAuth.currentUser) {
+        } else if (this.currentUser?.uid) {
             this.setLocalGuestLogin(false);
-            return this.firebaseAuth.currentUser['uid'];
+            return this.currentUser.uid;
         } else {
             return undefined;
         }

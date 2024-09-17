@@ -230,9 +230,8 @@ export class RegistrationFormComponent implements OnDestroy {
    * Submit form in log in mode (after automatic log out)
    */
   submitLogIn() {
-    this.authService.logOut().subscribe({
-      next: () => this.logIn()
-    });
+    this.authService.logOut();
+    this.logIn();
   }
 
 
@@ -242,7 +241,12 @@ export class RegistrationFormComponent implements OnDestroy {
   logIn() {
     this.authService.setLocalRememberMe(this.rememberLogIn);
     this.authService.logIn(this.formData.name, this.formData.password)
-      .then(() => this.navigateToSummary())
+      .then((resp: any) => {
+        if(resp.token) {
+          localStorage.setItem('token', resp.token);
+          this.navigateToSummary();
+        }
+      })
       .catch((err) => this.authError = this.getAuthError(err.toString()));
   }
 
