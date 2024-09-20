@@ -4,6 +4,8 @@ import { Observable, Subject, from, lastValueFrom } from "rxjs";
 import { environment } from "../../environments/environment.development";
 import { Router } from "@angular/router";
 import { AppUser } from "../../models/app-user";
+import { Contact } from "../../models/contact";
+import { AuthUser } from "../../models/auth-user";
 
 
 /**
@@ -59,15 +61,16 @@ export class AuthService {
     }
 
 
-    async syncUser(): Promise<AppUser> {
+    async syncUser(): Promise<void> {
         const url = environment.BASE_URL + 'users/current';
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Token ' + localStorage.getItem('token'))
         const resp = await lastValueFrom(this.http.get(url, {
-          headers: headers 
+            headers: headers
         }));
         this.currentUser = resp as AppUser;
-        return this.currentUser;
+        this.syncContacts();
+        this.currentUser$.next(this.currentUser);
     }
 
 
@@ -89,7 +92,10 @@ export class AuthService {
     logInAsGuest() {
         this.guestLogIn = true;
         this.setLocalGuestLogin(true);
-        this.currentUser = new AppUser({id: 'guest'});
+        this.currentUser = new AppUser({
+            id: 0,
+            user: new AuthUser({id: 'guest', name: 'Guest'}),
+        });
     }
 
 
@@ -106,6 +112,35 @@ export class AuthService {
         this.currentUser = null;
         this.currentUser$.next(null);
         this.router.navigateByUrl('');
+    }
+
+
+    async syncContacts(): Promise<void> {
+        if (this.currentUser && this.currentUser.user.id != -1) {
+            if (this.currentUser.user.id == 'guest') {
+                this.currentUser.loadLocalGuestContacts();
+            } else {
+                await this.syncRegisteredUserContacts();
+                console.log('contacts synced', this.currentUser.contacts);
+            }
+        }
+    }
+
+
+    async syncRegisteredUserContacts(): Promise<void> {
+        if (this.currentUser) {
+            const url = environment.BASE_URL + 'contacts';
+            let headers = new HttpHeaders();
+            headers = headers.set('Authorization', 'Token ' + localStorage.getItem('token'))
+            const resp = await lastValueFrom(this.http.get(url, {
+                headers: headers
+            }));
+            this.currentUser.contacts = [];
+            (resp as Array<any>).forEach(cData => {
+                this.currentUser?.contacts?.push(new Contact(cData));
+            });
+            this.currentUser$.next(this.currentUser);
+        }
     }
 
 

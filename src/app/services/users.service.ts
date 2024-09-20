@@ -44,11 +44,11 @@ export class UsersService implements OnDestroy {
    * @returns subscription
    */
   subUsers() {
-    return this.users$.subscribe(() => this.syncUsers()); // SUB TO BACKEND !!!
+    return this.users$.subscribe(() => {}); // SUB TO BACKEND !!!
   }
 
 
-  async syncUsers(): Promise<AppUser[]> {
+  async syncUsers(): Promise<void> {
     const url = environment.BASE_URL + 'users';
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', 'Token ' + localStorage.getItem('token'))
@@ -60,7 +60,6 @@ export class UsersService implements OnDestroy {
       this.users.push(new AppUser(uData));
     });
     this.users$.next();
-    return this.users;
   }
 
 
