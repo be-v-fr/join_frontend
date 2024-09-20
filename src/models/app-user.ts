@@ -64,7 +64,7 @@ export class AppUser {
         let res: boolean = false;
         if (this.contacts) {
             this.contacts.forEach(c => {
-                if (c.appUser.id && c.appUser.id == appUser.id) { res = true }
+                if (c.email == appUser.user.email) { res = true }
             });
         }
         return res;

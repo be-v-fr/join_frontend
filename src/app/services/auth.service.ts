@@ -68,7 +68,7 @@ export class AuthService {
         const resp = await lastValueFrom(this.http.get(url, {
             headers: headers
         }));
-        this.currentUser = resp as AppUser;
+        this.currentUser = new AppUser(resp);
         this.syncContacts();
         this.currentUser$.next(this.currentUser);
     }

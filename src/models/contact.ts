@@ -25,7 +25,7 @@ export class Contact {
      */
     constructor(obj: any) {
         this.id = obj.id ? obj.id : -1;
-        this.appUser = new AppUser(obj.appUser ? obj.appUser : { id: -1 });
+        this.appUser = new AppUser(obj.app_user ? obj.app_user : { id: -1 });
         this.name = obj.name ? obj.name : '';
         this.color_id = obj.color_id ? obj.color_id : -1;
         this.email = obj.email ? obj.email : undefined;
@@ -46,6 +46,7 @@ export class Contact {
         if(this.appUser.user.id && this.appUser.user.id != 'guest' && this.appUser.user.id != -1) {return true}
         else {return false}
     }
+    // VÖLLIG FALSCH !!! appUser ist der BESITZER und hat mit dem Kontakt nichts zu tun !!!
 
 
     /**

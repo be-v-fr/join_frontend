@@ -28,6 +28,7 @@ import { Subscription } from 'rxjs';
 export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
+  private authSub = new Subscription();
   private usersSub = new Subscription();
   users: AppUser[] = [];
   currentUser?: AppUser;
@@ -43,11 +44,11 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    * Initialize currently active user and full users array.
    */
   ngOnInit(): void {
-    const id = this.authService.getCurrentUid();
-    if (id) {
-      this.currentUser = this.usersService.getUserById(id);
-      this.initUsers();
+    if (this.authService.currentUser) {
+      this.currentUser = this.authService.currentUser;
     }
+    this.authSub = this.subAuth();
+    this.setUsers();
   }
 
 
@@ -55,16 +56,18 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    * Unsubscribe
    */
   ngOnDestroy(): void {
+    this.authSub.unsubscribe();
     this.usersSub.unsubscribe();
   }
 
 
-  /**
-   * Call "setUsers()" method and subscribe to users (to call the same method again)
-   */
-  initUsers() {
-    this.setUsers();
-    this.usersSub = this.subUsers()
+  subAuth(): Subscription {
+    return this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        this.currentUser = user;
+        this.usersSub = this.subUsers();
+      }
+    })
   }
 
 
@@ -120,11 +123,11 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   getContactsWithUsers(): Contact[] {
     if (this.currentUser) {
-      const contacts: Contact[] | undefined = this.currentUser.contacts;
+      const contacts: Contact[] = this.currentUser.contacts || [];
       this.users.forEach(u => {
-        if (this.currentUser && contacts && !this.currentUser.hasUserInContacts(u)) { contacts.push(u.asContact()) }
+        if (this.currentUser && !this.currentUser.hasUserInContacts(u)) { contacts.push(u.asContact()) }
       });
-      return contacts || [];
+      return contacts;
     } else {
       return [];
     }
