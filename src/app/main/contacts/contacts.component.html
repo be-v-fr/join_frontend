@@ -10,22 +10,22 @@
         <p class="letter">{{getFirstLetter(contact)}}</p>
         <div class="horizontal-ruler"></div>
         }
-        <app-contact-list-item [name]="contact.name" [email]="contact.email" [color]="contact.color"
-            [selected]="i == selection" (click)="selectContact(i)"></app-contact-list-item>
+        <app-contact-list-item [name]="contact.name" [email]="contact.email" [color]="contact.getColor()"
+            [selected]="i == selection" (click)="selectContact(i)" />
         }
         }
     </div>
     <div #viewer (click)="$event.stopPropagation(); toggleEditMenuResponsive(false)"
         [ngClass]="{'viewer-desktop': contactViewerResponsive == 'desktop', 'viewer-mobile': contactViewerResponsive == 'mobile', 'show-on-contact-selection': selection != -1}">
         <div class="headline-container">
-            <app-headline-slogan [headline]="'Contacts'" [slogan]="'Better with a team'"></app-headline-slogan>
-            <app-arrow-back-btn (click)="unselectContact()"></app-arrow-back-btn>
+            <app-headline-slogan [headline]="'Contacts'" [slogan]="'Better with a team'" />
+            <app-arrow-back-btn (click)="unselectContact()" />
         </div>
         @if(selection >= 0) {
         <div class="contact-data">
             <div class="name">
-                <app-person-badge [name]="sortedContacts[selection].name" [color]="sortedContacts[selection].color"
-                    [responsive]="contactViewerResponsive" [large]="true"></app-person-badge>
+                <app-person-badge [name]="sortedContacts[selection].name" [color]="sortedContacts[selection].getColor()"
+                    [responsive]="contactViewerResponsive" [large]="true" />
                 <div class="full-name-edit">
                     <p class="full-name">{{sortedContacts[selection].name}}</p>
                     <div class="edit-btns-container" [ngClass]="{'show-responsive-menu': showEditMenuResponsive}">
@@ -33,7 +33,7 @@
                             <img src="../../../../assets/img/edit.svg" alt="edit contact">
                             <p>Edit</p>
                         </button>
-                        @if(!sortedContacts[selection].uid) {
+                        @if(!sortedContacts[selection].isUser()) {
                         <button class="edit-btn" (click)="deleteSelectedContact()" name="Delete">
                             <img src="../../../../assets/img/remove.svg" alt="delete contact">
                             <p>Delete</p>
@@ -63,8 +63,8 @@
 </div>
 @if(contactOverlay == 'add') {
 <app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="'add'"
-    (contactSubmission)="submitContact($event)"></app-add-contact>
+    (contactSubmission)="submitContact($event)" />
 } @else if (contactOverlay == 'edit' && currentUser) {
 <app-add-contact (cancelOverlay)="cancelOverlay()" [mode]="'edit'" [contact]="sortedContacts[selection]"
-    (contactSubmission)="submitContact($event)" (delete)="deleteSelectedContact()"></app-add-contact>
+    (contactSubmission)="submitContact($event)" (delete)="deleteSelectedContact()" />
 }

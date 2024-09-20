@@ -4,12 +4,13 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { PasswordIconComponent } from '../../templates/password-icon/password-icon.component';
 import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
-import { User } from '../../../models/user';
+import { AppUser } from '../../../models/app-user';
 import { UsersService } from '../../services/users.service';
 import { Contact } from '../../../models/contact';
 import { Router, RouterModule } from '@angular/router';
 import { ArrowBackBtnComponent } from '../../templates/arrow-back-btn/arrow-back-btn.component';
 import { ToastNotificationComponent } from '../../templates/toast-notification/toast-notification.component';
+
 
 /**
  * This component displays the registration form for both logging in and signing up.
@@ -71,7 +72,7 @@ export class RegistrationFormComponent implements OnDestroy {
    * @returns subscription
    */
   subAuth(): Subscription {
-    return this.authService.user$.subscribe(() => {
+    return this.authService.currentUser$.subscribe(() => {
       this.initFormData();
       setTimeout(() => {
         if (this.authService.getCurrentUid()) { this.navigateToSummary() }
@@ -84,9 +85,9 @@ export class RegistrationFormComponent implements OnDestroy {
    * Initialize form data using authService
    */
   initFormData() {
-    const currentUser = this.authService.firebaseAuth.currentUser;
-    if (currentUser && currentUser.displayName) { this.formData['name'] = currentUser.displayName };
-    if (currentUser && currentUser.email) { this.formData['email'] = currentUser.email };
+    const currentUser = this.authService.currentUser;
+    if (currentUser && currentUser.user.username) { this.formData['name'] = currentUser.user.username };
+    if (currentUser && currentUser.user.email) { this.formData['email'] = currentUser.user.email };
   }
 
 
@@ -243,6 +244,7 @@ export class RegistrationFormComponent implements OnDestroy {
     this.authService.logIn(this.formData.name, this.formData.password)
       .then((resp: any) => {
         if(resp.token) {
+          this.authService.currentUser$.next(resp as AppUser);
           localStorage.setItem('token', resp.token);
           this.navigateToSummary();
         }
@@ -260,36 +262,12 @@ export class RegistrationFormComponent implements OnDestroy {
     if (this.acceptPrivacyPolicy) {
       this.authService.setLocalGuestLogin(false);
       this.authService.register(this.formData.name, this.formData.email, this.formData.password)
-        .then(() => {
-          const uid = this.authService.getCurrentUid();
-          if (uid) {
-            this.usersService.addUserByUid(this.initNewUser(uid));
-          }
-          this.transferAfterSignUp();
-        })
+        .then(() => this.transferAfterSignUp())
         .catch((err) => {
           console.error(err);
           this.authError = this.getAuthError(err.toString())
         });
     }
-  }
-
-
-  /**
-   * Initialize new user for Firestore by
-   * - creating the ID-indexed user object
-   * - adding the user and its email to its own contact list
-   * - adding the website developer as an additional contact to show his email address
-   * @param uid Firebase user ID
-   * @returns initialized user object
-   */
-  initNewUser(uid: string): User {
-    let user = new User(this.formData.name, uid);
-    user.contacts.push(user.asContact());
-    user.contacts[0].email = this.formData.email;
-    user.contacts.push(new Contact('Bengt Früchtenicht', 'fq1e3Q5ZshWuOvAKZrIO3JgJNio2', 'kontakt@bengt-fruechtenicht.de'));
-    console.log(user.contacts);
-    return user;
   }
 
 

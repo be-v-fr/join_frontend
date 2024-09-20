@@ -1,7 +1,7 @@
 <div class="overlay" (click)="cancel()">
     <div class="content" [ngClass]="translated ? 'slid-out' : 'slid-in'" (click)="$event.stopPropagation()">
         <div class="headline relative">
-            <app-close-btn (click)="cancel()" class="btn-close-bright" [bright]="true"></app-close-btn>
+            <app-close-btn (click)="cancel()" class="btn-close-bright" [bright]="true" />
             <div class="headline-and-logo-container">
                 <img class="logo" src="../../../../assets/img/logo_white.svg" alt="logo">
                 <h2>
@@ -17,12 +17,12 @@
             <div class="separator"></div>
         </div>
         @if(mode == 'add') {
-        <app-person-badge [large]="true"></app-person-badge>
+        <app-person-badge [large]="true" />
         } @else {
-        <app-person-badge [name]="formData.name" [color]="formData.color" [large]="true"></app-person-badge>
+        <app-person-badge [name]="formData.name" [color]="formData.getColor()" [large]="true" />
         }
         <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
-            <app-close-btn (click)="cancel()" class="btn-close-dark"></app-close-btn>
+            <app-close-btn (click)="cancel()" class="btn-close-dark" />
             <div class="form-field"
                 [ngClass]="{'validation-error': (name.touched || contactForm.submitted) && !name.valid && !disableUserNameEdit}">
                 <input type="text" [(ngModel)]="formData.name" class="text-input" placeholder="Name" name="name"

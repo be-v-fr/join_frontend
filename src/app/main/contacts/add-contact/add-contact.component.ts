@@ -36,7 +36,7 @@ export class AddContactComponent extends SlideComponent {
     super.ngOnInit();
     if (this.mode = 'edit') {
       this.formData = Object.assign({}, this.inputContact);
-      if (this.inputContact.uid && this.inputContact.uid.length > 0) { this.disableUserNameEdit = true }
+      if (this.inputContact.isUser()) { this.disableUserNameEdit = true }
     }
   }
 

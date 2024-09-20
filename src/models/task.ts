@@ -1,4 +1,4 @@
-import { User } from '../models/user';
+import { AppUser } from '../models/app-user';
 import { Subtask } from '../interfaces/subtask.interface';
 
 
@@ -9,25 +9,29 @@ export class Task {
     id: string;
     title: string;
     description: string = '';
-    assigned: string[] = [];
+    assigned: number[] = [];
     due: string;
     prio: 'Urgent' | 'Medium' | 'Low' | null;
     category: 'Technical Task' | 'User Story';
-    subtasks: Subtask[] = [];
+    subtasks?: Subtask[];
     timestamp: number = Date.now();
-    status: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
+    status: 'To do' | 'In progress' | 'Await feedback' | 'Done';
 
 
     /**
      * Create new task and initialize obligatory properties
      * @param title task title
      */
-    constructor(title: string) {
-        this.id = '';
-        this.title = title;
-        this.due = getCurrentDate();
-        this.prio = 'Medium';
-        this.category = 'Technical Task';
+    constructor(obj: any) {
+        this.id = obj.id ? obj.id : -1;
+        this.title = obj.title ? obj.title : '';
+        this.description = obj.description ? obj.description : '';
+        this.assigned = obj.assigned_to ? obj.assigned_to : [];
+        this.due = obj.due ? obj.due : getCurrentDate();
+        this.prio = obj.prio ? obj.prio : 'Medium';
+        this.category = obj.category ? obj.category : 'Technical Task';
+        this.subtasks = obj.subtasks ? obj.subtasks : undefined;
+        this.status = obj.status ? obj.status : 'To Do';
     }
 
 
@@ -36,8 +40,8 @@ export class Task {
      * @param user user to check for
      * @returns check result
      */
-    isAssignedTo(user: User): boolean {
-        return this.assigned.includes(user.uid);
+    isAssignedTo(appUser: AppUser): boolean {
+        return this.assigned ? this.assigned.includes(appUser.id) : false;
     }
 
 

@@ -1,8 +1,8 @@
 <div class="overlay" (click)="cancel()">
     <div class="content" [ngClass]="translated ? 'slid-out' : 'slid-in'" (click)="$event.stopPropagation()">
         <div class="top-container">
-            <app-task-category [category]="task.category"></app-task-category>
-            <app-close-btn (click)="cancel()"></app-close-btn>
+            <app-task-category [category]="task.category" />
+            <app-close-btn (click)="cancel()" />
         </div>
         <h2>{{task.title}}</h2>
         <p *ngIf="task.description.length > 0">{{task.description}}</p>
@@ -16,7 +16,7 @@
                 <td>
                     <div class="prio">
                         {{task.prio}}
-                        <app-prio-icon [prio]="task.prio"></app-prio-icon>
+                        <app-prio-icon [prio]="task.prio" />
                     </div>
                 </td>
             </tr>
@@ -25,11 +25,11 @@
             <p>Assigned to:</p>
             @for(assignment of task.assigned; track assignment; let i = $index) {
             @if(assignment) {
-            <app-contact-list-item [name]="users[i].name" [color]="users[i].color" [instance]="'task'"></app-contact-list-item>
+            <app-contact-list-item [name]="users[i].user.username" [color]="users[i].getColor()" [instance]="'task'" />
             }
             }
         </div>
-        <div *ngIf="task.subtasks.length > 0">
+        <div *ngIf="task.subtasks && task.subtasks.length > 0">
             <p>Subtasks</p>
             @for (subtask of task.subtasks; track subtask; let i = $index) {
             <div class="subtask-container" (click)="toggleSubtaskStatus(i)">

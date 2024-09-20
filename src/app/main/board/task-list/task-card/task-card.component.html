@@ -1,11 +1,11 @@
 <div class="content relative">
     <div class="top-container">
-        <app-task-category [category]="task.category"></app-task-category>
-        <app-arrow-back-btn (click)="$event.stopPropagation(); toggleDropdown()"></app-arrow-back-btn>
+        <app-task-category [category]="task.category" />
+        <app-arrow-back-btn (click)="$event.stopPropagation(); toggleDropdown()" />
     </div>
     <div *ngIf="displayDropdown" (click)="$event.stopPropagation()" class="dropdown-menu">
         <div class="close-btn-container">
-            <app-close-btn [bright]="true" (click)="$event.stopPropagation(); toggleDropdown()"></app-close-btn>
+            <app-close-btn [bright]="true" (click)="$event.stopPropagation(); toggleDropdown()" />
         </div>
         <a *ngIf="task.status != 'To do'" (click)="setStatus('To do')">{{'To do'}}</a>
         <a *ngIf="task.status != 'In progress'" (click)="setStatus('In progress')">{{'In progress'}}</a>
@@ -14,7 +14,7 @@
     </div>
     <p class="title">{{task.title}}</p>
     <p class="description" *ngIf="task.description.length > 0">{{printDescription()}}</p>
-    <div class="subtasks-diagram" *ngIf="task.subtasks.length > 0">
+    <div class="subtasks-diagram" *ngIf="task.subtasks && task.subtasks.length > 0">
         <div class="bar-bg">
             <div class="bar" [ngStyle]="{'width.%': getSubtasksDoneNumber() / task.subtasks.length * 100}"></div>
         </div>
@@ -24,12 +24,12 @@
         <div class="assigned-badges">
             @for(assignment of task.assigned; track assignment; let i = $index) {
             @if(assignment) {
-            <app-person-badge [name]="users[i].name" [color]="users[i].color"></app-person-badge>
+            <app-person-badge [name]="users[i].user.username" [color]="users[i].getColor()" />
             }
             }
         </div>
         <div class="prio">
-            <app-prio-icon [prio]="task.prio"></app-prio-icon>
+            <app-prio-icon [prio]="task.prio" />
         </div>
     </div>
 </div>

@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { Task } from '../../../../models/task';
 import { TasksService } from '../../../services/tasks.service';
-import { User } from '../../../../models/user';
 import { UsersService } from '../../../services/users.service';
 import { TaskCategoryComponent } from '../task-list/task-card/task-category/task-category.component';
 import { ContactListItemComponent } from '../../contacts/contact-list-item/contact-list-item.component';
@@ -9,6 +8,7 @@ import { CloseBtnComponent } from '../../../templates/close-btn/close-btn.compon
 import { PrioIconComponent } from '../../../templates/prio-icon/prio-icon.component';
 import { CommonModule } from '@angular/common';
 import { SlideComponent } from '../../../templates/slide/slide.component';
+import { AppUser } from '../../../../models/app-user';
 
 
 /**
@@ -25,7 +25,7 @@ import { SlideComponent } from '../../../templates/slide/slide.component';
 })
 export class TaskViewComponent extends SlideComponent {
   @Input() task: Task = new Task('');
-  @Input() users: User[] = [];
+  @Input() users: AppUser[] = [];
   @Output() cancelOverlay = new EventEmitter<void>();
   @Output() editThisTask = new EventEmitter<void>();
   private usersService = inject(UsersService);
@@ -45,7 +45,7 @@ export class TaskViewComponent extends SlideComponent {
    */
   override ngOnInit(): void {
     super.ngOnInit();
-    this.users = this.usersService.users;   
+    this.users = this.usersService.users;
   }
 
 
@@ -64,9 +64,11 @@ export class TaskViewComponent extends SlideComponent {
    * @param index subtask array index
    */
   toggleSubtaskStatus(index: number) {
-    const subtask = this.task.subtasks[index];
-    subtask.status = (subtask.status == 'To do' ? 'Done' : 'To do');
-    this.tasksService.updateTask(this.task);
+    if (this.task.subtasks) {
+      const subtask = this.task.subtasks[index];
+      subtask.status = (subtask.status == 'To do' ? 'Done' : 'To do');
+      this.tasksService.updateTask(this.task);
+    }
   }
 
 

@@ -1,4 +1,5 @@
-import {Person} from './person';
+import { AppUser } from './app-user';
+import { environment } from '../environments/environment.development';
 
 
 /**
@@ -6,10 +7,13 @@ import {Person} from './person';
  * A contact can be added by the user from scratch.
  * Contacts are also created when additional data (email/phone) is added by the active user to other users.
  */
-export class Contact extends Person {
-    uid?: string;
+export class Contact {
+    id: number;
+    appUser: AppUser;
+    name: string;
     email?: string;
     phone?: string;
+    color_id: number;
 
 
     /**
@@ -19,11 +23,18 @@ export class Contact extends Person {
      * @param email contact email address
      * @param phone contact phone number
      */
-    constructor(name: string, uid?: string, email?: string, phone?: string) {
-        super(name);
-        this.uid = uid;
-        this.email = email;
-        this.phone = phone;
+    constructor(obj: any) {
+        this.id = obj.id ? obj.id : -1;
+        this.appUser = new AppUser(obj.appUser ? obj.appUser : { id: -1 });
+        this.name = obj.name ? obj.name : '';
+        this.color_id = obj.color_id ? obj.color_id : -1;
+        this.email = obj.email ? obj.email : undefined;
+        this.phone = obj.phone ? obj.phone : undefined;
+    }
+
+
+    getColor() {
+        return environment.BADGE_COLORS[this.color_id];
     }
 
 
@@ -32,7 +43,7 @@ export class Contact extends Person {
      * @returns check result
      */
     isUser(): boolean {
-        if(this.uid && this.uid.length > 0) {return true}
+        if(this.appUser.user.id && this.appUser.user.id != 'guest' && this.appUser.user.id != -1) {return true}
         else {return false}
     }
 

@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
-import { User } from '../../../models/user';
+import { AppUser } from '../../../models/app-user';
 import { PersonBadgeComponent } from '../../templates/person-badge/person-badge.component';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
@@ -18,7 +18,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  @Input() currentUser: User | null | undefined = undefined;
+  @Input() currentUser?: AppUser | null;
   @Input() displayDropdown: boolean = false;
   @Output() updateDropdown = new EventEmitter<boolean>();
   private authService = inject(AuthService);

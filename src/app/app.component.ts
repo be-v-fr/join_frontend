@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { MenuComponent } from './shared/menu/menu.component';
 import { HeaderComponent } from './shared/header/header.component';
-import { User } from '../models/user';
 import { UsersService } from './services/users.service';
 import { AuthService } from './services/auth.service';
 import { Subscription } from 'rxjs';
+import { AppUser } from '../models/app-user';
 
 
 /**
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private authSub = new Subscription();
   private guestSub = new Subscription();
   private usersSub = new Subscription();
-  currentUser: User | null | undefined = undefined;
+  currentUser?: AppUser | null;
   loggedIn: boolean = false;
   showHeaderDropdown: boolean = false;
   readonly MAIN_ROUTES = ['/summary', '/add_task', '/board', '/contacts'];
@@ -45,7 +45,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authService.syncUser()
-      .then(() => console.log('init user complete!'))
+      .then(() => {
+        this.usersService.syncUsers();
+      })
       .catch(e => console.error(e));
   }
 
@@ -67,25 +69,11 @@ export class AppComponent implements OnInit, OnDestroy {
    * @returns 
    */
   subAuth(): Subscription {
-    return this.authService.user$.subscribe(() => {
-      const uid = this.authService.getCurrentUid();
-      if (uid) {
-        this.currentUser = this.usersService.getUserByUid(uid);
-        this.usersSub = this.subUsersInit(uid);
+    return this.authService.currentUser$.subscribe(currentUser => {
+      if (currentUser?.id) {
+        this.currentUser = currentUser;
         this.loggedIn = true;
       } else { this.localLogOut() }
-    });
-  }
-
-
-  /**
-   * Subscribe to usersService.user$ to retrieve detailed user data from usersService/Firestore
-   * @param uid Firebase user ID 
-   * @returns subscription
-   */
-  subUsersInit(uid: string): Subscription {
-    return this.usersService.users$.subscribe(() => {
-      this.currentUser = this.usersService.getUserByUid(uid)
     });
   }
 

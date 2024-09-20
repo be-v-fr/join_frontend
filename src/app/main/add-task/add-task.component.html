@@ -1,6 +1,6 @@
 <div class="content" [ngClass]="{'overlay-custom-column-layout': inOverlay && formData.id != ''}"
     (click)="handleGeneralClick()" #content>
-    <app-close-btn *ngIf="inOverlay" (click)="close()" class="btn-close"></app-close-btn>
+    <app-close-btn *ngIf="inOverlay" (click)="close()" class="btn-close" />
     <h2 *ngIf="formData.id == ''">Add Task</h2>
     <form (submit)="onSubmit(taskForm)" #taskForm="ngForm" [ngClass]="{'form-padding-bottom': !inOverlay}">
         <div class="form-main">
@@ -33,16 +33,15 @@
                         <div class="assigned-badges">
                             @for(assignment of formData.assigned; track assignment; let i = $index) {
                             @if(assignment) {
-                            <app-person-badge [name]="users[i].name" [color]="users[i].color"></app-person-badge>
+                            <app-person-badge [name]="users[i].user.username" [color]="users[i].getColor()" />
                             }
                             }
                         </div>
                         <ul class="dropdown-assigned" *ngIf="showAssignedDropdown">
                             @for (user of users; track user) {
-                            <li class="assigned-li" (click)="$event.stopPropagation(); toggleAssignment(user.uid)">
-                                <app-contact-list-item [name]="user.name" [designateAsYou]="isCurrentUser(user)"
-                                    [color]="user.color" [instance]="'task'">
-                                </app-contact-list-item>
+                            <li class="assigned-li" (click)="$event.stopPropagation(); toggleAssignment(user.id)">
+                                <app-contact-list-item [name]="user.user.username" [designateAsYou]="isCurrentUser(user)"
+                                    [color]="user.getColor()" [instance]="'task'" />
                                 <div class="custom-checkbox"
                                     [ngClass]="{'custom-checked' : formData.isAssignedTo(user)}">
                                 </div>
@@ -147,11 +146,11 @@
             </div>
         </div>
         <div class="form-bottom" [ngClass]="{'form-bottom-edit': formData.id != ''}">
-            <ul class="subtasks-list" #subtasksList (click)="$event.stopPropagation()">
+            <ul *ngIf="formData.subtasks" class="subtasks-list" #subtasksList (click)="$event.stopPropagation()">
                 @for (subtask of formData.subtasks; track subtask; let i = $index) {
                 <li>
                     <app-subtask [(task)]="formData.subtasks[i]" (delete)="deleteSubtask(i)"
-                        [formClick]="formClick.asObservable()"></app-subtask>
+                        [formClick]="formClick.asObservable()" />
                 </li>
                 }
             </ul>
@@ -192,4 +191,4 @@
         </div>
     </form>
 </div>
-<app-toast-notification [message]="'Task added to board'" [show]="showTaskAddedToast"></app-toast-notification>
+<app-toast-notification [message]="'Task added to board'" [show]="showTaskAddedToast" />

@@ -3,7 +3,7 @@ import { Component, ElementRef, Input, Output, ViewChild, AfterViewInit, EventEm
 import { SubtaskComponent } from './subtask/subtask.component';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { User } from '../../../models/user';
+import { AppUser } from '../../../models/app-user';
 import { UsersService } from '../../services/users.service';
 import { AuthService } from '../../services/auth.service';
 import { AutoscrollService } from '../../services/autoscroll.service';
@@ -30,7 +30,7 @@ import { CloseBtnComponent } from '../../templates/close-btn/close-btn.component
 })
 export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   formClick: Subject<void> = new Subject<void>();
-  users: User[] = [];
+  users: AppUser[] = [];
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
   private tasksService = inject(TasksService);
@@ -99,7 +99,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    * Sort users alphabetically, but put the current user first
    */
   sortUsers() {
-    this.users = this.users.sort((a: User, b: User) => a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1);
+    this.users = this.users.sort((a: AppUser, b: AppUser) => a.user.username.toLowerCase() > b.user.username.toLowerCase() ? 1 : -1);
     this.putCurrentUserFirst();
   }
 
@@ -108,9 +108,9 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    * Shift the current user to the first position in the users array 
    */
   putCurrentUserFirst() {
-    const uid = this.authService.getCurrentUid();
-    if (uid && uid != 'guest') {
-      const current = this.usersService.getUserByUid(uid);
+    const id = this.authService.getCurrentUid();
+    if (id && id != 'guest') {
+      const current = this.usersService.getUserById(id);
       const index = this.users.indexOf(current);
       this.users.splice(index, 1)[0];
       this.users.unshift(current);
@@ -123,8 +123,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    * @param user User instance
    * @returns check result
    */
-  isCurrentUser(user: User): boolean {
-    return user.uid == this.authService.getCurrentUid();
+  isCurrentUser(user: AppUser): boolean {
+    return user.id == this.authService.getCurrentUid();
   }
 
 
@@ -246,8 +246,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    * Toggle user assignment to task
    * @param uid User Firebase ID
    */
-  toggleAssignment(uid: string) {
-    const assigned: string[] = this.formData.assigned;
+  toggleAssignment(uid: number) {
+    const assigned: number[] = this.formData.assigned;
     if (assigned.includes(uid)) {
       while (assigned.includes(uid)) {
         const index = assigned.indexOf(uid);
@@ -297,6 +297,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    * @param title subtask name/task
    */
   pushSubtasks(title: string) {
+    if (!this.formData.subtasks) { this.formData.subtasks = [] }
     this.formData.subtasks.push({
       name: title,
       status: 'To do'
@@ -323,7 +324,9 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    * @param index array index
    */
   deleteSubtask(index: number) {
-    this.formData.subtasks.splice(index, 1);
+    if (this.formData.subtasks) {
+      this.formData.subtasks.splice(index, 1);
+    }
   }
 
 

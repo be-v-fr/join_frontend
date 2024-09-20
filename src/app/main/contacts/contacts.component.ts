@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, OnDestroy, AfterViewInit, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { ContactListItemComponent } from './contact-list-item/contact-list-item.component';
 import { Contact } from '../../../models/contact';
-import { User } from '../../../models/user';
+import { AppUser } from '../../../models/app-user';
 import { AuthService } from '../../services/auth.service';
 import { UsersService } from '../../services/users.service';
 import { PersonBadgeComponent } from '../../templates/person-badge/person-badge.component';
@@ -29,8 +29,8 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
   private usersSub = new Subscription();
-  users: User[] = [];
-  currentUser: User = new User('', '');
+  users: AppUser[] = [];
+  currentUser?: AppUser;
   sortedContacts: Contact[] = [];
   selection: number = -1;
   contactOverlay: 'add' | 'edit' | null = null;
@@ -43,9 +43,9 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    * Initialize currently active user and full users array.
    */
   ngOnInit(): void {
-    const uid = this.authService.getCurrentUid();
-    if (uid) {
-      this.currentUser = this.usersService.getUserByUid(uid);
+    const id = this.authService.getCurrentUid();
+    if (id) {
+      this.currentUser = this.usersService.getUserById(id);
       this.initUsers();
     }
   }
@@ -119,11 +119,15 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    * @returns contacts array
    */
   getContactsWithUsers(): Contact[] {
-    const contacts: Contact[] = this.currentUser.contacts;
-    this.users.forEach(u => {
-      if (!this.currentUser.hasUserInContacts(u)) {contacts.push(u.asContact())}
-    });
-    return contacts;
+    if (this.currentUser) {
+      const contacts: Contact[] | undefined = this.currentUser.contacts;
+      this.users.forEach(u => {
+        if (this.currentUser && contacts && !this.currentUser.hasUserInContacts(u)) { contacts.push(u.asContact()) }
+      });
+      return contacts || [];
+    } else {
+      return [];
+    }
   }
 
 
@@ -194,9 +198,11 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param contact "add contact" form data
    */
   submitContact(contact: Contact) {
-    this.contactOverlay == 'add' ? this.currentUser.addContact(contact) : this.sortedContacts[this.selection] = contact;
-    this.updateContacts();
-    this.cancelOverlay();
+    if (this.currentUser) {
+      this.contactOverlay == 'add' ? this.currentUser.addContact(contact) : this.sortedContacts[this.selection] = contact;
+      this.updateContacts();
+      this.cancelOverlay();
+    }
   }
 
 
@@ -204,8 +210,10 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    * Update contacts in user Firestore data and update sorted contacts array afterwards
    */
   updateContacts() {
-    this.usersService.updateUser(this.currentUser);
-    this.sortedContacts = this.getSortedContacts();
+    if (this.currentUser) {
+      this.usersService.updateUser(this.currentUser);
+      this.sortedContacts = this.getSortedContacts();
+    }
   }
 
 
@@ -222,9 +230,11 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    * This option should be disabled if the contact is a user.
    */
   deleteSelectedContact() {
-    this.currentUser.contacts.splice(this.selection, 1);
-    this.usersService.updateUser(this.currentUser);
-    this.unselectContact();
+    if (this.currentUser && this.currentUser.contacts) {
+      this.currentUser.contacts.splice(this.selection, 1);
+      this.usersService.updateUser(this.currentUser);
+      this.unselectContact();
+    }
   }
 
 

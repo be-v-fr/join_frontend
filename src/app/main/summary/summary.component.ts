@@ -44,12 +44,12 @@ export class SummaryComponent implements OnDestroy {
 
 
   /**
-   * Subscribe to "authService.user$" to retrieve and setuser name.
+   * Subscribe to "authService.currentUser$" to retrieve and setuser name.
    * The user name is set to "null" in case guest log in is being used.
    * @returns subscription
    */
   subAuth() {
-    return this.authService.user$.subscribe(user => this.currentUserName = (user ? user.displayName : null));
+    return this.authService.currentUser$.subscribe(u => this.currentUserName = (u ? u.user.username : null));
   }
 
 

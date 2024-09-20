@@ -1,11 +1,9 @@
-import { Injectable, inject } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, user } from "@angular/fire/auth";
-import { sendPasswordResetEmail } from "firebase/auth";
 import { Observable, Subject, from, lastValueFrom } from "rxjs";
 import { environment } from "../../environments/environment.development";
 import { Router } from "@angular/router";
-import { User } from "../../models/user";
+import { AppUser } from "../../models/app-user";
 
 
 /**
@@ -17,10 +15,10 @@ import { User } from "../../models/user";
     providedIn: 'root'
 })
 export class AuthService {
-    firebaseAuth = inject(Auth);
-    user$ = user(this.firebaseAuth);
+    public currentUser$: Subject<AppUser | null> = new Subject<AppUser | null>();
+    currentUser: AppUser | null = null;
     guestLogIn: boolean = false;
-    currentUser: User | null = null;
+
 
     constructor(
         private http: HttpClient,
@@ -61,14 +59,14 @@ export class AuthService {
     }
 
 
-    async syncUser(): Promise<User> {
+    async syncUser(): Promise<AppUser> {
         const url = environment.BASE_URL + 'users/current';
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Token ' + localStorage.getItem('token'))
         const resp = await lastValueFrom(this.http.get(url, {
           headers: headers 
         }));
-        this.currentUser = resp as User;
+        this.currentUser = resp as AppUser;
         return this.currentUser;
     }
 
@@ -91,6 +89,7 @@ export class AuthService {
     logInAsGuest() {
         this.guestLogIn = true;
         this.setLocalGuestLogin(true);
+        this.currentUser = new AppUser({id: 'guest'});
     }
 
 
@@ -105,6 +104,7 @@ export class AuthService {
         }
         this.deleteLocalSessionToken();
         this.currentUser = null;
+        this.currentUser$.next(null);
         this.router.navigateByUrl('');
     }
 
@@ -121,12 +121,12 @@ export class AuthService {
      * Get Firebase user ID ("uid") of active user or 'guest' in case of guest log in
      * @returns user ID (actual uid, guest or undefined in case there is no log in)
      */
-    getCurrentUid(): string | undefined {
+    getCurrentUid(): number | 'guest' | undefined {
         if (this.guestLogIn || this.getLocalGuestLogin()) {
             return 'guest';
-        } else if (this.currentUser?.uid) {
+        } else if (this.currentUser?.id) {
             this.setLocalGuestLogin(false);
-            return this.currentUser.uid;
+            return this.currentUser.id;
         } else {
             return undefined;
         }

@@ -20,13 +20,13 @@ export class GreetingComponent implements OnInit, OnDestroy {
 
 
   /**
-   * Subscribe to "authService.user$" to retrieve user name.
+   * Subscribe to "authService.currentUser$" to retrieve user name.
    * The local user name is set to "null" in case guest log in is being used.
    */
   ngOnInit(): void {
-    this.authSub = this.authService.user$.subscribe(user => {
-      if (user) {
-        this.currentUserName = user.displayName;
+    this.authSub = this.authService.currentUser$.subscribe(u => {
+      if (u) {
+        this.currentUserName = u.user.username;
       } else {
         this.currentUserName = null;
       }

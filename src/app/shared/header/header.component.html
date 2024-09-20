@@ -8,7 +8,7 @@
             <img src="../../../assets/img/menu/help.svg" alt="help">
         </a>
         @if(currentUser) {
-        <app-person-badge [name]="currentUser.name" [currentUser]="true" (click)="$event.stopPropagation(); toggleDropdown()"></app-person-badge>
+        <app-person-badge [name]="currentUser.user.username" [currentUser]="true" (click)="$event.stopPropagation(); toggleDropdown()"></app-person-badge>
         }
     </div>
     <div *ngIf="displayDropdown" class="dropdown-menu">

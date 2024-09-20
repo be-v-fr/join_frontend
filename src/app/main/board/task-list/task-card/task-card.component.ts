@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { Task } from '../../../../../models/task';
-import { User } from '../../../../../models/user';
 import { UsersService } from '../../../../services/users.service';
 import { PersonBadgeComponent } from '../../../../templates/person-badge/person-badge.component';
 import { TaskCategoryComponent } from './task-category/task-category.component';
@@ -10,6 +9,7 @@ import { ArrowBackBtnComponent } from '../../../../templates/arrow-back-btn/arro
 import { TasksService } from '../../../../services/tasks.service';
 import { CloseBtnComponent } from '../../../../templates/close-btn/close-btn.component';
 import { Observable } from 'rxjs';
+import { AppUser } from '../../../../../models/app-user';
 
 
 /**
@@ -23,7 +23,7 @@ import { Observable } from 'rxjs';
   styleUrl: './task-card.component.scss'
 })
 export class TaskCardComponent implements OnInit {
-  users: User[] = [];
+  users: AppUser[] = [];
   @Input() task: Task = new Task('');
   displayDropdown: boolean = false;
   @Input() closeDropdown: Observable<void> = new Observable<void>();
@@ -48,11 +48,11 @@ export class TaskCardComponent implements OnInit {
    * @returns transformed description
    */
   printDescription(): String {
-    let printed = this.task.description.slice(0,35);
-    if(this.task.description.length > 36) {
+    let printed = this.task.description.slice(0, 35);
+    if (this.task.description.length > 36) {
       for (let i = 35; i < this.task.description.length; i++) {
         const char = this.task.description.charAt(i);
-        if(!this.isBreak(char)) {printed = printed + char}
+        if (!this.isBreak(char)) { printed = printed + char }
         else {
           printed = printed + '...';
           break;
@@ -79,7 +79,11 @@ export class TaskCardComponent implements OnInit {
    * @returns "Done" number
    */
   getSubtasksDoneNumber(): number {
-    return this.task.subtasks.filter(s => s.status == 'Done').length;
+    if (this.task.subtasks) {
+      return this.task.subtasks.filter(s => s.status == 'Done').length;
+    } else {
+      return 0;
+    }
   }
 
 
