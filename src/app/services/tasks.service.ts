@@ -104,7 +104,7 @@ export class TasksService implements OnDestroy {
 
 
   /**
-   * Add task to Firestore collection
+   * Add task to database
    * @param task task to be added
    */
   async addTask(task: Task): Promise<Object> {
@@ -117,8 +117,8 @@ export class TasksService implements OnDestroy {
 
 
   /**
-   * Update task in Firestore collection.
-   * The update will only be executed if the task (i.e., its Firestore ID) exists in the Firestore collection.
+   * Update task in database.
+   * The update will only be executed if the task has a valid database ID.
    * @param task task to be updated
    */
   async updateTask(task: Task): Promise<Object | undefined> {
@@ -133,8 +133,8 @@ export class TasksService implements OnDestroy {
 
 
   /**
-   * Delete task from Firestore collection
-   * @param id Firestore task ID of task to be deleted
+   * Delete task from database
+   * @param id ID of task to be deleted
    */
   async deleteTask(id: number): Promise<Object> {
     const url = environment.BASE_URL + 'tasks/' + id;

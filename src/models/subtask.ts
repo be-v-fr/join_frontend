@@ -21,7 +21,7 @@ export class Subtask {
 
     toJson(): {} {
         const json: any = {
-            task_id : this.task_id,
+            task : this.task_id,
             name : this.name,
             status: this.status,
         };
