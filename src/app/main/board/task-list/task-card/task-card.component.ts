@@ -27,7 +27,7 @@ export class TaskCardComponent implements OnInit {
   @Input() task: Task = new Task('');
   displayDropdown: boolean = false;
   @Input() closeDropdown: Observable<void> = new Observable<void>();
-  private usersService = inject(UsersService);
+  public usersService = inject(UsersService);
   private tasksService = inject(TasksService);
 
 

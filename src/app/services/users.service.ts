@@ -85,7 +85,7 @@ export class UsersService implements OnDestroy {
    * @param id app user ID
    * @returns app user object
    */
-  getUserById(id: number | 'guest'): AppUser {
+  getUserByAppId(id: number | 'guest'): AppUser {
     if (id == 'guest') {
       return new AppUser({
         id: -1,
@@ -99,4 +99,25 @@ export class UsersService implements OnDestroy {
       return user;
     }
   }
+
+
+  /**
+   * Retrieve a complete app user object from auth user ID
+   * @param id auth user ID
+   * @returns app user object
+   */
+    getUserByAuthId(id: number | 'guest'): AppUser {
+      if (id == 'guest') {
+        return new AppUser({
+          id: -1,
+          user: new AuthUser({ username: 'Guest', id: id }),
+        });
+      } else {
+        let user = new AppUser({});
+        this.users.forEach(u => {
+          if (u.user.id == id) { user = u }
+        });
+        return user;
+      }
+    }
 }

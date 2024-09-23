@@ -7,6 +7,7 @@ import { UsersService } from './services/users.service';
 import { AuthService } from './services/auth.service';
 import { Subscription } from 'rxjs';
 import { AppUser } from '../models/app-user';
+import { TasksService } from './services/tasks.service';
 
 
 /**
@@ -23,6 +24,7 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'join';
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
+  private tasksService = inject(TasksService);
   private authSub = new Subscription();
   private guestSub = new Subscription();
   private usersSub = new Subscription();
@@ -47,6 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authService.syncUser()
       .then(() => {
         this.usersService.syncUsers();
+        this.tasksService.syncTasks();
       })
       .catch(e => console.error(e));
   }

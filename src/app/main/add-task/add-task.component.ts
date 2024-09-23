@@ -111,7 +111,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   putCurrentUserFirst() {
     const id = this.authService.getCurrentUid();
     if (id && id != 'guest') {
-      const current = this.usersService.getUserById(id);
+      const current = this.usersService.getUserByAppId(id);
       const index = this.users.indexOf(current);
       this.users.splice(index, 1)[0];
       this.users.unshift(current);
