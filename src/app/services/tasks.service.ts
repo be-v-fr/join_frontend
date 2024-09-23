@@ -1,6 +1,10 @@
-import { Injectable, inject, OnDestroy } from '@angular/core';
-import { Firestore, collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import { Injectable, OnDestroy } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Task } from '../../models/task';
+import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment.development';
+import { lastValueFrom, Subject } from 'rxjs';
+import { Subtask } from '../../models/subtask';
 
 
 /**
@@ -12,15 +16,19 @@ import { Task } from '../../models/task';
 
 export class TasksService implements OnDestroy {
   tasks: Task[] = [];
+  tasks$: Subject<void> = new Subject<void>();
   newTaskStatus: 'To do' | 'In progress' | 'Await feedback' = 'To do';
   unsubTasks;
-  firestore: Firestore = inject(Firestore);
+  public syncingSubtasks: boolean = false;
 
 
   /**
    * Create subscription
    */
-  constructor() {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+  ) {
     this.unsubTasks = this.subTasks();
   }
 
@@ -29,7 +37,7 @@ export class TasksService implements OnDestroy {
    * Unsubscribe
    */
   ngOnDestroy() {
-    this.unsubTasks();
+    // UNSUB
   }
 
 
@@ -38,31 +46,60 @@ export class TasksService implements OnDestroy {
    * @returns subscription
    */
   subTasks() {
-    return onSnapshot(this.getColRef(), (list: any) => {
-      this.tasks = [];
-      list.forEach((element: any) => {
-        this.tasks.push(this.setTaskObject(element.data(), element.id));
-      });
+    // CREATE SERVER SUB
+  }
+
+
+  async syncTasks(): Promise<void> {
+    const url = environment.BASE_URL + 'tasks';
+    const resp = await lastValueFrom(this.http.get(url, {
+      headers: environment.AUTH_TOKEN_HEADERS
+    }));
+    this.tasks = [];
+    (resp as Array<any>).forEach(tData => {
+      this.tasks.push(new Task(tData));
     });
+    console.log('tasks synced!', this.tasks);
+    this.syncSubtasks();
+    this.tasks$.next();
   }
 
 
-  /**
-   * Get reference to Firestore "tasks" collection
-   * @returns reference
-   */
-  getColRef() {
-    return collection(this.firestore, 'tasks');
+  async syncSubtasks(): Promise<void> {
+    if (this.tasks.length > 0) {
+      this.syncingSubtasks = true;
+      const url = environment.BASE_URL + 'subtasks';
+      const resp = await lastValueFrom(this.http.get(url, {
+        headers: environment.AUTH_TOKEN_HEADERS
+      }));
+      this.addSubtasksToTasks(resp as Array<any>);
+      console.log('subtasks synced!', this.tasks);
+      this.syncingSubtasks = false;
+      this.tasks$.next();
+    } else {
+      console.warn('Subtask syncing not executed because tasks array is empty.')
+    }
   }
 
 
-  /**
-   * Get reference to single Firestore task document
-   * @param id Firestore task ID
-   * @returns reference
-   */
-  getSingleDocRef(id: string) {
-    return doc(this.getColRef(), id);
+  addSubtasksToTasks(subtasksData: Array<any>) {
+    this.clearSubtasks();
+    subtasksData.forEach(stData => this.addSubtaskToTask(new Subtask(stData)));
+  }
+
+
+  clearSubtasks() {
+    this.tasks.forEach(t => t.subtasks = []);
+  }
+
+
+  addSubtaskToTask(subtask: Subtask) {
+    const tasksArrayIndex: number = this.tasks.findIndex(t => t.id == subtask.task_id);
+    if (tasksArrayIndex == -1) {
+      console.error('Task with index', subtask.task_id, 'not found!');
+    } else {
+      this.tasks[tasksArrayIndex].subtasks?.push(subtask);
+    }
   }
 
 
@@ -71,8 +108,7 @@ export class TasksService implements OnDestroy {
    * @param task task to be added
    */
   async addTask(task: Task) {
-    await addDoc(this.getColRef(), this.getJsonFromTask(task))
-      .catch((err: Error) => { console.error(err) });
+    // POST
   }
 
 
@@ -83,10 +119,7 @@ export class TasksService implements OnDestroy {
    */
   async updateTask(task: Task) {
     if (task.id) {
-      let docRef = this.getSingleDocRef(task.id);
-      let taskJson = this.getJsonFromTask(task);
-      await updateDoc(docRef, taskJson)
-        .catch((err: Error) => { console.error(err) });
+      // PUT
     }
   }
 
@@ -95,31 +128,8 @@ export class TasksService implements OnDestroy {
    * Delete task from Firestore collection
    * @param id Firestore task ID of task to be deleted
    */
-  async deleteTask(id: string) {
-    let docRef = this.getSingleDocRef(id);
-    await deleteDoc(docRef)
-      .catch((err: Error) => { console.error(err) });
-  }
-
-
-  /**
-   * Transform task object properties to JSON
-   * @param task task to be transformed
-   * @returns JSON
-   */
-  getJsonFromTask(task: Task): {} {
-    return {
-      'id': task.id,
-      'title': task.title,
-      'description': task.description,
-      'assigned': task.assigned,
-      'due': task.due,
-      'prio': task.prio,
-      'category': task.category,
-      'subtasks': task.subtasks,
-      'timestamp': task.timestamp,
-      'status': task.status
-    }
+  async deleteTask(id: number) {
+    // DELETE
   }
 
 
@@ -128,12 +138,8 @@ export class TasksService implements OnDestroy {
    * @param id Firestore task ID
    * @returns task object
    */
-  getTaskById(id: string): Task {
-    let task = new Task('');
-    this.tasks.forEach(t => {
-      if (t.id == id) { task = t }
-    });
-    return task;
+  getTaskById(id: number): Task | undefined {
+    return this.tasks.find(t => t.id == id);
   }
 
 
@@ -144,27 +150,5 @@ export class TasksService implements OnDestroy {
    */
   getFilteredTasks(status: 'To do' | 'In progress' | 'Await feedback' | 'Done'): Task[] {
     return this.tasks.filter(t => t.status == status);
-  }
-
-
-  /**
-   * Set "Task" object from "any" object and ID
-   * @param obj any object (should consist of task properties)
-   * @param id Firestore task ID
-   * @returns task object
-   */
-  setTaskObject(obj: any, id: string): Task {
-    const task = new Task('null');
-    task.id = id;
-    if (obj.title) { task.title = obj.title }
-    if (obj.description) { task.description = obj.description }
-    if (obj.assigned) { task.assigned = obj.assigned }
-    if (obj.due) { task.due = obj.due }
-    if (obj.prio) { task.prio = obj.prio }
-    if (obj.category) { task.category = obj.category }
-    if (obj.subtasks) { task.subtasks = obj.subtasks }
-    if (obj.timestamp) { task.timestamp = obj.timestamp }
-    if (obj.status) { task.status = obj.status }
-    return task;
   }
 }

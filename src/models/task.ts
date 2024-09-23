@@ -1,12 +1,12 @@
 import { AppUser } from '../models/app-user';
-import { Subtask } from '../interfaces/subtask.interface';
+import { Subtask } from './subtask';
 
 
 /**
  * This component represents a task
  */
 export class Task {
-    id: string;
+    id: number;
     title: string;
     description: string = '';
     assigned: number[] = [];
@@ -32,6 +32,22 @@ export class Task {
         this.category = obj.category ? obj.category : 'Technical Task';
         this.subtasks = obj.subtasks ? obj.subtasks : undefined;
         this.status = obj.status ? obj.status : 'To Do';
+    }
+
+
+    toJson(): {} {
+        // CREATE SUBTASKS JSON
+        return {
+            id: this.id,
+            title: this.title,
+            description: this.description,
+            assigned: this.assigned,
+            due: this.due,
+            prio: this.prio,
+            category: this.category,
+            subtasks: this.subtasks,
+            status: this.status,
+        };
     }
 
 

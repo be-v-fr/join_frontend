@@ -24,7 +24,7 @@ import { AppUser } from '../../../../models/app-user';
   styleUrl: './task-view.component.scss'
 })
 export class TaskViewComponent extends SlideComponent {
-  @Input() task: Task = new Task('');
+  @Input() task?: Task;
   @Input() users: AppUser[] = [];
   @Output() cancelOverlay = new EventEmitter<void>();
   @Output() editThisTask = new EventEmitter<void>();
@@ -64,7 +64,7 @@ export class TaskViewComponent extends SlideComponent {
    * @param index subtask array index
    */
   toggleSubtaskStatus(index: number) {
-    if (this.task.subtasks) {
+    if (this.task && this.task.subtasks) {
       const subtask = this.task.subtasks[index];
       subtask.status = (subtask.status == 'To do' ? 'Done' : 'To do');
       this.tasksService.updateTask(this.task);
@@ -76,8 +76,10 @@ export class TaskViewComponent extends SlideComponent {
    * Completely delete this task
    */
   deleteTask() {
-    this.cancel();
-    this.tasksService.deleteTask(this.task.id);
+    if (this.task) {
+      this.cancel();
+      this.tasksService.deleteTask(this.task.id);
+    }
   }
 
 

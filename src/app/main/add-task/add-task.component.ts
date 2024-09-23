@@ -15,6 +15,7 @@ import { ToastNotificationComponent } from '../../templates/toast-notification/t
 import { Router } from '@angular/router';
 import { SlideComponent } from '../../templates/slide/slide.component';
 import { CloseBtnComponent } from '../../templates/close-btn/close-btn.component';
+import { Subtask } from '../../../models/subtask';
 
 
 /**
@@ -76,11 +77,11 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    * Initialize form data and prefill form in case there is a task input
    */
   initFormData() {
-    if (this.inputTask.id == '') {
+    if (this.inputTask.id == -1) {
       this.formData.due = '';
       this.formData.status = this.tasksService.newTaskStatus;
     } else {
-      this.formData = this.tasksService.setTaskObject(this.inputTask, this.inputTask.id);
+      this.formData = new Task(this.inputTask.toJson());
       console.log(this.formData);
     }
   }
@@ -298,10 +299,11 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    */
   pushSubtasks(title: string) {
     if (!this.formData.subtasks) { this.formData.subtasks = [] }
-    this.formData.subtasks.push({
+    this.formData.subtasks.push(new Subtask({
+      task_id: this.formData.id,
       name: title,
-      status: 'To do'
-    });
+      status: 'To do',
+    }));
   }
 
 
@@ -346,7 +348,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    */
   onSubmit(form: NgForm) {
     if (form.submitted && form.form.valid) {
-      if (this.formData.id == '') {
+      if (this.formData.id == -1) {
         this.tasksService.addTask(this.formData);
         this.showTaskAddedToast = true;
         setTimeout(() => { this.inOverlay ? this.close() : this.router.navigate(['/board']) }, 700);

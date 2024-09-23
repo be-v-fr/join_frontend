@@ -33,6 +33,18 @@ export class Contact {
     }
 
 
+    toJson(): {} {
+        return {
+            id: this.id,
+            app_user: this.appUser.toJson(),
+            name: this.name,
+            color_id: this.color_id,
+            email: this.email,
+            phone: this.phone,
+        };
+    }
+
+
     getColor() {
         return environment.BADGE_COLORS[this.color_id];
     }

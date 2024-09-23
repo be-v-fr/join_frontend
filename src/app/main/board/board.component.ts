@@ -26,8 +26,8 @@ export class BoardComponent {
   private tasksService = inject(TasksService);
   private router = inject(Router);
   statusList: ('To do' | 'In progress' | 'Await feedback' | 'Done')[] = ['To do', 'In progress', 'Await feedback', 'Done'];
-  viewTaskId: string = '';
-  taskFormId: string | null = null;
+  viewTaskId: number = -1;
+  taskFormId: number | null = null;
   taskFormWrapperTranslated: boolean = true;
   dragCardHeight: number = 160;
   dragStartStatus: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
@@ -66,16 +66,16 @@ export class BoardComponent {
    * @param id Firestore task ID
    * @returns task
    */
-  getTaskById(id: string): Task {
-    return this.tasksService.getTaskById(id);
+  getTaskById(id: number): Task {
+    return this.tasksService.getTaskById(id) || new Task({});
   }
 
 
   /**
    * This function sets the "viewTaskId" property, which will result in displaying the "task view" component
-   * @param id Firestore task ID
+   * @param id task ID
    */
-  viewTask(id: string) {
+  viewTask(id: number) {
     this.viewTaskId = id;
   }
 
@@ -84,16 +84,16 @@ export class BoardComponent {
    * This functon closes the "task view" component/overlay by unsetting the "viewTaskId" property
    */
   closeTaskView() {
-    this.viewTaskId = '';
+    this.viewTaskId = -1;
   }
 
 
   /**
    * Show the "add task" component.
    * Leaving "id" empty ('') will result in "add" mode. Using an actual ID will result in editing the corresponding task.
-   * @param id Firestore task ID
+   * @param id task ID
    */
-  showTaskForm(id: string) {
+  showTaskForm(id: number) {
     this.taskFormId = id;
   }
 
@@ -126,7 +126,7 @@ export class BoardComponent {
   addToStatus(status: 'To do' | 'In progress' | 'Await feedback' | 'Done') {
     if (status != 'Done') {
       this.tasksService.newTaskStatus = status;
-      window.innerWidth > 768 ? this.showTaskForm('') : this.router.navigate(['/add_task']);
+      window.innerWidth > 768 ? this.showTaskForm(-1) : this.router.navigate(['/add_task']);
     }
   }
 

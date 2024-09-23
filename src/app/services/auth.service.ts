@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, from, lastValueFrom } from "rxjs";
 import { environment } from "../../environments/environment.development";
 import { Router } from "@angular/router";
@@ -63,10 +63,8 @@ export class AuthService {
 
     async syncUser(): Promise<void> {
         const url = environment.BASE_URL + 'users/current';
-        let headers = new HttpHeaders();
-        headers = headers.set('Authorization', 'Token ' + localStorage.getItem('token'))
         const resp = await lastValueFrom(this.http.get(url, {
-            headers: headers
+            headers: environment.AUTH_TOKEN_HEADERS
         }));
         this.currentUser = new AppUser(resp);
         this.syncContacts();
@@ -130,10 +128,8 @@ export class AuthService {
     async syncRegisteredUserContacts(): Promise<void> {
         if (this.currentUser) {
             const url = environment.BASE_URL + 'contacts';
-            let headers = new HttpHeaders();
-            headers = headers.set('Authorization', 'Token ' + localStorage.getItem('token'))
             const resp = await lastValueFrom(this.http.get(url, {
-                headers: headers
+                headers: environment.AUTH_TOKEN_HEADERS
             }));
             this.currentUser.contacts = [];
             (resp as Array<any>).forEach(cData => {
@@ -141,6 +137,21 @@ export class AuthService {
             });
             this.currentUser$.next(this.currentUser);
         }
+    }
+
+
+    async addContact(contact: Contact): Promise<void> {
+        // POST
+    }
+
+
+    async updateContact(contact: Contact): Promise<void> {
+        // PUT
+    }
+
+
+    async deleteContact(contact_id: number): Promise<void> {
+        // DELETE
     }
 
 

@@ -3,9 +3,10 @@
         <h2>Board</h2>
         <header>
             <form class="search-container relative text-input" #searchForm="ngForm">
-                <input type="search" name="search" class="text-input" #search [(ngModel)]="searchFilter" placeholder="Find task">
+                <input type="search" name="search" class="text-input" #search [(ngModel)]="searchFilter"
+                    placeholder="Find task">
                 <div class="separator"></div>
-                    <img class="search-icon" src="../../../assets/img/search.svg" alt="search">
+                <img class="search-icon" src="../../../assets/img/search.svg" alt="search">
             </form>
             <button class="btn-primary" (click)="addToStatus('To do')">
                 <span>Add task</span>
@@ -18,22 +19,23 @@
         <app-task-list [status]="status" [tasks]="getFilteredTasks(status)" (addToStatusClick)="addToStatus(status)"
             (taskClick)="viewTask($event)" (setDragCardHeight)="setDragCardHeight($event)"
             [dragCardHeight]="dragCardHeight" (setDragStartStatus)="setDragStartStatus($event)"
-            [dragStartStatus]="dragStartStatus" [closingTaskStatusDropdown]="closingTaskStatusDropdown"></app-task-list>
+            [dragStartStatus]="dragStartStatus" [closingTaskStatusDropdown]="closingTaskStatusDropdown" />
         }
     </section>
 </div>
-<app-task-view *ngIf="viewTaskId != ''" [task]="getTaskById(viewTaskId)" (cancelOverlay)="closeTaskView()"
-    (editThisTask)="showTaskForm(viewTaskId)"></app-task-view>
+<app-task-view *ngIf="viewTaskId != -1" [task]="getTaskById(viewTaskId)" (cancelOverlay)="closeTaskView()"
+    (editThisTask)="showTaskForm(viewTaskId)" />
 @if(taskFormId != null) {
-<div class="overlay" [ngClass]="{'no-bg': viewTaskId != ''}" (click)="hideTaskForm()">
+<div class="overlay" [ngClass]="{'no-bg': viewTaskId != -1}" (click)="hideTaskForm()">
     <div class="task-form-wrapper"
-        [ngClass]="{'slid-out': taskFormWrapperTranslated && taskFormId == '', 'slid-in': !taskFormWrapperTranslated, 'edit-task-wrapper': taskFormId != ''}"
+        [ngClass]="{'slid-out': taskFormWrapperTranslated && taskFormId == -1, 'slid-in': !taskFormWrapperTranslated, 'edit-task-wrapper': taskFormId != -1}"
         (click)="$event.stopPropagation()">
-        @if(taskFormId == '') {
-        <app-add-task [inOverlay]="true" (cancelled)="hideTaskForm()" (slide)="slideTaskFormWrapper()" id="overlayTaskForm"></app-add-task>
+        @if(taskFormId == -1) {
+        <app-add-task [inOverlay]="true" (cancelled)="hideTaskForm()" (slide)="slideTaskFormWrapper()"
+            id="overlayTaskForm" />
         } @else {
         <app-add-task [task]="getTaskById(taskFormId)" [inOverlay]="true" (cancelled)="hideTaskForm()"
-            (slide)="slideTaskFormWrapper()" id="overlayTaskForm"></app-add-task>
+            (slide)="slideTaskFormWrapper()" id="overlayTaskForm" />
         }
     </div>
 </div>

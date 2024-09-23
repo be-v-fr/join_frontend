@@ -29,7 +29,7 @@ export class TaskListComponent {
   @Output() setDragStartStatus = new EventEmitter<'To do' | 'In progress' | 'Await feedback' | 'Done'>();
   @Output() addToStatusClick = new EventEmitter<void>();
   @Input() closingTaskStatusDropdown: Subject<void> = new Subject<void>();
-  @Output() taskClick = new EventEmitter<string>();
+  @Output() taskClick = new EventEmitter<number>();
   @Input() dragCardHeight: number = 0;
   @Output() setDragCardHeight = new EventEmitter<number>();
   @Output() dragging = new EventEmitter<boolean>();
@@ -39,7 +39,10 @@ export class TaskListComponent {
    * Create TasksService instance
    * @param tasksService instance of TasksService
    */
-  constructor(private tasksService: TasksService, private scrollService: AutoscrollService) { }
+  constructor(
+    private tasksService: TasksService,
+    private scrollService: AutoscrollService,
+  ) { }
 
 
   /**
@@ -48,10 +51,10 @@ export class TaskListComponent {
    * - The task status before the drag event
    * - 
    * @param ev task drag event
-   * @param id task ID from Firestore
+   * @param id task ID
    */
-  onTaskDragStart(ev: DragEvent, id: string) {
-    ev.dataTransfer?.setData('text/plain', id);
+  onTaskDragStart(ev: DragEvent, id: number) {
+    ev.dataTransfer?.setData('text/plain', id.toString());
     this.draggedTaskCard = ev.target as HTMLElement;
     this.dragYStart = ev.clientY;
     this.setDragStartStatus.emit(this.status);
@@ -73,7 +76,7 @@ export class TaskListComponent {
    * On task drag end, unset "draggedTaskCard"
    */
   onTaskDragEnd() {
-    if (this.draggedTaskCard != null) {this.draggedTaskCard = null}
+    if (this.draggedTaskCard != null) { this.draggedTaskCard = null }
   }
 
 
@@ -140,7 +143,7 @@ export class TaskListComponent {
     ev.preventDefault();
     this.draggingOver = false;
     const id = ev.dataTransfer?.getData('text/plain');
-    if (id) {this.updateTaskStatus(id)}
+    if (id) { this.updateTaskStatus(id as unknown as number) }
   }
 
 
@@ -149,10 +152,12 @@ export class TaskListComponent {
    * Update the task status to the current list. Then update the task in Firestore/tasksService.
    * @param taskId Firestore task ID
    */
-  updateTaskStatus(taskId: string) {
+  updateTaskStatus(taskId: number) {
     let task = this.tasksService.getTaskById(taskId);
-    task.status = this.status;
-    this.tasksService.updateTask(task);
+    if (task) {
+      task.status = this.status;
+      this.tasksService.updateTask(task);
+    }
   }
 
 
@@ -168,7 +173,7 @@ export class TaskListComponent {
    * View task by emitting the corresponding event to the parent component
    * @param id Firestore task ID
    */
-  viewTask(id: string) {
+  viewTask(id: number) {
     this.taskClick.emit(id);
   }
 }

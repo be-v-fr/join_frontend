@@ -1,9 +1,10 @@
 import { Injectable, OnDestroy } from "@angular/core";
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { lastValueFrom, Subject, Subscription } from 'rxjs';
 import { AppUser } from '../../models/app-user';
 import { AuthUser } from '../../models/auth-user';
 import { environment } from "../../environments/environment.development";
+import { AuthService } from "./auth.service";
 
 
 /**
@@ -25,6 +26,7 @@ export class UsersService implements OnDestroy {
    */
   constructor(
     private http: HttpClient,
+    private authService: AuthService,
   ) {
     this.usersSub = this.subUsers();
   }
@@ -50,10 +52,8 @@ export class UsersService implements OnDestroy {
 
   async syncUsers(): Promise<void> {
     const url = environment.BASE_URL + 'users';
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', 'Token ' + localStorage.getItem('token'))
     const resp = await lastValueFrom(this.http.get(url, {
-      headers: headers 
+      headers: environment.AUTH_TOKEN_HEADERS
     }));
     this.users = [];
     (resp as Array<any>).forEach(uData => {

@@ -1,4 +1,4 @@
-<div class="overlay" (click)="cancel()">
+<div *ngIf="task" class="overlay" (click)="cancel()">
     <div class="content" [ngClass]="translated ? 'slid-out' : 'slid-in'" (click)="$event.stopPropagation()">
         <div class="top-container">
             <app-task-category [category]="task.category" />

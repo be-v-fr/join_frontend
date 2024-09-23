@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subtask } from '../../../../interfaces/subtask.interface';
+import { Subtask } from '../../../../models/subtask';
 import { FormsModule } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 
@@ -17,10 +17,10 @@ import { Subscription, Observable } from 'rxjs';
   styleUrl: './subtask.component.scss'
 })
 export class SubtaskComponent implements OnInit {
-  @Input() task: Subtask = {
+  @Input() task = new Subtask({
     name: 'Task created',
     status: 'To do'
-  };
+  });
   editing: boolean = false;
   previousName: string = '';
   @Output() taskChange = new EventEmitter<Subtask>();
