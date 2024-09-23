@@ -11,7 +11,7 @@ export class Task {
     description: string = '';
     assigned: number[] = [];
     due: string;
-    prio: 'Urgent' | 'Medium' | 'Low' | null;
+    prio: '' | 'Urgent' | 'Medium' | 'Low';
     category: 'Technical Task' | 'User Story';
     subtasks?: Subtask[];
     timestamp: number = Date.now();
@@ -28,7 +28,7 @@ export class Task {
         this.description = obj.description ? obj.description : '';
         this.assigned = obj.assigned_to ? obj.assigned_to : [];
         this.due = obj.due ? obj.due : getCurrentDate();
-        this.prio = obj.prio && obj.prio != 'null' ? obj.prio : null;
+        this.prio = obj.prio ? obj.prio : 'Medium';
         this.category = obj.category ? obj.category : 'Technical Task';
         this.subtasks = obj.subtasks ? obj.subtasks : undefined;
         this.status = obj.status ? obj.status : 'To Do';
@@ -36,18 +36,20 @@ export class Task {
 
 
     toJson(): {} {
-        // CREATE SUBTASKS JSON
-        return {
-            id: this.id,
+        const jsonSubtasks: {}[] = [];
+        this.subtasks?.forEach(s => jsonSubtasks.push(s.toJson()));
+        const json: any = {
             title: this.title,
             description: this.description,
-            assigned: this.assigned,
+            assigned_to: this.assigned,
             due: this.due,
             prio: this.prio,
             category: this.category,
-            subtasks: this.subtasks,
+            subtasks: jsonSubtasks,
             status: this.status,
-        };
+        }
+        if(this.id != -1) {json.id = this.id}
+        return json;
     }
 
 

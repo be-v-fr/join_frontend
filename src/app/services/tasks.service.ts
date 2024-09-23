@@ -107,8 +107,12 @@ export class TasksService implements OnDestroy {
    * Add task to Firestore collection
    * @param task task to be added
    */
-  async addTask(task: Task) {
-    // POST
+  async addTask(task: Task): Promise<Object> {
+    const url = environment.BASE_URL + 'tasks';
+    const body = task.toJson();
+    return lastValueFrom(this.http.post(url, body, {
+      headers: environment.AUTH_TOKEN_HEADERS
+    }));
   }
 
 

@@ -12,5 +12,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './prio-icon.component.scss'
 })
 export class PrioIconComponent {
-@Input() prio: 'Urgent' | 'Medium' | 'Low' | null = null;
+@Input() prio: 'Urgent' | 'Medium' | 'Low' | '' = '';
 }

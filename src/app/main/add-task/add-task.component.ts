@@ -203,7 +203,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    * @param prio priority value
    */
   selectPrio(prio: 'Urgent' | 'Medium' | 'Low') {
-    this.formData.prio = (this.formData.prio == prio ? null : prio);
+    this.formData.prio = (this.formData.prio.length > 0 ? '' : prio);
   }
 
 

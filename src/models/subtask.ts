@@ -20,12 +20,12 @@ export class Subtask {
 
 
     toJson(): {} {
-        // CREATE SUBTASKS JSON
-        return {
-            id: this.id,
+        const json: any = {
             task_id : this.task_id,
             name : this.name,
             status: this.status,
         };
+        if(this.id != -1) {json.id = this.id}
+        return json;
     }
 }

@@ -34,14 +34,15 @@ export class Contact {
 
 
     toJson(): {} {
-        return {
-            id: this.id,
+        const json: any = {
             app_user: this.appUser.toJson(),
             name: this.name,
             color_id: this.color_id,
             email: this.email,
             phone: this.phone,
         };
+        if(this.id != -1) {json.id = this.id}
+        return json;
     }
 
 
