@@ -28,7 +28,7 @@ export class TaskViewComponent extends SlideComponent {
   @Input() users: AppUser[] = [];
   @Output() cancelOverlay = new EventEmitter<void>();
   @Output() editThisTask = new EventEmitter<void>();
-  private usersService = inject(UsersService);
+  public usersService = inject(UsersService);
   private tasksService = inject(TasksService);
 
 

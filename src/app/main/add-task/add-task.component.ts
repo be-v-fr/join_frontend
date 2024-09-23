@@ -33,7 +33,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   formClick: Subject<void> = new Subject<void>();
   users: AppUser[] = [];
   private authService = inject(AuthService);
-  private usersService = inject(UsersService);
+  public usersService = inject(UsersService);
   private tasksService = inject(TasksService);
   private scrollService = inject(AutoscrollService);
   @Input('task') inputTask: Task = new Task('');

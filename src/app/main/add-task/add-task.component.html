@@ -16,8 +16,9 @@
                 </div>
                 <div class="form-field">
                     <label for="description">Description</label>
-                    <textarea class="description" [ngClass]="{'custom-resizer': isWebkitSupported()}" type="text" [(ngModel)]="formData.description" name="description"
-                        #description="ngModel" placeholder="Enter a description"></textarea>
+                    <textarea class="description" [ngClass]="{'custom-resizer': isWebkitSupported()}" type="text"
+                        [(ngModel)]="formData.description" name="description" #description="ngModel"
+                        placeholder="Enter a description"></textarea>
                 </div>
                 <div class="form-field">
                     <label for="assigend" (click)="$event.preventDefault()">Assigned to</label>
@@ -31,17 +32,17 @@
                             </button>
                         </div>
                         <div class="assigned-badges">
-                            @for(assignment of formData.assigned; track assignment; let i = $index) {
-                            @if(assignment) {
-                            <app-person-badge [name]="users[i].user.username" [color]="users[i].getColor()" />
-                            }
+                            @for(assignment of formData.assigned; track assignment) {
+                            <app-person-badge [name]="usersService.getUserByAppId(assignment).user.username"
+                                [color]="usersService.getUserByAppId(assignment).getColor()" />
                             }
                         </div>
                         <ul class="dropdown-assigned" *ngIf="showAssignedDropdown">
                             @for (user of users; track user) {
                             <li class="assigned-li" (click)="$event.stopPropagation(); toggleAssignment(user.id)">
-                                <app-contact-list-item [name]="user.user.username" [designateAsYou]="isCurrentUser(user)"
-                                    [color]="user.getColor()" [instance]="'task'" />
+                                <app-contact-list-item [name]="user.user.username"
+                                    [designateAsYou]="isCurrentUser(user)" [color]="user.getColor()"
+                                    [instance]="'task'" />
                                 <div class="custom-checkbox"
                                     [ngClass]="{'custom-checked' : formData.isAssignedTo(user)}">
                                 </div>

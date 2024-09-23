@@ -23,9 +23,10 @@
         </table>
         <div class="assigned-container" *ngIf="task.assigned.length > 0">
             <p>Assigned to:</p>
-            @for(assignment of task.assigned; track assignment; let i = $index) {
+            @for(assignment of task.assigned; track assignment) {
             @if(assignment) {
-            <app-contact-list-item [name]="users[i].user.username" [color]="users[i].getColor()" [instance]="'task'" />
+            <app-contact-list-item [name]="usersService.getUserByAuthId(assignment).user.username"
+                [color]="usersService.getUserByAuthId(assignment).getColor()" [instance]="'task'" />
             }
             }
         </div>
