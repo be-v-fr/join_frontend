@@ -121,10 +121,14 @@ export class TasksService implements OnDestroy {
    * The update will only be executed if the task (i.e., its Firestore ID) exists in the Firestore collection.
    * @param task task to be updated
    */
-  async updateTask(task: Task) {
-    if (task.id) {
-      // PUT
-    }
+  async updateTask(task: Task): Promise<Object | undefined> {
+    if (task.id != -1) {
+      const url = environment.BASE_URL + 'tasks/' + task.id;
+      const body = task.toJson();
+      return lastValueFrom(this.http.put(url, body, {
+        headers: environment.AUTH_TOKEN_HEADERS
+      }));
+    } else return;
   }
 
 
@@ -132,7 +136,7 @@ export class TasksService implements OnDestroy {
    * Delete task from Firestore collection
    * @param id Firestore task ID of task to be deleted
    */
-  async deleteTask(id: number) {
+  async deleteTask(id: number): Promise<Object> {
     const url = environment.BASE_URL + 'tasks/' + id;
     return lastValueFrom(this.http.delete(url, {
       headers: environment.AUTH_TOKEN_HEADERS
