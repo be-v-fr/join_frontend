@@ -32,6 +32,7 @@ export class Task {
         this.category = obj.category ? obj.category : 'Technical Task';
         this.status = obj.status ? obj.status : 'To Do';
         if(obj.subtasks) {
+            this.subtasks = [];
             obj.subtasks.forEach((sData: any) => this.subtasks?.push(new Subtask(sData)));
         }
     }
