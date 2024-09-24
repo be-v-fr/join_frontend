@@ -151,7 +151,7 @@
                 @for (subtask of formData.subtasks; track subtask; let i = $index) {
                 <li>
                     <app-subtask [(task)]="formData.subtasks[i]" (delete)="deleteSubtask(i)"
-                        [formClick]="formClick.asObservable()" />
+                        [formClick]="formClick.asObservable()" (taskChange)="onSubtaskEdit(i, $event)" />
                 </li>
                 }
             </ul>

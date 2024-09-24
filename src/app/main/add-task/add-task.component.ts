@@ -348,6 +348,13 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   }
 
 
+  onSubtaskEdit(arrayIndex: number, subtask: Subtask) {
+    if (this.formData.subtasks) {
+      this.formData.subtasks[arrayIndex] = subtask;
+    }
+  }
+
+
   /**
    * On click on task form, close dropdown menus and trigger "formClick" observable (which also affects the subtask component)
    */
@@ -363,6 +370,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    * @param form task form
    */
   onSubmit(form: NgForm) {
+    console.log(this.formData);
     if (form.submitted && form.form.valid) {
       if (this.formData.id == -1) {
         this.tasksService.addTask(this.formData);
@@ -370,7 +378,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
         setTimeout(() => { this.inOverlay ? this.close() : this.router.navigate(['/board']) }, 700);
       } else {
         this.tasksService.updateTask(this.formData);
-        this.close()
+        this.close();
       }
     }
   }
