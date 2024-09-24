@@ -178,4 +178,16 @@ export class TasksService implements OnDestroy {
         }));
       } else return;
     }
+
+
+  /**
+   * Delete subtask from database
+   * @param id ID of subtask to be deleted
+   */
+  async deleteSubtask(id: number): Promise<Object> {
+    const url = environment.BASE_URL + 'subtasks/' + id;
+    return lastValueFrom(this.http.delete(url, {
+      headers: environment.AUTH_TOKEN_HEADERS
+    }));
+  }
 }

@@ -324,8 +324,9 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    * Delete subtask
    * @param index array index
    */
-  deleteSubtask(index: number) {
+  async deleteSubtask(index: number) {
     if (this.formData.subtasks) {
+      await this.tasksService.deleteSubtask(this.formData.subtasks[index].id);
       this.formData.subtasks.splice(index, 1);
     }
   }
