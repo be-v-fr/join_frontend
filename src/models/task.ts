@@ -30,8 +30,10 @@ export class Task {
         this.due = obj.due ? obj.due : getCurrentDate();
         this.prio = obj.prio ? obj.prio : 'Medium';
         this.category = obj.category ? obj.category : 'Technical Task';
-        this.subtasks = obj.subtasks ? obj.subtasks : undefined;
         this.status = obj.status ? obj.status : 'To Do';
+        if(obj.subtasks) {
+            obj.subtasks.forEach((sData: any) => this.subtasks?.push(new Subtask(sData)));
+        }
     }
 
 

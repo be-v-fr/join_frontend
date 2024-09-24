@@ -82,7 +82,6 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
       this.formData.status = this.tasksService.newTaskStatus;
     } else {
       this.formData = new Task(this.inputTask.toJson());
-      console.log(this.formData);
     }
   }
 
@@ -353,6 +352,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
         this.showTaskAddedToast = true;
         setTimeout(() => { this.inOverlay ? this.close() : this.router.navigate(['/board']) }, 700);
       } else {
+        console.log(this.formData);
         this.tasksService.updateTask(this.formData);
         this.close()
       }

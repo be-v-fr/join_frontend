@@ -60,7 +60,7 @@ export class TaskViewComponent extends SlideComponent {
 
   /**
    * Toggle subtask status between options "To do" and "Done".
-   * Immediately update the task in Firestore.
+   * Immediately update the task in the database.
    * @param index subtask array index
    */
   async toggleSubtaskStatus(index: number) {
