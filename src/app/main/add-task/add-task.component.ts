@@ -370,7 +370,6 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    * @param form task form
    */
   onSubmit(form: NgForm) {
-    console.log(this.formData);
     if (form.submitted && form.form.valid) {
       if (this.formData.id == -1) {
         this.tasksService.addTask(this.formData);
