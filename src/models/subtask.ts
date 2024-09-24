@@ -13,7 +13,7 @@ export class Subtask {
      */
        constructor(obj: any) {
         this.id = obj.id ? obj.id : -1;
-        this.task_id = obj.task_id ? obj.task_id : -1;
+        this.task_id = obj.task ? obj.task : -1;
         this.name = obj.name ? obj.name : '';
         this.status = obj.status ? obj.status : 'To Do';
     }
