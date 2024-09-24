@@ -270,13 +270,13 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    * Add subtask and scroll to bottom (to generate visual feedback)
    * @param ev 
    */
-  addSubtask(ev?: Event) {
+  async addSubtask(ev?: Event) {
     const input: HTMLInputElement = this.subtaskRef.nativeElement;
     if (ev && input == document.activeElement) { this.handleSubtaskEvent(ev, input) }
     if (input.value) {
-      this.pushSubtasks(input.value);
-      input.value = '';
+      await this.pushSubtasks(input.value);
       this.scrollToBottom();
+      input.value = '';
     }
   }
 
@@ -296,13 +296,27 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    * Push new subtask to form data subtasks array
    * @param title subtask name/task
    */
-  pushSubtasks(title: string) {
+  async pushSubtasks(title: string) {
     if (!this.formData.subtasks) { this.formData.subtasks = [] }
+    const arrayLength = this.formData.subtasks.length;
     this.formData.subtasks.push(new Subtask({
-      task_id: this.formData.id,
+      task: this.formData.id,
       name: title,
       status: 'To do',
     }));
+    await this.addSubtaskToBackend(this.formData.subtasks[arrayLength]);
+  }
+
+
+  async addSubtaskToBackend(subtask: Subtask) {
+    if (this.formData.id != -1) {
+      await this.tasksService.addSubtask(subtask)
+        .then((resp: any) => {
+          if (this.formData.subtasks && resp.id) {
+            this.formData.subtasks[this.formData.subtasks.length - 1].id = resp.id;
+          }
+        });
+    }
   }
 
 
@@ -326,7 +340,9 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    */
   async deleteSubtask(index: number) {
     if (this.formData.subtasks) {
-      await this.tasksService.deleteSubtask(this.formData.subtasks[index].id);
+      if (this.formData.id != -1) {
+        await this.tasksService.deleteSubtask(this.formData.subtasks[index].id);
+      }
       this.formData.subtasks.splice(index, 1);
     }
   }

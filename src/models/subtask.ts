@@ -7,7 +7,7 @@ export class Subtask {
     name: string;
     status: 'To do' | 'Done';
 
-       /**
+    /**
      * Create new task and initialize obligatory properties
      * @param title task title
      */
@@ -15,7 +15,7 @@ export class Subtask {
         this.id = obj.id ? obj.id : -1;
         this.task_id = obj.task ? obj.task : -1;
         this.name = obj.name ? obj.name : '';
-        this.status = obj.status ? obj.status : 'To Do';
+        this.status = obj.status ? obj.status : 'To do';
     }
 
 

@@ -165,19 +165,32 @@ export class TasksService implements OnDestroy {
 
 
   /**
+   * Add task to database
+   * @param task task to be added
+   */
+  async addSubtask(subtask: Subtask): Promise<Object> {
+    const url = environment.BASE_URL + 'subtasks';
+    const body = subtask.toJson();
+    return lastValueFrom(this.http.post(url, body, {
+      headers: environment.AUTH_TOKEN_HEADERS
+    }));
+  }
+
+
+  /**
    * Update subtask in database.
    * The update will only be executed if the task has a valid database ID.
    * @param task task to be updated
    */
-    async updateSubtask(subtask: Subtask): Promise<Object | undefined> {
-      if (subtask.id != -1) {
-        const url = environment.BASE_URL + 'subtasks/' + subtask.id;
-        const body = subtask.toJson();
-        return lastValueFrom(this.http.put(url, body, {
-          headers: environment.AUTH_TOKEN_HEADERS
-        }));
-      } else return;
-    }
+  async updateSubtask(subtask: Subtask): Promise<Object | undefined> {
+    if (subtask.id != -1) {
+      const url = environment.BASE_URL + 'subtasks/' + subtask.id;
+      const body = subtask.toJson();
+      return lastValueFrom(this.http.put(url, body, {
+        headers: environment.AUTH_TOKEN_HEADERS
+      }));
+    } else return;
+  }
 
 
   /**
