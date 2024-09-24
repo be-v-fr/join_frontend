@@ -162,4 +162,20 @@ export class TasksService implements OnDestroy {
   getFilteredTasks(status: 'To do' | 'In progress' | 'Await feedback' | 'Done'): Task[] {
     return this.tasks.filter(t => t.status == status);
   }
+
+
+  /**
+   * Update subtask in database.
+   * The update will only be executed if the task has a valid database ID.
+   * @param task task to be updated
+   */
+    async updateSubtask(subtask: Subtask): Promise<Object | undefined> {
+      if (subtask.id != -1) {
+        const url = environment.BASE_URL + 'subtasks/' + subtask.id;
+        const body = subtask.toJson();
+        return lastValueFrom(this.http.put(url, body, {
+          headers: environment.AUTH_TOKEN_HEADERS
+        }));
+      } else return;
+    }
 }

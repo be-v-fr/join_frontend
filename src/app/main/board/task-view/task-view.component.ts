@@ -63,11 +63,11 @@ export class TaskViewComponent extends SlideComponent {
    * Immediately update the task in Firestore.
    * @param index subtask array index
    */
-  toggleSubtaskStatus(index: number) {
+  async toggleSubtaskStatus(index: number) {
     if (this.task && this.task.subtasks) {
       const subtask = this.task.subtasks[index];
       subtask.status = (subtask.status == 'To do' ? 'Done' : 'To do');
-      this.tasksService.updateTask(this.task);
+      await this.tasksService.updateSubtask(subtask);
     }
   }
 
