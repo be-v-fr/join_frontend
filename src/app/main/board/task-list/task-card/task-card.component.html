@@ -23,8 +23,8 @@
     <div class="bottom-container" *ngIf="task.assigned.length > 0 || task.prio != null">
         <div class="assigned-badges">
             @for(assignment of task.assigned; track assignment) {
-            <app-person-badge [name]="usersService.getUserByAuthId(assignment).user.username"
-                [color]="usersService.getUserByAuthId(assignment).getColor()" />
+            <app-person-badge [name]="usersService.getUserByAppId(assignment).user.username"
+                [color]="usersService.getUserByAppId(assignment).getColor()" />
             }
         </div>
         <div class="prio">

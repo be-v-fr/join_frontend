@@ -25,8 +25,8 @@
             <p>Assigned to:</p>
             @for(assignment of task.assigned; track assignment) {
             @if(assignment) {
-            <app-contact-list-item [name]="usersService.getUserByAuthId(assignment).user.username"
-                [color]="usersService.getUserByAuthId(assignment).getColor()" [instance]="'task'" />
+            <app-contact-list-item [name]="usersService.getUserByAppId(assignment).user.username"
+                [color]="usersService.getUserByAppId(assignment).getColor()" [instance]="'task'" />
             }
             }
         </div>
