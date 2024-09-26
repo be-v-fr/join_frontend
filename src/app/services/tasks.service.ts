@@ -136,11 +136,13 @@ export class TasksService implements OnDestroy {
    * Delete task from database
    * @param id ID of task to be deleted
    */
-  async deleteTask(id: number): Promise<Object> {
-    const url = environment.BASE_URL + 'tasks/' + id;
-    return lastValueFrom(this.http.delete(url, {
-      headers: environment.AUTH_TOKEN_HEADERS
-    }));
+  async deleteTask(id: number): Promise<Object | undefined> {
+    if (id != -1) {
+      const url = environment.BASE_URL + 'tasks/' + id;
+      return lastValueFrom(this.http.delete(url, {
+        headers: environment.AUTH_TOKEN_HEADERS
+      }));
+    } else return;
   }
 
 

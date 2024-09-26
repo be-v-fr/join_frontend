@@ -214,7 +214,7 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   updateContacts() {
     if (this.currentUser) {
-      this.usersService.updateUser(this.currentUser);
+      this.usersService.updateUser(this.currentUser); // HIER VERÄNDERN --> CONTACTS SERVICE
       this.sortedContacts = this.getSortedContacts();
     }
   }

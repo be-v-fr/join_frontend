@@ -4,7 +4,6 @@ import { Observable, Subject, from, lastValueFrom } from "rxjs";
 import { environment } from "../../environments/environment.development";
 import { Router } from "@angular/router";
 import { AppUser } from "../../models/app-user";
-import { Contact } from "../../models/contact";
 import { AuthUser } from "../../models/auth-user";
 
 
@@ -67,7 +66,6 @@ export class AuthService {
             headers: environment.AUTH_TOKEN_HEADERS
         }));
         this.currentUser = new AppUser(resp);
-        this.syncContacts();
         this.currentUser$.next(this.currentUser);
     }
 
@@ -92,7 +90,7 @@ export class AuthService {
         this.setLocalGuestLogin(true);
         this.currentUser = new AppUser({
             id: 0,
-            user: new AuthUser({id: 'guest', name: 'Guest'}),
+            user: new AuthUser({ id: 'guest', name: 'Guest' }),
         });
     }
 
@@ -110,48 +108,6 @@ export class AuthService {
         this.currentUser = null;
         this.currentUser$.next(null);
         this.router.navigateByUrl('');
-    }
-
-
-    async syncContacts(): Promise<void> {
-        if (this.currentUser && this.currentUser.user.id != -1) {
-            if (this.currentUser.user.id == 'guest') {
-                this.currentUser.loadLocalGuestContacts();
-            } else {
-                await this.syncRegisteredUserContacts();
-                console.log('contacts synced', this.currentUser.contacts);
-            }
-        }
-    }
-
-
-    async syncRegisteredUserContacts(): Promise<void> {
-        if (this.currentUser) {
-            const url = environment.BASE_URL + 'contacts';
-            const resp = await lastValueFrom(this.http.get(url, {
-                headers: environment.AUTH_TOKEN_HEADERS
-            }));
-            this.currentUser.contacts = [];
-            (resp as Array<any>).forEach(cData => {
-                this.currentUser?.contacts?.push(new Contact(cData));
-            });
-            this.currentUser$.next(this.currentUser);
-        }
-    }
-
-
-    async addContact(contact: Contact): Promise<void> {
-        // POST
-    }
-
-
-    async updateContact(contact: Contact): Promise<void> {
-        // PUT
-    }
-
-
-    async deleteContact(contact_id: number): Promise<void> {
-        // DELETE
     }
 
 
