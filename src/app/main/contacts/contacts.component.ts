@@ -11,6 +11,7 @@ import { HeadlineSloganComponent } from '../../templates/headline-slogan/headlin
 import { CommonModule } from '@angular/common';
 import { ArrowBackBtnComponent } from '../../templates/arrow-back-btn/arrow-back-btn.component';
 import { Subscription } from 'rxjs';
+import { ContactsService } from '../../services/contacts.service';
 
 
 /**
@@ -28,6 +29,7 @@ import { Subscription } from 'rxjs';
 export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
   private authService = inject(AuthService);
   private usersService = inject(UsersService);
+  private contactsService = inject(ContactsService);
   private authSub = new Subscription();
   private usersSub = new Subscription();
   users: AppUser[] = [];
@@ -200,22 +202,10 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    * Submit "add contact" form according to form mode ("add"/"edit")
    * @param contact "add contact" form data
    */
-  submitContact(contact: Contact) {
+  async submitContact(contact: Contact) {
     if (this.currentUser) {
-      this.contactOverlay == 'add' ? this.currentUser.addContact(contact) : this.sortedContacts[this.selection] = contact;
-      this.updateContacts();
+      await contact.id == -1 ? this.contactsService.addContact(contact) : this.contactsService.updateContact(contact);
       this.cancelOverlay();
-    }
-  }
-
-
-  /**
-   * Update contacts in user Firestore data and update sorted contacts array afterwards
-   */
-  updateContacts() {
-    if (this.currentUser) {
-      this.usersService.updateUser(this.currentUser); // HIER VERÄNDERN --> CONTACTS SERVICE
-      this.sortedContacts = this.getSortedContacts();
     }
   }
 
@@ -230,12 +220,11 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /**
    * Delete selected/viewed contact.
-   * This option should be disabled if the contact is a user.
    */
   deleteSelectedContact() {
     if (this.currentUser && this.currentUser.contacts) {
-      this.currentUser.contacts.splice(this.selection, 1);
-      this.usersService.updateUser(this.currentUser);
+      const contact_id = this.sortedContacts[this.selection].id;
+      this.contactsService.deleteContact(contact_id);
       this.unselectContact();
     }
   }

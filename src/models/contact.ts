@@ -9,7 +9,7 @@ import { environment } from '../environments/environment.development';
  */
 export class Contact {
     id: number;
-    appUser: AppUser;
+    // appUser: AppUser;
     name: string;
     email?: string;
     phone?: string;
@@ -25,7 +25,7 @@ export class Contact {
      */
     constructor(obj: any) {
         this.id = obj.id ? obj.id : -1;
-        this.appUser = new AppUser(obj.app_user ? obj.app_user : { id: -1 });
+        // this.appUser = new AppUser(obj.app_user ? obj.app_user : { id: -1 });
         this.name = obj.name ? obj.name : '';
         this.color_id = obj.color_id ? obj.color_id : -1;
         this.email = obj.email ? obj.email : undefined;
@@ -35,19 +35,19 @@ export class Contact {
 
     toJson(): {} {
         const json: any = {
-            app_user: this.appUser.toJson(),
+            // app_user: this.appUser.toJson(),
             name: this.name,
-            color_id: this.color_id,
+            color_id: this.color_id == -1 ? Math.floor(Math.random() * 25) : this.color_id,
             email: this.email,
             phone: this.phone,
         };
-        if(this.id != -1) {json.id = this.id}
+        if (this.id != -1) { json.id = this.id }
         return json;
     }
 
 
     getColor() {
-        return environment.BADGE_COLORS[this.color_id];
+        return environment.BADGE_COLORS[this.color_id] || '#d1d1d1';
     }
 
 
@@ -56,8 +56,9 @@ export class Contact {
      * @returns check result
      */
     isUser(): boolean {
-        if(this.appUser.user.id && this.appUser.user.id != 'guest' && this.appUser.user.id != -1) {return true}
-        else {return false}
+        return false;
+        // if (this.appUser.user.id && this.appUser.user.id != 'guest' && this.appUser.user.id != -1) { return true }
+        // else { return false }
     }
     // VÖLLIG FALSCH !!! appUser ist der BESITZER und hat mit dem Kontakt nichts zu tun !!!
 
@@ -67,8 +68,8 @@ export class Contact {
      * @returns check result
      */
     hasOptionalProperties(): boolean {
-        if(this.email || this.phone) {return true}
-        else {return false}
+        if (this.email || this.phone) { return true }
+        else { return false }
     }
 
 

@@ -33,16 +33,6 @@ export class AppUser {
 
 
     /**
-     * Add contact to this user's individual contact list
-     * @param contact contact to be added
-     */
-    addContact(contact: Contact) {
-        if (!this.contacts) { this.contacts = [] }
-        this.contacts.push(contact);
-    }
-
-
-    /**
      * Return this user as a contact object
      * @returns contact
      */

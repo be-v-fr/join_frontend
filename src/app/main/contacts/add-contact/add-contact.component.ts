@@ -19,8 +19,8 @@ import { SlideComponent } from '../../../templates/slide/slide.component';
 })
 export class AddContactComponent extends SlideComponent {
   @Input() mode: 'add' | 'edit' = 'add';
-  @Input('contact') inputContact: Contact = new Contact('');
-  formData = new Contact('');
+  @Input('contact') inputContact: Contact = new Contact({});
+  formData = new Contact({});
   @Output() cancelOverlay = new EventEmitter<void>();
   @Output() contactSubmission = new EventEmitter<Contact>();
   @Output() delete = new EventEmitter<void>();
@@ -34,8 +34,8 @@ export class AddContactComponent extends SlideComponent {
    */
   override ngOnInit() {
     super.ngOnInit();
-    if (this.mode = 'edit') {
-      this.formData = Object.assign({}, this.inputContact);
+    if (this.mode == 'edit') {
+      this.formData = new Contact(this.inputContact.toJson());
       if (this.inputContact.isUser()) { this.disableUserNameEdit = true }
     }
   }
