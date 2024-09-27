@@ -58,6 +58,7 @@ export class Contact {
         // else { return false }
     }
     // VÖLLIG FALSCH !!! appUser ist der BESITZER und hat mit dem Kontakt nichts zu tun !!!
+    // VERGLEICH ÜBER EMAIL IMPLEMENTIEREN, evtl. besser im USERS SERVICE. email von neuem/bearbeiteten Kontakt muss einzigartig bleiben !!
 
 
     /**
