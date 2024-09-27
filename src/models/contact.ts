@@ -9,7 +9,6 @@ import { environment } from '../environments/environment.development';
  */
 export class Contact {
     id: number;
-    // appUser: AppUser;
     name: string;
     email?: string;
     phone?: string;
@@ -25,7 +24,6 @@ export class Contact {
      */
     constructor(obj: any) {
         this.id = obj.id ? obj.id : -1;
-        // this.appUser = new AppUser(obj.app_user ? obj.app_user : { id: -1 });
         this.name = obj.name ? obj.name : '';
         this.color_id = obj.color_id ? obj.color_id : -1;
         this.email = obj.email ? obj.email : undefined;
@@ -35,7 +33,6 @@ export class Contact {
 
     toJson(): {} {
         const json: any = {
-            // app_user: this.appUser.toJson(),
             name: this.name,
             color_id: this.color_id == -1 ? Math.floor(Math.random() * 25) : this.color_id,
             email: this.email,
