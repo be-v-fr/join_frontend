@@ -56,6 +56,9 @@
       .bottom-container {
         flex: 1;
         width: 100%;
+        @media screen and (max-width: 1024px) and (min-width: 769px) {
+          margin-top: 20px;
+        }
         @include flex($jc: space-between, $ai: flex-end);
         .btns-submit {
           @include flex($g: 16px);
@@ -67,7 +70,7 @@
   .form-padding-bottom {
     padding-bottom: 24px;
     @media screen and (max-width: 768px) {
-        padding-bottom: 16px;
+        padding-bottom: 0;
     }
   }
 
