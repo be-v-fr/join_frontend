@@ -68,7 +68,7 @@ export class ContactsService {
 
   async deleteContact(id: number): Promise<Object | undefined> {
     if (id != -1 && this.authService.currentUser) {
-      const url = environment.BASE_URL + 'tasks/' + id;
+      const url = environment.BASE_URL + 'contacts/' + id;
       return lastValueFrom(this.http.delete(url, {
         headers: environment.AUTH_TOKEN_HEADERS
       }));
