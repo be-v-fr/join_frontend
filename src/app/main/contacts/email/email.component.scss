@@ -1,6 +1,11 @@
 @import '../../../../styles.scss';
 
 a {
+    display: block;
     color: $link-blue;
     font-size: $font-small;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
