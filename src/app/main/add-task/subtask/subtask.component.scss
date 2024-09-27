@@ -15,10 +15,11 @@ input {
   width: 100%;
   @include flex($jc: space-between);
   .name {
-    max-width: 100%;
+    max-width: calc(100% - 72px);
     @include flex($jc: flex-start);
     span,
     input {
+      width: 100%;
       margin-left: 12px;
       white-space: nowrap;
       overflow: hidden;
@@ -34,9 +35,6 @@ input {
   }
   &:hover {
     background: #eeeeee;
-    .name {
-      max-width: calc(100% - 72px);
-    }
     .btns-container {
       display: flex;
     }
