@@ -88,7 +88,12 @@
       overflow-y: auto;
     }
     @media screen and (max-width: 585px) {
-      padding: 24px 24px;
+      padding: 48px 24px 24px;
+      height: 94%;
+    }
+    @media screen and (max-width: 420px) {
+      padding-left: 8px;
+      padding-right: 8px;
     }
   }
   .edit-task-wrapper {
@@ -165,5 +170,11 @@
         }
       }
     }
+  }
+}
+@media screen and (max-width: 420px) {
+  .overlay .task-form-wrapper {
+    width: 100%;
+    max-width: 100%;
   }
 }

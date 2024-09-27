@@ -78,6 +78,10 @@
     position: absolute;
     right: 36px;
     top: 60px;
+    @media screen and (max-width: 585px) {
+      right: 24px;
+      top: 12px;
+    }
   }
   @media screen and (max-width: 1024px) {
     @include column-layout();
