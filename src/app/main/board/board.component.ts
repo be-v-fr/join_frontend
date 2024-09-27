@@ -115,7 +115,7 @@ export class BoardComponent {
    */
   @HostListener('window:resize', ['$event'])
   onResize() {
-    if (this.taskFormId != null && window.innerWidth <= 768) { this.taskFormId = null; }
+    if (this.taskFormId == -1 && window.innerWidth <= 768) { this.router.navigate(['/add_task']) }
   }
 
 
