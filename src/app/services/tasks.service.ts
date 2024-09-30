@@ -97,11 +97,18 @@ export class TasksService {
    * @param task task to be added
    */
   async addTask(task: Task): Promise<Object> {
+    this.addTaskLocally(task);
     const url = environment.BASE_URL + 'tasks';
     const body = task.toJson();
     return lastValueFrom(this.http.post(url, body, {
       headers: environment.AUTH_TOKEN_HEADERS
     }));
+  }
+
+
+  addTaskLocally(task: Task): void {
+    this.tasks.push(task);
+    this.tasks$.next();
   }
 
 
@@ -112,6 +119,7 @@ export class TasksService {
    */
   async updateTask(task: Task): Promise<Object | undefined> {
     if (task.id != -1) {
+      this.updateTaskLocally(task);
       const url = environment.BASE_URL + 'tasks/' + task.id;
       const body = task.toJson();
       return lastValueFrom(this.http.put(url, body, {
@@ -121,17 +129,40 @@ export class TasksService {
   }
 
 
+  updateTaskLocally(task: Task): void {
+    const tasksArrayIndex = this.tasks.findIndex(t => t.id == task.id);
+    if(tasksArrayIndex >= 0) {
+      this.tasks[tasksArrayIndex] = task;
+      this.tasks$.next();
+    } else {
+      console.error('Task with ID', task.id, 'could not be updated (task not found).');
+    }
+  }
+
+
   /**
    * Delete task from database
    * @param id ID of task to be deleted
    */
   async deleteTask(id: number): Promise<Object | undefined> {
     if (id != -1) {
+      this.deleteTaskLocally(id);
       const url = environment.BASE_URL + 'tasks/' + id;
       return lastValueFrom(this.http.delete(url, {
         headers: environment.AUTH_TOKEN_HEADERS
       }));
     } else return;
+  }
+
+
+  deleteTaskLocally(id: number): void {
+    const tasksArrayIndex = this.tasks.findIndex(t => t.id == id);
+    if(tasksArrayIndex >= 0) {
+      this.tasks.splice(tasksArrayIndex, 1);
+      this.tasks$.next();
+    } else {
+      console.error('Task with ID', id, 'could not be deleted (task not found).');
+    }
   }
 
 
