@@ -11,7 +11,7 @@ export class AuthUser {
      */
     constructor(obj: any) {
         this.id = obj.id ? obj.id : -1;
-        this.username = obj.username ? obj.username : '';
+        this.username = obj.username ? obj.username.replace('_', ' ') : '';
         this.email = obj.email ? obj.email : '';
     }
 
@@ -19,7 +19,7 @@ export class AuthUser {
     toJson(): {} {
         return {
             id: this.id,
-            username: this.username,
+            username: this.username.replace(' ', '_'),
             email: this.email,
         }
     }

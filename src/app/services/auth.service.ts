@@ -36,7 +36,7 @@ export class AuthService {
     async register(username: string, email: string, password: string): Promise<Object> {
         const url = environment.BASE_URL + 'register';
         const body = {
-            username: username,
+            username: username.replace(' ', '_'),
             email: email,
             password: password,
         };
@@ -53,7 +53,7 @@ export class AuthService {
     logIn(username: string, password: string): Promise<Object> {
         const url = environment.BASE_URL + 'login';
         const body = {
-            username: username,
+            username: username.replace(' ', '_'),
             password: password,
         };
         return lastValueFrom(this.http.post(url, body));
