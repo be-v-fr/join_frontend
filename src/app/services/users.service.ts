@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { lastValueFrom, Subject, Subscription } from 'rxjs';
+import { lastValueFrom, Subject } from 'rxjs';
 import { AppUser } from '../../models/app-user';
 import { AuthUser } from '../../models/auth-user';
 import { environment } from "../../environments/environment.development";
@@ -15,10 +15,9 @@ import { AuthService } from "./auth.service";
   providedIn: 'root'
 })
 
-export class UsersService implements OnDestroy {
+export class UsersService {
   users: AppUser[] = [];
-  users$: Subject<void> = new Subject<void>(); // backend AND frontend observable !!!
-  usersSub: Subscription = new Subscription();
+  users$: Subject<void> = new Subject<void>();
 
 
   /**
@@ -27,16 +26,13 @@ export class UsersService implements OnDestroy {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-  ) {
-    this.usersSub = this.subUsers();
-  }
+  ) { }
 
 
-  /**
-   * Unsubscribe
-   */
-  ngOnDestroy() {
-    this.usersSub.unsubscribe();
+  init() {
+    const tasksEvents = new EventSource(environment.BASE_URL + 'users/stream');
+    tasksEvents.onmessage = () => this.syncUsers();
+    this.syncUsers();
   }
 
 

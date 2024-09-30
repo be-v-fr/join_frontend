@@ -51,7 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authService.syncUser()
       .then(() => {
-        this.usersService.syncUsers();
+        this.usersService.init();
         this.tasksService.init();
         this.contactsService.syncContacts();
       })
