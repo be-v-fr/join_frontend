@@ -57,7 +57,6 @@ export class TaskListComponent implements OnDestroy {
   subTasks(): Subscription {
     return this.tasksService.tasks$.subscribe(() => {
       this.tasks = this.tasksService.getFilteredTasks(this.status);
-      console.log(this.status, this.tasks);
       this.cd.detectChanges();
     });
   }
