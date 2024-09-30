@@ -16,10 +16,10 @@
     </section>
     <section class="tasks-by-status">
         @for (status of statusList; track status) {
-        <app-task-list [status]="status" [tasks]="getFilteredTasks(status)" (addToStatusClick)="addToStatus(status)"
-            (taskClick)="viewTask($event)" (setDragCardHeight)="setDragCardHeight($event)"
-            [dragCardHeight]="dragCardHeight" (setDragStartStatus)="setDragStartStatus($event)"
-            [dragStartStatus]="dragStartStatus" [closingTaskStatusDropdown]="closingTaskStatusDropdown" />
+        <app-task-list [status]="status" (addToStatusClick)="addToStatus(status)" (taskClick)="viewTask($event)"
+            (setDragCardHeight)="setDragCardHeight($event)" [dragCardHeight]="dragCardHeight"
+            (setDragStartStatus)="setDragStartStatus($event)" [dragStartStatus]="dragStartStatus"
+            [closingTaskStatusDropdown]="closingTaskStatusDropdown" />
         }
     </section>
 </div>

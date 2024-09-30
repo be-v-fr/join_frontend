@@ -36,17 +36,6 @@ export class BoardComponent {
 
 
   /**
-   * Apply both status und search filter to tasks array
-   * @param status task status
-   * @returns filtered tasks 
-   */
-  getFilteredTasks(status: 'To do' | 'In progress' | 'Await feedback' | 'Done'): Task[] {
-    const tasksFilteredByStatus = this.tasksService.getFilteredTasks(status);
-    return tasksFilteredByStatus.filter(t => this.taskFitsSearch(t));
-  }
-
-
-  /**
    * Check whether a task fits the current search filter (which means that it will still be displayed when applying the filter).
    * The search filter is applied only to the task title and task description.
    * @param task task to be checked

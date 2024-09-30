@@ -1,10 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Task } from '../../../../models/task';
 import { TaskCardComponent } from './task-card/task-card.component';
 import { TasksService } from '../../../services/tasks.service';
 import { CommonModule } from '@angular/common';
 import { AutoscrollService } from '../../../services/autoscroll.service';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 
 /**
@@ -18,8 +18,9 @@ import { Subject } from 'rxjs';
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
-export class TaskListComponent {
-  @Input() tasks: Task[] = [];
+export class TaskListComponent implements OnDestroy {
+  tasks: Task[] = [];
+  tasksSub = new Subscription();
   @Input() status: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
   draggingOver: boolean = false;
   private lastDragOver: number = 0;
@@ -42,7 +43,24 @@ export class TaskListComponent {
   constructor(
     private tasksService: TasksService,
     private scrollService: AutoscrollService,
-  ) { }
+    private cd: ChangeDetectorRef,
+  ) {
+    this.tasksSub = this.subTasks();
+  }
+
+
+  ngOnDestroy(): void {
+    this.tasksSub.unsubscribe();
+  }
+
+
+  subTasks(): Subscription {
+    return this.tasksService.tasks$.subscribe(() => {
+      this.tasks = this.tasksService.getFilteredTasks(this.status);
+      console.log(this.status, this.tasks);
+      this.cd.detectChanges();
+    });
+  }
 
 
   /**
