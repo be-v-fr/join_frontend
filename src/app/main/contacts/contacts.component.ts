@@ -204,7 +204,11 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   async submitContact(contact: Contact) {
     if (this.currentUser) {
-      await contact.id == -1 ? this.contactsService.addContact(contact) : this.contactsService.updateContact(contact);
+      if (this.currentUser.user.id == 'guest') {
+        this.currentUser.saveLocalGuestContacts();
+      } else {
+       contact.id == -1 ? await this.contactsService.addContact(contact) : await this.contactsService.updateContact(contact);
+      }
       this.cancelOverlay();
     }
   }

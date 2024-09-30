@@ -60,22 +60,6 @@ export class UsersService {
   }
 
 
-  async updateUser(appUser: AppUser) {
-    if (appUser.id != -1 && appUser.user.id != -1) {
-      if (appUser.user.id == 'guest') {
-        appUser.saveLocalGuestContacts();
-      } else {
-        // PUT in backend
-      }
-    }
-  }
-
-
-  async deleteUser(appUser: AppUser) {
-    // DELETE in backend
-  }
-
-
   /**
    * Retrieve a complete app user object from app user ID
    * @param id app user ID
