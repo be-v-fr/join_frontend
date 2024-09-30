@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { AppUser } from '../models/app-user';
 import { TasksService } from './services/tasks.service';
 import { ContactsService } from './services/contacts.service';
+import { environment } from '../environments/environment.development';
 
 
 /**
@@ -51,7 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authService.syncUser()
       .then(() => {
         this.usersService.syncUsers();
-        this.tasksService.syncTasks();
+        this.tasksService.init();
         this.contactsService.syncContacts();
       })
       .catch(e => console.error(e));

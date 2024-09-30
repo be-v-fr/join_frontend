@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Task } from '../../models/task';
 import { AuthService } from './auth.service';
@@ -14,11 +14,10 @@ import { Subtask } from '../../models/subtask';
   providedIn: 'root'
 })
 
-export class TasksService implements OnDestroy {
+export class TasksService {
   tasks: Task[] = [];
   tasks$: Subject<void> = new Subject<void>();
   newTaskStatus: 'To do' | 'In progress' | 'Await feedback' = 'To do';
-  unsubTasks;
   public syncingSubtasks: boolean = false;
 
 
@@ -28,25 +27,15 @@ export class TasksService implements OnDestroy {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-  ) {
-    this.unsubTasks = this.subTasks();
-  }
+  ) {  }
 
 
-  /**
-   * Unsubscribe
-   */
-  ngOnDestroy() {
-    // UNSUB
-  }
-
-
-  /**
-   * Subscribe to Firestore "tasks" collection to synchronize "tasks" array
-   * @returns subscription
-   */
-  subTasks() {
-    // CREATE SERVER SUB
+  init() {
+    const tasksEvents = new EventSource(environment.BASE_URL + 'tasks/stream');
+    const subtasksEvents = new EventSource(environment.BASE_URL + 'subtasks/stream');
+    tasksEvents.onmessage = () => this.syncTasks();
+    subtasksEvents.onmessage = () => this.syncSubtasks();
+    this.syncTasks();
   }
 
 
