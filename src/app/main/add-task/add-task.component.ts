@@ -326,11 +326,13 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    * for smaller screens, the page is scrollable but the subtasks list is not.
    */
   scrollToBottom() {
-    const subtasksList = this.subtasksList.nativeElement;
-    setTimeout(() => {
-      this.inOverlay ? this.scrollService.scrollToBottom('overlayTaskForm') : this.scrollService.scrollToBottom('page');
-      subtasksList.scrollTop = subtasksList.scrollHeight;
-    }, 0);
+    if (this.formData.subtasks && this.formData.subtasks.length > 1) {
+      const subtasksList = this.subtasksList.nativeElement;
+      setTimeout(() => {
+        this.inOverlay ? this.scrollService.scrollToBottom('overlayTaskForm') : this.scrollService.scrollToBottom('page');
+        subtasksList.scrollTop = subtasksList.scrollHeight;
+      }, 0);
+    }
   }
 
 
