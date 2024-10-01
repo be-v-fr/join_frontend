@@ -49,7 +49,7 @@ export class UsersService {
   async syncUsers(): Promise<void> {
     const url = environment.BASE_URL + 'users';
     const resp = await lastValueFrom(this.http.get(url, {
-      headers: environment.AUTH_TOKEN_HEADERS
+      headers: this.authService.getAuthTokenHeaders(),
     }));
     this.users = [];
     (resp as Array<any>).forEach(uData => {

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, from, lastValueFrom } from "rxjs";
 import { environment } from "../../environments/environment.development";
 import { Router } from "@angular/router";
@@ -60,10 +60,15 @@ export class AuthService {
     }
 
 
+    getAuthTokenHeaders(): HttpHeaders {
+        return new HttpHeaders().set('Authorization', 'Token ' + localStorage.getItem('token'));  
+    }
+
+
     async syncUser(): Promise<void> {
         const url = environment.BASE_URL + 'users/current';
         const resp = await lastValueFrom(this.http.get(url, {
-            headers: environment.AUTH_TOKEN_HEADERS
+            headers: this.getAuthTokenHeaders(),
         }));
         this.currentUser = new AppUser(resp);
         this.currentUser$.next(this.currentUser);

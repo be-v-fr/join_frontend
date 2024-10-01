@@ -33,7 +33,7 @@ export class ContactsService {
     if (this.authService.currentUser) {
       const url = environment.BASE_URL + 'contacts';
       const resp = await lastValueFrom(this.http.get(url, {
-        headers: environment.AUTH_TOKEN_HEADERS
+        headers: this.authService.getAuthTokenHeaders(),
       }));
       this.authService.currentUser.contacts = [];
       (resp as Array<any>).forEach(cData => {
@@ -49,7 +49,7 @@ export class ContactsService {
       const url = environment.BASE_URL + 'contacts';
       const body = contact.toJson();
       return lastValueFrom(this.http.post(url, body, {
-        headers: environment.AUTH_TOKEN_HEADERS
+        headers: this.authService.getAuthTokenHeaders(),
       }));
     } else return;
   }
@@ -60,7 +60,7 @@ export class ContactsService {
       const url = environment.BASE_URL + 'contacts/' + contact.id;
       const body = contact.toJson();
       return lastValueFrom(this.http.put(url, body, {
-        headers: environment.AUTH_TOKEN_HEADERS
+        headers: this.authService.getAuthTokenHeaders(),
       }));
     } else return;
   }
@@ -70,7 +70,7 @@ export class ContactsService {
     if (id != -1 && this.authService.currentUser) {
       const url = environment.BASE_URL + 'contacts/' + id;
       return lastValueFrom(this.http.delete(url, {
-        headers: environment.AUTH_TOKEN_HEADERS
+        headers: this.authService.getAuthTokenHeaders(),
       }));
     } else return;
   }

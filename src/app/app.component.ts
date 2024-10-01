@@ -34,6 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
   currentUser?: AppUser | null;
   loggedIn: boolean = false;
   showHeaderDropdown: boolean = false;
+  private dataInitAfterAuthComplete: boolean = false;
   readonly MAIN_ROUTES = ['/summary', '/add_task', '/board', '/contacts'];
   readonly OTHER_ROUTES = ['/help', '/legal_notice', '/privacy_policy'];
 
@@ -50,11 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authService.syncUser()
-      .then(() => {
-        this.usersService.init();
-        this.tasksService.init();
-        this.contactsService.syncContacts();
-      })
+      .then(() => { })
       .catch(e => console.error(e));
   }
 
@@ -80,6 +77,12 @@ export class AppComponent implements OnInit, OnDestroy {
       if (currentUser?.id) {
         this.currentUser = currentUser;
         this.loggedIn = true;
+        if (!this.dataInitAfterAuthComplete) {
+          this.usersService.init();
+          this.tasksService.init();
+          this.contactsService.syncContacts();
+          this.dataInitAfterAuthComplete = true;
+        }
       } else { this.localLogOut() }
     });
   }
@@ -91,6 +94,7 @@ export class AppComponent implements OnInit, OnDestroy {
   localLogOut() {
     this.currentUser = null;
     this.loggedIn = false;
+    this.dataInitAfterAuthComplete = false;
     this.guestSub.unsubscribe();
   }
 

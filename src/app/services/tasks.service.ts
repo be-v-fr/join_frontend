@@ -42,7 +42,7 @@ export class TasksService {
   async syncTasks(): Promise<void> {
     const url = environment.BASE_URL + 'tasks';
     const resp = await lastValueFrom(this.http.get(url, {
-      headers: environment.AUTH_TOKEN_HEADERS
+      headers: this.authService.getAuthTokenHeaders(),
     }));
     this.tasks = [];
     (resp as Array<any>).forEach(tData => {
@@ -59,7 +59,7 @@ export class TasksService {
       this.syncingSubtasks = true;
       const url = environment.BASE_URL + 'subtasks';
       const resp = await lastValueFrom(this.http.get(url, {
-        headers: environment.AUTH_TOKEN_HEADERS
+        headers: this.authService.getAuthTokenHeaders(),
       }));
       this.addSubtasksToTasks(resp as Array<any>);
       console.log('subtasks synced!', this.tasks);
@@ -101,7 +101,7 @@ export class TasksService {
     const url = environment.BASE_URL + 'tasks';
     const body = task.toJson();
     return lastValueFrom(this.http.post(url, body, {
-      headers: environment.AUTH_TOKEN_HEADERS
+      headers: this.authService.getAuthTokenHeaders(),
     }));
   }
 
@@ -123,7 +123,7 @@ export class TasksService {
       const url = environment.BASE_URL + 'tasks/' + task.id;
       const body = task.toJson();
       return lastValueFrom(this.http.put(url, body, {
-        headers: environment.AUTH_TOKEN_HEADERS
+        headers: this.authService.getAuthTokenHeaders(),
       }));
     } else return;
   }
@@ -149,7 +149,7 @@ export class TasksService {
       this.deleteTaskLocally(id);
       const url = environment.BASE_URL + 'tasks/' + id;
       return lastValueFrom(this.http.delete(url, {
-        headers: environment.AUTH_TOKEN_HEADERS
+        headers: this.authService.getAuthTokenHeaders(),
       }));
     } else return;
   }
@@ -194,7 +194,7 @@ export class TasksService {
     const url = environment.BASE_URL + 'subtasks';
     const body = subtask.toJson();
     return lastValueFrom(this.http.post(url, body, {
-      headers: environment.AUTH_TOKEN_HEADERS
+      headers: this.authService.getAuthTokenHeaders(),
     }));
   }
 
@@ -209,7 +209,7 @@ export class TasksService {
       const url = environment.BASE_URL + 'subtasks/' + subtask.id;
       const body = subtask.toJson();
       return lastValueFrom(this.http.put(url, body, {
-        headers: environment.AUTH_TOKEN_HEADERS
+        headers: this.authService.getAuthTokenHeaders(),
       }));
     } else return;
   }
@@ -222,7 +222,7 @@ export class TasksService {
   async deleteSubtask(id: number): Promise<Object> {
     const url = environment.BASE_URL + 'subtasks/' + id;
     return lastValueFrom(this.http.delete(url, {
-      headers: environment.AUTH_TOKEN_HEADERS
+      headers: this.authService.getAuthTokenHeaders(),
     }));
   }
 }

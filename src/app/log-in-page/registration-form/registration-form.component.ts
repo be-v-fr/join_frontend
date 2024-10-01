@@ -244,9 +244,11 @@ export class RegistrationFormComponent implements OnDestroy {
     this.authService.logIn(this.formData.name, this.formData.password)
       .then((resp: any) => {
         if(resp.token) {
-          this.authService.currentUser$.next(resp as AppUser);
           localStorage.setItem('token', resp.token);
           this.navigateToSummary();
+          console.log('logged in successfully!')
+          this.authService.currentUser$.next(new AppUser(resp.appUser));
+          console.log('currentUser$ triggered from registration form!')
         }
       })
       .catch((err) => this.authError = this.getAuthError(err.toString()));

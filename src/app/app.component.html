@@ -2,7 +2,7 @@
   <app-menu *ngIf="!onLogInPage()" />
   <div class="main">
     <app-header *ngIf="!onLogInPage()" [currentUser]="currentUser" [displayDropdown]="showHeaderDropdown"
-      (updateDropdown)="showHeaderDropdown = $event"></app-header>
+      (updateDropdown)="showHeaderDropdown = $event" />
     <div class="page-wrapper" id="pageWrapper" [ngClass]="{'scrollable': getCurrentRoute() != '/contacts'}">
       <div class="page" id="page"
         [ngClass]="{'padding': getCurrentRoute() != '/contacts','task-responsive': getCurrentRoute() == '/add_task'}">
