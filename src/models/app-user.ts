@@ -50,14 +50,14 @@ export class AppUser {
      * @param user the other user
      * @returns check result
      */
-    hasUserInContacts(appUser: AppUser): boolean {
-        let res: boolean = false;
+    hasUserInContacts(appUser: AppUser): number {
         if (this.contacts) {
-            this.contacts.forEach(c => {
-                if (c.email == appUser.user.email) { res = true }
-            });
+            for (let i = 0; i < this.contacts.length; i++) {
+                const c = this.contacts[i];
+                if (c.email == appUser.user.email) { return i }
+            }
         }
-        return res;
+        return -1;
     }
 
 

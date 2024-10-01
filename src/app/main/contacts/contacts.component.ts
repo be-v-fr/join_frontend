@@ -128,7 +128,15 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.currentUser) {
       const contacts: Contact[] = this.currentUser.contacts || [];
       this.users.forEach(u => {
-        if (this.currentUser && !this.currentUser.hasUserInContacts(u)) { contacts.push(u.asContact()) }
+        if (this.currentUser) {
+          const contactsArrayIndex = this.currentUser.hasUserInContacts(u);
+          if (contactsArrayIndex == -1) {
+            contacts.push(u.asContact());
+          } else {
+            contacts[contactsArrayIndex].name = u.user.username;
+            contacts[contactsArrayIndex].email = u.user.email;
+          }
+        }
       });
       return contacts;
     } else {
@@ -213,7 +221,7 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
       if (this.currentUser.user.id == 'guest') {
         this.currentUser.saveLocalGuestContacts(); // shift to contacts service
       } else {
-       contact.id == -1 ? await this.contactsService.addContact(contact) : await this.contactsService.updateContact(contact);
+        contact.id == -1 ? await this.contactsService.addContact(contact) : await this.contactsService.updateContact(contact);
       }
       this.cancelOverlay();
     }
