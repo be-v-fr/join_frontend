@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnDestroy, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Task } from '../../../../models/task';
 import { TaskCardComponent } from './task-card/task-card.component';
 import { TasksService } from '../../../services/tasks.service';
@@ -18,7 +18,7 @@ import { Subject, Subscription } from 'rxjs';
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
-export class TaskListComponent implements OnDestroy {
+export class TaskListComponent implements OnInit, OnDestroy {
   tasks: Task[] = [];
   tasksSub = new Subscription();
   @Input() status: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
@@ -44,7 +44,11 @@ export class TaskListComponent implements OnDestroy {
     private tasksService: TasksService,
     private scrollService: AutoscrollService,
     private cd: ChangeDetectorRef,
-  ) {
+  ) { }
+
+
+  ngOnInit(): void {
+    this.syncTasksWithFilter();
     this.tasksSub = this.subTasks();
   }
 
@@ -56,9 +60,14 @@ export class TaskListComponent implements OnDestroy {
 
   subTasks(): Subscription {
     return this.tasksService.tasks$.subscribe(() => {
-      this.tasks = this.tasksService.getFilteredTasks(this.status);
-      this.cd.detectChanges();
+      this.syncTasksWithFilter();
     });
+  }
+
+
+  syncTasksWithFilter(): void {
+    this.tasks = this.tasksService.getFilteredTasks(this.status);
+    this.cd.detectChanges();
   }
 
 
