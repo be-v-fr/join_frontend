@@ -46,36 +46,4 @@ export class Contact {
     getColor() {
         return environment.BADGE_COLORS[this.color_id] || '#d1d1d1';
     }
-
-
-    /**
-     * Check if this contact is also a user
-     * @returns check result
-     */
-    isUser(): boolean {
-        return false;
-        // if (this.appUser.user.id && this.appUser.user.id != 'guest' && this.appUser.user.id != -1) { return true }
-        // else { return false }
-    }
-    // VÖLLIG FALSCH !!! appUser ist der BESITZER und hat mit dem Kontakt nichts zu tun !!!
-    // VERGLEICH ÜBER EMAIL IMPLEMENTIEREN, evtl. besser im USERS SERVICE. email von neuem/bearbeiteten Kontakt muss einzigartig bleiben !!
-
-
-    /**
-     * Check if this contact ontains optional data (email/phone)
-     * @returns check result
-     */
-    hasOptionalProperties(): boolean {
-        if (this.email || this.phone) { return true }
-        else { return false }
-    }
-
-
-    /**
-     * Check if this contact is also an unedited user
-     * @returns check result
-     */
-    isUneditedUser(): boolean {
-        return this.isUser() && !this.hasOptionalProperties();
-    }
 }

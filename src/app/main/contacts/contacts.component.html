@@ -33,7 +33,7 @@
                             <img src="../../../../assets/img/edit.svg" alt="edit contact">
                             <p>Edit</p>
                         </button>
-                        @if(!sortedContacts[selection].isUser()) {
+                        @if(!isUser(sortedContacts[selection])) {
                         <button class="edit-btn" (click)="deleteSelectedContact()" name="Delete">
                             <img src="../../../../assets/img/remove.svg" alt="delete contact">
                             <p>Delete</p>

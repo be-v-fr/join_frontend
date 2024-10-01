@@ -5,6 +5,7 @@ import { AppUser } from '../../models/app-user';
 import { AuthUser } from '../../models/auth-user';
 import { environment } from "../../environments/environment.development";
 import { AuthService } from "./auth.service";
+import { Contact } from "../../models/contact";
 
 
 /**
@@ -99,5 +100,16 @@ export class UsersService {
         });
         return user;
       }
+    }
+
+
+    isEmailAvailable(email: string): boolean {
+      if(this.users.find(u => u.user.email == email)) {return false}
+      return true;      
+    }
+
+
+    isUser(contact: Contact): boolean {
+      return contact.email ? !this.isEmailAvailable(contact.email) : true;
     }
 }

@@ -24,29 +24,34 @@
         <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">
             <app-close-btn (click)="cancel()" class="btn-close-dark" />
             <div class="form-field"
-                [ngClass]="{'validation-error': (name.touched || contactForm.submitted) && !name.valid && !disableUserNameEdit}">
+                [ngClass]="{'validation-error': (name.touched || contactForm.submitted) && !name.valid && !isUser}">
                 <input type="text" [(ngModel)]="formData.name" class="text-input" placeholder="Name" name="name"
-                    #name="ngModel" [required]="!disableUserNameEdit" [disabled]="disableUserNameEdit">
-                @if((name.touched || contactForm.submitted) && !name.valid && !disableUserNameEdit) {
+                    #name="ngModel" [required]="!isUser" [disabled]="isUser">
+                @if((name.touched || contactForm.submitted) && !name.valid && !isUser) {
                 <p>A contact name is required.</p>
                 }
                 <img src="assets/img/person.svg">
             </div>
             <div class="form-field"
-                [ngClass]="{'validation-error': (email.touched || contactForm.submitted) && !email.valid}">
+                [ngClass]="{'validation-error': (email.touched || contactForm.submitted) && (!email.valid || emailTaken)}">
                 <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel"
-                    [(ngModel)]="formData.email" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
+                    (change)="resetEmailTaken()" [(ngModel)]="formData.email"
+                    pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" [disabled]="isUser">
                 <img src="assets/img/mail.svg" alt="email">
-                @if((email.touched || contactForm.submitted) && !email.valid) {
+                @if((email.touched || contactForm.submitted) && !email.valid && !isUser) {
                 <p>This is not a valid email adress.</p>
+                } @else if(!isUser && contactForm.submitted && emailTaken) {
+                <p>This email adress is already registered.</p>
                 }
             </div>
-            <div class="form-field" [ngClass]="{'validation-error': (phone.touched || contactForm.submitted) && !phone.valid}">
-                <input type="text" [(ngModel)]="formData.phone" class="text-input" placeholder="Phone" name="phone" #phone="ngModel" pattern="[\d+()\- ]*">
+            <div class="form-field"
+                [ngClass]="{'validation-error': (phone.touched || contactForm.submitted) && !phone.valid}">
+                <input type="text" [(ngModel)]="formData.phone" class="text-input" placeholder="Phone" name="phone"
+                    #phone="ngModel" pattern="[\d+()\- ]*">
                 <img src="assets/img/contacts/call.svg">
                 @if((phone.touched || contactForm.submitted) && !phone.valid) {
-                    <p>This is not a valid phone number.</p>
-                    }
+                <p>This is not a valid phone number.</p>
+                }
             </div>
             <div class="btns-submit">
                 @if(mode == 'add') {
@@ -63,7 +68,8 @@
                     <img src="../../../assets/img/check_white.svg" alt="create task">
                 </button>
                 } @else {
-                <button type="button" class="btn-secondary btn-x" (click)="deleteContact()" [disabled]="disableUserNameEdit">
+                <button type="button" class="btn-secondary btn-x" (click)="deleteContact()"
+                    [disabled]="isUser">
                     Delete
                 </button>
                 <button type="submit" class="btn-primary">

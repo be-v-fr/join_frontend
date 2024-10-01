@@ -146,6 +146,11 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
+  isUser(contact: Contact): boolean {
+    return this.usersService.isUser(contact);
+  }
+
+
   /**
    * Get the first letter of a contact name from a contact
    * @param contact contact
