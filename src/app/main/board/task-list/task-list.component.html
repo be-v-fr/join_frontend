@@ -7,7 +7,7 @@
         </button>
     </div>
     <div class="tasks-container">
-        @for (task of tasks; track task; let i = $index) {
+        @for (task of filterTasksBySearch(); track task; let i = $index) {
         <app-task-card [task]="task" (click)="viewTask(task.id)" [draggable]="true"
             (dragstart)="onTaskDragStart($event, task.id)" (drag)="onDrag($event)"
             (dragend)="onTaskDragEnd()" [closeDropdown]="closingTaskStatusDropdown.asObservable()"></app-task-card>

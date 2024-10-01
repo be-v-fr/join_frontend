@@ -22,6 +22,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
   tasks: Task[] = [];
   tasksSub = new Subscription();
   @Input() status: 'To do' | 'In progress' | 'Await feedback' | 'Done' = 'To do';
+  @Input() filter: string = '';
   draggingOver: boolean = false;
   private lastDragOver: number = 0;
   draggedTaskCard: HTMLElement | null = null;
@@ -48,7 +49,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.syncTasksWithFilter();
+    this.syncTasksWithStatus();
     this.tasksSub = this.subTasks();
   }
 
@@ -60,14 +61,27 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
   subTasks(): Subscription {
     return this.tasksService.tasks$.subscribe(() => {
-      this.syncTasksWithFilter();
+      this.syncTasksWithStatus();
     });
   }
 
 
-  syncTasksWithFilter(): void {
+  syncTasksWithStatus(): void {
     this.tasks = this.tasksService.getFilteredTasks(this.status);
     this.cd.detectChanges();
+  }
+
+
+  filterTasksBySearch(): Task[] {
+    if (this.tasks.length > 0 && this.filter.length > 0) {
+      const formattedFilter = this.filter.toLowerCase();
+      return this.tasks.filter(t => {return (
+        t.title.toLowerCase().includes(formattedFilter) ||
+          t.description.toLowerCase().includes(formattedFilter)
+        )});
+    } else {
+      return this.tasks;
+    }
   }
 
 

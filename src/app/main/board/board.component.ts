@@ -36,21 +36,6 @@ export class BoardComponent {
 
 
   /**
-   * Check whether a task fits the current search filter (which means that it will still be displayed when applying the filter).
-   * The search filter is applied only to the task title and task description.
-   * @param task task to be checked
-   * @returns check result
-   */
-  taskFitsSearch(task: Task): boolean {
-    const title = task.title.toLowerCase();
-    const description = task.description.toLowerCase();
-    const searchFilter = this.searchFilter.toLowerCase();
-    if(!title.includes(searchFilter) && !description.includes(searchFilter)) {return false}
-    return true;
-  }
-
-
-  /**
    * This function returns a full task by its ID
    * @param id Firestore task ID
    * @returns task
