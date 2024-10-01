@@ -1,5 +1,5 @@
 <form (ngSubmit)="onSubmit(registrationForm)" #registrationForm="ngForm" (change)="resetAuthError()">
-    <app-arrow-back-btn *ngIf="formMode == 'Sign up'" (click)="toggleModeEmit()" class="arrow-back"></app-arrow-back-btn>
+    <app-arrow-back-btn *ngIf="formMode == 'Sign up'" (click)="toggleModeEmit()" class="arrow-back" />
     <h2>{{formMode}}</h2>
     <div class="form-field"
         [ngClass]="{'validation-error': (name.touched || registrationForm.submitted) && !name.valid}">
@@ -27,10 +27,10 @@
         <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password" minlength="6"
             autocomplete="current-password" #password="ngModel" [(ngModel)]="formData.password" required>
         @if(formData.password.length > 0) {
-        <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('password')"></app-password-icon>
+        <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('password')" />
         }
         @else {
-        <app-password-icon [state]="'default'" (click)="toggleVisibility('password')"></app-password-icon>
+        <app-password-icon [state]="'default'" (click)="toggleVisibility('password')" />
         }
         @if(authError == 'invalid credential') {
         <p>Wrong email or password! Please try again.</p>
@@ -49,10 +49,10 @@
             name="passwordConfirmation" #passwordConfirmation="ngModel" [(ngModel)]="formData.passwordConfirmation"
             required>
         @if(formData.passwordConfirmation.length > 0) {
-        <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('confirmation')"></app-password-icon>
+        <app-password-icon [state]="passwordConfirmationFieldType" (click)="toggleVisibility('confirmation')" />
         }
         @else {
-        <app-password-icon [state]="'default'" (click)="toggleVisibility('confirmation')"></app-password-icon>
+        <app-password-icon [state]="'default'" (click)="toggleVisibility('confirmation')" />
         }
         @if(passwordConfirmation.touched && !checkPasswordConfirmation()) {
         <p>Oops! Your passwords don\'t match.</p>
@@ -93,4 +93,4 @@
         }
     </div>
 </form>
-<app-toast-notification [message]="toastMsg" [show]="showToastMsg"></app-toast-notification>
+<app-toast-notification [message]="toastMsg" [show]="showToastMsg" />
