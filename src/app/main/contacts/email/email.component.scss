@@ -8,4 +8,10 @@ a {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    transition: 50ms ease-out;
+
+    &:hover {
+        transition: 50ms ease-out;
+        font-weight: 600;
+    }
 }
