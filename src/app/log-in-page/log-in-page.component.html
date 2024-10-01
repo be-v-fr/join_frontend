@@ -1,5 +1,5 @@
 <div class="content">
-    <div class="logo-wrapper sub-container">
+    <div class="logo-wrapper sub-container" [ngClass]="{'logo-wrapper-during-intro': animate}">
         <a href="" class="logo" [ngClass]="animate ? 'intro' : 'logo-after-animation'">
             <img src="assets/img/logo.svg" alt="JOIN">
         </a>

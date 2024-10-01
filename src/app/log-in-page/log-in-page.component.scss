@@ -59,21 +59,7 @@ $logo-starting-height: $logo-starting-width * 1.219;
   display: none;
 }
 .await-intro {
-  animation: await-intro $intro-duration;
-  @keyframes await-intro {
-    0% {
-      display: none;
-      opacity: 0;
-    }
-    99% {
-      display: flex;
-      opacity: 0;
-    }
-    100% {
-      display: flex;
-      opacity: 1;
-    }
-  }
+  opacity: 0;
 }
 .go-to-sign-up {
   position: fixed;
@@ -157,6 +143,9 @@ $logo-starting-height: $logo-starting-width * 1.219;
   }
 }
 @media screen and ((max-width: 768px) or ((max-height: 800px) and (max-width: 1024px))) {
+  .logo-wrapper-during-intro {
+    height: 123px;
+  }
   .logo-wrapper {
     .logo {
       position: initial;
