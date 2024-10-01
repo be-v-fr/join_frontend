@@ -50,7 +50,7 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.currentUser = this.authService.currentUser;
     }
     this.authSub = this.subAuth();
-    this.setUsers();
+    this.setContacts();
   }
 
 
@@ -76,7 +76,7 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * Update users array according to usersService and update sorted contacts afterwards.
    */
-  setUsers() {
+  setContacts() {
     this.users = this.usersService.users;
     this.sortedContacts = this.getSortedContacts();
   }
@@ -87,7 +87,7 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    * @returns subscription
    */
   subUsers(): Subscription {
-    return this.usersService.users$.subscribe(() => this.setUsers());
+    return this.usersService.users$.subscribe(() => this.setContacts());
   }
 
 
