@@ -67,6 +67,7 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.authService.currentUser$.subscribe(user => {
       if (user) {
         this.currentUser = user;
+        this.setContacts();
         this.usersSub = this.subUsers();
       }
     })

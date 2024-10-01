@@ -61,7 +61,13 @@ export class AuthService {
 
 
     getAuthTokenHeaders(): HttpHeaders {
-        return new HttpHeaders().set('Authorization', 'Token ' + localStorage.getItem('token'));  
+        return new HttpHeaders().set('Authorization', 'Token ' + localStorage.getItem('token'));
+    }
+
+
+    initUser(userData: AppUser): void {
+        this.currentUser = new AppUser(userData);
+        this.currentUser$.next(this.currentUser);
     }
 
 
