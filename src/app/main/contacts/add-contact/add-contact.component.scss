@@ -185,6 +185,10 @@ form {
             padding: 10px;
           }
         }
+
+        .validation-error p {
+          top: calc(100% + 3px);
+        }
       }
 
       @media screen and (max-height: 840px) {
