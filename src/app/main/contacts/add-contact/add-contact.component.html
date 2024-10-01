@@ -1,5 +1,5 @@
-<div class="overlay" (click)="cancel()">
-    <div class="content" [ngClass]="translated ? 'slid-out' : 'slid-in'" (click)="$event.stopPropagation()">
+<div class="overlay" (mousedown)="cancel()">
+    <div class="content" [ngClass]="translated ? 'slid-out' : 'slid-in'" (mousedown)="$event.stopPropagation()">
         <div class="headline relative">
             <app-close-btn (click)="cancel()" class="btn-close-bright" [bright]="true" />
             <div class="headline-and-logo-container">

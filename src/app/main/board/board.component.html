@@ -26,10 +26,10 @@
 <app-task-view *ngIf="viewTaskId != -1" [task]="getTaskById(viewTaskId)" (cancelOverlay)="closeTaskView()"
     (editThisTask)="showTaskForm(viewTaskId)" />
 @if(taskFormId != null) {
-<div class="overlay" [ngClass]="{'no-bg': viewTaskId != -1}" (click)="hideTaskForm()">
+<div class="overlay" [ngClass]="{'no-bg': viewTaskId != -1}" (mousedown)="hideTaskForm()">
     <div class="task-form-wrapper"
         [ngClass]="{'slid-out': taskFormWrapperTranslated && taskFormId == -1, 'slid-in': !taskFormWrapperTranslated, 'edit-task-wrapper': taskFormId != -1}"
-        (click)="$event.stopPropagation()">
+        (mousedown)="$event.stopPropagation()">
         @if(taskFormId == -1) {
         <app-add-task [inOverlay]="true" (cancelled)="hideTaskForm()" (slide)="slideTaskFormWrapper()"
             id="overlayTaskForm" />
