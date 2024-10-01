@@ -56,7 +56,6 @@ export class UsersService {
     (resp as Array<any>).forEach(uData => {
       this.users.push(new AppUser(uData));
     });
-    console.log('users synced!', this.users);
     this.users$.next();
   }
 

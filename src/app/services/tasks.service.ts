@@ -48,7 +48,6 @@ export class TasksService {
     (resp as Array<any>).forEach(tData => {
       this.tasks.push(new Task(tData));
     });
-    // console.log('tasks synced!', this.tasks);
     this.syncSubtasks();
     this.tasks$.next();
   }
@@ -62,7 +61,6 @@ export class TasksService {
         headers: this.authService.getAuthTokenHeaders(),
       }));
       this.addSubtasksToTasks(resp as Array<any>);
-      // console.log('subtasks synced!', this.tasks);
       this.syncingSubtasks = false;
       this.tasks$.next();
     } else {
