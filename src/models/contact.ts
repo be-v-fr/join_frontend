@@ -1,4 +1,3 @@
-import { AppUser } from './app-user';
 import { environment } from '../environments/environment.development';
 
 
