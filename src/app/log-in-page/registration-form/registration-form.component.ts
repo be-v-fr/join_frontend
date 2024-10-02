@@ -242,14 +242,17 @@ export class RegistrationFormComponent implements OnDestroy {
   logIn() {
     this.authService.setLocalRememberMe(this.rememberLogIn);
     this.authService.logIn(this.formData.name, this.formData.password)
-      .then((resp: any) => {
-        if(resp.token) {
-          localStorage.setItem('token', resp.token);
-          this.navigateToSummary();
-          this.authService.initUser(resp.appUser);
-        }
-      })
+      .then((resp: any) => this.onLogIn(resp))
       .catch((err) => this.authError = this.getAuthError(err.toString()));
+  }
+
+
+  onLogIn(response: any) {
+    if(response.token) {
+      localStorage.setItem('token', response.token);
+      this.navigateToSummary();
+      this.authService.initUser(response.appUser);
+    }
   }
 
 
@@ -293,9 +296,9 @@ export class RegistrationFormComponent implements OnDestroy {
    * This function handles the guest log in option
    */
   logInAsGuest() {
-    this.authService.logOut();
-    this.authService.logInAsGuest();
-    this.navigateToSummary();
+    this.authService.logInAsGuest()
+      .then((resp: any) => this.onLogIn(resp))
+      .catch((err) => this.authError = this.getAuthError(err.toString()));
   }
 
 

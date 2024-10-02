@@ -65,8 +65,13 @@ export class AuthService {
     }
 
 
-    initUser(userData: AppUser): void {
-        this.currentUser = new AppUser(userData);
+    initUser(userData?: AppUser): void {
+        if(userData) {
+            this.currentUser = new AppUser(userData);
+        } else {
+            const authGuest = new AuthUser({ id: 'guest' });
+            this.currentUser = new AppUser({user: authGuest});
+        }
         this.currentUser$.next(this.currentUser);
     }
 
@@ -97,12 +102,12 @@ export class AuthService {
      * The guest log in is handled via local storage.
      */
     logInAsGuest() {
-        this.guestLogIn = true;
-        this.setLocalGuestLogin(true);
-        this.currentUser = new AppUser({
-            id: 0,
-            user: new AuthUser({ id: 'guest', name: 'Guest' }),
-        });
+        const url = environment.BASE_URL + 'login/guest';
+        const body = {
+            username: localStorage.getItem('token') || '',
+            password: 'guestlogin',
+        };
+        return lastValueFrom(this.http.post(url, body));
     }
 
 
