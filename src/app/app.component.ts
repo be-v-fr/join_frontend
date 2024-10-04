@@ -74,7 +74,6 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   subAuth(): Subscription {
     return this.authService.currentUser$.subscribe(currentUser => {
-      console.log('current user', currentUser);
       if (currentUser?.id) {
         this.currentUser = currentUser;
         this.loggedIn = true;
