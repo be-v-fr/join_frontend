@@ -32,8 +32,8 @@ export class UsersService {
 
   init() {
     const tasksEvents = new EventSource(environment.BASE_URL + 'users/stream');
-    tasksEvents.onmessage = () => this.syncUsers();
-    this.syncUsers();
+    tasksEvents.onmessage = () => this.syncRegisteredUsers();
+    this.syncRegisteredUsers();
   }
 
 
@@ -43,18 +43,20 @@ export class UsersService {
    * @returns subscription
    */
   subUsers() {
-    return this.users$.subscribe(() => {}); // SUB TO BACKEND !!!
+    return this.users$.subscribe(() => { }); // SUB TO BACKEND !!!
   }
 
 
-  async syncUsers(): Promise<void> {
+  async syncRegisteredUsers(): Promise<void> {
     const url = environment.BASE_URL + 'users';
     const resp = await lastValueFrom(this.http.get(url, {
       headers: this.authService.getAuthTokenHeaders(),
     }));
     this.users = [];
     (resp as Array<any>).forEach(uData => {
-      this.users.push(new AppUser(uData));
+      if (uData.user.id != 'guest') {
+        this.users.push(new AppUser(uData));
+      }
     });
     this.users$.next();
   }
@@ -86,29 +88,29 @@ export class UsersService {
    * @param id auth user ID
    * @returns app user object
    */
-    getUserByAuthId(id: number | 'guest'): AppUser {
-      if (id == 'guest') {
-        return new AppUser({
-          id: -1,
-          user: new AuthUser({ username: 'Guest', id: id }),
-        });
-      } else {
-        let user = new AppUser({});
-        this.users.forEach(u => {
-          if (u.user.id == id) { user = u }
-        });
-        return user;
-      }
+  getUserByAuthId(id: number | 'guest'): AppUser {
+    if (id == 'guest') {
+      return new AppUser({
+        id: -1,
+        user: new AuthUser({ username: 'Guest', id: id }),
+      });
+    } else {
+      let user = new AppUser({});
+      this.users.forEach(u => {
+        if (u.user.id == id) { user = u }
+      });
+      return user;
     }
+  }
 
 
-    isEmailAvailable(email: string): boolean {
-      if(this.users.find(u => u.user.email == email)) {return false}
-      return true;      
-    }
+  isEmailAvailable(email: string): boolean {
+    if (this.users.find(u => u.user.email == email)) { return false }
+    return true;
+  }
 
 
-    isUser(contact: Contact): boolean {
-      return contact.email ? !this.isEmailAvailable(contact.email) : true;
-    }
+  isUser(contact: Contact): boolean {
+    return contact.email ? !this.isEmailAvailable(contact.email) : true;
+  }
 }
