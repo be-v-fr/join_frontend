@@ -59,8 +59,6 @@ export class TasksService {
       this.addSubtasksToTasks(resp as Array<any>);
       this.syncingSubtasks = false;
       this.tasks$.next();
-    } else {
-      console.warn('Subtask syncing not executed because tasks array is empty.')
     }
   }
 
