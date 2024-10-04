@@ -51,7 +51,7 @@ export class RegistrationFormComponent implements OnDestroy {
    */
   constructor(private router: Router) {
     this.rememberLogIn = this.authService.getLocalRememberMe();
-    if (this.rememberLogIn) {this.authSub = this.subAuth()}
+    if (this.rememberLogIn) { this.authSub = this.subAuth() }
   }
 
 
