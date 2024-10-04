@@ -49,9 +49,7 @@ export class UsersService {
 
   async syncRegisteredUsers(): Promise<void> {
     const url = environment.BASE_URL + 'users';
-    const resp = await lastValueFrom(this.http.get(url, {
-      headers: this.authService.getAuthTokenHeaders(),
-    }));
+    const resp = await lastValueFrom(this.http.get(url));
     this.users = [];
     (resp as Array<any>).forEach(uData => {
       if (uData.user.id != 'guest') {

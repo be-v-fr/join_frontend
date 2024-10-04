@@ -20,9 +20,7 @@ export class ContactsService {
   async syncContacts(): Promise<void> {
     if (this.authService.currentUser && this.authService.currentUser.user.id != -1) {
       const url = environment.BASE_URL + 'contacts';
-      const resp = await lastValueFrom(this.http.get(url, {
-        headers: this.authService.getAuthTokenHeaders(),
-      }));
+      const resp = await lastValueFrom(this.http.get(url));
       this.authService.currentUser.contacts = [];
       (resp as Array<any>).forEach(cData => {
         this.authService.currentUser?.contacts?.push(new Contact(cData));
@@ -39,9 +37,7 @@ export class ContactsService {
       if (this.authService.currentUser.user.id != 'guest') {
         const url = environment.BASE_URL + 'contacts';
         const body = contact.toJson();
-        return lastValueFrom(this.http.post(url, body, {
-          headers: this.authService.getAuthTokenHeaders(),
-        }));
+        return lastValueFrom(this.http.post(url, body));
       }
     } return;
   }
@@ -63,9 +59,7 @@ export class ContactsService {
       this.updateContactLocally(contact);
         const url = environment.BASE_URL + 'contacts/' + contact.id;
         const body = contact.toJson();
-        return lastValueFrom(this.http.put(url, body, {
-          headers: this.authService.getAuthTokenHeaders(),
-        }));
+        return lastValueFrom(this.http.put(url, body));
     } return;
   }
 
@@ -87,9 +81,7 @@ export class ContactsService {
     if (id != -1 && this.authService.currentUser) {
       this.deleteContactLocally(id);
         const url = environment.BASE_URL + 'contacts/' + id;
-        return lastValueFrom(this.http.delete(url, {
-          headers: this.authService.getAuthTokenHeaders(),
-        }));
+        return lastValueFrom(this.http.delete(url));
     } return;
   }
 

@@ -59,11 +59,6 @@ export class AuthService {
     }
 
 
-    getAuthTokenHeaders(): HttpHeaders {
-        return new HttpHeaders().set('Authorization', 'Token ' + localStorage.getItem('token'));
-    }
-
-
     initUser(userData?: AppUser): void {
         this.currentUser = userData ? new AppUser(userData) : this.createGuestAppUserObject();
         this.currentUser$.next(this.currentUser);
@@ -78,9 +73,7 @@ export class AuthService {
 
     async syncUser(): Promise<void> {
         const url = environment.BASE_URL + 'users/current';
-        const resp: any = await lastValueFrom(this.http.get(url, {
-            headers: this.getAuthTokenHeaders(),
-        }));
+        const resp: any = await lastValueFrom(this.http.get(url));
         this.currentUser = resp.username ? this.createGuestAppUserObject() : new AppUser(resp);
         this.currentUser$.next(this.currentUser);
     }

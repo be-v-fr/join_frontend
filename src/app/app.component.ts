@@ -50,9 +50,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.authService.syncUser()
-      .then(() => { })
-      .catch(e => console.error(e));
+    if (localStorage.getItem('token')) {
+      this.authService.syncUser()
+        .then(() => { })
+        .catch(e => console.error(e));
+    }
   }
 
 
