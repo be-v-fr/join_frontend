@@ -1,23 +1,23 @@
 <div class="content">
-    <app-headline-slogan [headline]="'Join 360'" [slogan]="'Key metrics at a glance'"></app-headline-slogan>
+    <app-headline-slogan [headline]="'Join 360'" [slogan]="'Key metrics at a glance'" />
     <div class="content-main">
         <div class="stats-container">
             <div class="stats-row">
-                <app-stats-item [name]="'To do'" [value]="getFilteredTasks('To do').length"></app-stats-item>
-                <app-stats-item [name]="'Done'" [value]="getFilteredTasks('Done').length"></app-stats-item>
+                <app-stats-item [name]="'To do'" [value]="getFilteredTasks('To do').length" />
+                <app-stats-item [name]="'Done'" [value]="getFilteredTasks('Done').length" />
             </div>
             <div class="stats-row stats">
                 <app-stats-item class="urgent-item" [name]="'Urgent'" [value]="getUrgent().length"
-                    [deadline]="printDate(getMostUrgent())"></app-stats-item>
+                    [deadline]="printDate(getMostUrgent())" />
             </div>
             <div class="stats-row">
-                <app-stats-item [name]="'Tasks in board'" [value]="getTaskNumber()" class="stats"></app-stats-item>
+                <app-stats-item [name]="'Tasks in board'" [value]="getTaskNumber()" class="stats" />
                 <app-stats-item [name]="'Tasks in progress'" [value]="getFilteredTasks('In progress').length"
-                    class="stats"></app-stats-item>
+                    class="stats" />
                 <app-stats-item [name]="'Awaiting feedback'" [value]="getFilteredTasks('Await feedback').length"
-                    class="stats"></app-stats-item>
+                    class="stats" />
             </div>
         </div>
-        <app-greeting></app-greeting>
+        <app-greeting />
     </div>
 </div>
