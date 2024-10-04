@@ -19,18 +19,6 @@ export class ContactsService {
 
   async syncContacts(): Promise<void> {
     if (this.authService.currentUser && this.authService.currentUser.user.id != -1) {
-      if (this.authService.currentUser.user.id == 'guest') {
-        this.authService.currentUser.loadLocalGuestContacts();
-      } else {
-        await this.syncRegisteredUserContacts();
-      }
-      this.contacts$.next();
-    }
-  }
-
-
-  async syncRegisteredUserContacts(): Promise<void> {
-    if (this.authService.currentUser) {
       const url = environment.BASE_URL + 'contacts';
       const resp = await lastValueFrom(this.http.get(url, {
         headers: this.authService.getAuthTokenHeaders(),
@@ -40,6 +28,7 @@ export class ContactsService {
         this.authService.currentUser?.contacts?.push(new Contact(cData));
       });
       this.authService.currentUser$.next(this.authService.currentUser);
+      this.contacts$.next();
     }
   }
 
@@ -65,7 +54,6 @@ export class ContactsService {
       }
       this.authService.currentUser.contacts.push(contact);
       this.contacts$.next();
-      this.saveContactsIfGuest();
     }
   }
 
@@ -73,13 +61,11 @@ export class ContactsService {
   async updateContact(contact: Contact): Promise<Object | undefined> {
     if (contact.id != -1 && this.authService.currentUser) {
       this.updateContactLocally(contact);
-      if (this.authService.currentUser.user.id != 'guest') {
         const url = environment.BASE_URL + 'contacts/' + contact.id;
         const body = contact.toJson();
         return lastValueFrom(this.http.put(url, body, {
           headers: this.authService.getAuthTokenHeaders(),
         }));
-      }
     } return;
   }
 
@@ -90,7 +76,6 @@ export class ContactsService {
       if (contactsArrayIndex >= 0) {
         this.authService.currentUser.contacts[contactsArrayIndex] = contact;
         this.contacts$.next();
-        this.saveContactsIfGuest();
       } else {
         console.error('Task with ID', contact.id, 'could not be updated (task not found).');
       }
@@ -101,12 +86,10 @@ export class ContactsService {
   async deleteContact(id: number): Promise<Object | undefined> {
     if (id != -1 && this.authService.currentUser) {
       this.deleteContactLocally(id);
-      if (this.authService.currentUser.user.id != 'guest') {
         const url = environment.BASE_URL + 'contacts/' + id;
         return lastValueFrom(this.http.delete(url, {
           headers: this.authService.getAuthTokenHeaders(),
         }));
-      }
     } return;
   }
 
@@ -117,17 +100,9 @@ export class ContactsService {
       if (contactsArrayIndex >= 0) {
         this.authService.currentUser.contacts.splice(contactsArrayIndex, 1);
         this.contacts$.next();
-        this.saveContactsIfGuest();
       } else {
         console.error('Task with ID', id, 'could not be deleted (task not found).');
       }
-    }
-  }
-
-
-  saveContactsIfGuest(): void {
-    if (this.authService.currentUser && this.authService.currentUser.user.id == 'guest') {
-      this.authService.currentUser.saveLocalGuestContacts();
     }
   }
 }

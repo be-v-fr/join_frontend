@@ -59,28 +59,4 @@ export class AppUser {
         }
         return -1;
     }
-
-
-    /**
-     * Load contacts of guest user from local storage
-     */
-    loadLocalGuestContacts() {
-        const item = localStorage.getItem('guest_contacts');
-        if (item && this.user.id == 'guest') {
-            this.contacts = [];
-            const contactsData = JSON.parse(item);
-            contactsData.forEach((cData: {}) => {
-                const contactObj = new Contact(cData);
-                this.contacts?.push(contactObj);
-            });
-        }
-    }
-
-
-    /**
-     * Save contacts of guest user to local storage
-     */
-    saveLocalGuestContacts() {
-        if (this.user.id == 'guest') { localStorage.setItem('guest_contacts', JSON.stringify(this.contacts)) }
-    }
 }
