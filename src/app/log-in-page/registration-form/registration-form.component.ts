@@ -51,11 +51,7 @@ export class RegistrationFormComponent implements OnDestroy {
    */
   constructor(private router: Router) {
     this.rememberLogIn = this.authService.getLocalRememberMe();
-    if (this.rememberLogIn) {
-      console.log('remember login true. subbing auth...');
-      this.authSub = this.subAuth()
-    
-    }
+    if (this.rememberLogIn) {this.authSub = this.subAuth()}
   }
 
 
@@ -73,14 +69,9 @@ export class RegistrationFormComponent implements OnDestroy {
    */
   subAuth(): Subscription {
     return this.authService.currentUser$.subscribe(user => {
-      console.log('auth service fired', user);
-      console.log('init form data and timeout...');
       this.initFormData();
       setTimeout(() => {
-        console.log('timeout over, looking for UID...');
-        if (this.authService.getCurrentUid()) {
-          console.log('UID found');
-          this.navigateToSummary() }
+        if (this.authService.getCurrentUid()) { this.navigateToSummary() }
       }, 1200)
     });
   }

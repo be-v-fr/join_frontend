@@ -77,13 +77,11 @@ export class AuthService {
 
 
     async syncUser(): Promise<void> {
-        console.log('syncing user...')
         const url = environment.BASE_URL + 'users/current';
         const resp: any = await lastValueFrom(this.http.get(url, {
             headers: this.getAuthTokenHeaders(),
         }));
         this.currentUser = resp.username ? this.createGuestAppUserObject() : new AppUser(resp);
-        console.log('user synced:', this.currentUser);
         this.currentUser$.next(this.currentUser);
     }
 
