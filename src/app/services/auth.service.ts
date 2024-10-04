@@ -18,7 +18,6 @@ import { AuthUser } from "../../models/auth-user";
 export class AuthService {
     public currentUser$: Subject<AppUser | null> = new Subject<AppUser | null>();
     currentUser: AppUser | null = null;
-    guestLogIn: boolean = false;
 
 
     constructor(
@@ -66,22 +65,25 @@ export class AuthService {
 
 
     initUser(userData?: AppUser): void {
-        if(userData) {
-            this.currentUser = new AppUser(userData);
-        } else {
-            const authGuest = new AuthUser({ id: 'guest' });
-            this.currentUser = new AppUser({user: authGuest});
-        }
+        this.currentUser = userData ? new AppUser(userData) : this.createGuestAppUserObject();
         this.currentUser$.next(this.currentUser);
     }
 
 
+    createGuestAppUserObject() {
+        const authGuest = new AuthUser({ id: 'guest' });
+        return new AppUser({ user: authGuest });
+    }
+
+
     async syncUser(): Promise<void> {
+        console.log('syncing user...')
         const url = environment.BASE_URL + 'users/current';
-        const resp = await lastValueFrom(this.http.get(url, {
+        const resp: any = await lastValueFrom(this.http.get(url, {
             headers: this.getAuthTokenHeaders(),
         }));
-        this.currentUser = new AppUser(resp);
+        this.currentUser = resp.username ? this.createGuestAppUserObject() : new AppUser(resp);
+        console.log('user synced:', this.currentUser);
         this.currentUser$.next(this.currentUser);
     }
 
@@ -116,10 +118,6 @@ export class AuthService {
      * @returns log out result
      */
     logOut(): void {
-        if (this.guestLogIn) {
-            this.guestLogIn = false;
-            this.setLocalGuestLogin(false);
-        }
         this.deleteLocalSessionToken();
         this.currentUser = null;
         this.currentUser$.next(null);
@@ -140,32 +138,9 @@ export class AuthService {
      * @returns user ID (actual uid, guest or undefined in case there is no log in)
      */
     getCurrentUid(): number | 'guest' | undefined {
-        if (this.guestLogIn || this.getLocalGuestLogin()) {
-            return 'guest';
-        } else if (this.currentUser?.id) {
-            this.setLocalGuestLogin(false);
-            return this.currentUser.id;
-        } else {
-            return undefined;
-        }
-    }
-
-
-    /**
-     * Set "as_guest" item in local storage to handle guest log in
-     * @param logIn desired value
-     */
-    setLocalGuestLogin(logIn: boolean) {
-        localStorage.setItem('as_guest', JSON.stringify(logIn));
-    }
-
-
-    /**
-     * Get "as_guest" item from local storage to handle guest log in
-     */
-    getLocalGuestLogin(): boolean {
-        const item = localStorage.getItem('as_guest');
-        return (item ? JSON.parse(item) : false);
+        if (this.currentUser) {
+            return this.currentUser.user.id == 'guest' ? this.currentUser.id : 'guest';
+        } else return;
     }
 
 

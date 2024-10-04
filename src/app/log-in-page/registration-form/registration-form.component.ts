@@ -4,9 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { PasswordIconComponent } from '../../templates/password-icon/password-icon.component';
 import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
-import { AppUser } from '../../../models/app-user';
 import { UsersService } from '../../services/users.service';
-import { Contact } from '../../../models/contact';
 import { Router, RouterModule } from '@angular/router';
 import { ArrowBackBtnComponent } from '../../templates/arrow-back-btn/arrow-back-btn.component';
 import { ToastNotificationComponent } from '../../templates/toast-notification/toast-notification.component';
@@ -43,7 +41,6 @@ export class RegistrationFormComponent implements OnDestroy {
   authError: string = '';
   private authService = inject(AuthService);
   private authSub = new Subscription;
-  private usersService = inject(UsersService);
   toastMsg: string = '';
   showToastMsg: boolean = false;
 
@@ -53,9 +50,12 @@ export class RegistrationFormComponent implements OnDestroy {
    * @param router instance of Router
    */
   constructor(private router: Router) {
-    this.initRememberState();
     this.rememberLogIn = this.authService.getLocalRememberMe();
-    if (this.rememberLogIn) { this.authSub = this.subAuth() }
+    if (this.rememberLogIn) {
+      console.log('remember login true. subbing auth...');
+      this.authSub = this.subAuth()
+    
+    }
   }
 
 
@@ -72,10 +72,15 @@ export class RegistrationFormComponent implements OnDestroy {
    * @returns subscription
    */
   subAuth(): Subscription {
-    return this.authService.currentUser$.subscribe(() => {
+    return this.authService.currentUser$.subscribe(user => {
+      console.log('auth service fired', user);
+      console.log('init form data and timeout...');
       this.initFormData();
       setTimeout(() => {
-        if (this.authService.getCurrentUid()) { this.navigateToSummary() }
+        console.log('timeout over, looking for UID...');
+        if (this.authService.getCurrentUid()) {
+          console.log('UID found');
+          this.navigateToSummary() }
       }, 1200)
     });
   }
@@ -88,18 +93,6 @@ export class RegistrationFormComponent implements OnDestroy {
     const currentUser = this.authService.currentUser;
     if (currentUser && currentUser.user.username) { this.formData['name'] = currentUser.user.username };
     if (currentUser && currentUser.user.email) { this.formData['email'] = currentUser.user.email };
-  }
-
-
-  /**
-   * Initialize "remember me" checkbox using authService.
-   * Automatically uncheck if guest log in is active.
-   */
-  initRememberState() {
-    if (this.authService.getLocalGuestLogin()) {
-      this.authService.setLocalGuestLogin(false);
-      this.authService.setLocalRememberMe(false);
-    }
   }
 
 
@@ -248,7 +241,7 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   onLogIn(response: any) {
-    if(response.token) {
+    if (response.token) {
       localStorage.setItem('token', response.token);
       this.navigateToSummary();
       this.authService.initUser(response.appUser);
@@ -263,7 +256,6 @@ export class RegistrationFormComponent implements OnDestroy {
    */
   submitSignUp() {
     if (this.acceptPrivacyPolicy) {
-      this.authService.setLocalGuestLogin(false);
       this.authService.register(this.formData.name, this.formData.email, this.formData.password)
         .then(() => this.transferAfterSignUp())
         .catch((err) => {
