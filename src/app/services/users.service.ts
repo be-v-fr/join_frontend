@@ -36,16 +36,6 @@ export class UsersService {
   }
 
 
-  /**
-   * Subscribe to Firestore "users" collection to synchronize "users" array.
-   * Also trigger "users$" observable on snapshot.
-   * @returns subscription
-   */
-  subUsers() {
-    return this.users$.subscribe(() => { }); // SUB TO BACKEND !!!
-  }
-
-
   async syncRegisteredUsers(): Promise<void> {
     const url = environment.BASE_URL + 'users';
     const resp = await lastValueFrom(this.http.get(url));

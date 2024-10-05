@@ -197,6 +197,7 @@ export class RegistrationFormComponent implements OnDestroy {
    * @returns Custom error message
    */
   getAuthError(err: string) {
+    console.error(err);
     if (err.includes('auth/invalid-credential')) { return 'invalid credential' }
     else if (err.includes('auth/email-already-in-use')) { return 'email in use' }
     else return ''
