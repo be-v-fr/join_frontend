@@ -1,10 +1,9 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, from, lastValueFrom } from "rxjs";
 import { environment } from "../../environments/environment.development";
 import { Router } from "@angular/router";
 import { AppUser } from "../../models/app-user";
-import { AuthUser } from "../../models/auth-user";
 
 
 /**
@@ -59,22 +58,16 @@ export class AuthService {
     }
 
 
-    initUser(userData?: AppUser): void {
-        this.currentUser = userData ? new AppUser(userData) : this.createGuestAppUserObject();
+    initUser(userData: AppUser): void {
+        this.currentUser = new AppUser(userData);
         this.currentUser$.next(this.currentUser);
-    }
-
-
-    createGuestAppUserObject() {
-        const authGuest = new AuthUser({ id: 'guest' });
-        return new AppUser({ user: authGuest });
     }
 
 
     async syncUser(): Promise<void> {
         const url = environment.BASE_URL + 'users/current';
         const resp: any = await lastValueFrom(this.http.get(url));
-        this.currentUser = resp.username ? this.createGuestAppUserObject() : new AppUser(resp);
+        this.currentUser = new AppUser(resp);
         this.currentUser$.next(this.currentUser);
     }
 
@@ -130,8 +123,8 @@ export class AuthService {
      */
     getCurrentUid(): number | 'guest' | undefined {
         if (this.currentUser) {
-            return this.currentUser.user.id == 'guest' ? this.currentUser.id : 'guest';
-        } else return;
+            return this.currentUser.id;
+        } return;
     }
 
 

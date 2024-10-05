@@ -25,7 +25,7 @@ export class GreetingComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.authSub = this.authService.currentUser$.subscribe(u => {
-      if (u) {
+      if (u && u.user.email.length > 0) {
         this.currentUserName = u.user.username;
       } else {
         this.currentUserName = null;

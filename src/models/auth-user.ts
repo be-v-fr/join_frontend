@@ -1,5 +1,5 @@
 export class AuthUser {
-    id: number  | 'guest';
+    id: number;
     username: string;
     email: string;
 

@@ -1,8 +1,7 @@
-import { Injectable, OnDestroy } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom, Subject } from 'rxjs';
 import { AppUser } from '../../models/app-user';
-import { AuthUser } from '../../models/auth-user';
 import { environment } from "../../environments/environment.development";
 import { AuthService } from "./auth.service";
 import { Contact } from "../../models/contact";
@@ -52,7 +51,7 @@ export class UsersService {
     const resp = await lastValueFrom(this.http.get(url));
     this.users = [];
     (resp as Array<any>).forEach(uData => {
-      if (uData.user.id != 'guest') {
+      if (uData.user.email && uData.user.email != '') {
         this.users.push(new AppUser(uData));
       }
     });
@@ -65,19 +64,12 @@ export class UsersService {
    * @param id app user ID
    * @returns app user object
    */
-  getUserByAppId(id: number | 'guest'): AppUser {
-    if (id == 'guest') {
-      return new AppUser({
-        id: -1,
-        user: new AuthUser({ username: 'Guest', id: id }),
-      });
-    } else {
-      let user = new AppUser({});
-      this.users.forEach(u => {
-        if (u.id == id) { user = u }
-      });
-      return user;
-    }
+  getUserByAppId(id: number): AppUser {
+    let user = new AppUser({});
+    this.users.forEach(u => {
+      if (u.id == id) { user = u }
+    });
+    return user;
   }
 
 
@@ -86,19 +78,12 @@ export class UsersService {
    * @param id auth user ID
    * @returns app user object
    */
-  getUserByAuthId(id: number | 'guest'): AppUser {
-    if (id == 'guest') {
-      return new AppUser({
-        id: -1,
-        user: new AuthUser({ username: 'Guest', id: id }),
-      });
-    } else {
-      let user = new AppUser({});
-      this.users.forEach(u => {
-        if (u.user.id == id) { user = u }
-      });
-      return user;
-    }
+  getUserByAuthId(id: number): AppUser {
+    let user = new AppUser({});
+    this.users.forEach(u => {
+      if (u.user.id == id) { user = u }
+    });
+    return user;
   }
 
 

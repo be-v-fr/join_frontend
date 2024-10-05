@@ -34,11 +34,9 @@ export class ContactsService {
   async addContact(contact: Contact): Promise<Object | undefined> {
     if (this.authService.currentUser) {
       this.addContactLocally(contact);
-      if (this.authService.currentUser.user.id != 'guest') {
-        const url = environment.BASE_URL + 'contacts';
-        const body = contact.toJson();
-        return lastValueFrom(this.http.post(url, body));
-      }
+      const url = environment.BASE_URL + 'contacts';
+      const body = contact.toJson();
+      return lastValueFrom(this.http.post(url, body));
     } return;
   }
 
@@ -57,9 +55,9 @@ export class ContactsService {
   async updateContact(contact: Contact): Promise<Object | undefined> {
     if (contact.id != -1 && this.authService.currentUser) {
       this.updateContactLocally(contact);
-        const url = environment.BASE_URL + 'contacts/' + contact.id;
-        const body = contact.toJson();
-        return lastValueFrom(this.http.put(url, body));
+      const url = environment.BASE_URL + 'contacts/' + contact.id;
+      const body = contact.toJson();
+      return lastValueFrom(this.http.put(url, body));
     } return;
   }
 
@@ -80,8 +78,8 @@ export class ContactsService {
   async deleteContact(id: number): Promise<Object | undefined> {
     if (id != -1 && this.authService.currentUser) {
       this.deleteContactLocally(id);
-        const url = environment.BASE_URL + 'contacts/' + id;
-        return lastValueFrom(this.http.delete(url));
+      const url = environment.BASE_URL + 'contacts/' + id;
+      return lastValueFrom(this.http.delete(url));
     } return;
   }
 

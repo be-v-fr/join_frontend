@@ -8,7 +8,7 @@
             <img src="../../../assets/img/menu/help.svg" alt="help">
         </a>
         @if(currentUser) {
-        <app-person-badge [name]="currentUser.user.id == 'guest' ? 'Guest' : currentUser.user.username"
+        <app-person-badge [name]="currentUser.user.email.length == 0 ? 'Guest' : currentUser.user.username"
             [currentUser]="true" (click)="$event.stopPropagation(); toggleDropdown()" />
         }
     </div>
