@@ -196,10 +196,11 @@ export class RegistrationFormComponent implements OnDestroy {
    * @param err Firebase error message
    * @returns Custom error message
    */
-  getAuthError(err: string) {
+  getAuthError(err: any) {
     console.error(err);
-    if (err.includes('auth/invalid-credential')) { return 'invalid credential' }
-    else if (err.includes('auth/email-already-in-use')) { return 'email in use' }
+    if (err.error.username) { return err.error.username[0] }
+    if (err.error.email) { return err.error.email }
+    if (err.error.non_field_errors) { return err.error.non_field_errors[0] }
     else return ''
   }
 
@@ -228,7 +229,7 @@ export class RegistrationFormComponent implements OnDestroy {
     this.authService.setLocalRememberMe(this.rememberLogIn);
     this.authService.logIn(this.formData.name, this.formData.password)
       .then((resp: any) => this.onLogIn(resp))
-      .catch((err) => this.authError = this.getAuthError(err.toString()));
+      .catch((err) => this.authError = this.getAuthError(err));
   }
 
 
@@ -251,8 +252,7 @@ export class RegistrationFormComponent implements OnDestroy {
       this.authService.register(this.formData.name, this.formData.email, this.formData.password)
         .then(() => this.transferAfterSignUp())
         .catch((err) => {
-          console.error(err);
-          this.authError = this.getAuthError(err.toString())
+          this.authError = this.getAuthError(err);
         });
     }
   }
@@ -282,7 +282,7 @@ export class RegistrationFormComponent implements OnDestroy {
   logInAsGuest() {
     this.authService.logInAsGuest()
       .then((resp: any) => this.onLogIn(resp))
-      .catch((err) => this.authError = this.getAuthError(err.toString()));
+      .catch((err) => this.authError = this.getAuthError(err));
   }
 
 

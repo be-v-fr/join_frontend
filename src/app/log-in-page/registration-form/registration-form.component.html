@@ -2,24 +2,25 @@
     <app-arrow-back-btn *ngIf="formMode == 'Sign up'" (click)="toggleModeEmit()" class="arrow-back" />
     <h2>{{formMode}}</h2>
     <div class="form-field"
-        [ngClass]="{'validation-error': (name.touched || registrationForm.submitted) && !name.valid}">
+        [ngClass]="{'validation-error': ((name.touched || registrationForm.submitted) && !name.valid) || authError.includes('credentials') || authError.includes('username')}">
         <input type="text" class="text-input" placeholder="Name" name="name" autocomplete="name" #name="ngModel"
             [(ngModel)]="formData.name" required>
         <img src="assets/img/person.svg" alt="name">
         @if((name.touched || registrationForm.submitted) && !name.valid) {
         <p>Your name is required.</p>
+        } @else if(authError.includes('username') || authError.includes('credentials')) {
+        <p>{{authError}}</p>
         }
     </div>
-    <div class="form-field" *ngIf="formMode == 'Sign up'" 
-        [ngClass]="{'validation-error': ((email.touched || registrationForm.submitted) && !email.valid) || authError == 'invalid credential' || authError == 'email in use'}">
+    <div class="form-field" *ngIf="formMode == 'Sign up'"
+        [ngClass]="{'validation-error': ((email.touched || registrationForm.submitted) && !email.valid) || authError.includes('credentials') || authError.includes('email')}">
         <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel"
             [(ngModel)]="formData.email" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
         <img src="assets/img/mail.svg" alt="email">
         @if((email.touched || registrationForm.submitted) && !email.valid) {
         <p>This is not a valid email adress.</p>
-        }
-        @else if(authError == 'email in use') {
-        <p>This email adress is already in use.</p>
+        } @else if(authError.includes('email') || authError.includes('credentials')) {
+        <p>{{authError}}</p>
         }
     </div>
     <div class="form-field" #passwordContainer
@@ -35,12 +36,12 @@
         @if(authError == 'invalid credential') {
         <p>Wrong email or password! Please try again.</p>
         } @else if((password.touched || registrationForm.submitted) && !password.valid) {
-            @if(formMode == 'Sign up' && password.value.length < 6) {
-                <p>Your password must contain at least 6 characters.</p>
+        @if(formMode == 'Sign up' && password.value.length < 6) { <p>Your password must contain at least 6 characters.
+            </p>
             } @else {
-                <p>Please enter a valid password.</p>
+            <p>Please enter a valid password.</p>
             }
-        }
+            }
     </div>
     <div *ngIf="formMode == 'Sign up'" class="form-field"
         [ngClass]="{'validation-error': passwordConfirmation.touched && !checkPasswordConfirmation()}"
@@ -64,7 +65,8 @@
             <div class="custom-checkbox" [ngClass]="{'custom-checked' : rememberLogIn}"></div>
             <span>Remember me</span>
         </div>
-        <a (click)="sendPasswordResetEmail()" class="link-blue" *ngIf="authError == 'invalid credential'">I forgot my password</a>
+        <a (click)="sendPasswordResetEmail()" class="link-blue" *ngIf="authError == 'invalid credential'">I forgot my
+            password</a>
         }
         @else {
         <div class="checkbox-container prevent-select relative"
@@ -73,7 +75,8 @@
             <div class="custom-checkbox" [ngClass]="{'custom-checked' : acceptPrivacyPolicy}"></div>
             <span>
                 <div>I accept the</div>
-                <a [routerLink]="['/privacy_policy']" target="_blank" class="link-blue" (click)="$event.stopPropagation()">privacy policy</a>
+                <a [routerLink]="['/privacy_policy']" target="_blank" class="link-blue"
+                    (click)="$event.stopPropagation()">privacy policy</a>
             </span>
             @if(registrationForm.submitted && !acceptPrivacyPolicy) {
             <p>Accept the privacy policy to sign up.</p>
