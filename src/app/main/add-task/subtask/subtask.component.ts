@@ -4,7 +4,6 @@ import { Subtask } from '../../../../models/subtask';
 import { FormsModule } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 
-
 /**
  * @component
  * This component displays a Task's Subtask.
