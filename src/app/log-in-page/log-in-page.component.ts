@@ -5,8 +5,9 @@ import { RouterModule } from '@angular/router';
 
 
 /**
- * This component displays the log in/sign up page.
- * It is also the general landing page and includes the intro animation.
+ * @component
+ * This component represents the log in/sign up page, which serves as the general landing page. 
+ * It includes the intro animation and manages the login and registration modes.
  */
 @Component({
   selector: 'app-log-in-page',
@@ -21,7 +22,8 @@ export class LogInPageComponent implements OnInit {
 
 
   /**
-   * Set animation with respect to required time
+   * Lifecycle hook that initializes the component.
+   * It disables the intro animation after 800 milliseconds.
    */
   ngOnInit() {
     setTimeout(() => this.animate = false, 800);
@@ -29,7 +31,7 @@ export class LogInPageComponent implements OnInit {
 
 
   /**
-   * Toggle mode ('Log in'/'Sign up') of registration form component
+   * Toggles the form mode between 'Log in' and 'Sign up' in the registration form component.
    */
   toggleFormMode() {
     this.formMode == 'Log in' ? this.formMode = 'Sign up' : this.formMode = 'Log in';

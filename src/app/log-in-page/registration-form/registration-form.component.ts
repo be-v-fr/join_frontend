@@ -9,11 +9,12 @@ import { Router, RouterModule } from '@angular/router';
 import { ArrowBackBtnComponent } from '../../templates/arrow-back-btn/arrow-back-btn.component';
 import { ToastNotificationComponent } from '../../templates/toast-notification/toast-notification.component';
 
-
 /**
+ * @component
  * This component displays the registration form for both logging in and signing up.
- * In each instance, the formMode can be switched using the "formMode" input.
- * If it is desired that the form data from one form mode is not kept in the other mode, each mode requires its own instance.  
+ * The form mode can be switched using the "formMode" input.
+ * If it's required that the form data from one form mode is not retained in the other mode,
+ * each mode needs its own instance.
  */
 @Component({
   selector: 'app-registration-form',
@@ -22,7 +23,6 @@ import { ToastNotificationComponent } from '../../templates/toast-notification/t
   templateUrl: './registration-form.component.html',
   styleUrl: './registration-form.component.scss'
 })
-
 export class RegistrationFormComponent implements OnDestroy {
   @Input() formMode: 'Log in' | 'Sign up' = 'Log in';
   @Output() toggleMode = new EventEmitter<void>();
@@ -46,8 +46,8 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Initialize router and "remember me" feature; apply feature if applicable
-   * @param router instance of Router
+   * Initialize router and "remember me" feature; apply feature if applicable.
+   * @param {Router} router - Instance of Router
    */
   constructor(private router: Router) {
     this.rememberLogIn = this.authService.getLocalRememberMe();
@@ -56,7 +56,7 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Unsubscribe on destroy
+   * Unsubscribe from the subscription when the component is destroyed.
    */
   ngOnDestroy(): void {
     this.authSub.unsubscribe();
@@ -64,8 +64,8 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Subscribe to authService.user$ for form initialization and log in state check
-   * @returns subscription
+   * Subscribe to authService.user$ for form initialization and login state check.
+   * @returns {Subscription} subscription
    */
   subAuth(): Subscription {
     return this.authService.currentUser$.subscribe(user => {
@@ -78,7 +78,7 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Initialize form data using authService
+   * Initialize form data using authService.
    */
   initFormData() {
     const currentUser = this.authService.currentUser;
@@ -98,8 +98,8 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Toggle password visibility and re-focus the input field afterwards
-   * @param field password/password confirmation field identifier
+   * Toggle password visibility and re-focus the input field afterwards.
+   * @param {'password' | 'confirmation'} field - The password or confirmation field identifier
    */
   toggleVisibility(field: 'password' | 'confirmation') {
     if (field == 'password' && this.formData.password.length > 0) {
@@ -113,9 +113,9 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * get input field HTML element from reference to parent element
-   * @param containerRef reference to parent container
-   * @returns corresponding input element
+   * Get the input field HTML element from the reference to the parent element.
+   * @param {ElementRef} containerRef - Reference to the parent container
+   * @returns {HTMLInputElement} The corresponding input element
    */
   getFieldContainerRefInput(containerRef: ElementRef): HTMLInputElement {
     return containerRef.nativeElement.getElementsByTagName('input')[0];
@@ -123,8 +123,8 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Focus the last position of input element
-   * @param input password/password confirmation field identifier
+   * Focus the last position of the input element.
+   * @param {HTMLInputElement} input - The input field
    */
   focusLastCharacter(input: HTMLInputElement) {
     setTimeout(() => {
@@ -135,9 +135,9 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Toggle the type variable of a password input field 
-   * @param type HTML type attribute value in input element
-   * @returns attribute value after toggling
+   * Toggle the type variable of a password input field.
+   * @param {'password' | 'text'} type - The HTML type attribute value in the input element
+   * @returns {'password' | 'text'} The toggled attribute value
    */
   togglePasswordFieldType(type: 'password' | 'text') {
     return type == 'password' ? 'text' : 'password';
@@ -145,7 +145,7 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Toggle "remember me" checkbox state variable
+   * Toggle "remember me" checkbox state variable.
    */
   toggleRememberMe() {
     this.rememberLogIn = !this.rememberLogIn;
@@ -153,7 +153,7 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Toggle "privacy policy" checkbox state variable
+   * Toggle "privacy policy" checkbox state variable.
    */
   togglePrivacyPolicy() {
     this.acceptPrivacyPolicy = !this.acceptPrivacyPolicy;
@@ -161,8 +161,8 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Submit registration form according to form mode
-   * @param form registration form
+   * Submit the registration form according to the current form mode.
+   * @param {NgForm} form - The registration form
    */
   onSubmit(form: NgForm) {
     if (form.submitted && this.isValid(form)) {
@@ -172,9 +172,9 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Check if registration form is valid, including custom password confirmation check
-   * @param form registration form
-   * @returns validation check result
+   * Check if the registration form is valid, including custom password confirmation validation.
+   * @param {NgForm} form - The registration form
+   * @returns {boolean} Validation check result
    */
   isValid(form: NgForm): boolean {
     return form.form.valid && this.checkPasswordConfirmation();
@@ -182,8 +182,8 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Check if both passwords match each other
-   * @returns confirmation check result
+   * Check if both passwords match each other.
+   * @returns {boolean} Password confirmation check result
    */
   checkPasswordConfirmation(): boolean {
     if (this.formMode == 'Log in') { return true }
@@ -192,9 +192,9 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Get custom authentication error message to be displayed to user from automatic/default error message
-   * @param err Firebase error message
-   * @returns Custom error message
+   * Get a custom authentication error message based on the Firebase error.
+   * @param {any} err - Firebase error object
+   * @returns {string} Custom error message
    */
   getAuthError(err: any) {
     console.error(err);
@@ -206,7 +206,7 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Reset authentication error
+   * Reset the authentication error message.
    */
   resetAuthError() {
     this.authError = '';
@@ -214,7 +214,7 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Submit form in log in mode (after automatic log out)
+   * Submit the form in login mode (after automatic logout).
    */
   submitLogIn() {
     this.authService.logOut();
@@ -223,7 +223,7 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Log in using the form data including error catching
+   * Log in using the form data, including error handling.
    */
   logIn() {
     this.authService.setLocalRememberMe(this.rememberLogIn);
@@ -233,6 +233,10 @@ export class RegistrationFormComponent implements OnDestroy {
   }
 
 
+  /**
+   * Handle the login response.
+   * @param {any} response - The login response
+   */
   onLogIn(response: any) {
     if (response.token) {
       localStorage.setItem('token', response.token);
@@ -243,9 +247,8 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Sign up using the form data including error catching.
-   * The user log in data is added to the Firebase authentication database (using authService).
-   * On top of that, additional user data is stored in the Firestore (using usersService). 
+   * Sign up using the form data, including error handling.
+   * The user's login data is added to Firebase authentication, and additional user data is stored in Firestore.
    */
   submitSignUp() {
     if (this.acceptPrivacyPolicy) {
@@ -259,7 +262,7 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Transfer to log in form after signing up (including a toast notification)
+   * Transfer to the login form after signing up, displaying a toast notification.
    */
   transferAfterSignUp() {
     this.toastMsg = 'You signed up successfully';
@@ -269,7 +272,7 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Navigate to main app content landing page
+   * Navigate to the main app content landing page.
    */
   navigateToSummary() {
     this.router.navigate((['/summary']));
@@ -277,7 +280,7 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * This function handles the guest log in option
+   * Handle guest login option.
    */
   logInAsGuest() {
     this.authService.logInAsGuest()
@@ -287,7 +290,7 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Send password reset email (including a toast notification)
+   * Send a password reset email, displaying a toast notification.
    */
   sendPasswordResetEmail() {
     this.authService.resetPassword(this.formData.email).subscribe({
@@ -298,8 +301,8 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Show toast notification for 2s and reload page afterwards
-   * @param msg notification content
+   * Show a toast notification for 2 seconds and reload the page afterward.
+   * @param {string} msg - Notification content
    */
   toastNotificationWithReload(msg: string) {
     this.toastMsg = msg;
