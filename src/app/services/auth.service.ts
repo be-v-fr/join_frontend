@@ -32,7 +32,7 @@ export class AuthService {
      * @returns authentication result
      */
     async register(username: string, email: string, password: string): Promise<Object> {
-        const url = environment.BASE_URL + 'register';
+        const url = environment.BASE_URL + 'register/';
         const body = {
             username: username.replace(' ', '_'),
             email: email,
@@ -49,7 +49,7 @@ export class AuthService {
      * @returns authentication result
      */
     logIn(username: string, password: string): Promise<Object> {
-        const url = environment.BASE_URL + 'login';
+        const url = environment.BASE_URL + 'login/';
         const body = {
             username: username.replace(' ', '_'),
             password: password,
@@ -65,7 +65,7 @@ export class AuthService {
 
 
     async syncUser(): Promise<void> {
-        const url = environment.BASE_URL + 'users/current';
+        const url = environment.BASE_URL + 'users/current/';
         const resp: any = await lastValueFrom(this.http.get(url));
         this.currentUser = new AppUser(resp);
         this.currentUser$.next(this.currentUser);
@@ -88,7 +88,7 @@ export class AuthService {
      * The guest log in is handled via local storage.
      */
     logInAsGuest() {
-        const url = environment.BASE_URL + 'login/guest';
+        const url = environment.BASE_URL + 'login/guest/';
         const body = {
             username: localStorage.getItem('token') || '',
             password: 'guestlogin',

@@ -19,7 +19,7 @@ export class ContactsService {
 
   async syncContacts(): Promise<void> {
     if (this.authService.currentUser && this.authService.currentUser.user.id != -1) {
-      const url = environment.BASE_URL + 'contacts';
+      const url = environment.BASE_URL + 'contacts/';
       const resp = await lastValueFrom(this.http.get(url));
       this.authService.currentUser.contacts = [];
       (resp as Array<any>).forEach(cData => {
@@ -34,7 +34,7 @@ export class ContactsService {
   async addContact(contact: Contact): Promise<Object | undefined> {
     if (this.authService.currentUser) {
       this.addContactLocally(contact);
-      const url = environment.BASE_URL + 'contacts';
+      const url = environment.BASE_URL + 'contacts/';
       const body = contact.toJson();
       return lastValueFrom(this.http.post(url, body));
     } return;
@@ -55,7 +55,7 @@ export class ContactsService {
   async updateContact(contact: Contact): Promise<Object | undefined> {
     if (contact.id != -1 && this.authService.currentUser) {
       this.updateContactLocally(contact);
-      const url = environment.BASE_URL + 'contacts/' + contact.id;
+      const url = environment.BASE_URL + 'contacts/' + contact.id + '/';
       const body = contact.toJson();
       return lastValueFrom(this.http.put(url, body));
     } return;
@@ -78,7 +78,7 @@ export class ContactsService {
   async deleteContact(id: number): Promise<Object | undefined> {
     if (id != -1 && this.authService.currentUser) {
       this.deleteContactLocally(id);
-      const url = environment.BASE_URL + 'contacts/' + id;
+      const url = environment.BASE_URL + 'contacts/' + id + '/';
       return lastValueFrom(this.http.delete(url));
     } return;
   }

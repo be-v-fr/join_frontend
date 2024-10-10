@@ -30,14 +30,14 @@ export class UsersService {
 
 
   init() {
-    const tasksEvents = new EventSource(environment.BASE_URL + 'users/stream');
+    const tasksEvents = new EventSource(environment.BASE_URL + 'users/stream/');
     tasksEvents.onmessage = () => this.syncRegisteredUsers();
     this.syncRegisteredUsers();
   }
 
 
   async syncRegisteredUsers(): Promise<void> {
-    const url = environment.BASE_URL + 'users';
+    const url = environment.BASE_URL + 'users/';
     const resp = await lastValueFrom(this.http.get(url));
     this.users = [];
     (resp as Array<any>).forEach(uData => {
