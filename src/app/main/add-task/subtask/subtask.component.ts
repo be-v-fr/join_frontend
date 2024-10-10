@@ -6,6 +6,7 @@ import { Subscription, Observable } from 'rxjs';
 
 
 /**
+ * @component
  * This component displays a Task's Subtask.
  * It shows the task ('name') in an editable manner.
  */
@@ -31,8 +32,8 @@ export class SubtaskComponent implements OnInit {
 
 
   /**
-   * Subscribe to form click observable from parent component; call "cancel()" method in case the form is clicked directly.
-   * Save previous task name to reload when editing is aborted.
+   * Subscribes to form click observable from parent component; calls "cancel()" method in case the form is clicked directly.
+   * Saves previous task name to reload when editing is aborted.
    */
   ngOnInit() {
     this.formSubscription = this.formClick.subscribe(() => this.cancel());
@@ -41,7 +42,7 @@ export class SubtaskComponent implements OnInit {
 
 
   /**
-   * Unsubscribe when component is destroyed.
+   * Unsubscribes when component is destroyed.
    */
   ngOnDestroy() {
     this.formSubscription.unsubscribe();
@@ -49,7 +50,7 @@ export class SubtaskComponent implements OnInit {
 
 
   /**
-   * Edit subtask. Save previous name to redeem in case editing is aborted.
+   * Edits subtask. Saves previous name to redeem the subtask in case editing is aborted.
    */
   edit() {
     this.editing = true;
@@ -59,7 +60,7 @@ export class SubtaskComponent implements OnInit {
 
 
   /**
-   * Focus input element at last character
+   * Focuses input element at last character.
    */
   focusLastPosition() {
     setTimeout(() => {
@@ -71,8 +72,8 @@ export class SubtaskComponent implements OnInit {
 
 
   /**
-   * Confirm subtask editing
-   * @param enter keydown.enter event
+   * Confirms subtask editing.
+   * @param {Event} enter - keydown.enter event
    */
   confirm(enter?: Event) {
     if (enter && this.editInputRef.nativeElement == document.activeElement) { enter.stopPropagation() }
@@ -82,7 +83,7 @@ export class SubtaskComponent implements OnInit {
 
 
   /**
-   * Cancel subtask editing
+   * Cancels subtask editing.
    */
   cancel() {
     if (this.editing) {
@@ -93,7 +94,7 @@ export class SubtaskComponent implements OnInit {
 
 
   /**
-   * Delete this subtask
+   * Deletes this subtask.
    */
   deleteTask() {
     this.delete.emit(true);

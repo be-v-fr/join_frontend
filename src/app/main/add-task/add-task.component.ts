@@ -17,10 +17,10 @@ import { SlideComponent } from '../../templates/slide/slide.component';
 import { CloseBtnComponent } from '../../templates/close-btn/close-btn.component';
 import { Subtask } from '../../../models/subtask';
 
-
 /**
+ * @component
  * This component displays the form to add or edit tasks.
- * It is one of the four main pages of the app, but also appears within an overlay when called from the "board" page.
+ * It is one of the four main pages of the app but also appears within an overlay when called from the "board" page.
  */
 @Component({
   selector: 'app-add-task',
@@ -52,8 +52,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Create router and call super constructor (from "SlideComponent")
-   * @param router instance of Router
+   * Creates the router instance and calls the super constructor (from "SlideComponent").
+   * @param {Router} router - An instance of Router.
    */
   constructor(private router: Router) {
     super();
@@ -61,7 +61,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Extend ngOnInit() method of super class:
+   * Overrides ngOnInit:
    * - Only translate form when it appears within an overlay.
    * - Initialize form data and users array.
    */
@@ -74,7 +74,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Initialize form data and prefill form in case there is a task input
+   * Initializes form data and pre-fills the form if an input task is provided.
    */
   initFormData() {
     if (this.inputTask.id == -1) {
@@ -87,8 +87,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Check webkit support of running browser
-   * @returns check result
+   * Checks if the running browser supports WebKit.
+   * @returns {boolean} True if WebKit is supported, false otherwise.
    */
   isWebkitSupported(): boolean {
     return 'WebkitAppearance' in document.documentElement.style && !('MozAppearance' in document.documentElement.style);
@@ -96,7 +96,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Sort users alphabetically, but put the current user first
+   * Sorts users alphabetically, but places the current user first in the list.
    */
   sortUsers() {
     this.users = this.users.sort((a: AppUser, b: AppUser) => a.user.username.toLowerCase() > b.user.username.toLowerCase() ? 1 : -1);
@@ -105,23 +105,23 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Shift the current user to the first position in the users array 
+   * Shifts the current user to the first position in the users array.
    */
   putCurrentUserFirst() {
-    const id = this.authService.getCurrentUid();
-    if (id && id != 'guest') {
-      const current = this.usersService.getUserByAppId(id);
-      const index = this.users.indexOf(current);
-      this.users.splice(index, 1)[0];
-      this.users.unshift(current);
+    if (this.authService.currentUser) {
+      const index = this.users.indexOf(this.authService.currentUser);
+      if (index != -1) {
+        this.users.splice(index, 1)[0];
+        this.users.unshift(this.authService.currentUser);
+      }
     }
   }
 
 
   /**
-   * Check if a User instance represents the current user
-   * @param user User instance
-   * @returns check result
+   * Checks if the given user is the current logged-in user.
+   * @param {AppUser} user - A User instance.
+   * @returns {boolean} True if the user is the current user, false otherwise.
    */
   isCurrentUser(user: AppUser): boolean {
     return user.id == this.authService.getCurrentUid();
@@ -129,7 +129,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Set the minimum due date to today
+   * Sets the minimum due date to today.
    */
   ngAfterViewInit() {
     const dueElement: HTMLInputElement = this.dueContainerRef.nativeElement.getElementsByTagName('input')[0];
@@ -138,8 +138,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Handle due text input value change
-   * @param change change event
+   * Handles changes to the due text input field.
+   * @param {Event} change - The input event.
    */
   textToDue(change: Event) {
     const target = change.target as HTMLInputElement;
@@ -151,8 +151,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Transform due text input string to date input string format
-   * @param text text input value
+   * Transforms the due date text input into a valid date format (YYYY-MM-DD).
+   * @param {string} text - The due date text.
    */
   transformTextToDateInputFormat(text: string) {
     const parts = text.split('/');
@@ -166,7 +166,7 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Validate date ("formData.due"), catch errors and set error message accordingly
+   * Validates the due date input and sets error messages accordingly.
    */
   validateDate() {
     this.dateError = '';
@@ -180,8 +180,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Detailed date validity check
-   * @returns check result
+   * Checks the validity of the due date input.
+   * @returns {boolean} True if the due date is valid, false otherwise.
    */
   checkDueValidity(): Boolean {
     const parts = this.formData.due.split('-');
@@ -197,9 +197,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Select task priority.
-   * Unselect in case the selected priority is clicked a second time.
-   * @param prio priority value
+   * Sets the priority of the task. Deselects if the same priority is clicked again.
+   * @param {('Urgent' | 'Medium' | 'Low')} prio - The priority value.
    */
   selectPrio(prio: 'Urgent' | 'Medium' | 'Low') {
     this.formData.prio = (this.formData.prio == prio ? '' : prio);
@@ -207,9 +206,9 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Open/close dropdown menu by corresponding form field name
-   * @param ev click event
-   * @param name form field
+   * Opens or closes dropdowns based on the clicked form field.
+   * @param {Event} ev - The click event.
+   * @param {('assigned' | 'category')} name - The form field name.
    */
   toggleDropdown(ev: Event, name: 'assigned' | 'category') {
     this.handleToggleDropdownEvent(ev);
@@ -218,8 +217,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Stop click propagation and blur click target element
-   * @param ev click event
+   * Stops the event propagation and blurs the clicked element.
+   * @param {Event} ev - The click event.
    */
   handleToggleDropdownEvent(ev: Event) {
     ev.stopPropagation();
@@ -228,8 +227,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Toggle dropdown menu display variable by corresponding form field name
-   * @param name form field
+   * Toggles the dropdown visibility for the given form field.
+   * @param {('assigned' | 'category')} name - The form field name.
    */
   toggleDropdownByName(name: 'assigned' | 'category') {
     switch (name) {
@@ -243,8 +242,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Toggle user assignment to task
-   * @param uid User Firebase ID
+   * Toggles the assignment of users to the task.
+   * @param {number} uid - The User Firebase ID.
    */
   toggleAssignment(uid: number) {
     const assigned: number[] = this.formData.assigned;
@@ -258,8 +257,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Set task category
-   * @param category task category
+   * Sets the task category.
+   * @param {'Technical Task' | 'User Story'} category - The task category
    */
   setCategory(category: 'Technical Task' | 'User Story') {
     this.formData.category = category;
@@ -267,8 +266,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Add subtask and scroll to bottom (to generate visual feedback)
-   * @param ev 
+   * Adds a new subtask to the task.
+   * @param {NgForm} form - The Angular form.
    */
   async addSubtask(ev?: Event) {
     const input: HTMLInputElement = this.subtaskRef.nativeElement;
@@ -308,6 +307,10 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   }
 
 
+  /**
+   * Adds subtask to the server database.
+   * @param {Subtask} subtask - The subtask to add 
+   */
   async addSubtaskToBackend(subtask: Subtask) {
     if (this.formData.id != -1) {
       await this.tasksService.addSubtask(subtask)
@@ -337,8 +340,8 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
 
 
   /**
-   * Delete subtask
-   * @param index array index
+   * Removes a subtask from the task.
+   * @param {Subtask} subtask - The subtask to remove.
    */
   async deleteSubtask(index: number) {
     if (this.formData.subtasks) {
@@ -350,6 +353,11 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
   }
 
 
+  /**
+   * Updates the form data for an (edited) subtask.
+   * @param {number} arrayIndex - The subtask's index in the subtasks array 
+   * @param {Subtask} subtask - The edited subtask
+   */
   onSubtaskEdit(arrayIndex: number, subtask: Subtask) {
     if (this.formData.subtasks) {
       this.formData.subtasks[arrayIndex] = subtask;
