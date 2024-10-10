@@ -24,7 +24,7 @@
         }
     </div>
     <div class="form-field" #passwordContainer
-        [ngClass]="{'validation-error': (authError == 'invalid credential') || ((password.touched || registrationForm.submitted) && !password.valid)}">
+        [ngClass]="{'validation-error': (authError.includes('credentials')) || ((password.touched || registrationForm.submitted) && !password.valid)}">
         <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password" minlength="6"
             autocomplete="current-password" #password="ngModel" [(ngModel)]="formData.password" required>
         @if(formData.password.length > 0) {
@@ -65,7 +65,7 @@
             <div class="custom-checkbox" [ngClass]="{'custom-checked' : rememberLogIn}"></div>
             <span>Remember me</span>
         </div>
-        <a (click)="sendPasswordResetEmail()" class="link-blue" *ngIf="authError == 'invalid credential'">I forgot my
+        <a (click)="sendPasswordResetEmail()" class="link-blue" *ngIf="authError.includes('credentials')">I forgot my
             password</a>
         }
         @else {
