@@ -7,9 +7,11 @@ import { BoardComponent } from './main/board/board.component';
 import { HelpComponent } from './other/help/help.component';
 import { PrivacyPolicyComponent } from './other/privacy-policy/privacy-policy.component';
 import { LegalNoticeComponent } from './other/legal-notice/legal-notice.component';
+import { ResetPasswordComponent } from './other/reset-password/reset-password.component';
 
 export const routes: Routes = [
     { path: '', component: LogInPageComponent },
+    { path: 'reset_password', component: ResetPasswordComponent },
     { path: 'summary', component: SummaryComponent },
     { path: 'add_task', component: AddTaskComponent },
     { path: 'board', component: BoardComponent },

@@ -227,7 +227,7 @@ export class RegistrationFormComponent implements OnDestroy {
    */
   logIn() {
     this.authService.setLocalRememberMe(this.rememberLogIn);
-    this.authService.logIn(this.formData.name, this.formData.password)
+    this.authService.logIn(this.formData.email, this.formData.password)
       .then((resp: any) => this.onLogIn(resp))
       .catch((err) => this.authError = this.getAuthError(err));
   }
@@ -293,10 +293,9 @@ export class RegistrationFormComponent implements OnDestroy {
    * Send a password reset email, displaying a toast notification.
    */
   sendPasswordResetEmail() {
-    this.authService.resetPassword(this.formData.email).subscribe({
-      next: () => this.toastNotificationWithReload('A reset link has been sent to your email address'),
-      error: () => this.toastNotificationWithReload('Oops! An error occurred')
-    });
+    this.authService.requestPasswordReset(this.formData.email)
+      .then((resp) => {console.log(resp); this.toastNotificationWithReload('A reset link has been sent to your email address')})
+      .catch(() => this.toastNotificationWithReload('Oops! An error occurred'))
   }
 
 

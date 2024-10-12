@@ -48,10 +48,10 @@ export class AuthService {
      * @param password user password
      * @returns authentication result
      */
-    logIn(username: string, password: string): Promise<Object> {
+    logIn(email: string, password: string): Promise<Object> {
         const url = environment.BASE_URL + 'login/';
         const body = {
-            username: username.replace(' ', '_'),
+            email: email,
             password: password,
         };
         return lastValueFrom(this.http.post(url, body));
@@ -73,13 +73,32 @@ export class AuthService {
 
 
     /**
-     * Send password reset email
+     * Request password reset email
      * @param email user email address
      * @returns authentication result
      */
-    resetPassword(email: string): Observable<void> {
-        const promise: Promise<void> = new Promise(() => { });
-        return from(promise);
+    async requestPasswordReset(email: string): Promise<Object> {
+        const url = environment.BASE_URL + 'resetPassword/request/';
+        const body = {
+            email: email,
+        };
+        return lastValueFrom(this.http.post(url, body));
+    }
+
+
+    /**
+     * Complete password reset
+     * @param password new password
+     * @param token password reset token
+     * @returns authentication result
+     */
+    async resetPassword(password: string, key: string): Promise<Object> {
+        const url = environment.BASE_URL + 'resetPassword/';
+        const body = {
+            token: key,
+            password: password,
+        };
+        return lastValueFrom(this.http.post(url, body));
     }
 
 
@@ -91,6 +110,7 @@ export class AuthService {
         const url = environment.BASE_URL + 'login/guest/';
         const body = {
             username: localStorage.getItem('token') || '',
+            email: localStorage.getItem('token') + '@token.key' || '',
             password: 'guestlogin',
         };
         return lastValueFrom(this.http.post(url, body));
