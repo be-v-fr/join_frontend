@@ -774,7 +774,7 @@ export class UsersService {
     const resp &#x3D; await lastValueFrom(this.http.get(url));
     this.users &#x3D; [];
     (resp as Array&lt;any&gt;).forEach(uData &#x3D;&gt; {
-      if (uData.user.email &amp;&amp; uData.user.email !&#x3D; &#x27;&#x27;) {
+      if (uData.user.email &amp;&amp; uData.user.email.slice(-9) !&#x3D; &#x27;token.key&#x27;) {
         this.users.push(new AppUser(uData));
       }
     });

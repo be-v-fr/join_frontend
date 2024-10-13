@@ -243,6 +243,9 @@
                                 <a href="#deleteContact" >deleteContact</a>
                             </li>
                             <li>
+                                <a href="#isEmailTaken" >isEmailTaken</a>
+                            </li>
+                            <li>
                                     <span class="modifier"></span>
                                 <a href="#ngOnInit" >ngOnInit</a>
                             </li>
@@ -484,8 +487,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="72"
-                                    class="link-to-prism">src/app/main/contacts/add-contact/add-contact.component.ts:72</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="85"
+                                    class="link-to-prism">src/app/main/contacts/add-contact/add-contact.component.ts:85</a></div>
                         </td>
                     </tr>
 
@@ -523,8 +526,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="82"
-                                    class="link-to-prism">src/app/main/contacts/add-contact/add-contact.component.ts:82</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/main/contacts/add-contact/add-contact.component.ts:95</a></div>
                         </td>
                     </tr>
 
@@ -539,6 +542,50 @@ The delete button is disabled if the contact is a user.</p>
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                         </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isEmailTaken"></a>
+                    <span class="name">
+                        <span ><b>isEmailTaken</b></span>
+                        <a href="#isEmailTaken"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isEmailTaken()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="66"
+                                    class="link-to-prism">src/app/main/contacts/add-contact/add-contact.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks if the email address entered into the form is already taken in a meaningful sense.
+For example, an email should not be considered taken when it was not changed at all.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>check result</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -685,8 +732,8 @@ Also disable name editing in case the contact is another user (rather than a man
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="64"
-                                    class="link-to-prism">src/app/main/contacts/add-contact/add-contact.component.ts:64</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="77"
+                                    class="link-to-prism">src/app/main/contacts/add-contact/add-contact.component.ts:77</a></div>
                         </td>
                     </tr>
 
@@ -963,12 +1010,25 @@ export class AddContactComponent extends SlideComponent {
    */
   onSubmit(form: NgForm): void {
     if (form.submitted &amp;&amp; form.form.valid) {
-      if (this.formData.email &amp;&amp; this.formData.email.length &gt; 0 &amp;&amp; !this.usersService.isEmailAvailable(this.formData.email)) {
+      if (this.isEmailTaken()) {
         this.emailTaken &#x3D; true;
       } else {
         this.contactSubmission.emit(this.formData);
       }
     }
+  }
+
+
+  /**
+   * Checks if the email address entered into the form is already taken in a meaningful sense.
+   * For example, an email should not be considered taken when it was not changed at all. 
+   * @returns {boolean} check result
+   */
+  isEmailTaken(): boolean {
+    return this.formData.email !&#x3D; undefined &amp;&amp;
+    this.formData.email !&#x3D; this.inputContact.email &amp;&amp;
+    this.formData.email.length &gt; 0 &amp;&amp;
+    !this.usersService.isEmailAvailable(this.formData.email);
   }
 
 
@@ -1036,7 +1096,7 @@ export class AddContactComponent extends SlideComponent {
                 &lt;img src&#x3D;&quot;assets/img/person.svg&quot;&gt;
             &lt;/div&gt;
             &lt;div class&#x3D;&quot;form-field&quot;
-                [ngClass]&#x3D;&quot;{&#x27;validation-error&#x27;: (email.touched || contactForm.submitted) &amp;&amp; (!email.valid || emailTaken)}&quot;&gt;
+                [ngClass]&#x3D;&quot;{&#x27;validation-error&#x27;: (email.touched || contactForm.submitted) &amp;&amp; (!email.valid || (!isUser &amp;&amp; emailTaken))}&quot;&gt;
                 &lt;input type&#x3D;&quot;text&quot; class&#x3D;&quot;text-input&quot; placeholder&#x3D;&quot;Email&quot; name&#x3D;&quot;email&quot; #email&#x3D;&quot;ngModel&quot;
                     (change)&#x3D;&quot;resetEmailTaken()&quot; [(ngModel)]&#x3D;&quot;formData.email&quot;
                     pattern&#x3D;&quot;[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}&quot; [disabled]&#x3D;&quot;isUser&quot;&gt;
@@ -1112,7 +1172,7 @@ export class AddContactComponent extends SlideComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="overlay" (mousedown)="cancel()">    <div class="content" [ngClass]="translated ? \'slid-out\' : \'slid-in\'" (mousedown)="$event.stopPropagation()">        <div class="headline relative">            <app-close-btn (click)="cancel()" class="btn-close-bright" [bright]="true" />            <div class="headline-and-logo-container">                <img class="logo" src="../../../../assets/img/logo_white.svg" alt="logo">                <h2>                    @if(mode == \'add\') {                    Add                    } @else {                    Edit                    }                    contact                </h2>            </div>            <p *ngIf="mode == \'add\'">Tasks are better with a team!</p>            <div class="separator"></div>        </div>        @if(mode == \'add\') {        <app-person-badge [large]="true" />        } @else {        <app-person-badge [name]="formData.name" [color]="formData.getColor()" [large]="true" />        }        <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">            <app-close-btn (click)="cancel()" class="btn-close-dark" />            <div class="form-field"                [ngClass]="{\'validation-error\': (name.touched || contactForm.submitted) && !name.valid && !isUser}">                <input type="text" [(ngModel)]="formData.name" class="text-input" placeholder="Name" name="name"                    #name="ngModel" [required]="!isUser" [disabled]="isUser">                @if((name.touched || contactForm.submitted) && !name.valid && !isUser) {                <p>A contact name is required.</p>                }                <img src="assets/img/person.svg">            </div>            <div class="form-field"                [ngClass]="{\'validation-error\': (email.touched || contactForm.submitted) && (!email.valid || emailTaken)}">                <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel"                    (change)="resetEmailTaken()" [(ngModel)]="formData.email"                    pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" [disabled]="isUser">                <img src="assets/img/mail.svg" alt="email">                @if((email.touched || contactForm.submitted) && !email.valid && !isUser) {                <p>This is not a valid email adress.</p>                } @else if(!isUser && contactForm.submitted && emailTaken) {                <p>This email adress is already registered.</p>                }            </div>            <div class="form-field"                [ngClass]="{\'validation-error\': (phone.touched || contactForm.submitted) && !phone.valid}">                <input type="text" [(ngModel)]="formData.phone" class="text-input" placeholder="Phone" name="phone"                    #phone="ngModel" pattern="[\d+()\- ]*">                <img src="assets/img/contacts/call.svg">                @if((phone.touched || contactForm.submitted) && !phone.valid) {                <p>This is not a valid phone number.</p>                }            </div>            <div class="btns-submit">                @if(mode == \'add\') {                <button type="button" class="btn-secondary btn-x btn-cancel" (click)="cancel()">                    Cancel                    <div class="img-container">                        <img src="../../../assets/img/cancel.svg" class="secondary-neutral" alt="clear">                        <img src="../../../assets/img/cancel_hover.svg" class="secondary-hover" alt="clear">                        <img src="../../../assets/img/cancel_active.svg" class="secondary-active" alt="clear">                    </div>                </button>                <button type="submit" class="btn-primary">                    Create Contact                    <img src="../../../assets/img/check_white.svg" alt="create task">                </button>                } @else {                <button type="button" class="btn-secondary btn-x" (click)="deleteContact()"                    [disabled]="isUser">                    Delete                </button>                <button type="submit" class="btn-primary">                    Save                    <img src="../../../assets/img/check_white.svg" alt="create task">                </button>                }            </div>        </form>    </div></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="overlay" (mousedown)="cancel()">    <div class="content" [ngClass]="translated ? \'slid-out\' : \'slid-in\'" (mousedown)="$event.stopPropagation()">        <div class="headline relative">            <app-close-btn (click)="cancel()" class="btn-close-bright" [bright]="true" />            <div class="headline-and-logo-container">                <img class="logo" src="../../../../assets/img/logo_white.svg" alt="logo">                <h2>                    @if(mode == \'add\') {                    Add                    } @else {                    Edit                    }                    contact                </h2>            </div>            <p *ngIf="mode == \'add\'">Tasks are better with a team!</p>            <div class="separator"></div>        </div>        @if(mode == \'add\') {        <app-person-badge [large]="true" />        } @else {        <app-person-badge [name]="formData.name" [color]="formData.getColor()" [large]="true" />        }        <form (ngSubmit)="onSubmit(contactForm)" #contactForm="ngForm">            <app-close-btn (click)="cancel()" class="btn-close-dark" />            <div class="form-field"                [ngClass]="{\'validation-error\': (name.touched || contactForm.submitted) && !name.valid && !isUser}">                <input type="text" [(ngModel)]="formData.name" class="text-input" placeholder="Name" name="name"                    #name="ngModel" [required]="!isUser" [disabled]="isUser">                @if((name.touched || contactForm.submitted) && !name.valid && !isUser) {                <p>A contact name is required.</p>                }                <img src="assets/img/person.svg">            </div>            <div class="form-field"                [ngClass]="{\'validation-error\': (email.touched || contactForm.submitted) && (!email.valid || (!isUser && emailTaken))}">                <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel"                    (change)="resetEmailTaken()" [(ngModel)]="formData.email"                    pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" [disabled]="isUser">                <img src="assets/img/mail.svg" alt="email">                @if((email.touched || contactForm.submitted) && !email.valid && !isUser) {                <p>This is not a valid email adress.</p>                } @else if(!isUser && contactForm.submitted && emailTaken) {                <p>This email adress is already registered.</p>                }            </div>            <div class="form-field"                [ngClass]="{\'validation-error\': (phone.touched || contactForm.submitted) && !phone.valid}">                <input type="text" [(ngModel)]="formData.phone" class="text-input" placeholder="Phone" name="phone"                    #phone="ngModel" pattern="[\d+()\- ]*">                <img src="assets/img/contacts/call.svg">                @if((phone.touched || contactForm.submitted) && !phone.valid) {                <p>This is not a valid phone number.</p>                }            </div>            <div class="btns-submit">                @if(mode == \'add\') {                <button type="button" class="btn-secondary btn-x btn-cancel" (click)="cancel()">                    Cancel                    <div class="img-container">                        <img src="../../../assets/img/cancel.svg" class="secondary-neutral" alt="clear">                        <img src="../../../assets/img/cancel_hover.svg" class="secondary-hover" alt="clear">                        <img src="../../../assets/img/cancel_active.svg" class="secondary-active" alt="clear">                    </div>                </button>                <button type="submit" class="btn-primary">                    Create Contact                    <img src="../../../assets/img/check_white.svg" alt="create task">                </button>                } @else {                <button type="button" class="btn-secondary btn-x" (click)="deleteContact()"                    [disabled]="isUser">                    Delete                </button>                <button type="submit" class="btn-primary">                    Save                    <img src="../../../assets/img/check_white.svg" alt="create task">                </button>                }            </div>        </form>    </div></div></div>'
     var COMPONENTS = [{'name': 'AddContactComponent', 'selector': 'app-add-contact'},{'name': 'AddTaskComponent', 'selector': 'app-add-task'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ArrowBackBtnComponent', 'selector': 'app-arrow-back-btn'},{'name': 'BoardComponent', 'selector': 'app-board'},{'name': 'CloseBtnComponent', 'selector': 'app-close-btn'},{'name': 'ContactListItemComponent', 'selector': 'app-contact-list-item'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'EmailComponent', 'selector': 'app-email'},{'name': 'GreetingComponent', 'selector': 'app-greeting'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeadlineOtherComponent', 'selector': 'app-headline-other'},{'name': 'HeadlineSloganComponent', 'selector': 'app-headline-slogan'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'LegalNoticeComponent', 'selector': 'app-legal-notice'},{'name': 'LogInPageComponent', 'selector': 'app-log-in-page'},{'name': 'MenuComponent', 'selector': 'app-menu'},{'name': 'PasswordIconComponent', 'selector': 'app-password-icon'},{'name': 'PersonBadgeComponent', 'selector': 'app-person-badge'},{'name': 'PrioIconComponent', 'selector': 'app-prio-icon'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'RegistrationFormComponent', 'selector': 'app-registration-form'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SlideComponent', 'selector': 'app-slide'},{'name': 'StatsItemComponent', 'selector': 'app-stats-item'},{'name': 'SubtaskComponent', 'selector': 'app-subtask'},{'name': 'SummaryComponent', 'selector': 'app-summary'},{'name': 'TaskCardComponent', 'selector': 'app-task-card'},{'name': 'TaskCategoryComponent', 'selector': 'app-task-category'},{'name': 'TaskListComponent', 'selector': 'app-task-list'},{'name': 'TaskViewComponent', 'selector': 'app-task-view'},{'name': 'ToastNotificationComponent', 'selector': 'app-toast-notification'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'AddContactComponent'};
