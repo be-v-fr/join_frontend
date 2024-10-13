@@ -33,7 +33,7 @@
                 <img src="assets/img/person.svg">
             </div>
             <div class="form-field"
-                [ngClass]="{'validation-error': (email.touched || contactForm.submitted) && (!email.valid || emailTaken)}">
+                [ngClass]="{'validation-error': (email.touched || contactForm.submitted) && (!email.valid || (!isUser && emailTaken))}">
                 <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel"
                     (change)="resetEmailTaken()" [(ngModel)]="formData.email"
                     pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" [disabled]="isUser">
