@@ -1,17 +1,24 @@
 @import "../../../../styles.scss";
 
 .greeting {
+  width: 100%;
+  max-width: 420px;
   .greeting-msg {
     font-size: $font-larger;
   }
   .user-name {
+    width: 100%;
     font-size: 64px;
     font-weight: 700;
     color: $light-blue;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   @media screen and (max-width: 1280px) {
     position: fixed;
     z-index: -1;
+    max-width: calc(100vw - 232px);
     left: 232px;
     right: 0;
     top: 96px;
@@ -32,6 +39,9 @@
         opacity: 0;
         z-index: 1;
       }
+    }
+    .user-name {
+      width: 94%;
     }
   }
   @media screen and (max-width: 768px) {

@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { Subscription } from 'rxjs';
+import { AppUser } from '../../../../models/app-user';
 
 
 /**
@@ -20,17 +21,13 @@ export class GreetingComponent implements OnInit, OnDestroy {
 
 
   /**
-   * Subscribe to "authService.currentUser$" to retrieve user name.
-   * The local user name is set to "null" in case guest log in is being used.
+   * Sets up username initialization. Performs a subscription to consider
+   * the case that the username * has not yet been loaded into the
+   * authentication service upon component initialization.
    */
   ngOnInit(): void {
-    this.authSub = this.authService.currentUser$.subscribe(u => {
-      if (u && u.user.email.length > 0) {
-        this.currentUserName = u.user.username;
-      } else {
-        this.currentUserName = null;
-      }
-    });
+    this.initUsername(this.authService.currentUser);
+    this.authSub = this.authService.currentUser$.subscribe((u: AppUser | null) => this.initUsername(u));
   }
 
 
@@ -39,6 +36,20 @@ export class GreetingComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.authSub.unsubscribe();
+  }
+
+
+  /**
+   * Initializes the username. The local user name is set to "null"
+   * in case guest log in is being used.
+   * @param {AppUser | null} currentUser - The currently active app user 
+   */
+  initUsername(currentUser: AppUser | null): void {
+    if (currentUser && currentUser.user.email.length > 0) {
+      this.currentUserName = currentUser.user.username;
+    } else {
+      this.currentUserName = null;
+    }
   }
 
 
