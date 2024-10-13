@@ -4,7 +4,6 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { PasswordIconComponent } from '../../templates/password-icon/password-icon.component';
 import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
-import { UsersService } from '../../services/users.service';
 import { Router, RouterModule } from '@angular/router';
 import { ArrowBackBtnComponent } from '../../templates/arrow-back-btn/arrow-back-btn.component';
 import { ToastNotificationComponent } from '../../templates/toast-notification/toast-notification.component';
