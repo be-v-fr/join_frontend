@@ -2,17 +2,25 @@
 @import '../../app.component.scss';
 
 .content {
+  width: calc(100vw - 232px);
   overflow-x: hidden;
   @extend .content;
   @include flex($ai: flex-start);
+
   .btn-responsive {
     display: flex;
   }
+
   .btn-viewer-options {
     @extend .btn-responsive;
     display: none;
   }
+
+  @media screen and (max-width: 768px) {
+    width: 100vw;
+  }
 }
+
 .list {
   min-width: 380px;
   width: 33.3%;
@@ -21,15 +29,18 @@
   background: white;
   padding: 24px 50px;
   box-shadow: $shadow-subtle;
+
   .add-new {
     @extend .btn-responsive;
     width: 100%;
     gap: 16px;
   }
+
   .letter {
     padding: 17px 36px;
     margin-top: 6px;
   }
+
   .horizontal-ruler {
     width: 100%;
     height: 1px;
@@ -37,69 +48,99 @@
     margin: 8px 0;
   }
 }
+
 .viewer-desktop {
-  height: 100%;
   flex: 1;
+  height: 100%;
   padding: var(--page-padding);
+
   .headline-container {
     width: 100%;
     @include flex($jc: space-between, $ai: flex-start);
+
     app-headline-slogan {
       flex: 1;
     }
+
     app-arrow-back-btn {
       display: none;
     }
   }
+
   .contact-data {
+    width: calc((100vw - 232px)* 2 / 3 - 80px);
     font-size: $font-small;
     animation: slide-in 125ms ease;
+
     .name {
       @include flex($jc: flex-start, $g: 54px);
+      width: 100%;
+
       .full-name-edit {
+        min-width: 0;
+        flex: 1;
         .full-name {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
           font-size: $font-larger;
         }
+
         .edit-btns-container {
           margin-top: 8px;
           display: flex;
         }
       }
     }
+
     app-email {
       margin-bottom: 16px;
     }
+
     .phone-nr {
       color: black;
     }
+
     @keyframes slide-in {
       from {
         transform: translateX(100vw);
       }
+
       to {
         transform: translateX(0);
       }
     }
   }
+
   @media screen and (max-width: 1440px) {
     padding: 60px 40px;
   }
+
   @media screen and (max-width: 1280px) {
     padding: var(--page-padding);
   }
 }
+
 .viewer-mobile {
   @extend .viewer-desktop;
+
   .contact-data {
     font-size: $font-small;
+    @media screen and (max-width: 1024px) {
+      width: auto;
+    }
+
     .name {
       gap: 20px;
+
       .full-name-edit {
         .full-name {
           font-size: 36px;
+
           @media screen and (max-width: 480px) {
             font-size: $font-large;
           }
+
           @media screen and (max-width: 350px) {
             font-size: $font-medium;
           }
@@ -108,8 +149,10 @@
     }
   }
 }
+
 .content {
   background: white;
+
   @media screen and (max-width: 1024px) {
     .btn-responsive {
       position: absolute;
@@ -120,26 +163,32 @@
       border-radius: 50%;
       box-shadow: $shadow-stronger;
       @include flex();
+
       img {
         display: block;
       }
     }
+
     .list {
       width: 480px;
       box-shadow: none;
+
       .add-new {
         width: 56px;
         height: 56px;
         border-radius: 50%;
+
         span {
           display: none;
         }
       }
     }
+
     .viewer-desktop,
     .viewer-mobile {
       display: none;
     }
+
     .show-on-contact-selection {
       display: initial;
       position: absolute;
@@ -149,12 +198,15 @@
       right: 0;
       background: $light-grey;
       animation: slide-in 125ms ease;
+
       .headline-container app-arrow-back-btn {
         display: block;
       }
+
       .contact-data {
         animation: none;
       }
+
       .edit-btns-container {
         background: white;
         box-shadow: $shadow-stronger;
@@ -169,12 +221,14 @@
         @include flex($ai: flex-start, $g: 16px, $dir: column);
         transition: 250ms ease-in;
       }
+
       .show-responsive-menu {
         right: 0;
         transition: 250ms ease-out;
       }
     }
   }
+
   @media screen and (max-width: 768px) {
     .list {
       padding: var(--page-padding);
@@ -183,6 +237,7 @@
       height: calc(100vh - 80px - 80px);
       height: calc(100dvh - 80px - 80px);
     }
+
     .btn-responsive {
       position: absolute;
       right: 12px;

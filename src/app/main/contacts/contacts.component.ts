@@ -107,7 +107,7 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   setContactViewerResponsive() {
     const width = this.contactViewerRef.nativeElement.offsetWidth;
-    this.contactViewerResponsive = (width >= 698 ? 'desktop' : 'mobile');
+    this.contactViewerResponsive = (width >= 768 ? 'desktop' : 'mobile');
   }
 
 
