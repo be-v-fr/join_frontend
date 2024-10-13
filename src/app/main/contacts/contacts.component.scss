@@ -50,6 +50,7 @@
 }
 
 .viewer-desktop {
+  min-width: 0;
   flex: 1;
   height: 100%;
   padding: var(--page-padding);
