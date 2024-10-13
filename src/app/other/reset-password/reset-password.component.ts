@@ -1,10 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { PasswordIconComponent } from '../../templates/password-icon/password-icon.component';
 import { ToastNotificationComponent } from '../../templates/toast-notification/toast-notification.component';
 import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -26,17 +27,21 @@ export class ResetPasswordComponent implements OnInit {
   token: string | null = null;
   authError: string = '';
   showToastMsg: boolean = false;
+  paramSub = new Subscription();
 
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private authService: AuthService,
   ) { }
 
 
-
   ngOnInit(): void {
-    // read route parameters
+    this.paramSub = this.route.paramMap.subscribe(params => {
+      this.token = params.get('token');
+      this.paramSub.unsubscribe();
+    });
   }
 
 

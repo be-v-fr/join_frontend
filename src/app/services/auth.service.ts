@@ -92,11 +92,11 @@ export class AuthService {
      * @param token password reset token
      * @returns authentication result
      */
-    async resetPassword(password: string, key: string): Promise<Object> {
+    async resetPassword(newPassword: string, key: string): Promise<Object> {
         const url = environment.BASE_URL + 'resetPassword/';
         const body = {
             token: key,
-            password: password,
+            new_password: newPassword,
         };
         return lastValueFrom(this.http.post(url, body));
     }
