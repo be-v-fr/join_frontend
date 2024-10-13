@@ -10,6 +10,10 @@ export class AppUser {
     contacts?: Contact[];
 
 
+    /**
+     * Create class instance
+     * @param obj data to initialize properties
+     */
     constructor(obj: any) {
         this.id = obj.id ? obj.id : -1;
         this.user = new AuthUser(obj.user ? obj.user : { id: -1 });
@@ -18,6 +22,11 @@ export class AppUser {
     }
 
 
+    /**
+     * Converts the data to JSON format.
+     * In detail, the data is formatted to meet the backend naming and requirements.
+     * @returns data JSON
+     */
     toJson(): {} {
         return {
             id: this.id,
@@ -27,7 +36,11 @@ export class AppUser {
     }
 
 
-    getColor() {
+    /**
+     * Retrieves hexadecimal color string from color id.
+     * @returns {string} hex color
+     */
+    getColor(): string {
         return environment.BADGE_COLORS[this.color_id];
     }
 

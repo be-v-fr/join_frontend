@@ -19,8 +19,8 @@ export class Task {
 
 
     /**
-     * Create new task and initialize obligatory properties
-     * @param title task title
+     * Create class instance
+     * @param obj data to initialize properties
      */
     constructor(obj: any) {
         this.id = obj.id ? obj.id : -1;
@@ -31,13 +31,18 @@ export class Task {
         this.prio = obj.prio ? obj.prio : 'Medium';
         this.category = obj.category ? obj.category : 'Technical Task';
         this.status = obj.status ? obj.status : 'To Do';
-        if(obj.subtasks) {
+        if (obj.subtasks) {
             this.subtasks = [];
             obj.subtasks.forEach((sData: any) => this.subtasks?.push(new Subtask(sData)));
         }
     }
 
 
+    /**
+     * Converts the data to JSON format.
+     * In detail, the data is formatted to meet the backend naming and requirements.
+     * @returns data JSON
+     */
     toJson(): {} {
         const jsonSubtasks: {}[] = [];
         this.subtasks?.forEach(s => jsonSubtasks.push(s.toJson()));
@@ -51,7 +56,7 @@ export class Task {
             subtasks: jsonSubtasks,
             status: this.status,
         }
-        if(this.id != -1) {json.id = this.id}
+        if (this.id != -1) { json.id = this.id }
         return json;
     }
 

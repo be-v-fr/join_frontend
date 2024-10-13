@@ -5,9 +5,8 @@ export class AuthUser {
 
 
     /**
-     * Create user
-     * @param name user name 
-     * @param uid Firebase user ID
+     * Create class instance
+     * @param obj data to initialize properties
      */
     constructor(obj: any) {
         this.id = obj.id ? obj.id : -1;
@@ -16,6 +15,11 @@ export class AuthUser {
     }
 
 
+    /**
+     * Converts the data to JSON format.
+     * In detail, the data is formatted to meet the backend naming and requirements.
+     * @returns data JSON
+     */
     toJson(): {} {
         return {
             id: this.id,

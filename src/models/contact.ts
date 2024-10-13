@@ -15,11 +15,8 @@ export class Contact {
 
 
     /**
-     * Create contact
-     * @param name contact name
-     * @param uid Firebase user ID
-     * @param email contact email address
-     * @param phone contact phone number
+     * Create class instance
+     * @param obj data to initialize properties
      */
     constructor(obj: any) {
         this.id = obj.id ? obj.id : -1;
@@ -30,6 +27,11 @@ export class Contact {
     }
 
 
+    /**
+     * Converts the data to JSON format.
+     * In detail, the data is formatted to meet the backend naming and requirements.
+     * @returns data JSON
+     */
     toJson(): {} {
         const json: any = {
             name: this.name,
@@ -42,7 +44,11 @@ export class Contact {
     }
 
 
-    getColor() {
+    /**
+     * Retrieves hexadecimal color string from color id.
+     * @returns {string} hex color
+     */
+    getColor(): string {
         return environment.BADGE_COLORS[this.color_id] || '#d1d1d1';
     }
 }
