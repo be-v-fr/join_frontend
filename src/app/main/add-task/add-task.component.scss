@@ -186,10 +186,12 @@ textarea,
 .dropdown-assigned {
   @extend .dropdown-menu;
   max-height: 294px;
+  overflow-x: hidden;
   overflow-y: auto;
   li {
     @include flex($jc: space-between);
     app-contact-list-item {
+      width: calc(100% - 24px);
       flex: 1;
     }
     cursor: pointer;
