@@ -7,9 +7,7 @@ import { AppUser } from "../../models/app-user";
 
 
 /**
- * This injectable handles Firebase user authentication.
- * Aside from plain authentication and registration, it can only display the user name.
- * For the retrieval of more detailed data about the current user, see "usersService".
+ * This injectable handles backend user authentication.
  */
 @Injectable({
     providedIn: 'root'
@@ -58,12 +56,22 @@ export class AuthService {
     }
 
 
+    /**
+     * Initialize the user data after authentication or registration.
+     * This sets the current user in the AuthService and emits the user data to any subscribers.
+     * @param userData Object containing user data to be set as current user.
+     */
     initUser(userData: AppUser): void {
         this.currentUser = new AppUser(userData);
         this.currentUser$.next(this.currentUser);
     }
 
 
+    /**
+     * Synchronize the current user data from the backend.
+     * Fetches the latest data of the currently authenticated user.
+     * @returns A Promise resolving when the user data has been successfully fetched and initialized.
+     */
     async syncUser(): Promise<void> {
         const url = environment.BASE_URL + 'users/current/';
         const resp: any = await lastValueFrom(this.http.get(url));
@@ -138,10 +146,10 @@ export class AuthService {
 
 
     /**
-     * Get Firebase user ID ("uid") of active user or 'guest' in case of guest log in
-     * @returns user ID (actual uid, guest or undefined in case there is no log in)
+     * Get current user ID, if it exists.
+     * @returns {number | undefined} user ID or undefined
      */
-    getCurrentUid(): number | 'guest' | undefined {
+    getCurrentUid(): number | undefined {
         if (this.currentUser) {
             return this.currentUser.id;
         } return;

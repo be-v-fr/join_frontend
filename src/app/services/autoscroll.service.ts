@@ -30,6 +30,10 @@ export class AutoscrollService {
     }
 
 
+    /**
+     * Handles scrolling during drag events.
+     * @param {number} scrollSpeed - scrolling speed 
+     */
     scrollWhileDragging(scrollSpeed: number) {
         const wrapper = document.getElementById('pageWrapper');
         if(wrapper) {wrapper.scrollBy(0, scrollSpeed)}

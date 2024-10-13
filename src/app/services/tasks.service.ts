@@ -8,7 +8,7 @@ import { Subtask } from '../../models/subtask';
 
 
 /**
- * This injectable handles generic tasks operations, including Firestore communication.
+ * This injectable handles generic tasks operations, including backend communication.
  */
 @Injectable({
   providedIn: 'root'
@@ -30,6 +30,10 @@ export class TasksService {
   ) {  }
 
 
+  /**
+   * Initialize task and subtask streaming from the server.
+   * Listens for server-sent events to synchronize tasks and subtasks in real-time.
+   */
   init() {
     const tasksEvents = new EventSource(environment.BASE_URL + 'tasks/stream/');
     const subtasksEvents = new EventSource(environment.BASE_URL + 'subtasks/stream/');
@@ -39,6 +43,11 @@ export class TasksService {
   }
 
 
+  /**
+   * Synchronize tasks with the backend.
+   * Fetches the latest tasks from the server and updates the local task list.
+   * @returns A Promise resolving when tasks are synced.
+   */
   async syncTasks(): Promise<void> {
     const url = environment.BASE_URL + 'tasks/';
     const resp = await lastValueFrom(this.http.get(url));
@@ -51,6 +60,11 @@ export class TasksService {
   }
 
 
+  /**
+   * Synchronize subtasks with the backend.
+   * Fetches the latest subtasks and associates them with their respective tasks.
+   * @returns A Promise resolving when subtasks are synced.
+   */
   async syncSubtasks(): Promise<void> {
     if (this.tasks.length > 0) {
       this.syncingSubtasks = true;
@@ -63,17 +77,29 @@ export class TasksService {
   }
 
 
+  /**
+   * Add subtasks to their respective tasks.
+   * @param subtasksData Array of subtask data from the server.
+   */
   addSubtasksToTasks(subtasksData: Array<any>) {
     this.clearSubtasks();
     subtasksData.forEach(stData => this.addSubtaskToTask(new Subtask(stData)));
   }
 
 
+  /**
+   * Clear all subtasks from the tasks.
+   * This method is used before re-adding subtasks during synchronization.
+   */
   clearSubtasks() {
     this.tasks.forEach(t => t.subtasks = []);
   }
 
 
+  /**
+   * Add a subtask to its corresponding task.
+   * @param subtask The subtask to add.
+   */
   addSubtaskToTask(subtask: Subtask) {
     const tasksArrayIndex: number = this.tasks.findIndex(t => t.id == subtask.task_id);
     if (tasksArrayIndex == -1) {
@@ -96,6 +122,10 @@ export class TasksService {
   }
 
 
+  /**
+   * Add a task locally without communicating with the backend.
+   * @param task The task to add locally.
+   */
   addTaskLocally(task: Task): void {
     this.tasks.push(task);
     this.tasks$.next();
@@ -117,6 +147,10 @@ export class TasksService {
   }
 
 
+  /**
+   * Update a task locally without communicating with the backend.
+   * @param task The task to update locally.
+   */
   updateTaskLocally(task: Task): void {
     const tasksArrayIndex = this.tasks.findIndex(t => t.id == task.id);
     if(tasksArrayIndex >= 0) {
@@ -141,6 +175,10 @@ export class TasksService {
   }
 
 
+  /**
+   * Delete a task locally without communicating with the backend.
+   * @param id The ID of the task to delete locally.
+   */
   deleteTaskLocally(id: number): void {
     const tasksArrayIndex = this.tasks.findIndex(t => t.id == id);
     if(tasksArrayIndex >= 0) {
@@ -154,7 +192,7 @@ export class TasksService {
 
   /**
    * Retrieve a complete task object from task ID
-   * @param id Firestore task ID
+   * @param id task ID
    * @returns task object
    */
   getTaskById(id: number): Task | undefined {
