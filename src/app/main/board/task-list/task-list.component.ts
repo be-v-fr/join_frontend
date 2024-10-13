@@ -175,7 +175,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
 
   /**
-   * On task drop, get the Firestore task ID which was stored in "dataTransfer" before.
+   * On task drop, get the task ID which was stored in "dataTransfer" before.
    * Update the status of the dragged task using the ID.
    * @param ev 
    */
@@ -188,9 +188,9 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
 
   /**
-   * Retrieve the full task from Firestore/tasksService using the task ID.
-   * Update the task status to the current list. Then update the task in Firestore/tasksService.
-   * @param taskId Firestore task ID
+   * Retrieve the full task from tasksService using the task ID.
+   * Update the task status to the current list. Then update the task in tasksService.
+   * @param taskId task ID
    */
   updateTaskStatus(taskId: number) {
     let task = this.tasksService.getTaskById(taskId);
@@ -211,7 +211,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
   /**
    * View task by emitting the corresponding event to the parent component
-   * @param id Firestore task ID
+   * @param id task ID
    */
   viewTask(id: number) {
     this.taskClick.emit(id);

@@ -32,8 +32,7 @@ export class AddContactComponent extends SlideComponent {
 
   /**
    * Extend super class "ngOnInit()" method by form data initialization.
-   * Also disable name editing in case the contact is another user (rather than a manually added contact),
-   * which is marked by an existing Firebase user ID ("uid").
+   * Also disable name editing in case the contact is another user (rather than a manually added contact).
    */
   override ngOnInit() {
     super.ngOnInit();
@@ -59,6 +58,9 @@ export class AddContactComponent extends SlideComponent {
   }
 
 
+  /**
+   * Resets the emailTaken property to the default value (false).
+   */
   resetEmailTaken(): void {
     this.emailTaken = false;
   }

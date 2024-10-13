@@ -37,7 +37,7 @@ export class BoardComponent {
 
   /**
    * This function returns a full task by its ID
-   * @param id Firestore task ID
+   * @param id task ID
    * @returns task
    */
   getTaskById(id: number): Task {

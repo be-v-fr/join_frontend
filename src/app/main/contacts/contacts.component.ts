@@ -63,6 +63,11 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
+  /**
+   * Returns authService/currentUser subscription to synchronize current user,
+   * contacts and perform addictional usersService/users subscription.
+   * @returns {Subscription} current user subscription
+   */
   subAuth(): Subscription {
     return this.authService.currentUser$.subscribe(user => {
       if (user) {
@@ -154,6 +159,11 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
+  /**
+   * Checks if a contact is also a user.
+   * @param {Contact} contact - Contact to check 
+   * @returns {boolean} Check result
+   */
   isUser(contact: Contact): boolean {
     return this.usersService.isUser(contact);
   }
