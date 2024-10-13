@@ -3,7 +3,7 @@ import { Subtask } from './subtask';
 
 
 /**
- * This component represents a task
+ * This model represents a task
  */
 export class Task {
     id: number;

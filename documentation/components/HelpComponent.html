@@ -1,0 +1,438 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>join documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">join documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  HelpComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/other/help/help.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>This component displays a join usage manual</p>
+
+    </p>
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-help</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="../components/HeadlineOtherComponent.html" target="_self" >HeadlineOtherComponent</a></code>
+                                <code><a href="../components/EmailComponent.html" target="_self" >EmailComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./help.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./help.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { HeadlineOtherComponent } from &#x27;../../templates/headline-other/headline-other.component&#x27;;
+import { EmailComponent } from &#x27;../../main/contacts/email/email.component&#x27;;
+
+
+/**
+ * This component displays a join usage manual
+ */
+@Component({
+  selector: &#x27;app-help&#x27;,
+  standalone: true,
+  imports: [HeadlineOtherComponent, EmailComponent],
+  templateUrl: &#x27;./help.component.html&#x27;,
+  styleUrl: &#x27;./help.component.scss&#x27;
+})
+export class HelpComponent {
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;content&quot;&gt;
+    &lt;app-headline-other [headline]&#x3D;&quot;&#x27;Help&#x27;&quot;&gt;&lt;/app-headline-other&gt;
+    &lt;p&gt;
+        Welcome to the help page for &lt;span class&#x3D;&quot;light-blue&quot;&gt;Join&lt;/span&gt;, your
+        guide to using our kanban project management tool. Here, we&#x27;ll
+        provide an overview of what &lt;span class&#x3D;&quot;light-blue&quot;&gt;Join&lt;/span&gt; is, how
+        it can benefit you, and how to use it.
+    &lt;/p&gt;
+    &lt;h3&gt;What is Join?&lt;/h3&gt;
+    &lt;p&gt;
+        &lt;span class&#x3D;&quot;light-blue&quot;&gt;Join&lt;/span&gt; is a kanban-based project management
+        tool designed and built by a group of dedicated students as part of
+        their web development bootcamp at the Developer Akademie.
+        &lt;br /&gt;&lt;br /&gt;Kanban, a Japanese term meaning &quot;billboard&quot;, is a highly
+        effective method to visualize work, limit work-in-progress, and
+        maximize efficiency (or flow).
+        &lt;span class&#x3D;&quot;light-blue&quot;&gt;Join&lt;/span&gt; leverages the principles of kanban
+        to help users manage their tasks and projects in an intuitive,
+        visual interface.
+        &lt;br /&gt;&lt;br /&gt;It is important to note that
+        &lt;span class&#x3D;&quot;light-blue&quot;&gt;Join&lt;/span&gt; is designed as an educational
+        exercise and is not intended for extensive business usage. While we
+        strive to ensure the best possible user experience, we cannot
+        guarantee consistent availability, reliability, accuracy, or other
+        aspects of quality regarding &lt;span class&#x3D;&quot;light-blue&quot;&gt;Join&lt;/span&gt;.
+    &lt;/p&gt;
+    &lt;h3&gt;How to use it&lt;/h3&gt;
+    &lt;p&gt;
+        Here is a step-by-step guide on how to use
+        &lt;span class&#x3D;&quot;light-blue&quot;&gt;Join&lt;/span&gt;:
+    &lt;/p&gt;
+    &lt;ol&gt;
+        &lt;li&gt;
+            &lt;div class&#x3D;&quot;li-content&quot;&gt;
+                &lt;h4&gt;Exploring the board&lt;/h4&gt;
+                When you log in to &lt;span class&#x3D;&quot;light-blue&quot;&gt;Join&lt;/span&gt;, you&#x27;ll find a
+                default board. This board represents your project and contains
+                four default lists: &quot;To Do&quot;, &quot;In Progress&quot;, “Await feedback” and
+                &quot;Done&quot;.
+            &lt;/div&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;div class&#x3D;&quot;li-content&quot;&gt;
+                &lt;h4&gt;Creating contacts&lt;/h4&gt;
+                In &lt;span class&#x3D;&quot;light-blue&quot;&gt;Join&lt;/span&gt;,
+                you can add contacts to collaborate on your projects. Go to the
+                &quot;Contacts&quot; section, click on &quot;New contact&quot;, and fill in the
+                required information. Once added, these contacts can be assigned
+                tasks and they can interact with the tasks on the board.
+            &lt;/div&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;div class&#x3D;&quot;li-content&quot;&gt;
+                &lt;h4&gt;Adding cards&lt;/h4&gt;
+                Now that you&#x27;ve added your contacts,
+                you can start adding cards. Cards represent individual tasks.
+                Click the &quot;+&quot; button under the appropriate list to create a new
+                card. Fill in the task details in the card, like task name,
+                description, due date, assignees, etc.
+            &lt;/div&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;div class&#x3D;&quot;li-content&quot;&gt;
+                &lt;h4&gt;Moving cards&lt;/h4&gt;
+                As the task moves from one stage to
+                another, you can reflect that on the board by dragging and
+                dropping the card from one list to another.
+            &lt;/div&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;div class&#x3D;&quot;li-content&quot;&gt;
+                &lt;h4&gt;Deleting cards&lt;/h4&gt;
+                Once a task is completed, you can
+                either move it to the &quot;Done&quot; list or delete it. Deleting a card
+                will permanently remove it from the board. Please exercise caution
+                when deleting cards, as this action is irreversible. Remember that
+                using &lt;span class&#x3D;&quot;light-blue&quot;&gt;Join&lt;/span&gt; effectively requires
+                consistent updates from you and your team to ensure the board
+                reflects the current state of your project. Have more questions
+                about &lt;span class&#x3D;&quot;light-blue&quot;&gt;Join&lt;/span&gt;? Feel free to contact us at:
+                &lt;br /&gt;
+                &lt;app-email [email]&#x3D;&quot;&#x27;kontakt@bengt-fruechtenicht.de&#x27;&quot;&gt;&lt;/app-email&gt;&lt;br /&gt;
+                We&#x27;re here to help you!
+            &lt;/div&gt;
+        &lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;p class&#x3D;&quot;center&quot;&gt;
+        Enjoy using &lt;span class&#x3D;&quot;light-blue&quot;&gt;Join&lt;/span&gt;!
+    &lt;/p&gt;
+    &lt;br&gt;&lt;br&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="content">    <app-headline-other [headline]="\'Help\'"></app-headline-other>    <p>        Welcome to the help page for <span class="light-blue">Join</span>, your        guide to using our kanban project management tool. Here, we\'ll        provide an overview of what <span class="light-blue">Join</span> is, how        it can benefit you, and how to use it.    </p>    <h3>What is Join?</h3>    <p>        <span class="light-blue">Join</span> is a kanban-based project management        tool designed and built by a group of dedicated students as part of        their web development bootcamp at the Developer Akademie.        <br /><br />Kanban, a Japanese term meaning "billboard", is a highly        effective method to visualize work, limit work-in-progress, and        maximize efficiency (or flow).        <span class="light-blue">Join</span> leverages the principles of kanban        to help users manage their tasks and projects in an intuitive,        visual interface.        <br /><br />It is important to note that        <span class="light-blue">Join</span> is designed as an educational        exercise and is not intended for extensive business usage. While we        strive to ensure the best possible user experience, we cannot        guarantee consistent availability, reliability, accuracy, or other        aspects of quality regarding <span class="light-blue">Join</span>.    </p>    <h3>How to use it</h3>    <p>        Here is a step-by-step guide on how to use        <span class="light-blue">Join</span>:    </p>    <ol>        <li>            <div class="li-content">                <h4>Exploring the board</h4>                When you log in to <span class="light-blue">Join</span>, you\'ll find a                default board. This board represents your project and contains                four default lists: "To Do", "In Progress", “Await feedback” and                "Done".            </div>        </li>        <li>            <div class="li-content">                <h4>Creating contacts</h4>                In <span class="light-blue">Join</span>,                you can add contacts to collaborate on your projects. Go to the                "Contacts" section, click on "New contact", and fill in the                required information. Once added, these contacts can be assigned                tasks and they can interact with the tasks on the board.            </div>        </li>        <li>            <div class="li-content">                <h4>Adding cards</h4>                Now that you\'ve added your contacts,                you can start adding cards. Cards represent individual tasks.                Click the "+" button under the appropriate list to create a new                card. Fill in the task details in the card, like task name,                description, due date, assignees, etc.            </div>        </li>        <li>            <div class="li-content">                <h4>Moving cards</h4>                As the task moves from one stage to                another, you can reflect that on the board by dragging and                dropping the card from one list to another.            </div>        </li>        <li>            <div class="li-content">                <h4>Deleting cards</h4>                Once a task is completed, you can                either move it to the "Done" list or delete it. Deleting a card                will permanently remove it from the board. Please exercise caution                when deleting cards, as this action is irreversible. Remember that                using <span class="light-blue">Join</span> effectively requires                consistent updates from you and your team to ensure the board                reflects the current state of your project. Have more questions                about <span class="light-blue">Join</span>? Feel free to contact us at:                <br />                <app-email [email]="\'kontakt@bengt-fruechtenicht.de\'"></app-email><br />                We\'re here to help you!            </div>        </li>    </ol>    <p class="center">        Enjoy using <span class="light-blue">Join</span>!    </p>    <br><br></div></div>'
+    var COMPONENTS = [{'name': 'AddContactComponent', 'selector': 'app-add-contact'},{'name': 'AddTaskComponent', 'selector': 'app-add-task'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ArrowBackBtnComponent', 'selector': 'app-arrow-back-btn'},{'name': 'BoardComponent', 'selector': 'app-board'},{'name': 'CloseBtnComponent', 'selector': 'app-close-btn'},{'name': 'ContactListItemComponent', 'selector': 'app-contact-list-item'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'EmailComponent', 'selector': 'app-email'},{'name': 'GreetingComponent', 'selector': 'app-greeting'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeadlineOtherComponent', 'selector': 'app-headline-other'},{'name': 'HeadlineSloganComponent', 'selector': 'app-headline-slogan'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'LegalNoticeComponent', 'selector': 'app-legal-notice'},{'name': 'LogInPageComponent', 'selector': 'app-log-in-page'},{'name': 'MenuComponent', 'selector': 'app-menu'},{'name': 'PasswordIconComponent', 'selector': 'app-password-icon'},{'name': 'PersonBadgeComponent', 'selector': 'app-person-badge'},{'name': 'PrioIconComponent', 'selector': 'app-prio-icon'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'RegistrationFormComponent', 'selector': 'app-registration-form'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SlideComponent', 'selector': 'app-slide'},{'name': 'StatsItemComponent', 'selector': 'app-stats-item'},{'name': 'SubtaskComponent', 'selector': 'app-subtask'},{'name': 'SummaryComponent', 'selector': 'app-summary'},{'name': 'TaskCardComponent', 'selector': 'app-task-card'},{'name': 'TaskCategoryComponent', 'selector': 'app-task-category'},{'name': 'TaskListComponent', 'selector': 'app-task-list'},{'name': 'TaskViewComponent', 'selector': 'app-task-view'},{'name': 'ToastNotificationComponent', 'selector': 'app-toast-notification'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'HelpComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'HelpComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,1643 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>join documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">join documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  BoardComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/main/board/board.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>This component displays the task board.
+It contains an overview of all tasks sorted by their respective status.
+It also contains a search function to filter tasks.</p>
+
+    </p>
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-board</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                                <code><a href="../components/TaskListComponent.html" target="_self" >TaskListComponent</a></code>
+                                <code><a href="../components/TaskViewComponent.html" target="_self" >TaskViewComponent</a></code>
+                                <code><a href="../components/AddTaskComponent.html" target="_self" >AddTaskComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./board.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./board.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#closingTaskStatusDropdown" >closingTaskStatusDropdown</a>
+                            </li>
+                            <li>
+                                <a href="#dragCardHeight" >dragCardHeight</a>
+                            </li>
+                            <li>
+                                <a href="#dragStartStatus" >dragStartStatus</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#router" >router</a>
+                            </li>
+                            <li>
+                                <a href="#searchFilter" >searchFilter</a>
+                            </li>
+                            <li>
+                                <a href="#statusList" >statusList</a>
+                            </li>
+                            <li>
+                                <a href="#taskFormId" >taskFormId</a>
+                            </li>
+                            <li>
+                                <a href="#taskFormWrapperTranslated" >taskFormWrapperTranslated</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#tasksService" >tasksService</a>
+                            </li>
+                            <li>
+                                <a href="#viewTaskId" >viewTaskId</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addToStatus" >addToStatus</a>
+                            </li>
+                            <li>
+                                <a href="#closeTaskStatusDropdown" >closeTaskStatusDropdown</a>
+                            </li>
+                            <li>
+                                <a href="#closeTaskView" >closeTaskView</a>
+                            </li>
+                            <li>
+                                <a href="#getTaskById" >getTaskById</a>
+                            </li>
+                            <li>
+                                <a href="#hideTaskForm" >hideTaskForm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#onResize" >onResize</a>
+                            </li>
+                            <li>
+                                <a href="#setDragCardHeight" >setDragCardHeight</a>
+                            </li>
+                            <li>
+                                <a href="#setDragStartStatus" >setDragStartStatus</a>
+                            </li>
+                            <li>
+                                <a href="#showTaskForm" >showTaskForm</a>
+                            </li>
+                            <li>
+                                <a href="#slideTaskFormWrapper" >slideTaskFormWrapper</a>
+                            </li>
+                            <li>
+                                <a href="#viewTask" >viewTask</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#window:resize" >window:resize</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="window:resize"></a>
+                    <span class="name">
+                        <span ><b>window:resize</b></span>
+                        <a href="#window:resize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <i>Arguments : </i><code>'$event' </code>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>window:resize()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="91"
+                                    class="link-to-prism">src/app/main/board/board.component.ts:91</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>When the &quot;add task&quot; form is opened from the board, it depends on the screen resolution whether the form is displayed in an overlay or using router navigation.
+Smaller screens will use router navigation.
+In case the screen resolution is reduced below a certain threshold while the form is displayed in an overlay, close the overlay.
+In this case, the user will have to click another time to open the form. The previous form data will be lost since it is never saved or loaded.</p>
+</div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addToStatus"></a>
+                    <span class="name">
+                        <span ><b>addToStatus</b></span>
+                        <a href="#addToStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addToStatus(status: "To do" | "In progress" | "Await feedback" | "Done")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="100"
+                                    class="link-to-prism">src/app/main/board/board.component.ts:100</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Set task status to be used for &quot;add task&quot; initialization in adding mode (not for editing tasks)</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>status</td>
+                                            <td>
+                                                        <code>&quot;To do&quot; | &quot;In progress&quot; | &quot;Await feedback&quot; | &quot;Done&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>task status/list</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeTaskStatusDropdown"></a>
+                    <span class="name">
+                        <span ><b>closeTaskStatusDropdown</b></span>
+                        <a href="#closeTaskStatusDropdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeTaskStatusDropdown()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="139"
+                                    class="link-to-prism">src/app/main/board/board.component.ts:139</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Close dropdown menu in &quot;task card&quot; element (child of &quot;task list&quot; element)</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeTaskView"></a>
+                    <span class="name">
+                        <span ><b>closeTaskView</b></span>
+                        <a href="#closeTaskView"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeTaskView()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">src/app/main/board/board.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This functon closes the &quot;task view&quot; component/overlay by unsetting the &quot;viewTaskId&quot; property</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTaskById"></a>
+                    <span class="name">
+                        <span ><b>getTaskById</b></span>
+                        <a href="#getTaskById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTaskById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="43"
+                                    class="link-to-prism">src/app/main/board/board.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function returns a full task by its ID</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>task ID</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Task.html" target="_self" >Task</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>task</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hideTaskForm"></a>
+                    <span class="name">
+                        <span ><b>hideTaskForm</b></span>
+                        <a href="#hideTaskForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>hideTaskForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="78"
+                                    class="link-to-prism">src/app/main/board/board.component.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Hide &quot;add task&quot; component with slide animation.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onResize"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>onResize</b></span>
+                        <a href="#onResize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onResize()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;window:resize&#x27;, [&#x27;$event&#x27;])<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="91"
+                                    class="link-to-prism">src/app/main/board/board.component.ts:91</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>When the &quot;add task&quot; form is opened from the board, it depends on the screen resolution whether the form is displayed in an overlay or using router navigation.
+Smaller screens will use router navigation.
+In case the screen resolution is reduced below a certain threshold while the form is displayed in an overlay, close the overlay.
+In this case, the user will have to click another time to open the form. The previous form data will be lost since it is never saved or loaded.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setDragCardHeight"></a>
+                    <span class="name">
+                        <span ><b>setDragCardHeight</b></span>
+                        <a href="#setDragCardHeight"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setDragCardHeight(height: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="121"
+                                    class="link-to-prism">src/app/main/board/board.component.ts:121</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Set &quot;dragCardHeight&quot; property to a certain height in pixels.
+The height should be retrieved from the currently dragged task card HTML element.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>height</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>card height</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setDragStartStatus"></a>
+                    <span class="name">
+                        <span ><b>setDragStartStatus</b></span>
+                        <a href="#setDragStartStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setDragStartStatus(status: "To do" | "In progress" | "Await feedback" | "Done")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="131"
+                                    class="link-to-prism">src/app/main/board/board.component.ts:131</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Set &quot;dragStartStatus&quot; property to a certain task status.
+The status should be retrieved from the currently dragged task card HTML element or the task list containing it.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>status</td>
+                                            <td>
+                                                        <code>&quot;To do&quot; | &quot;In progress&quot; | &quot;Await feedback&quot; | &quot;Done&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>task status</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showTaskForm"></a>
+                    <span class="name">
+                        <span ><b>showTaskForm</b></span>
+                        <a href="#showTaskForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showTaskForm(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">src/app/main/board/board.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Show the &quot;add task&quot; component.
+Leaving &quot;id&quot; empty (&#39;&#39;) will result in &quot;add&quot; mode. Using an actual ID will result in editing the corresponding task.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>task ID</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="slideTaskFormWrapper"></a>
+                    <span class="name">
+                        <span ><b>slideTaskFormWrapper</b></span>
+                        <a href="#slideTaskFormWrapper"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>slideTaskFormWrapper()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">src/app/main/board/board.component.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Trigger slide animation for &quot;add task&quot; component</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewTask"></a>
+                    <span class="name">
+                        <span ><b>viewTask</b></span>
+                        <a href="#viewTask"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>viewTask(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="52"
+                                    class="link-to-prism">src/app/main/board/board.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function sets the &quot;viewTaskId&quot; property, which will result in displaying the &quot;task view&quot; component</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>task ID</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closingTaskStatusDropdown"></a>
+                    <span class="name">
+                        <span ><b>closingTaskStatusDropdown</b></span>
+                        <a href="#closingTaskStatusDropdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;void&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject&lt;void&gt;()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/main/board/board.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dragCardHeight"></a>
+                    <span class="name">
+                        <span ><b>dragCardHeight</b></span>
+                        <a href="#dragCardHeight"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>160</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/main/board/board.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dragStartStatus"></a>
+                    <span class="name">
+                        <span ><b>dragStartStatus</b></span>
+                        <a href="#dragStartStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;To do&quot; | &quot;In progress&quot; | &quot;Await feedback&quot; | &quot;Done&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;To do&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/main/board/board.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="router"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>router</b></span>
+                        <a href="#router"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(Router)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/main/board/board.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchFilter"></a>
+                    <span class="name">
+                        <span ><b>searchFilter</b></span>
+                        <a href="#searchFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/main/board/board.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="statusList"></a>
+                    <span class="name">
+                        <span ><b>statusList</b></span>
+                        <a href="#statusList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>(&quot;To do&quot; | &quot;In progress&quot; | &quot;Await feedback&quot; | &quot;Done&quot;)[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;To do&#x27;, &#x27;In progress&#x27;, &#x27;Await feedback&#x27;, &#x27;Done&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/main/board/board.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="taskFormId"></a>
+                    <span class="name">
+                        <span ><b>taskFormId</b></span>
+                        <a href="#taskFormId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/main/board/board.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="taskFormWrapperTranslated"></a>
+                    <span class="name">
+                        <span ><b>taskFormWrapperTranslated</b></span>
+                        <a href="#taskFormWrapperTranslated"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/main/board/board.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tasksService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>tasksService</b></span>
+                        <a href="#tasksService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(TasksService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/main/board/board.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewTaskId"></a>
+                    <span class="name">
+                        <span ><b>viewTaskId</b></span>
+                        <a href="#viewTaskId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>-1</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/main/board/board.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject, HostListener } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Task } from &#x27;../../../models/task&#x27;;
+import { TasksService } from &#x27;../../services/tasks.service&#x27;;
+import { TaskViewComponent } from &#x27;./task-view/task-view.component&#x27;;
+import { AddTaskComponent } from &#x27;../add-task/add-task.component&#x27;;
+import { TaskListComponent } from &#x27;./task-list/task-list.component&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { Subject } from &#x27;rxjs&#x27;;
+
+
+/**
+ * This component displays the task board.
+ * It contains an overview of all tasks sorted by their respective status.
+ * It also contains a search function to filter tasks.
+ */
+@Component({
+  selector: &#x27;app-board&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, TaskListComponent, TaskViewComponent, AddTaskComponent],
+  templateUrl: &#x27;./board.component.html&#x27;,
+  styleUrl: &#x27;./board.component.scss&#x27;
+})
+export class BoardComponent {
+  private tasksService &#x3D; inject(TasksService);
+  private router &#x3D; inject(Router);
+  statusList: (&#x27;To do&#x27; | &#x27;In progress&#x27; | &#x27;Await feedback&#x27; | &#x27;Done&#x27;)[] &#x3D; [&#x27;To do&#x27;, &#x27;In progress&#x27;, &#x27;Await feedback&#x27;, &#x27;Done&#x27;];
+  viewTaskId: number &#x3D; -1;
+  taskFormId: number | null &#x3D; null;
+  taskFormWrapperTranslated: boolean &#x3D; true;
+  dragCardHeight: number &#x3D; 160;
+  dragStartStatus: &#x27;To do&#x27; | &#x27;In progress&#x27; | &#x27;Await feedback&#x27; | &#x27;Done&#x27; &#x3D; &#x27;To do&#x27;;
+  searchFilter: string &#x3D; &#x27;&#x27;;
+  closingTaskStatusDropdown: Subject&lt;void&gt; &#x3D; new Subject&lt;void&gt;();
+
+
+  /**
+   * This function returns a full task by its ID
+   * @param id task ID
+   * @returns task
+   */
+  getTaskById(id: number): Task {
+    return this.tasksService.getTaskById(id) || new Task({});
+  }
+
+
+  /**
+   * This function sets the &quot;viewTaskId&quot; property, which will result in displaying the &quot;task view&quot; component
+   * @param id task ID
+   */
+  viewTask(id: number) {
+    this.viewTaskId &#x3D; id;
+  }
+
+
+  /**
+   * This functon closes the &quot;task view&quot; component/overlay by unsetting the &quot;viewTaskId&quot; property
+   */
+  closeTaskView() {
+    this.viewTaskId &#x3D; -1;
+  }
+
+
+  /**
+   * Show the &quot;add task&quot; component.
+   * Leaving &quot;id&quot; empty (&#x27;&#x27;) will result in &quot;add&quot; mode. Using an actual ID will result in editing the corresponding task.
+   * @param id task ID
+   */
+  showTaskForm(id: number) {
+    this.taskFormId &#x3D; id;
+  }
+
+
+  /**
+   * Hide &quot;add task&quot; component with slide animation.
+   */
+  hideTaskForm() {
+    this.slideTaskFormWrapper();
+    setTimeout(() &#x3D;&gt; this.taskFormId &#x3D; null, 125);
+  }
+
+
+  /**
+   * When the &quot;add task&quot; form is opened from the board, it depends on the screen resolution whether the form is displayed in an overlay or using router navigation.
+   * Smaller screens will use router navigation.
+   * In case the screen resolution is reduced below a certain threshold while the form is displayed in an overlay, close the overlay.
+   * In this case, the user will have to click another time to open the form. The previous form data will be lost since it is never saved or loaded. 
+   */
+  @HostListener(&#x27;window:resize&#x27;, [&#x27;$event&#x27;])
+  onResize() {
+    if (this.taskFormId &#x3D;&#x3D; -1 &amp;&amp; window.innerWidth &lt;&#x3D; 768) { this.router.navigate([&#x27;/add_task&#x27;]) }
+  }
+
+
+  /**
+   * Set task status to be used for &quot;add task&quot; initialization in adding mode (not for editing tasks)
+   * @param status task status/list
+   */
+  addToStatus(status: &#x27;To do&#x27; | &#x27;In progress&#x27; | &#x27;Await feedback&#x27; | &#x27;Done&#x27;) {
+    if (status !&#x3D; &#x27;Done&#x27;) {
+      this.tasksService.newTaskStatus &#x3D; status;
+      window.innerWidth &gt; 768 ? this.showTaskForm(-1) : this.router.navigate([&#x27;/add_task&#x27;]);
+    }
+  }
+
+
+  /**
+   * Trigger slide animation for &quot;add task&quot; component
+   */
+  slideTaskFormWrapper() {
+    this.taskFormWrapperTranslated &#x3D; !this.taskFormWrapperTranslated;
+  }
+
+
+  /**
+   * Set &quot;dragCardHeight&quot; property to a certain height in pixels.
+   * The height should be retrieved from the currently dragged task card HTML element.
+   * @param height card height
+   */
+  setDragCardHeight(height: number) {
+    this.dragCardHeight &#x3D; height;
+  }
+
+
+  /**
+   * Set &quot;dragStartStatus&quot; property to a certain task status.
+   * The status should be retrieved from the currently dragged task card HTML element or the task list containing it. 
+   * @param status task status
+   */
+  setDragStartStatus(status: &#x27;To do&#x27; | &#x27;In progress&#x27; | &#x27;Await feedback&#x27; | &#x27;Done&#x27;) {
+    this.dragStartStatus &#x3D; status;
+  }
+
+
+  /**
+   * Close dropdown menu in &quot;task card&quot; element (child of &quot;task list&quot; element)
+   */
+  closeTaskStatusDropdown() {
+    this.closingTaskStatusDropdown.next();
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;content&quot; (click)&#x3D;&quot;closeTaskStatusDropdown()&quot;&gt;
+    &lt;section class&#x3D;&quot;top-section&quot;&gt;
+        &lt;h2&gt;Board&lt;/h2&gt;
+        &lt;header&gt;
+            &lt;form class&#x3D;&quot;search-container relative text-input&quot; #searchForm&#x3D;&quot;ngForm&quot;&gt;
+                &lt;input type&#x3D;&quot;search&quot; name&#x3D;&quot;search&quot; class&#x3D;&quot;text-input&quot; #search [(ngModel)]&#x3D;&quot;searchFilter&quot;
+                    placeholder&#x3D;&quot;Find task&quot;&gt;
+                &lt;div class&#x3D;&quot;separator&quot;&gt;&lt;/div&gt;
+                &lt;img class&#x3D;&quot;search-icon&quot; src&#x3D;&quot;../../../assets/img/search.svg&quot; alt&#x3D;&quot;search&quot;&gt;
+            &lt;/form&gt;
+            &lt;button class&#x3D;&quot;btn-primary&quot; (click)&#x3D;&quot;addToStatus(&#x27;To do&#x27;)&quot;&gt;
+                &lt;span&gt;Add task&lt;/span&gt;
+                &lt;img src&#x3D;&quot;../../../assets/img/plus_icon_white.svg&quot; alt&#x3D;&quot;add task&quot;&gt;
+            &lt;/button&gt;
+        &lt;/header&gt;
+    &lt;/section&gt;
+    &lt;section class&#x3D;&quot;tasks-by-status&quot;&gt;
+        @for (status of statusList; track status) {
+        &lt;app-task-list [status]&#x3D;&quot;status&quot; [filter]&#x3D;&quot;searchFilter&quot; (addToStatusClick)&#x3D;&quot;addToStatus(status)&quot; (taskClick)&#x3D;&quot;viewTask($event)&quot;
+            (setDragCardHeight)&#x3D;&quot;setDragCardHeight($event)&quot; [dragCardHeight]&#x3D;&quot;dragCardHeight&quot;
+            (setDragStartStatus)&#x3D;&quot;setDragStartStatus($event)&quot; [dragStartStatus]&#x3D;&quot;dragStartStatus&quot;
+            [closingTaskStatusDropdown]&#x3D;&quot;closingTaskStatusDropdown&quot; /&gt;
+        }
+    &lt;/section&gt;
+&lt;/div&gt;
+&lt;app-task-view *ngIf&#x3D;&quot;viewTaskId !&#x3D; -1&quot; [task]&#x3D;&quot;getTaskById(viewTaskId)&quot; (cancelOverlay)&#x3D;&quot;closeTaskView()&quot;
+    (editThisTask)&#x3D;&quot;showTaskForm(viewTaskId)&quot; /&gt;
+@if(taskFormId !&#x3D; null) {
+&lt;div class&#x3D;&quot;overlay&quot; [ngClass]&#x3D;&quot;{&#x27;no-bg&#x27;: viewTaskId !&#x3D; -1}&quot; (mousedown)&#x3D;&quot;hideTaskForm()&quot;&gt;
+    &lt;div class&#x3D;&quot;task-form-wrapper&quot;
+        [ngClass]&#x3D;&quot;{&#x27;slid-out&#x27;: taskFormWrapperTranslated &amp;&amp; taskFormId &#x3D;&#x3D; -1, &#x27;slid-in&#x27;: !taskFormWrapperTranslated, &#x27;edit-task-wrapper&#x27;: taskFormId !&#x3D; -1}&quot;
+        (mousedown)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+        @if(taskFormId &#x3D;&#x3D; -1) {
+        &lt;app-add-task [inOverlay]&#x3D;&quot;true&quot; (cancelled)&#x3D;&quot;hideTaskForm()&quot; (slide)&#x3D;&quot;slideTaskFormWrapper()&quot;
+            id&#x3D;&quot;overlayTaskForm&quot; /&gt;
+        } @else {
+        &lt;app-add-task [task]&#x3D;&quot;getTaskById(taskFormId)&quot; [inOverlay]&#x3D;&quot;true&quot; (cancelled)&#x3D;&quot;hideTaskForm()&quot;
+            (slide)&#x3D;&quot;slideTaskFormWrapper()&quot; id&#x3D;&quot;overlayTaskForm&quot; /&gt;
+        }
+    &lt;/div&gt;
+&lt;/div&gt;
+}</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="content" (click)="closeTaskStatusDropdown()">    <section class="top-section">        <h2>Board</h2>        <header>            <form class="search-container relative text-input" #searchForm="ngForm">                <input type="search" name="search" class="text-input" #search [(ngModel)]="searchFilter"                    placeholder="Find task">                <div class="separator"></div>                <img class="search-icon" src="../../../assets/img/search.svg" alt="search">            </form>            <button class="btn-primary" (click)="addToStatus(\'To do\')">                <span>Add task</span>                <img src="../../../assets/img/plus_icon_white.svg" alt="add task">            </button>        </header>    </section>    <section class="tasks-by-status">        @for (status of statusList; track status) {        <app-task-list [status]="status" [filter]="searchFilter" (addToStatusClick)="addToStatus(status)" (taskClick)="viewTask($event)"            (setDragCardHeight)="setDragCardHeight($event)" [dragCardHeight]="dragCardHeight"            (setDragStartStatus)="setDragStartStatus($event)" [dragStartStatus]="dragStartStatus"            [closingTaskStatusDropdown]="closingTaskStatusDropdown" />        }    </section></div><app-task-view *ngIf="viewTaskId != -1" [task]="getTaskById(viewTaskId)" (cancelOverlay)="closeTaskView()"    (editThisTask)="showTaskForm(viewTaskId)" />@if(taskFormId != null) {<div class="overlay" [ngClass]="{\'no-bg\': viewTaskId != -1}" (mousedown)="hideTaskForm()">    <div class="task-form-wrapper"        [ngClass]="{\'slid-out\': taskFormWrapperTranslated && taskFormId == -1, \'slid-in\': !taskFormWrapperTranslated, \'edit-task-wrapper\': taskFormId != -1}"        (mousedown)="$event.stopPropagation()">        @if(taskFormId == -1) {        <app-add-task [inOverlay]="true" (cancelled)="hideTaskForm()" (slide)="slideTaskFormWrapper()"            id="overlayTaskForm" />        } @else {        <app-add-task [task]="getTaskById(taskFormId)" [inOverlay]="true" (cancelled)="hideTaskForm()"            (slide)="slideTaskFormWrapper()" id="overlayTaskForm" />        }    </div></div>}</div>'
+    var COMPONENTS = [{'name': 'AddContactComponent', 'selector': 'app-add-contact'},{'name': 'AddTaskComponent', 'selector': 'app-add-task'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ArrowBackBtnComponent', 'selector': 'app-arrow-back-btn'},{'name': 'BoardComponent', 'selector': 'app-board'},{'name': 'CloseBtnComponent', 'selector': 'app-close-btn'},{'name': 'ContactListItemComponent', 'selector': 'app-contact-list-item'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'EmailComponent', 'selector': 'app-email'},{'name': 'GreetingComponent', 'selector': 'app-greeting'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeadlineOtherComponent', 'selector': 'app-headline-other'},{'name': 'HeadlineSloganComponent', 'selector': 'app-headline-slogan'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'LegalNoticeComponent', 'selector': 'app-legal-notice'},{'name': 'LogInPageComponent', 'selector': 'app-log-in-page'},{'name': 'MenuComponent', 'selector': 'app-menu'},{'name': 'PasswordIconComponent', 'selector': 'app-password-icon'},{'name': 'PersonBadgeComponent', 'selector': 'app-person-badge'},{'name': 'PrioIconComponent', 'selector': 'app-prio-icon'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'RegistrationFormComponent', 'selector': 'app-registration-form'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SlideComponent', 'selector': 'app-slide'},{'name': 'StatsItemComponent', 'selector': 'app-stats-item'},{'name': 'SubtaskComponent', 'selector': 'app-subtask'},{'name': 'SummaryComponent', 'selector': 'app-summary'},{'name': 'TaskCardComponent', 'selector': 'app-task-card'},{'name': 'TaskCategoryComponent', 'selector': 'app-task-category'},{'name': 'TaskListComponent', 'selector': 'app-task-list'},{'name': 'TaskViewComponent', 'selector': 'app-task-view'},{'name': 'ToastNotificationComponent', 'selector': 'app-toast-notification'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'BoardComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'BoardComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

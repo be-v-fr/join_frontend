@@ -1,0 +1,1042 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>join documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">join documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  TaskCardComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/main/board/task-list/task-card/task-card.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>This component displays a task as a small card which can be clicked to edit.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-task-card</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                                <code><a href="../components/PersonBadgeComponent.html" target="_self" >PersonBadgeComponent</a></code>
+                                <code><a href="../components/TaskCategoryComponent.html" target="_self" >TaskCategoryComponent</a></code>
+                                <code><a href="../components/PrioIconComponent.html" target="_self" >PrioIconComponent</a></code>
+                                <code><a href="../components/ArrowBackBtnComponent.html" target="_self" >ArrowBackBtnComponent</a></code>
+                                <code><a href="../components/CloseBtnComponent.html" target="_self" >CloseBtnComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./task-card.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./task-card.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#displayDropdown" >displayDropdown</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#tasksService" >tasksService</a>
+                            </li>
+                            <li>
+                                <a href="#users" >users</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#usersService" >usersService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getSubtasksDoneNumber" >getSubtasksDoneNumber</a>
+                            </li>
+                            <li>
+                                <a href="#isBreak" >isBreak</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#printDescription" >printDescription</a>
+                            </li>
+                            <li>
+                                <a href="#setStatus" >setStatus</a>
+                            </li>
+                            <li>
+                                <a href="#toggleDropdown" >toggleDropdown</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#closeDropdown" >closeDropdown</a>
+                            </li>
+                            <li>
+                                <a href="#task" >task</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="closeDropdown"></a>
+                        <b>closeDropdown</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Observable&lt;void&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Observable&lt;void&gt;()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/main/board/task-list/task-card/task-card.component.ts:29</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="task"></a>
+                        <b>task</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Task.html" target="_self" >Task</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Task(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/main/board/task-list/task-card/task-card.component.ts:27</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getSubtasksDoneNumber"></a>
+                    <span class="name">
+                        <span ><b>getSubtasksDoneNumber</b></span>
+                        <a href="#getSubtasksDoneNumber"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getSubtasksDoneNumber()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="81"
+                                    class="link-to-prism">src/app/main/board/task-list/task-card/task-card.component.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function returns the number of subtasks whose status is set to &quot;Done&quot;</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>&quot;Done&quot; number</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isBreak"></a>
+                    <span class="name">
+                        <span ><b>isBreak</b></span>
+                        <a href="#isBreak"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isBreak(char: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="71"
+                                    class="link-to-prism">src/app/main/board/task-list/task-card/task-card.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Check if a character marks a cesura/break between words</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>char</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>character to check</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>check result</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="38"
+                                    class="link-to-prism">src/app/main/board/task-list/task-card/task-card.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Initialize users array and closing dropdown menu subscription
+(to react to clicks onto the &quot;board&quot; component)</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="printDescription"></a>
+                    <span class="name">
+                        <span ><b>printDescription</b></span>
+                        <a href="#printDescription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>printDescription()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="50"
+                                    class="link-to-prism">src/app/main/board/task-list/task-card/task-card.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function prints the task description as displayed to the user.
+The description is only to be displayed up to a certain length.
+Thus, longer descriptions are cut off, which is signaled to the user by adding dots (&quot;...&quot;).</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank" >String</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>transformed description</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setStatus"></a>
+                    <span class="name">
+                        <span ><b>setStatus</b></span>
+                        <a href="#setStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setStatus(status: "To do" | "In progress" | "Await feedback" | "Done")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/main/board/task-list/task-card/task-card.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>status</td>
+                                            <td>
+                                                        <code>&quot;To do&quot; | &quot;In progress&quot; | &quot;Await feedback&quot; | &quot;Done&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleDropdown"></a>
+                    <span class="name">
+                        <span ><b>toggleDropdown</b></span>
+                        <a href="#toggleDropdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleDropdown()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">src/app/main/board/task-list/task-card/task-card.component.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayDropdown"></a>
+                    <span class="name">
+                        <span ><b>displayDropdown</b></span>
+                        <a href="#displayDropdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/main/board/task-list/task-card/task-card.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tasksService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>tasksService</b></span>
+                        <a href="#tasksService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(TasksService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/main/board/task-list/task-card/task-card.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="users"></a>
+                    <span class="name">
+                        <span ><b>users</b></span>
+                        <a href="#users"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/AppUser.html" target="_self" >AppUser[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/main/board/task-list/task-card/task-card.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="usersService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>usersService</b></span>
+                        <a href="#usersService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(UsersService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/main/board/task-list/task-card/task-card.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Component, Input, OnInit, inject } from &#x27;@angular/core&#x27;;
+import { Task } from &#x27;../../../../../models/task&#x27;;
+import { UsersService } from &#x27;../../../../services/users.service&#x27;;
+import { PersonBadgeComponent } from &#x27;../../../../templates/person-badge/person-badge.component&#x27;;
+import { TaskCategoryComponent } from &#x27;./task-category/task-category.component&#x27;;
+import { PrioIconComponent } from &#x27;../../../../templates/prio-icon/prio-icon.component&#x27;;
+import { ArrowBackBtnComponent } from &#x27;../../../../templates/arrow-back-btn/arrow-back-btn.component&#x27;;
+import { TasksService } from &#x27;../../../../services/tasks.service&#x27;;
+import { CloseBtnComponent } from &#x27;../../../../templates/close-btn/close-btn.component&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import { AppUser } from &#x27;../../../../../models/app-user&#x27;;
+
+
+/**
+ * This component displays a task as a small card which can be clicked to edit.
+ */
+@Component({
+  selector: &#x27;app-task-card&#x27;,
+  standalone: true,
+  imports: [CommonModule, PersonBadgeComponent, TaskCategoryComponent, PrioIconComponent, ArrowBackBtnComponent, CloseBtnComponent],
+  templateUrl: &#x27;./task-card.component.html&#x27;,
+  styleUrl: &#x27;./task-card.component.scss&#x27;
+})
+export class TaskCardComponent implements OnInit {
+  users: AppUser[] &#x3D; [];
+  @Input() task: Task &#x3D; new Task(&#x27;&#x27;);
+  displayDropdown: boolean &#x3D; false;
+  @Input() closeDropdown: Observable&lt;void&gt; &#x3D; new Observable&lt;void&gt;();
+  public usersService &#x3D; inject(UsersService);
+  private tasksService &#x3D; inject(TasksService);
+
+
+  /**
+   * Initialize users array and closing dropdown menu subscription
+   * (to react to clicks onto the &quot;board&quot; component)
+   */
+  ngOnInit(): void {
+    this.users &#x3D; this.usersService.users;
+    this.closeDropdown.subscribe(() &#x3D;&gt; this.displayDropdown &#x3D; false);
+  }
+
+
+  /**
+   * This function prints the task description as displayed to the user.
+   * The description is only to be displayed up to a certain length.
+   * Thus, longer descriptions are cut off, which is signaled to the user by adding dots (&quot;...&quot;).
+   * @returns transformed description
+   */
+  printDescription(): String {
+    let printed &#x3D; this.task.description.slice(0, 35);
+    if (this.task.description.length &gt; 36) {
+      for (let i &#x3D; 35; i &lt; this.task.description.length; i++) {
+        const char &#x3D; this.task.description.charAt(i);
+        if (!this.isBreak(char)) { printed &#x3D; printed + char }
+        else {
+          printed &#x3D; printed + &#x27;...&#x27;;
+          break;
+        }
+      }
+    }
+    return printed;
+  }
+
+
+  /**
+   * Check if a character marks a cesura/break between words
+   * @param char character to check
+   * @returns check result 
+   */
+  isBreak(char: string): boolean {
+    const cesura &#x3D; [&#x27; &#x27;, &#x27;,&#x27;, &#x27;.&#x27;, &#x27;:&#x27;, &#x27;!&#x27;, &#x27;?&#x27;];
+    return cesura.includes(char);
+  }
+
+
+  /**
+   * This function returns the number of subtasks whose status is set to &quot;Done&quot;
+   * @returns &quot;Done&quot; number
+   */
+  getSubtasksDoneNumber(): number {
+    if (this.task.subtasks) {
+      return this.task.subtasks.filter(s &#x3D;&gt; s.status &#x3D;&#x3D; &#x27;Done&#x27;).length;
+    } else {
+      return 0;
+    }
+  }
+
+
+  toggleDropdown(): void {
+    this.displayDropdown &#x3D; !this.displayDropdown;
+  }
+
+
+  setStatus(status: &#x27;To do&#x27; | &#x27;In progress&#x27; | &#x27;Await feedback&#x27; | &#x27;Done&#x27;): void {
+    this.task.status &#x3D; status;
+    this.tasksService.updateTask(this.task);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;content relative&quot;&gt;
+    &lt;div class&#x3D;&quot;top-container&quot;&gt;
+        &lt;app-task-category [category]&#x3D;&quot;task.category&quot; /&gt;
+        &lt;app-arrow-back-btn (click)&#x3D;&quot;$event.stopPropagation(); toggleDropdown()&quot; /&gt;
+    &lt;/div&gt;
+    &lt;div *ngIf&#x3D;&quot;displayDropdown&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot; class&#x3D;&quot;dropdown-menu&quot;&gt;
+        &lt;div class&#x3D;&quot;close-btn-container&quot;&gt;
+            &lt;app-close-btn [bright]&#x3D;&quot;true&quot; (click)&#x3D;&quot;$event.stopPropagation(); toggleDropdown()&quot; /&gt;
+        &lt;/div&gt;
+        &lt;a *ngIf&#x3D;&quot;task.status !&#x3D; &#x27;To do&#x27;&quot; (click)&#x3D;&quot;setStatus(&#x27;To do&#x27;)&quot;&gt;{{&#x27;To do&#x27;}}&lt;/a&gt;
+        &lt;a *ngIf&#x3D;&quot;task.status !&#x3D; &#x27;In progress&#x27;&quot; (click)&#x3D;&quot;setStatus(&#x27;In progress&#x27;)&quot;&gt;{{&#x27;In progress&#x27;}}&lt;/a&gt;
+        &lt;a *ngIf&#x3D;&quot;task.status !&#x3D; &#x27;Await feedback&#x27;&quot; (click)&#x3D;&quot;setStatus(&#x27;Await feedback&#x27;)&quot;&gt;{{&#x27;Await feedback&#x27;}}&lt;/a&gt;
+        &lt;a *ngIf&#x3D;&quot;task.status !&#x3D; &#x27;Done&#x27;&quot; (click)&#x3D;&quot;setStatus(&#x27;Done&#x27;)&quot;&gt;{{&#x27;Done&#x27;}}&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;p class&#x3D;&quot;title&quot;&gt;{{task.title}}&lt;/p&gt;
+    &lt;p class&#x3D;&quot;description&quot; *ngIf&#x3D;&quot;task.description.length &gt; 0&quot;&gt;{{printDescription()}}&lt;/p&gt;
+    &lt;div class&#x3D;&quot;subtasks-diagram&quot; *ngIf&#x3D;&quot;task.subtasks &amp;&amp; task.subtasks.length &gt; 0&quot;&gt;
+        &lt;div class&#x3D;&quot;bar-bg&quot;&gt;
+            &lt;div class&#x3D;&quot;bar&quot; [ngStyle]&#x3D;&quot;{&#x27;width.%&#x27;: getSubtasksDoneNumber() / task.subtasks.length * 100}&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;counter&quot;&gt;{{getSubtasksDoneNumber()}}/{{task.subtasks.length}} Subtasks&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;bottom-container&quot; *ngIf&#x3D;&quot;task.assigned.length &gt; 0 || task.prio !&#x3D; null&quot;&gt;
+        &lt;div class&#x3D;&quot;assigned-badges&quot;&gt;
+            @for(assignment of task.assigned; track assignment) {
+            &lt;app-person-badge [name]&#x3D;&quot;usersService.getUserByAppId(assignment).user.username&quot;
+                [color]&#x3D;&quot;usersService.getUserByAppId(assignment).getColor()&quot; /&gt;
+            }
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;prio&quot;&gt;
+            &lt;app-prio-icon [prio]&#x3D;&quot;task.prio&quot; /&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="content relative">    <div class="top-container">        <app-task-category [category]="task.category" />        <app-arrow-back-btn (click)="$event.stopPropagation(); toggleDropdown()" />    </div>    <div *ngIf="displayDropdown" (click)="$event.stopPropagation()" class="dropdown-menu">        <div class="close-btn-container">            <app-close-btn [bright]="true" (click)="$event.stopPropagation(); toggleDropdown()" />        </div>        <a *ngIf="task.status != \'To do\'" (click)="setStatus(\'To do\')">{{\'To do\'}}</a>        <a *ngIf="task.status != \'In progress\'" (click)="setStatus(\'In progress\')">{{\'In progress\'}}</a>        <a *ngIf="task.status != \'Await feedback\'" (click)="setStatus(\'Await feedback\')">{{\'Await feedback\'}}</a>        <a *ngIf="task.status != \'Done\'" (click)="setStatus(\'Done\')">{{\'Done\'}}</a>    </div>    <p class="title">{{task.title}}</p>    <p class="description" *ngIf="task.description.length > 0">{{printDescription()}}</p>    <div class="subtasks-diagram" *ngIf="task.subtasks && task.subtasks.length > 0">        <div class="bar-bg">            <div class="bar" [ngStyle]="{\'width.%\': getSubtasksDoneNumber() / task.subtasks.length * 100}"></div>        </div>        <div class="counter">{{getSubtasksDoneNumber()}}/{{task.subtasks.length}} Subtasks</div>    </div>    <div class="bottom-container" *ngIf="task.assigned.length > 0 || task.prio != null">        <div class="assigned-badges">            @for(assignment of task.assigned; track assignment) {            <app-person-badge [name]="usersService.getUserByAppId(assignment).user.username"                [color]="usersService.getUserByAppId(assignment).getColor()" />            }        </div>        <div class="prio">            <app-prio-icon [prio]="task.prio" />        </div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AddContactComponent', 'selector': 'app-add-contact'},{'name': 'AddTaskComponent', 'selector': 'app-add-task'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ArrowBackBtnComponent', 'selector': 'app-arrow-back-btn'},{'name': 'BoardComponent', 'selector': 'app-board'},{'name': 'CloseBtnComponent', 'selector': 'app-close-btn'},{'name': 'ContactListItemComponent', 'selector': 'app-contact-list-item'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'EmailComponent', 'selector': 'app-email'},{'name': 'GreetingComponent', 'selector': 'app-greeting'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeadlineOtherComponent', 'selector': 'app-headline-other'},{'name': 'HeadlineSloganComponent', 'selector': 'app-headline-slogan'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'LegalNoticeComponent', 'selector': 'app-legal-notice'},{'name': 'LogInPageComponent', 'selector': 'app-log-in-page'},{'name': 'MenuComponent', 'selector': 'app-menu'},{'name': 'PasswordIconComponent', 'selector': 'app-password-icon'},{'name': 'PersonBadgeComponent', 'selector': 'app-person-badge'},{'name': 'PrioIconComponent', 'selector': 'app-prio-icon'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'RegistrationFormComponent', 'selector': 'app-registration-form'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SlideComponent', 'selector': 'app-slide'},{'name': 'StatsItemComponent', 'selector': 'app-stats-item'},{'name': 'SubtaskComponent', 'selector': 'app-subtask'},{'name': 'SummaryComponent', 'selector': 'app-summary'},{'name': 'TaskCardComponent', 'selector': 'app-task-card'},{'name': 'TaskCategoryComponent', 'selector': 'app-task-category'},{'name': 'TaskListComponent', 'selector': 'app-task-list'},{'name': 'TaskViewComponent', 'selector': 'app-task-view'},{'name': 'ToastNotificationComponent', 'selector': 'app-toast-notification'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'TaskCardComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TaskCardComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

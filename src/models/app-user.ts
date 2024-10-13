@@ -3,6 +3,10 @@ import { Contact } from './contact';
 import { environment } from '../environments/environment.development';
 
 
+/**
+ * Represents an in-app user, which has additional properties compared to AuthUser.
+ * It contains the AuthUser as its "user" property.
+ */
 export class AppUser {
     id: number;
     user: AuthUser;

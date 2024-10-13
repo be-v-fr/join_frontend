@@ -1,0 +1,1046 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>join documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">join documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  SummaryComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/main/summary/summary.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>This component displays a statistical summary of the tasks in board-
+It also displays a personalized greeting message.
+In one-column layout, the greeting message is only visible as an introductory animation.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-summary</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                                <code><a href="../components/StatsItemComponent.html" target="_self" >StatsItemComponent</a></code>
+                                <code><a href="../components/HeadlineSloganComponent.html" target="_self" >HeadlineSloganComponent</a></code>
+                                <code><a href="../components/GreetingComponent.html" target="_self" >GreetingComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./summary.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./summary.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#authService" >authService</a>
+                            </li>
+                            <li>
+                                <a href="#currentUserName" >currentUserName</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#tasksService" >tasksService</a>
+                            </li>
+                            <li>
+                                <a href="#unsubAuth" >unsubAuth</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getFilteredTasks" >getFilteredTasks</a>
+                            </li>
+                            <li>
+                                <a href="#getMostUrgent" >getMostUrgent</a>
+                            </li>
+                            <li>
+                                <a href="#getTaskNumber" >getTaskNumber</a>
+                            </li>
+                            <li>
+                                <a href="#getUrgent" >getUrgent</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#printDate" >printDate</a>
+                            </li>
+                            <li>
+                                <a href="#subAuth" >subAuth</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/main/summary/summary.component.ts:27</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Create subscription</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getFilteredTasks"></a>
+                    <span class="name">
+                        <span ><b>getFilteredTasks</b></span>
+                        <a href="#getFilteredTasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getFilteredTasks(status: "To do" | "In progress" | "Await feedback" | "Done")</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="61"
+                                    class="link-to-prism">src/app/main/summary/summary.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Get tasks filtered by status</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>status</td>
+                                            <td>
+                                                        <code>&quot;To do&quot; | &quot;In progress&quot; | &quot;Await feedback&quot; | &quot;Done&quot;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>task status</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Task.html" target="_self" >Task[]</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>filtered tasks array</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMostUrgent"></a>
+                    <span class="name">
+                        <span ><b>getMostUrgent</b></span>
+                        <a href="#getMostUrgent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getMostUrgent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="88"
+                                    class="link-to-prism">src/app/main/summary/summary.component.ts:88</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Among the tasks with &quot;urgent&quot; priority, get the closest deadline</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>closest &quot;due&quot; value</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTaskNumber"></a>
+                    <span class="name">
+                        <span ><b>getTaskNumber</b></span>
+                        <a href="#getTaskNumber"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTaskNumber()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">src/app/main/summary/summary.component.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Get total number of tasks in board</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>number of tasks</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUrgent"></a>
+                    <span class="name">
+                        <span ><b>getUrgent</b></span>
+                        <a href="#getUrgent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getUrgent()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">src/app/main/summary/summary.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Get tasks filtered by &quot;urgent&quot; priority</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Task.html" target="_self" >Task[]</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>filtered tasks array</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">src/app/main/summary/summary.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Unsubscribe</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="printDate"></a>
+                    <span class="name">
+                        <span ><b>printDate</b></span>
+                        <a href="#printDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>printDate(due: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="103"
+                                    class="link-to-prism">src/app/main/summary/summary.component.ts:103</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Generate string from due value which writes out the month</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>due</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>due value (as to be found as task property)</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>date as string in the desired format</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subAuth"></a>
+                    <span class="name">
+                        <span ><b>subAuth</b></span>
+                        <a href="#subAuth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>subAuth()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">src/app/main/summary/summary.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Subscribe to &quot;authService.currentUser$&quot; to retrieve and setuser name.
+The user name is set to &quot;null&quot; in case guest log in is being used.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>subscription</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>authService</b></span>
+                        <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(AuthService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/main/summary/summary.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentUserName"></a>
+                    <span class="name">
+                        <span ><b>currentUserName</b></span>
+                        <a href="#currentUserName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/main/summary/summary.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tasksService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>tasksService</b></span>
+                        <a href="#tasksService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(TasksService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/main/summary/summary.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unsubAuth"></a>
+                    <span class="name">
+                        <span ><b>unsubAuth</b></span>
+                        <a href="#unsubAuth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/main/summary/summary.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject, OnDestroy } from &#x27;@angular/core&#x27;;
+import { Task } from &#x27;../../../models/task&#x27;;
+import { TasksService } from &#x27;../../services/tasks.service&#x27;;
+import { AuthService } from &#x27;../../services/auth.service&#x27;;
+import { StatsItemComponent } from &#x27;./stats-item/stats-item.component&#x27;;
+import { HeadlineSloganComponent } from &#x27;../../templates/headline-slogan/headline-slogan.component&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { GreetingComponent } from &#x27;./greeting/greeting.component&#x27;;
+
+
+/**
+ * This component displays a statistical summary of the tasks in board-
+ * It also displays a personalized greeting message.
+ * In one-column layout, the greeting message is only visible as an introductory animation. 
+ */
+@Component({
+  selector: &#x27;app-summary&#x27;,
+  standalone: true,
+  imports: [CommonModule, StatsItemComponent, HeadlineSloganComponent, GreetingComponent],
+  templateUrl: &#x27;./summary.component.html&#x27;,
+  styleUrl: &#x27;./summary.component.scss&#x27;
+})
+export class SummaryComponent implements OnDestroy {
+  private authService &#x3D; inject(AuthService);
+  unsubAuth;
+  private tasksService &#x3D; inject(TasksService);
+  currentUserName: string | null &#x3D; null;
+
+
+  /**
+   * Create subscription
+   */
+  constructor() {
+    this.unsubAuth &#x3D; this.subAuth;
+  }
+
+
+  /**
+   * Unsubscribe
+   */
+  ngOnDestroy(): void {
+    this.unsubAuth();
+  }
+
+
+  /**
+   * Subscribe to &quot;authService.currentUser$&quot; to retrieve and setuser name.
+   * The user name is set to &quot;null&quot; in case guest log in is being used.
+   * @returns subscription
+   */
+  subAuth() {
+    return this.authService.currentUser$.subscribe(u &#x3D;&gt; this.currentUserName &#x3D; (u ? u.user.username : null));
+  }
+
+
+  /**
+   * Get tasks filtered by status
+   * @param status task status
+   * @returns filtered tasks array
+   */
+  getFilteredTasks(status: &#x27;To do&#x27; | &#x27;In progress&#x27; | &#x27;Await feedback&#x27; | &#x27;Done&#x27;): Task[] {
+    return this.tasksService.getFilteredTasks(status);
+  }
+
+
+  /**
+   * Get tasks filtered by &quot;urgent&quot; priority
+   * @returns filtered tasks array
+   */
+  getUrgent(): Task[] {
+    return this.tasksService.tasks.filter(t &#x3D;&gt; t.prio &#x3D;&#x3D; &#x27;Urgent&#x27;);
+  }
+
+
+  /**
+   * Get total number of tasks in board
+   * @returns number of tasks
+   */
+  getTaskNumber(): number {
+    return this.tasksService.tasks.length;
+  }
+
+
+  /**
+   * Among the tasks with &quot;urgent&quot; priority, get the closest deadline
+   * @returns closest &quot;due&quot; value
+   */
+  getMostUrgent(): string {
+    if (this.tasksService.tasks.length &gt; 0) {
+      let tasks: Task[] &#x3D; this.getUrgent();
+      if (tasks.length &#x3D;&#x3D; 0) { tasks &#x3D; this.tasksService.tasks }
+      tasks.sort((a, b) &#x3D;&gt; { return a.due.localeCompare(b.due) });
+      return tasks[0].due;
+    } else return &#x27;&#x27;;
+  }
+
+
+  /**
+   * Generate string from due value which writes out the month
+   * @param due due value (as to be found as task property)
+   * @returns date as string in the desired format
+   */
+  printDate(due: string): string {
+    if (due.length &gt; 0) {
+      const date &#x3D; new Date(due);
+      const months &#x3D; [&quot;January&quot;, &quot;February&quot;, &quot;March&quot;, &quot;April&quot;, &quot;May&quot;, &quot;June&quot;, &quot;July&quot;, &quot;August&quot;, &quot;September&quot;, &quot;October&quot;, &quot;November&quot;, &quot;December&quot;];
+      const month &#x3D; months[date.getMonth()];
+      const day &#x3D; date.getDate();
+      const year &#x3D; date.getFullYear();
+      return month + &#x27; &#x27; + day + &#x27;, &#x27; + year;
+    } else {
+      return &#x27;None&#x27;;
+    }
+  }
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;content&quot;&gt;
+    &lt;app-headline-slogan [headline]&#x3D;&quot;&#x27;Join 360&#x27;&quot; [slogan]&#x3D;&quot;&#x27;Key metrics at a glance&#x27;&quot; /&gt;
+    &lt;div class&#x3D;&quot;content-main&quot;&gt;
+        &lt;div class&#x3D;&quot;stats-container&quot;&gt;
+            &lt;div class&#x3D;&quot;stats-row&quot;&gt;
+                &lt;app-stats-item [name]&#x3D;&quot;&#x27;To do&#x27;&quot; [value]&#x3D;&quot;getFilteredTasks(&#x27;To do&#x27;).length&quot; /&gt;
+                &lt;app-stats-item [name]&#x3D;&quot;&#x27;Done&#x27;&quot; [value]&#x3D;&quot;getFilteredTasks(&#x27;Done&#x27;).length&quot; /&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;stats-row stats&quot;&gt;
+                &lt;app-stats-item class&#x3D;&quot;urgent-item&quot; [name]&#x3D;&quot;&#x27;Urgent&#x27;&quot; [value]&#x3D;&quot;getUrgent().length&quot;
+                    [deadline]&#x3D;&quot;printDate(getMostUrgent())&quot; /&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;stats-row&quot;&gt;
+                &lt;app-stats-item [name]&#x3D;&quot;&#x27;Tasks in board&#x27;&quot; [value]&#x3D;&quot;getTaskNumber()&quot; class&#x3D;&quot;stats&quot; /&gt;
+                &lt;app-stats-item [name]&#x3D;&quot;&#x27;Tasks in progress&#x27;&quot; [value]&#x3D;&quot;getFilteredTasks(&#x27;In progress&#x27;).length&quot;
+                    class&#x3D;&quot;stats&quot; /&gt;
+                &lt;app-stats-item [name]&#x3D;&quot;&#x27;Awaiting feedback&#x27;&quot; [value]&#x3D;&quot;getFilteredTasks(&#x27;Await feedback&#x27;).length&quot;
+                    class&#x3D;&quot;stats&quot; /&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;app-greeting /&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="content">    <app-headline-slogan [headline]="\'Join 360\'" [slogan]="\'Key metrics at a glance\'" />    <div class="content-main">        <div class="stats-container">            <div class="stats-row">                <app-stats-item [name]="\'To do\'" [value]="getFilteredTasks(\'To do\').length" />                <app-stats-item [name]="\'Done\'" [value]="getFilteredTasks(\'Done\').length" />            </div>            <div class="stats-row stats">                <app-stats-item class="urgent-item" [name]="\'Urgent\'" [value]="getUrgent().length"                    [deadline]="printDate(getMostUrgent())" />            </div>            <div class="stats-row">                <app-stats-item [name]="\'Tasks in board\'" [value]="getTaskNumber()" class="stats" />                <app-stats-item [name]="\'Tasks in progress\'" [value]="getFilteredTasks(\'In progress\').length"                    class="stats" />                <app-stats-item [name]="\'Awaiting feedback\'" [value]="getFilteredTasks(\'Await feedback\').length"                    class="stats" />            </div>        </div>        <app-greeting />    </div></div></div>'
+    var COMPONENTS = [{'name': 'AddContactComponent', 'selector': 'app-add-contact'},{'name': 'AddTaskComponent', 'selector': 'app-add-task'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ArrowBackBtnComponent', 'selector': 'app-arrow-back-btn'},{'name': 'BoardComponent', 'selector': 'app-board'},{'name': 'CloseBtnComponent', 'selector': 'app-close-btn'},{'name': 'ContactListItemComponent', 'selector': 'app-contact-list-item'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'EmailComponent', 'selector': 'app-email'},{'name': 'GreetingComponent', 'selector': 'app-greeting'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeadlineOtherComponent', 'selector': 'app-headline-other'},{'name': 'HeadlineSloganComponent', 'selector': 'app-headline-slogan'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'LegalNoticeComponent', 'selector': 'app-legal-notice'},{'name': 'LogInPageComponent', 'selector': 'app-log-in-page'},{'name': 'MenuComponent', 'selector': 'app-menu'},{'name': 'PasswordIconComponent', 'selector': 'app-password-icon'},{'name': 'PersonBadgeComponent', 'selector': 'app-person-badge'},{'name': 'PrioIconComponent', 'selector': 'app-prio-icon'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'RegistrationFormComponent', 'selector': 'app-registration-form'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SlideComponent', 'selector': 'app-slide'},{'name': 'StatsItemComponent', 'selector': 'app-stats-item'},{'name': 'SubtaskComponent', 'selector': 'app-subtask'},{'name': 'SummaryComponent', 'selector': 'app-summary'},{'name': 'TaskCardComponent', 'selector': 'app-task-card'},{'name': 'TaskCategoryComponent', 'selector': 'app-task-category'},{'name': 'TaskListComponent', 'selector': 'app-task-list'},{'name': 'TaskViewComponent', 'selector': 'app-task-view'},{'name': 'ToastNotificationComponent', 'selector': 'app-toast-notification'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'SummaryComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SummaryComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

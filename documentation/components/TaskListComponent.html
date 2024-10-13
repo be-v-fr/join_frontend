@@ -1,0 +1,2247 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>join documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">join documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  TaskListComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/main/board/task-list/task-list.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>This component displays a list of task cards defined by a task status.
+The task cards are draggable from one list to another, requiring communication with the parent component.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-task-list</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                                <code><a href="../components/TaskCardComponent.html" target="_self" >TaskCardComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./task-list.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./task-list.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#draggedTaskCard" >draggedTaskCard</a>
+                            </li>
+                            <li>
+                                <a href="#draggingOver" >draggingOver</a>
+                            </li>
+                            <li>
+                                <a href="#dragYStart" >dragYStart</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#lastDragOver" >lastDragOver</a>
+                            </li>
+                            <li>
+                                <a href="#tasks" >tasks</a>
+                            </li>
+                            <li>
+                                <a href="#tasksSub" >tasksSub</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addToStatus" >addToStatus</a>
+                            </li>
+                            <li>
+                                <a href="#filterTasksBySearch" >filterTasksBySearch</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onDrag" >onDrag</a>
+                            </li>
+                            <li>
+                                <a href="#onTaskDragEnd" >onTaskDragEnd</a>
+                            </li>
+                            <li>
+                                <a href="#onTaskDragEnter" >onTaskDragEnter</a>
+                            </li>
+                            <li>
+                                <a href="#onTaskDragLeave" >onTaskDragLeave</a>
+                            </li>
+                            <li>
+                                <a href="#onTaskDragOver" >onTaskDragOver</a>
+                            </li>
+                            <li>
+                                <a href="#onTaskDragStart" >onTaskDragStart</a>
+                            </li>
+                            <li>
+                                <a href="#onTaskDrop" >onTaskDrop</a>
+                            </li>
+                            <li>
+                                <a href="#setDraggingOver" >setDraggingOver</a>
+                            </li>
+                            <li>
+                                <a href="#subTasks" >subTasks</a>
+                            </li>
+                            <li>
+                                <a href="#syncTasksWithStatus" >syncTasksWithStatus</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#unsetDraggingOverAfterWaiting" >unsetDraggingOverAfterWaiting</a>
+                            </li>
+                            <li>
+                                <a href="#updateTaskStatus" >updateTaskStatus</a>
+                            </li>
+                            <li>
+                                <a href="#viewTask" >viewTask</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#closingTaskStatusDropdown" >closingTaskStatusDropdown</a>
+                            </li>
+                            <li>
+                                <a href="#dragCardHeight" >dragCardHeight</a>
+                            </li>
+                            <li>
+                                <a href="#dragStartStatus" >dragStartStatus</a>
+                            </li>
+                            <li>
+                                <a href="#filter" >filter</a>
+                            </li>
+                            <li>
+                                <a href="#status" >status</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addToStatusClick" >addToStatusClick</a>
+                            </li>
+                            <li>
+                                <a href="#dragging" >dragging</a>
+                            </li>
+                            <li>
+                                <a href="#setDragCardHeight" >setDragCardHeight</a>
+                            </li>
+                            <li>
+                                <a href="#setDragStartStatus" >setDragStartStatus</a>
+                            </li>
+                            <li>
+                                <a href="#taskClick" >taskClick</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(tasksService: <a href="../injectables/TasksService.html" target="_self">TasksService</a>, scrollService: <a href="../injectables/AutoscrollService.html" target="_self">AutoscrollService</a>, cd: ChangeDetectorRef)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:37</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Create TasksService instance</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>tasksService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TasksService.html" target="_self" >TasksService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>instance of TasksService</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>scrollService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AutoscrollService.html" target="_self" >AutoscrollService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>cd</td>
+                                                  
+                                                        <td>
+                                                                    <code>ChangeDetectorRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="closingTaskStatusDropdown"></a>
+                        <b>closingTaskStatusDropdown</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;void&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject&lt;void&gt;()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:33</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dragCardHeight"></a>
+                        <b>dragCardHeight</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:35</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dragStartStatus"></a>
+                        <b>dragStartStatus</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;To do&quot; | &quot;In progress&quot; | &quot;Await feedback&quot; | &quot;Done&quot; | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:30</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="filter"></a>
+                        <b>filter</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:25</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="status"></a>
+                        <b>status</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>&quot;To do&quot; | &quot;In progress&quot; | &quot;Await feedback&quot; | &quot;Done&quot;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;To do&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:24</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="addToStatusClick"></a>
+                        <b>addToStatusClick</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:32</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dragging"></a>
+                        <b>dragging</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:37</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="setDragCardHeight"></a>
+                        <b>setDragCardHeight</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:36</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="setDragStartStatus"></a>
+                        <b>setDragStartStatus</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:31</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="taskClick"></a>
+                        <b>taskClick</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:34</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addToStatus"></a>
+                    <span class="name">
+                        <span ><b>addToStatus</b></span>
+                        <a href="#addToStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addToStatus()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="207"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:207</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Add new task to this list&#39;s defining status by emitting the corresponding event to the parent component</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterTasksBySearch"></a>
+                    <span class="name">
+                        <span ><b>filterTasksBySearch</b></span>
+                        <a href="#filterTasksBySearch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>filterTasksBySearch()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../classes/Task.html" target="_self" >Task[]</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDrag"></a>
+                    <span class="name">
+                        <span ><b>onDrag</b></span>
+                        <a href="#onDrag"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onDrag(ev: DragEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="109"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:109</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Enable vertical scrolling (without additional click, purely by moving the cursor) while dragging</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ev</td>
+                                            <td>
+                                                        <code>DragEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>task drag event</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onTaskDragEnd"></a>
+                    <span class="name">
+                        <span ><b>onTaskDragEnd</b></span>
+                        <a href="#onTaskDragEnd"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onTaskDragEnd()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="118"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:118</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>On task drag end, unset &quot;draggedTaskCard&quot;</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onTaskDragEnter"></a>
+                    <span class="name">
+                        <span ><b>onTaskDragEnter</b></span>
+                        <a href="#onTaskDragEnter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onTaskDragEnter(ev: DragEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="127"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:127</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>When the task drag enters this task list, call a function</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ev</td>
+                                            <td>
+                                                        <code>DragEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>task drag event</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onTaskDragLeave"></a>
+                    <span class="name">
+                        <span ><b>onTaskDragLeave</b></span>
+                        <a href="#onTaskDragLeave"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onTaskDragLeave(ev: DragEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="157"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:157</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>On task drag leave, call a function</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ev</td>
+                                            <td>
+                                                        <code>DragEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>task drag event</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onTaskDragOver"></a>
+                    <span class="name">
+                        <span ><b>onTaskDragOver</b></span>
+                        <a href="#onTaskDragOver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onTaskDragOver(ev: DragEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="136"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:136</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>When the task drag hovers over this task list, call a function</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ev</td>
+                                            <td>
+                                                        <code>DragEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>task drag event</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onTaskDragStart"></a>
+                    <span class="name">
+                        <span ><b>onTaskDragStart</b></span>
+                        <a href="#onTaskDragStart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onTaskDragStart(ev: DragEvent, id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="96"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:96</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function handles a drag start of a task card within the current task list.
+It sets the data to be transferred by dragging and emits the following information to the parent component:</p>
+<ul>
+<li>The task status before the drag event</li>
+<li></li>
+</ul>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ev</td>
+                                            <td>
+                                                        <code>DragEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>task drag event</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>task ID</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onTaskDrop"></a>
+                    <span class="name">
+                        <span ><b>onTaskDrop</b></span>
+                        <a href="#onTaskDrop"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onTaskDrop(ev: DragEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="182"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:182</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>On task drop, get the task ID which was stored in &quot;dataTransfer&quot; before.
+Update the status of the dragged task using the ID.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ev</td>
+                                            <td>
+                                                        <code>DragEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setDraggingOver"></a>
+                    <span class="name">
+                        <span ><b>setDraggingOver</b></span>
+                        <a href="#setDraggingOver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setDraggingOver(ev: DragEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="146"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:146</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function not only sets the &quot;draggingOver&quot; property to true, but also sets &quot;lastDragOver&quot; to the current timestamp.
+The timestamp is required to facilitate a workaround (see function &quot;unsetDraggingOverAfterWaiting()&quot;).</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ev</td>
+                                            <td>
+                                                        <code>DragEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>task drag event</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subTasks"></a>
+                    <span class="name">
+                        <span ><b>subTasks</b></span>
+                        <a href="#subTasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>subTasks()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="62"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Subscription</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="syncTasksWithStatus"></a>
+                    <span class="name">
+                        <span ><b>syncTasksWithStatus</b></span>
+                        <a href="#syncTasksWithStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>syncTasksWithStatus()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="69"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:69</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unsetDraggingOverAfterWaiting"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>unsetDraggingOverAfterWaiting</b></span>
+                        <a href="#unsetDraggingOverAfterWaiting"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>unsetDraggingOverAfterWaiting()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="167"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:167</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>This function uses the &quot;lastDragOver&quot; property for a workaround for the premature &quot;(dragleave)&quot; emitting that occurs by default.
+It only unsets the current dragging state in case neither &quot;(dragenter)&quot; nor &quot;(dragover)&quot; have been re-triggered 20ms after &quot;(dragleave)&quot;</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateTaskStatus"></a>
+                    <span class="name">
+                        <span ><b>updateTaskStatus</b></span>
+                        <a href="#updateTaskStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateTaskStatus(taskId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="195"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:195</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieve the full task from tasksService using the task ID.
+Update the task status to the current list. Then update the task in tasksService.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>taskId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>task ID</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewTask"></a>
+                    <span class="name">
+                        <span ><b>viewTask</b></span>
+                        <a href="#viewTask"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>viewTask(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="216"
+                                    class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:216</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>View task by emitting the corresponding event to the parent component</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>task ID</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="draggedTaskCard"></a>
+                    <span class="name">
+                        <span ><b>draggedTaskCard</b></span>
+                        <a href="#draggedTaskCard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="draggingOver"></a>
+                    <span class="name">
+                        <span ><b>draggingOver</b></span>
+                        <a href="#draggingOver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dragYStart"></a>
+                    <span class="name">
+                        <span ><b>dragYStart</b></span>
+                        <a href="#dragYStart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lastDragOver"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>lastDragOver</b></span>
+                        <a href="#lastDragOver"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tasks"></a>
+                    <span class="name">
+                        <span ><b>tasks</b></span>
+                        <a href="#tasks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Task.html" target="_self" >Task[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:22</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tasksSub"></a>
+                    <span class="name">
+                        <span ><b>tasksSub</b></span>
+                        <a href="#tasksSub"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subscription()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/main/board/task-list/task-list.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, Output, EventEmitter, OnDestroy, ChangeDetectorRef, OnInit } from &#x27;@angular/core&#x27;;
+import { Task } from &#x27;../../../../models/task&#x27;;
+import { TaskCardComponent } from &#x27;./task-card/task-card.component&#x27;;
+import { TasksService } from &#x27;../../../services/tasks.service&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { AutoscrollService } from &#x27;../../../services/autoscroll.service&#x27;;
+import { Subject, Subscription } from &#x27;rxjs&#x27;;
+
+
+/**
+ * This component displays a list of task cards defined by a task status.
+ * The task cards are draggable from one list to another, requiring communication with the parent component.
+ */
+@Component({
+  selector: &#x27;app-task-list&#x27;,
+  standalone: true,
+  imports: [CommonModule, TaskCardComponent],
+  templateUrl: &#x27;./task-list.component.html&#x27;,
+  styleUrl: &#x27;./task-list.component.scss&#x27;
+})
+export class TaskListComponent implements OnInit, OnDestroy {
+  tasks: Task[] &#x3D; [];
+  tasksSub &#x3D; new Subscription();
+  @Input() status: &#x27;To do&#x27; | &#x27;In progress&#x27; | &#x27;Await feedback&#x27; | &#x27;Done&#x27; &#x3D; &#x27;To do&#x27;;
+  @Input() filter: string &#x3D; &#x27;&#x27;;
+  draggingOver: boolean &#x3D; false;
+  private lastDragOver: number &#x3D; 0;
+  draggedTaskCard: HTMLElement | null &#x3D; null;
+  dragYStart: number &#x3D; 0;
+  @Input() dragStartStatus: &#x27;To do&#x27; | &#x27;In progress&#x27; | &#x27;Await feedback&#x27; | &#x27;Done&#x27; | null &#x3D; null;
+  @Output() setDragStartStatus &#x3D; new EventEmitter&lt;&#x27;To do&#x27; | &#x27;In progress&#x27; | &#x27;Await feedback&#x27; | &#x27;Done&#x27;&gt;();
+  @Output() addToStatusClick &#x3D; new EventEmitter&lt;void&gt;();
+  @Input() closingTaskStatusDropdown: Subject&lt;void&gt; &#x3D; new Subject&lt;void&gt;();
+  @Output() taskClick &#x3D; new EventEmitter&lt;number&gt;();
+  @Input() dragCardHeight: number &#x3D; 0;
+  @Output() setDragCardHeight &#x3D; new EventEmitter&lt;number&gt;();
+  @Output() dragging &#x3D; new EventEmitter&lt;boolean&gt;();
+
+
+  /**
+   * Create TasksService instance
+   * @param tasksService instance of TasksService
+   */
+  constructor(
+    private tasksService: TasksService,
+    private scrollService: AutoscrollService,
+    private cd: ChangeDetectorRef,
+  ) { }
+
+
+  ngOnInit(): void {
+    this.syncTasksWithStatus();
+    this.tasksSub &#x3D; this.subTasks();
+  }
+
+
+  ngOnDestroy(): void {
+    this.tasksSub.unsubscribe();
+  }
+
+
+  subTasks(): Subscription {
+    return this.tasksService.tasks$.subscribe(() &#x3D;&gt; {
+      this.syncTasksWithStatus();
+    });
+  }
+
+
+  syncTasksWithStatus(): void {
+    this.tasks &#x3D; this.tasksService.getFilteredTasks(this.status);
+    this.cd.detectChanges();
+  }
+
+
+  filterTasksBySearch(): Task[] {
+    if (this.tasks.length &gt; 0 &amp;&amp; this.filter.length &gt; 0) {
+      const formattedFilter &#x3D; this.filter.toLowerCase();
+      return this.tasks.filter(t &#x3D;&gt; {return (
+        t.title.toLowerCase().includes(formattedFilter) ||
+          t.description.toLowerCase().includes(formattedFilter)
+        )});
+    } else {
+      return this.tasks;
+    }
+  }
+
+
+  /**
+   * This function handles a drag start of a task card within the current task list.
+   * It sets the data to be transferred by dragging and emits the following information to the parent component:
+   * - The task status before the drag event
+   * - 
+   * @param ev task drag event
+   * @param id task ID
+   */
+  onTaskDragStart(ev: DragEvent, id: number) {
+    ev.dataTransfer?.setData(&#x27;text/plain&#x27;, id.toString());
+    this.draggedTaskCard &#x3D; ev.target as HTMLElement;
+    this.dragYStart &#x3D; ev.clientY;
+    this.setDragStartStatus.emit(this.status);
+    this.setDragCardHeight.emit(this.draggedTaskCard.offsetHeight);
+  }
+
+
+  /**
+   * Enable vertical scrolling (without additional click, purely by moving the cursor) while dragging
+   * @param ev task drag event
+   */
+  onDrag(ev: DragEvent) {
+    const dragSpeed &#x3D; ev.clientY - this.dragYStart;
+    this.scrollService.scrollWhileDragging(dragSpeed);
+  }
+
+
+  /**
+   * On task drag end, unset &quot;draggedTaskCard&quot;
+   */
+  onTaskDragEnd() {
+    if (this.draggedTaskCard !&#x3D; null) { this.draggedTaskCard &#x3D; null }
+  }
+
+
+  /**
+   * When the task drag enters this task list, call a function
+   * @param ev task drag event
+   */
+  onTaskDragEnter(ev: DragEvent) {
+    this.setDraggingOver(ev);
+  }
+
+
+  /**
+   * When the task drag hovers over this task list, call a function
+   * @param ev task drag event
+   */
+  onTaskDragOver(ev: DragEvent) {
+    this.setDraggingOver(ev);
+  }
+
+
+  /**
+   * This function not only sets the &quot;draggingOver&quot; property to true, but also sets &quot;lastDragOver&quot; to the current timestamp.
+   * The timestamp is required to facilitate a workaround (see function &quot;unsetDraggingOverAfterWaiting()&quot;).
+   * @param ev task drag event
+   */
+  setDraggingOver(ev: DragEvent) {
+    ev.preventDefault();
+    this.draggingOver &#x3D; true;
+    this.lastDragOver &#x3D; Date.now();
+  }
+
+
+  /**
+   * On task drag leave, call a function
+   * @param ev task drag event
+   */
+  onTaskDragLeave(ev: DragEvent) {
+    ev.preventDefault();
+    this.unsetDraggingOverAfterWaiting();
+  }
+
+
+  /**
+   * This function uses the &quot;lastDragOver&quot; property for a workaround for the premature &quot;(dragleave)&quot; emitting that occurs by default.
+   * It only unsets the current dragging state in case neither &quot;(dragenter)&quot; nor &quot;(dragover)&quot; have been re-triggered 20ms after &quot;(dragleave)&quot; 
+   */
+  async unsetDraggingOverAfterWaiting() {
+    setTimeout(() &#x3D;&gt; {
+      if (Date.now() - this.lastDragOver &gt; 20) {
+        this.lastDragOver &#x3D; 0;
+        this.draggingOver &#x3D; false;
+      }
+    }, 20);
+  }
+
+
+  /**
+   * On task drop, get the task ID which was stored in &quot;dataTransfer&quot; before.
+   * Update the status of the dragged task using the ID.
+   * @param ev 
+   */
+  onTaskDrop(ev: DragEvent) {
+    ev.preventDefault();
+    this.draggingOver &#x3D; false;
+    const id &#x3D; ev.dataTransfer?.getData(&#x27;text/plain&#x27;);
+    if (id) { this.updateTaskStatus(id as unknown as number) }
+  }
+
+
+  /**
+   * Retrieve the full task from tasksService using the task ID.
+   * Update the task status to the current list. Then update the task in tasksService.
+   * @param taskId task ID
+   */
+  updateTaskStatus(taskId: number) {
+    let task &#x3D; this.tasksService.getTaskById(taskId);
+    if (task) {
+      task.status &#x3D; this.status;
+      this.tasksService.updateTask(task);
+    }
+  }
+
+
+  /**
+   * Add new task to this list&#x27;s defining status by emitting the corresponding event to the parent component
+   */
+  addToStatus() {
+    this.addToStatusClick.emit();
+  }
+
+
+  /**
+   * View task by emitting the corresponding event to the parent component
+   * @param id task ID
+   */
+  viewTask(id: number) {
+    this.taskClick.emit(id);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;task-column&quot; (dragenter)&#x3D;&quot;onTaskDragEnter($event)&quot; (dragover)&#x3D;&quot;onTaskDragOver($event)&quot;
+    (dragleave)&#x3D;&quot;onTaskDragLeave($event)&quot; (drop)&#x3D;&quot;onTaskDrop($event)&quot;&gt;
+    &lt;div class&#x3D;&quot;column-title&quot;&gt;
+        &lt;h5&gt;{{status}}&lt;/h5&gt;
+        &lt;button *ngIf&#x3D;&quot;status !&#x3D; &#x27;Done&#x27;&quot; (click)&#x3D;&quot;addToStatus()&quot;&gt;
+            &lt;img src&#x3D;&quot;../../../assets/img/plus_icon.svg&quot; alt&#x3D;&quot;add to status&quot;&gt;
+        &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;tasks-container&quot;&gt;
+        @for (task of filterTasksBySearch(); track task; let i &#x3D; $index) {
+        &lt;app-task-card [task]&#x3D;&quot;task&quot; (click)&#x3D;&quot;viewTask(task.id)&quot; [draggable]&#x3D;&quot;true&quot;
+            (dragstart)&#x3D;&quot;onTaskDragStart($event, task.id)&quot; (drag)&#x3D;&quot;onDrag($event)&quot;
+            (dragend)&#x3D;&quot;onTaskDragEnd()&quot; [closeDropdown]&#x3D;&quot;closingTaskStatusDropdown.asObservable()&quot;&gt;&lt;/app-task-card&gt;
+        }
+        @empty {
+        &lt;div class&#x3D;&quot;no-tasks&quot; *ngIf&#x3D;&quot;!draggingOver&quot;&gt;
+            No tasks
+            @switch(status) {
+            @case(&#x27;To do&#x27;) {to do}
+            @case(&#x27;In progress&#x27;) {in progress}
+            @case(&#x27;Await feedback&#x27;) {awaiting feedback}
+            @case(&#x27;Done&#x27;) {done}
+            }
+        &lt;/div&gt;
+        }
+        &lt;div *ngIf&#x3D;&quot;draggingOver &amp;&amp; dragStartStatus !&#x3D; status&quot; class&#x3D;&quot;drop-zone-visualizer&quot;
+            [ngStyle]&#x3D;&quot;{&#x27;height.px&#x27;: dragCardHeight}&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="task-column" (dragenter)="onTaskDragEnter($event)" (dragover)="onTaskDragOver($event)"    (dragleave)="onTaskDragLeave($event)" (drop)="onTaskDrop($event)">    <div class="column-title">        <h5>{{status}}</h5>        <button *ngIf="status != \'Done\'" (click)="addToStatus()">            <img src="../../../assets/img/plus_icon.svg" alt="add to status">        </button>    </div>    <div class="tasks-container">        @for (task of filterTasksBySearch(); track task; let i = $index) {        <app-task-card [task]="task" (click)="viewTask(task.id)" [draggable]="true"            (dragstart)="onTaskDragStart($event, task.id)" (drag)="onDrag($event)"            (dragend)="onTaskDragEnd()" [closeDropdown]="closingTaskStatusDropdown.asObservable()"></app-task-card>        }        @empty {        <div class="no-tasks" *ngIf="!draggingOver">            No tasks            @switch(status) {            @case(\'To do\') {to do}            @case(\'In progress\') {in progress}            @case(\'Await feedback\') {awaiting feedback}            @case(\'Done\') {done}            }        </div>        }        <div *ngIf="draggingOver && dragStartStatus != status" class="drop-zone-visualizer"            [ngStyle]="{\'height.px\': dragCardHeight}"></div>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AddContactComponent', 'selector': 'app-add-contact'},{'name': 'AddTaskComponent', 'selector': 'app-add-task'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ArrowBackBtnComponent', 'selector': 'app-arrow-back-btn'},{'name': 'BoardComponent', 'selector': 'app-board'},{'name': 'CloseBtnComponent', 'selector': 'app-close-btn'},{'name': 'ContactListItemComponent', 'selector': 'app-contact-list-item'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'EmailComponent', 'selector': 'app-email'},{'name': 'GreetingComponent', 'selector': 'app-greeting'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeadlineOtherComponent', 'selector': 'app-headline-other'},{'name': 'HeadlineSloganComponent', 'selector': 'app-headline-slogan'},{'name': 'HelpComponent', 'selector': 'app-help'},{'name': 'LegalNoticeComponent', 'selector': 'app-legal-notice'},{'name': 'LogInPageComponent', 'selector': 'app-log-in-page'},{'name': 'MenuComponent', 'selector': 'app-menu'},{'name': 'PasswordIconComponent', 'selector': 'app-password-icon'},{'name': 'PersonBadgeComponent', 'selector': 'app-person-badge'},{'name': 'PrioIconComponent', 'selector': 'app-prio-icon'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'RegistrationFormComponent', 'selector': 'app-registration-form'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'SlideComponent', 'selector': 'app-slide'},{'name': 'StatsItemComponent', 'selector': 'app-stats-item'},{'name': 'SubtaskComponent', 'selector': 'app-subtask'},{'name': 'SummaryComponent', 'selector': 'app-summary'},{'name': 'TaskCardComponent', 'selector': 'app-task-card'},{'name': 'TaskCategoryComponent', 'selector': 'app-task-category'},{'name': 'TaskListComponent', 'selector': 'app-task-list'},{'name': 'TaskViewComponent', 'selector': 'app-task-view'},{'name': 'ToastNotificationComponent', 'selector': 'app-toast-notification'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'TaskListComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TaskListComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

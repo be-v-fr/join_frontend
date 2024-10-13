@@ -4,7 +4,8 @@ import { environment } from '../environments/environment.development';
 /**
  * This class represents a user contact.
  * A contact can be added by the user from scratch.
- * Contacts are also created when additional data (email/phone) is added by the active user to other users.
+ * Contacts are also created when additional data (email/phone)
+ * is added by the active user to other users.
  */
 export class Contact {
     id: number;

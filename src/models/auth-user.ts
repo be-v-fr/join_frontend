@@ -1,3 +1,7 @@
+/**
+ * Represents a user, but contains only the data necessary for authentication.
+ * (The password remains in the backend and is never sent to the frontend.)
+ */
 export class AuthUser {
     id: number;
     username: string;
