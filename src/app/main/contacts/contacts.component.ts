@@ -31,6 +31,7 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
   private usersService = inject(UsersService);
   private contactsService = inject(ContactsService);
   private authSub = new Subscription();
+  private contactsSub = new Subscription();
   private usersSub = new Subscription();
   users: AppUser[] = [];
   currentUser?: AppUser;
@@ -51,6 +52,7 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.authSub = this.subAuth();
     this.setContacts();
+    this.subContacts();
   }
 
 
@@ -59,6 +61,7 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.authSub.unsubscribe();
+    this.contactsSub.unsubscribe();
     this.usersSub.unsubscribe();
   }
 
@@ -85,6 +88,15 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
   setContacts() {
     this.users = this.usersService.users;
     this.sortedContacts = this.getSortedContacts();
+  }
+
+
+  /**
+   * Subscribe to "contactsService.contacts$"
+   * @returns subscription
+   */
+  subContacts(): Subscription {
+    return this.contactsService.contacts$.subscribe(() => this.setContacts())
   }
 
 

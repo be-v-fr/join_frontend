@@ -45,7 +45,7 @@ export class GreetingComponent implements OnInit, OnDestroy {
    * @param {AppUser | null} currentUser - The currently active app user 
    */
   initUsername(currentUser: AppUser | null): void {
-    if (currentUser && currentUser.user.email.length > 0) {
+    if (currentUser && currentUser.user.email.slice(-9) != 'token.key') {
       this.currentUserName = currentUser.user.username;
     } else {
       this.currentUserName = null;

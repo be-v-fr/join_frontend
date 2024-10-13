@@ -49,12 +49,25 @@ export class AddContactComponent extends SlideComponent {
    */
   onSubmit(form: NgForm): void {
     if (form.submitted && form.form.valid) {
-      if (this.formData.email && this.formData.email.length > 0 && !this.usersService.isEmailAvailable(this.formData.email)) {
+      if (this.isEmailTaken()) {
         this.emailTaken = true;
       } else {
         this.contactSubmission.emit(this.formData);
       }
     }
+  }
+
+
+  /**
+   * Checks if the email address entered into the form is already taken in a meaningful sense.
+   * For example, an email should not be considered taken when it was not changed at all. 
+   * @returns {boolean} check result
+   */
+  isEmailTaken(): boolean {
+    return this.formData.email != undefined &&
+    this.formData.email != this.inputContact.email &&
+    this.formData.email.length > 0 &&
+    !this.usersService.isEmailAvailable(this.formData.email);
   }
 
 

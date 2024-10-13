@@ -41,7 +41,8 @@
       }
     }
     .user-name {
-      width: 94%;
+      width: auto;
+      max-width: 94%;
     }
   }
   @media screen and (max-width: 768px) {

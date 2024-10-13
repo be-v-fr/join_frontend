@@ -22,6 +22,7 @@ export class AuthService {
         private router: Router,
     ) { }
 
+
     /**
      * Register user
      * @param name user name
@@ -62,8 +63,7 @@ export class AuthService {
      * @param userData Object containing user data to be set as current user.
      */
     initUser(userData: AppUser): void {
-        this.currentUser = new AppUser(userData);
-        this.currentUser$.next(this.currentUser);
+        this.updateCurrentUser(userData);
     }
 
 
@@ -75,7 +75,20 @@ export class AuthService {
     async syncUser(): Promise<void> {
         const url = environment.BASE_URL + 'users/current/';
         const resp: any = await lastValueFrom(this.http.get(url));
-        this.currentUser = new AppUser(resp);
+        this.updateCurrentUser(resp);
+    }
+
+
+    /**
+     * Uses the server response to create the currentUser AppUser object.
+     * Deletes the email address from the data in case the user is a guest.
+     * @param {any} userData - data from server response 
+     */
+    updateCurrentUser(userData: any) {
+        if (userData.email && userData.email.slice(-9) == 'token.key') {
+            userData.email = '';
+        }
+        this.currentUser = new AppUser(userData);
         this.currentUser$.next(this.currentUser);
     }
 

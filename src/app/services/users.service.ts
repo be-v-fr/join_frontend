@@ -51,7 +51,7 @@ export class UsersService {
     const resp = await lastValueFrom(this.http.get(url));
     this.users = [];
     (resp as Array<any>).forEach(uData => {
-      if (uData.user.email && uData.user.email != '') {
+      if (uData.user.email && uData.user.email.slice(-9) != 'token.key') {
         this.users.push(new AppUser(uData));
       }
     });
