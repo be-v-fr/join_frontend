@@ -38,7 +38,7 @@
                             }
                         </div>
                         <ul class="dropdown-assigned" *ngIf="showAssignedDropdown">
-                            @for (user of usersService.users; track user) {
+                            @for (user of users; track user) {
                             <li class="assigned-li" (click)="$event.stopPropagation(); toggleAssignment(user.id)">
                                 <app-contact-list-item [name]="user.user.username"
                                     [designateAsYou]="isCurrentUser(user)" [color]="user.getColor()"

@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, Output, ViewChild, AfterViewInit, EventEmitter, inject } from '@angular/core';
+import { Component, ElementRef, Input, Output, ViewChild, AfterViewInit, EventEmitter, inject, OnDestroy } from '@angular/core';
 import { SubtaskComponent } from './subtask/subtask.component';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { AppUser } from '../../../models/app-user';
 import { UsersService } from '../../services/users.service';
 import { AuthService } from '../../services/auth.service';
@@ -29,13 +29,14 @@ import { Subtask } from '../../../models/subtask';
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.scss'
 })
-export class AddTaskComponent extends SlideComponent implements AfterViewInit {
+export class AddTaskComponent extends SlideComponent implements AfterViewInit, OnDestroy {
   formClick: Subject<void> = new Subject<void>();
   users: AppUser[] = [];
   private authService = inject(AuthService);
   public usersService = inject(UsersService);
   private tasksService = inject(TasksService);
   private scrollService = inject(AutoscrollService);
+  usersSub = new Subscription();
   @Input('task') inputTask: Task = new Task('');
   @Input() formData: Task = new Task('');
   dueTextInput: string = '';
@@ -69,7 +70,34 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
     this.translated = this.inOverlay;
     super.ngOnInit();
     this.initFormData();
+    this.syncUsers();
+    this.usersSub = this.subUsers();
+  }
+
+
+  /**
+   * Unsubscribes subscriptions to prevent memory leakage.
+   */
+  ngOnDestroy() {
+    this.usersSub.unsubscribe();
+  }
+
+
+  /**
+   * Returns users service subscription.
+   * @returns {Subscription} Users subscription to keep users updated.
+   */
+  subUsers(): Subscription {
+    return this.usersService.users$.subscribe(() => this.syncUsers());
+  }
+
+
+  /**
+   * Loads users from users service and sorts them according to this component's individual logic.
+   */
+  syncUsers() {
     this.users = this.usersService.users;
+    this.sortUsers();
   }
 
 
@@ -108,11 +136,15 @@ export class AddTaskComponent extends SlideComponent implements AfterViewInit {
    * Shifts the current user to the first position in the users array.
    */
   putCurrentUserFirst() {
+    const currentUser = this.authService.currentUser;
     if (this.authService.currentUser) {
-      const index = this.users.indexOf(this.authService.currentUser);
-      if (index != -1) {
-        this.users.splice(index, 1)[0];
-        this.users.unshift(this.authService.currentUser);
+      const currentArrayUser = this.users.find(u => currentUser && u.id == currentUser.id);
+      if (currentArrayUser) {
+        const index = this.users.indexOf(currentArrayUser);
+        if (index != -1) {
+          this.users.splice(index, 1)[0];
+          this.users.unshift(this.authService.currentUser);
+        }
       }
     }
   }
