@@ -8,6 +8,10 @@ import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
 
 
+/**
+ * This component displays a reset password form.
+ * The component requires a reset password token (named "token") to be read from the route parameters.
+ */
 @Component({
   selector: 'app-reset-password',
   standalone: true,
@@ -37,6 +41,9 @@ export class ResetPasswordComponent implements OnInit {
   ) { }
 
 
+  /**
+   * Retrieves the reset password token from the URL/route.
+   */
   ngOnInit(): void {
     this.paramSub = this.route.paramMap.subscribe(params => {
       this.token = params.get('token');
