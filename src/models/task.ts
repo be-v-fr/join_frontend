@@ -28,7 +28,7 @@ export class Task {
         this.description = obj.description ? obj.description : '';
         this.assigned = obj.assigned_to ? obj.assigned_to : [];
         this.due = obj.due ? obj.due : getCurrentDate();
-        this.prio = obj.prio ? obj.prio : 'Medium';
+        this.prio = obj.prio || obj.prio == '' ? obj.prio : 'Medium';
         this.category = obj.category ? obj.category : 'Technical Task';
         this.status = obj.status ? obj.status : 'To Do';
         if (obj.subtasks) {
