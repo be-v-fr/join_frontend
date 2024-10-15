@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterModule, Router } from '@angular/router';
+import { RouterOutlet, RouterModule, Router, RoutesRecognized, NavigationStart, NavigationEnd } from '@angular/router';
 import { MenuComponent } from './shared/menu/menu.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { UsersService } from './services/users.service';
@@ -29,6 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private tasksService = inject(TasksService);
   private contactsService = inject(ContactsService);
   private authSub = new Subscription();
+  private routerSub = new Subscription();
   private guestSub = new Subscription();
   private usersSub = new Subscription();
   currentUser?: AppUser | null;
@@ -46,6 +47,7 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   constructor(private router: Router) {
     this.authSub = this.subAuth();
+    this.routerSub = this.subRouter();
   }
 
 
@@ -63,6 +65,7 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.authSub.unsubscribe();
+    this.routerSub.unsubscribe();
     this.guestSub.unsubscribe();
     this.usersSub.unsubscribe();
   }
@@ -72,7 +75,7 @@ export class AppComponent implements OnInit, OnDestroy {
    * Subscribe to authService.user$ to check log in state.
    * If a registered user is logged in, call subUsersInit() method.
    * If the user is logged in as guest, call subGuestLogOut() method.
-   * @returns 
+   * @returns subscription
    */
   subAuth(): Subscription {
     return this.authService.currentUser$.subscribe(currentUser => {
@@ -86,6 +89,21 @@ export class AppComponent implements OnInit, OnDestroy {
           this.dataInitAfterAuthComplete = true;
         }
       } else { this.localLogOut() }
+    });
+  }
+
+
+  /**
+   * Sets up redirect logic to handle the case that an inauthenticated client
+   * tries to access a protected route (="main route"). The content of the main pages
+   * is additionally hidden using logic within the HTML file.
+   * @returns subscription
+   */
+  subRouter(): Subscription {
+    return this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd && this.MAIN_ROUTES.includes(ev.url) && !this.currentUser) {
+        this.router.navigateByUrl('');
+      }
     });
   }
 
