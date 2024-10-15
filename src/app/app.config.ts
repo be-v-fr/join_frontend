@@ -7,7 +7,9 @@ import { AUTH_TOKEN_INTERCEPTOR } from './services/auth-token.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideHttpClient(withFetch()),
-    provideHttpClient(withInterceptors([AUTH_TOKEN_INTERCEPTOR])),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([AUTH_TOKEN_INTERCEPTOR]),
+    ),
   ]
 };

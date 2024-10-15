@@ -15,6 +15,7 @@ import { AppUser } from "../../models/app-user";
 export class AuthService {
     public currentUser$: Subject<AppUser | null> = new Subject<AppUser | null>();
     currentUser: AppUser | null = null;
+    timeoutErrorMsg: string = 'Server does not respond. Please refresh the page and try again.';
 
 
     constructor(
@@ -47,13 +48,25 @@ export class AuthService {
      * @param password user password
      * @returns authentication result
      */
-    logIn(email: string, password: string): Promise<Object> {
+    async logIn(email: string, password: string): Promise<Object> {
         const url = environment.BASE_URL + 'login/';
         const body = {
             email: email,
             password: password,
         };
-        return lastValueFrom(this.http.post(url, body));
+        const promise: Promise<Object> = lastValueFrom(this.http.post(url, body));
+        const timeout: Promise<string> = this.requestTimeout();
+        const result: Object | string = await Promise.race([promise, timeout]);
+        if(result == 'timeout') {
+            throw(this.timeoutErrorMsg);
+        }
+        return promise;
+    }
+
+
+    async requestTimeout(): Promise<string> {
+        await new Promise((res) => setTimeout(res, 3000));
+        return 'timeout';
     }
 
 
@@ -127,14 +140,20 @@ export class AuthService {
      * Log in as guest.
      * The guest log in is handled via local storage.
      */
-    logInAsGuest() {
+    async logInAsGuest(): Promise<Object> {
         const url = environment.BASE_URL + 'login/guest/';
         const body = {
             username: localStorage.getItem('token') || '',
             email: localStorage.getItem('token') + '@token.key' || '',
             password: 'guestlogin',
         };
-        return lastValueFrom(this.http.post(url, body));
+        const promise: Promise<Object> = lastValueFrom(this.http.post(url, body));
+        const timeout: Promise<string> = this.requestTimeout();
+        const result: Object | string = await Promise.race([promise, timeout]);
+        if(result == 'timeout') {
+            throw(this.timeoutErrorMsg);
+        }
+        return promise;
     }
 
 

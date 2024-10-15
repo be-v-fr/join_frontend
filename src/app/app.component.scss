@@ -142,6 +142,12 @@ h5 {
     background: $anthracite-darkened;
     border-color: $anthracite-darkened;
   }
+  &[disabled] {
+    background: $grey;
+    border-color: $grey;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
 }
 
 .btn-secondary {

@@ -13,7 +13,7 @@
         }
     </div>
     <div class="form-field"
-        [ngClass]="{'validation-error': ((email.touched || registrationForm.submitted) && !email.valid) || authError.includes('credentials') || authError.includes('email')}">
+        [ngClass]="{'validation-error': ((email.touched || registrationForm.submitted) && !email.valid) || authError.includes('credentials') || authError.includes('email') || authError == authService.timeoutErrorMsg}">
         <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel" maxlength="30"
             [(ngModel)]="formData.email" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
         <img src="assets/img/mail.svg" alt="email">
@@ -24,7 +24,7 @@
         }
     </div>
     <div class="form-field" #passwordContainer
-        [ngClass]="{'validation-error': (authError.includes('credentials')) || ((password.touched || registrationForm.submitted) && !password.valid)}">
+        [ngClass]="{'validation-error': (authError.includes('credentials')) || authError == authService.timeoutErrorMsg || ((password.touched || registrationForm.submitted) && !password.valid)}">
         <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password" minlength="6"
             autocomplete="current-password" #password="ngModel" [(ngModel)]="formData.password" required>
         @if(formData.password.length > 0) {
@@ -41,6 +41,9 @@
             } @else {
             <p>Please enter a valid password.</p>
             }
+            }
+            @else if (authError == this.authService.timeoutErrorMsg) {
+            <p>{{authError}}</p>
             }
     </div>
     <div *ngIf="formMode == 'Sign up'" class="form-field"
@@ -86,8 +89,8 @@
     </div>
     <div class="btn-container">
         @if(formMode == 'Log in') {
-        <button type="submit" class="btn-primary">Log in</button>
-        <button type="button" class="btn-secondary" (click)="logInAsGuest()">Guest log in</button>
+        <button type="submit" class="btn-primary" [disabled]="loading">Log in</button>
+        <button type="button" class="btn-secondary" [disabled]="loading" (click)="logInAsGuest()">Guest log in</button>
         }
         @else {
         <div class="btn-container">

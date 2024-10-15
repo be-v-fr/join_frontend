@@ -38,10 +38,11 @@ export class RegistrationFormComponent implements OnDestroy {
     passwordConfirmation: ''
   };
   authError: string = '';
-  private authService = inject(AuthService);
+  public authService = inject(AuthService);
   private authSub = new Subscription;
   toastMsg: string = '';
   showToastMsg: boolean = false;
+  loading: boolean = false;
 
 
   /**
@@ -196,11 +197,15 @@ export class RegistrationFormComponent implements OnDestroy {
    * @returns {string} Custom error message
    */
   getAuthError(err: any) {
+    this.loading = false;
     console.error(err);
-    if (err.error.username) { return err.error.username[0] }
-    if (err.error.email) { return err.error.email }
-    if (err.error.non_field_errors) { return err.error.non_field_errors[0] }
-    else return ''
+    if (err.error) {
+      if (err.error.username) { return err.error.username[0] }
+      if (err.error.email) { return err.error.email }
+      if (err.error.non_field_errors) { return err.error.non_field_errors[0] }
+    }
+    if (err == this.authService.timeoutErrorMsg) { return this.authService.timeoutErrorMsg }
+    else return '';
   }
 
 
@@ -225,6 +230,7 @@ export class RegistrationFormComponent implements OnDestroy {
    * Log in using the form data, including error handling.
    */
   logIn() {
+    this.loading = true;
     this.authService.setLocalRememberMe(this.rememberLogIn);
     this.authService.logIn(this.formData.email, this.formData.password)
       .then((resp: any) => this.onLogIn(resp))
@@ -237,6 +243,7 @@ export class RegistrationFormComponent implements OnDestroy {
    * @param {any} response - The login response
    */
   onLogIn(response: any) {
+    this.loading = false;
     if (response.token) {
       localStorage.setItem('token', response.token);
       this.navigateToSummary();
@@ -251,6 +258,7 @@ export class RegistrationFormComponent implements OnDestroy {
    */
   submitSignUp() {
     if (this.acceptPrivacyPolicy) {
+      this.loading = true;
       this.authService.register(this.formData.name, this.formData.email, this.formData.password)
         .then(() => this.transferAfterSignUp())
         .catch((err) => {
@@ -264,6 +272,7 @@ export class RegistrationFormComponent implements OnDestroy {
    * Transfer to the login form after signing up, displaying a toast notification.
    */
   transferAfterSignUp() {
+    this.loading = false;
     this.toastMsg = 'You signed up successfully';
     this.showToastMsg = true;
     setTimeout(() => this.toggleModeEmit(), 700);
@@ -282,6 +291,7 @@ export class RegistrationFormComponent implements OnDestroy {
    * Handle guest login option.
    */
   logInAsGuest() {
+    this.loading = true;
     this.authService.logInAsGuest()
       .then((resp: any) => this.onLogIn(resp))
       .catch((err) => this.authError = this.getAuthError(err));
@@ -293,7 +303,7 @@ export class RegistrationFormComponent implements OnDestroy {
    */
   sendPasswordResetEmail() {
     this.authService.requestPasswordReset(this.formData.email)
-      .then((resp) => {console.log(resp); this.toastNotificationWithReload('A reset link has been sent to your email address')})
+      .then((resp) => { console.log(resp); this.toastNotificationWithReload('A reset link has been sent to your email address') })
       .catch(() => this.toastNotificationWithReload('Oops! An error occurred'))
   }
 
