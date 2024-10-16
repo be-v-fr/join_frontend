@@ -198,7 +198,6 @@ $logo-starting-height: $logo-starting-width * 1.219;
       animation: logo-white-responsive $intro-duration;
       @keyframes logo-white-responsive {
         0% {
-          opacity: 1;
           top: calc(50vh - $logo-starting-width / 4);
           top: calc(50dvh - $logo-starting-width / 4);
           left: calc(50vw - $logo-starting-height / 4);
@@ -206,7 +205,6 @@ $logo-starting-height: $logo-starting-width * 1.219;
           z-index: 1;
         }
         15% {
-          opacity: 1;
           top: calc(50vh - $logo-starting-width / 4);
           top: calc(50dvh - $logo-starting-width / 4);
           left: calc(50vw - $logo-starting-height / 4);
@@ -214,7 +212,6 @@ $logo-starting-height: $logo-starting-width * 1.219;
           z-index: 1;
         }
         100% {
-          opacity: 1;
           top: 16px;
           left: 16px;
           opacity: 0;
