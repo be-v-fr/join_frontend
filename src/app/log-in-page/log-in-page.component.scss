@@ -56,7 +56,7 @@ $logo-starting-height: $logo-starting-width * 1.219;
 }
 .logo-white {
   @extend .logo;
-  display: none;
+  opacity: 0;
 }
 .await-intro {
   opacity: 0;
@@ -192,13 +192,13 @@ $logo-starting-height: $logo-starting-width * 1.219;
       }
     }
     .logo-white {
-      display: initial;
+      opacity: 1;
       position: absolute;
       z-index: -1;
       animation: logo-white-responsive $intro-duration;
       @keyframes logo-white-responsive {
         0% {
-          display: initial;
+          opacity: 1;
           top: calc(50vh - $logo-starting-width / 4);
           top: calc(50dvh - $logo-starting-width / 4);
           left: calc(50vw - $logo-starting-height / 4);
@@ -206,7 +206,7 @@ $logo-starting-height: $logo-starting-width * 1.219;
           z-index: 1;
         }
         15% {
-          display: initial;
+          opacity: 1;
           top: calc(50vh - $logo-starting-width / 4);
           top: calc(50dvh - $logo-starting-width / 4);
           left: calc(50vw - $logo-starting-height / 4);
@@ -214,7 +214,7 @@ $logo-starting-height: $logo-starting-width * 1.219;
           z-index: 1;
         }
         100% {
-          display: initial;
+          opacity: 1;
           top: 16px;
           left: 16px;
           opacity: 0;
