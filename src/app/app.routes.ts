@@ -11,6 +11,7 @@ import { ResetPasswordComponent } from './other/reset-password/reset-password.co
 
 export const routes: Routes = [
     { path: '', component: LogInPageComponent },
+    { path: 'activate/:activation_token', component: LogInPageComponent },
     { path: 'reset_password/:token', component: ResetPasswordComponent },
     { path: 'summary', component: SummaryComponent },
     { path: 'add_task', component: AddTaskComponent },

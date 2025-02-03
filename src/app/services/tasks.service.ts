@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Task } from '../../models/task';
-import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment.development';
 import { lastValueFrom, Subject } from 'rxjs';
 import { Subtask } from '../../models/subtask';
@@ -15,6 +14,7 @@ import { Subtask } from '../../models/subtask';
 })
 
 export class TasksService {
+  TASKS_URL = environment.BASE_URL + 'tasks/';
   tasks: Task[] = [];
   tasks$: Subject<void> = new Subject<void>();
   newTaskStatus: 'To do' | 'In progress' | 'Await feedback' = 'To do';
@@ -26,7 +26,6 @@ export class TasksService {
    */
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
   ) {  }
 
 
@@ -35,8 +34,8 @@ export class TasksService {
    * Listens for server-sent events to synchronize tasks and subtasks in real-time.
    */
   init() {
-    const tasksEvents = new EventSource(environment.BASE_URL + 'tasks/stream/');
-    const subtasksEvents = new EventSource(environment.BASE_URL + 'subtasks/stream/');
+    const tasksEvents = new EventSource(this.TASKS_URL + 'stream/');
+    const subtasksEvents = new EventSource(this.TASKS_URL + 'subtasks/stream/');
     tasksEvents.onmessage = () => this.syncTasks();
     subtasksEvents.onmessage = () => this.syncSubtasks();
     this.syncTasks();
@@ -49,7 +48,7 @@ export class TasksService {
    * @returns A Promise resolving when tasks are synced.
    */
   async syncTasks(): Promise<void> {
-    const url = environment.BASE_URL + 'tasks/';
+    const url = this.TASKS_URL;
     const resp = await lastValueFrom(this.http.get(url));
     this.tasks = [];
     (resp as Array<any>).forEach(tData => {
@@ -68,7 +67,7 @@ export class TasksService {
   async syncSubtasks(): Promise<void> {
     if (this.tasks.length > 0) {
       this.syncingSubtasks = true;
-      const url = environment.BASE_URL + 'subtasks/';
+      const url = this.TASKS_URL + 'subtasks/';
       const resp = await lastValueFrom(this.http.get(url));
       this.addSubtasksToTasks(resp as Array<any>);
       this.syncingSubtasks = false;
@@ -116,7 +115,7 @@ export class TasksService {
    */
   async addTask(task: Task): Promise<Object> {
     this.addTaskLocally(task);
-    const url = environment.BASE_URL + 'tasks/';
+    const url = this.TASKS_URL;
     const body = task.toJson();
     return lastValueFrom(this.http.post(url, body));
   }
@@ -140,7 +139,7 @@ export class TasksService {
   async updateTask(task: Task): Promise<Object | undefined> {
     if (task.id != -1) {
       this.updateTaskLocally(task);
-      const url = environment.BASE_URL + 'tasks/' + task.id + '/';
+      const url = this.TASKS_URL + task.id + '/';
       const body = task.toJson();
       return lastValueFrom(this.http.put(url, body));
     } else return;
@@ -169,7 +168,7 @@ export class TasksService {
   async deleteTask(id: number): Promise<Object | undefined> {
     if (id != -1) {
       this.deleteTaskLocally(id);
-      const url = environment.BASE_URL + 'tasks/' + id + '/';
+      const url = this.TASKS_URL + id + '/';
       return lastValueFrom(this.http.delete(url));
     } else return;
   }
@@ -215,7 +214,7 @@ export class TasksService {
    * @param task task to be added
    */
   async addSubtask(subtask: Subtask): Promise<Object> {
-    const url = environment.BASE_URL + 'subtasks/';
+    const url = this.TASKS_URL + 'subtasks/';
     const body = subtask.toJson();
     return lastValueFrom(this.http.post(url, body));
   }
@@ -228,7 +227,7 @@ export class TasksService {
    */
   async updateSubtask(subtask: Subtask): Promise<Object | undefined> {
     if (subtask.id != -1) {
-      const url = environment.BASE_URL + 'subtasks/' + subtask.id + '/';
+      const url = this.TASKS_URL + 'subtasks/' + subtask.id + '/';
       const body = subtask.toJson();
       return lastValueFrom(this.http.put(url, body));
     } else return;
@@ -240,7 +239,7 @@ export class TasksService {
    * @param id ID of subtask to be deleted
    */
   async deleteSubtask(id: number): Promise<Object> {
-    const url = environment.BASE_URL + 'subtasks/' + id + '/';
+    const url = this.TASKS_URL + 'subtasks/' + id + '/';
     return lastValueFrom(this.http.delete(url));
   }
 }

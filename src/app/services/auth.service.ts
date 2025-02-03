@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, from, lastValueFrom } from "rxjs";
+import { Subject, lastValueFrom } from "rxjs";
 import { environment } from "../../environments/environment.development";
 import { Router } from "@angular/router";
 import { AppUser } from "../../models/app-user";
@@ -13,9 +13,11 @@ import { AppUser } from "../../models/app-user";
     providedIn: 'root'
 })
 export class AuthService {
+    private AUTH_URL = environment.BASE_URL + 'auth/';
     public currentUser$: Subject<AppUser | null> = new Subject<AppUser | null>();
     currentUser: AppUser | null = null;
     timeoutErrorMsg: string = 'Server does not respond. Please refresh the page and try again.';
+    activationTokenErrorMsg: string = 'Invalid token. If you just signed up, please try a second time.';
 
 
     constructor(
@@ -32,7 +34,7 @@ export class AuthService {
      * @returns authentication result
      */
     async register(username: string, email: string, password: string): Promise<Object> {
-        const url = environment.BASE_URL + 'register/';
+        const url = this.AUTH_URL + 'signup/';
         const body = {
             username: username.replace(' ', '_'),
             email: email,
@@ -49,7 +51,7 @@ export class AuthService {
      * @returns authentication result
      */
     async logIn(email: string, password: string): Promise<Object> {
-        const url = environment.BASE_URL + 'login/';
+        const url = this.AUTH_URL + 'login/';
         const body = {
             email: email,
             password: password,
@@ -64,19 +66,12 @@ export class AuthService {
     }
 
 
+    /**
+     * Returns 'timeout' after the specified timeout.
+     */
     async requestTimeout(): Promise<string> {
         await new Promise((res) => setTimeout(res, 3000));
         return 'timeout';
-    }
-
-
-    /**
-     * Initialize the user data after authentication or registration.
-     * This sets the current user in the AuthService and emits the user data to any subscribers.
-     * @param userData Object containing user data to be set as current user.
-     */
-    initUser(userData: AppUser): void {
-        this.updateCurrentUser(userData);
     }
 
 
@@ -86,7 +81,7 @@ export class AuthService {
      * @returns A Promise resolving when the user data has been successfully fetched and initialized.
      */
     async syncUser(): Promise<void> {
-        const url = environment.BASE_URL + 'users/current/';
+        const url = this.AUTH_URL + 'users/current/';
         const resp: any = await lastValueFrom(this.http.get(url));
         this.updateCurrentUser(resp);
     }
@@ -107,12 +102,26 @@ export class AuthService {
 
 
     /**
+     * Activates a new account.
+     * @param key account activation token key 
+     * @returns activation result
+     */
+    async activateAccount(key: string): Promise<Object> {
+        const url = this.AUTH_URL + 'signup/activate/';
+        const body = {
+            token: key,
+        };
+        return lastValueFrom(this.http.post(url, body));        
+    }
+
+
+    /**
      * Request password reset email
      * @param email user email address
      * @returns authentication result
      */
     async requestPasswordReset(email: string): Promise<Object> {
-        const url = environment.BASE_URL + 'resetPassword/request/';
+        const url = this.AUTH_URL + 'reset-pw/request/';
         const body = {
             email: email,
         };
@@ -127,7 +136,7 @@ export class AuthService {
      * @returns authentication result
      */
     async resetPassword(newPassword: string, key: string): Promise<Object> {
-        const url = environment.BASE_URL + 'resetPassword/';
+        const url = this.AUTH_URL + 'reset-pw/';
         const body = {
             token: key,
             new_password: newPassword,
@@ -141,7 +150,7 @@ export class AuthService {
      * The guest log in is handled via local storage.
      */
     async logInAsGuest(): Promise<Object> {
-        const url = environment.BASE_URL + 'login/guest/';
+        const url = this.AUTH_URL + 'login/guest';
         const body = {
             username: localStorage.getItem('token') || '',
             email: localStorage.getItem('token') + '@token.key' || '',

@@ -13,7 +13,7 @@
         }
     </div>
     <div class="form-field"
-        [ngClass]="{'validation-error': ((email.touched || registrationForm.submitted) && !email.valid) || authError.includes('credentials') || authError.includes('email') || authError == authService.timeoutErrorMsg}">
+        [ngClass]="{'validation-error': ((email.touched || registrationForm.submitted) && !email.valid) || authError.includes('credentials') || authError.includes('email') || authError.includes('token') || authError == authService.timeoutErrorMsg}">
         <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel" maxlength="30"
             [(ngModel)]="formData.email" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
         <img src="assets/img/mail.svg" alt="email">
@@ -24,7 +24,7 @@
         }
     </div>
     <div class="form-field" #passwordContainer
-        [ngClass]="{'validation-error': (authError.includes('credentials')) || authError == authService.timeoutErrorMsg || ((password.touched || registrationForm.submitted) && !password.valid)}">
+        [ngClass]="{'validation-error': (authError.includes('credentials')) || [this.authService.timeoutErrorMsg, this.authService.activationTokenErrorMsg].includes(authError) || ((password.touched || registrationForm.submitted) && !password.valid)}">
         <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password" minlength="6"
             autocomplete="current-password" #password="ngModel" [(ngModel)]="formData.password" required>
         @if(formData.password.length > 0) {
@@ -42,7 +42,7 @@
             <p>Please enter a valid password.</p>
             }
             }
-            @else if (authError == this.authService.timeoutErrorMsg) {
+            @else if ([this.authService.timeoutErrorMsg, this.authService.activationTokenErrorMsg].includes(authError)) {
             <p>{{authError}}</p>
             }
     </div>
@@ -99,4 +99,7 @@
         }
     </div>
 </form>
+<div *ngIf="activatingAccount" class="account-activation-overlay">
+    <p>Activating account...</p>
+</div>
 <app-toast-notification [message]="toastMsg" [show]="showToastMsg" />

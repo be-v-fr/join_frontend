@@ -9,10 +9,10 @@
     </div>
     @if(formMode == 'Log in') {
         <app-registration-form [ngClass]="{'await-intro': animate}" [formMode]="'Log in'"
-        (toggleMode)="toggleFormMode()"></app-registration-form>
+        (toggleMode)="toggleFormMode()" />
     } @else {
         <app-registration-form [ngClass]="{'await-intro': animate}" [formMode]="'Sign up'"
-        (toggleMode)="toggleFormMode()"></app-registration-form>
+        (toggleMode)="toggleFormMode()" />
     }
     <div class="sub-container-bottom">
         <div *ngIf="formMode == 'Log in'" class="go-to-sign-up" [ngClass]="{'await-intro': animate}">

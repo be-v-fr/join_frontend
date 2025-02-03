@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter, ElementRef, ViewChild, inject, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, ViewChild, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { PasswordIconComponent } from '../../templates/password-icon/password-icon.component';
 import { AuthService } from '../../services/auth.service';
 import { Subscription } from 'rxjs';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ArrowBackBtnComponent } from '../../templates/arrow-back-btn/arrow-back-btn.component';
 import { ToastNotificationComponent } from '../../templates/toast-notification/toast-notification.component';
 
@@ -22,7 +22,7 @@ import { ToastNotificationComponent } from '../../templates/toast-notification/t
   templateUrl: './registration-form.component.html',
   styleUrl: './registration-form.component.scss'
 })
-export class RegistrationFormComponent implements OnDestroy {
+export class RegistrationFormComponent implements OnInit, OnDestroy {
   @Input() formMode: 'Log in' | 'Sign up' = 'Log in';
   @Output() toggleMode = new EventEmitter<void>();
   passwordFieldType: 'password' | 'text' = 'password';
@@ -40,18 +40,37 @@ export class RegistrationFormComponent implements OnDestroy {
   authError: string = '';
   public authService = inject(AuthService);
   private authSub = new Subscription;
+  private paramSub = new Subscription;
   toastMsg: string = '';
   showToastMsg: boolean = false;
   loading: boolean = false;
+  activatingAccount: boolean = false;
 
 
   /**
    * Initialize router and "remember me" feature; apply feature if applicable.
    * @param {Router} router - Instance of Router
    */
-  constructor(private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.rememberLogIn = this.authService.getLocalRememberMe();
     if (this.rememberLogIn) { this.authSub = this.subAuth() }
+  }
+
+
+  /**
+   * Subscribes to route parameters to check for an account activation token.
+   */
+  ngOnInit(): void {
+    this.paramSub = this.route.paramMap.subscribe(params => {
+      const token: string | null = params.get('activation_token');
+      if (token) {
+        this.activateAccount(token);
+        this.paramSub.unsubscribe();
+      }
+    });
   }
 
 
@@ -60,6 +79,7 @@ export class RegistrationFormComponent implements OnDestroy {
    */
   ngOnDestroy(): void {
     this.authSub.unsubscribe();
+    this.paramSub.unsubscribe();
   }
 
 
@@ -192,8 +212,8 @@ export class RegistrationFormComponent implements OnDestroy {
 
 
   /**
-   * Get a custom authentication error message based on the Firebase error.
-   * @param {any} err - Firebase error object
+   * Get a custom authentication error message based on the server error.
+   * @param {any} err - Server error object
    * @returns {string} Custom error message
    */
   getAuthError(err: any) {
@@ -203,6 +223,7 @@ export class RegistrationFormComponent implements OnDestroy {
       if (err.error.username) { return err.error.username[0] }
       if (err.error.email) { return err.error.email }
       if (err.error.non_field_errors) { return err.error.non_field_errors[0] }
+      if (err.error.token) { return this.authService.activationTokenErrorMsg }
     }
     if (err == this.authService.timeoutErrorMsg) { return this.authService.timeoutErrorMsg }
     else return '';
@@ -243,11 +264,10 @@ export class RegistrationFormComponent implements OnDestroy {
    * @param {any} response - The login response
    */
   onLogIn(response: any) {
-    this.loading = false;
     if (response.token) {
       localStorage.setItem('token', response.token);
-      this.navigateToSummary();
-      this.authService.initUser(response.appUser);
+      this.authService.syncUser()
+        .then(() => this.navigateToSummary());
     }
   }
 
@@ -303,7 +323,7 @@ export class RegistrationFormComponent implements OnDestroy {
    */
   sendPasswordResetEmail() {
     this.authService.requestPasswordReset(this.formData.email)
-      .then((resp) => { console.log(resp); this.toastNotificationWithReload('A reset link has been sent to your email address') })
+      .then((resp) => { this.toastNotificationWithReload('A reset link has been sent to your email address') })
       .catch(() => this.toastNotificationWithReload('Oops! An error occurred'))
   }
 
@@ -316,5 +336,30 @@ export class RegistrationFormComponent implements OnDestroy {
     this.toastMsg = msg;
     this.showToastMsg = true;
     setTimeout(() => location.reload(), 2000);
+  }
+
+
+  /**
+   * Activates a new account using the authentication service.
+   * @param {string} token - account activation token 
+   */
+  activateAccount(token: string): void {
+    this.activatingAccount = true;
+    this.authService.activateAccount(token)
+      .then(() => this.onAccountActivation())
+      .catch((err) => this.authError = this.getAuthError(err))
+      .finally(() => this.activatingAccount = false);
+  }
+
+
+  /**
+   * Steers UI after account activation.
+   */
+  onAccountActivation(): void {
+    this.toastMsg = 'Activation successful!';
+    this.showToastMsg = true;
+    setTimeout(() => {
+      this.showToastMsg = false;
+    }, 2000);
   }
 }

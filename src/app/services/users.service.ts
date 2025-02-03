@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { lastValueFrom, Subject } from 'rxjs';
 import { AppUser } from '../../models/app-user';
 import { environment } from "../../environments/environment.development";
-import { AuthService } from "./auth.service";
 import { Contact } from "../../models/contact";
 
 
@@ -16,6 +15,7 @@ import { Contact } from "../../models/contact";
 })
 
 export class UsersService {
+  private USERS_URL = environment.BASE_URL + 'auth/users/';
   users: AppUser[] = [];
   users$: Subject<void> = new Subject<void>();
 
@@ -25,7 +25,6 @@ export class UsersService {
    */
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
   ) { }
 
 
@@ -34,7 +33,7 @@ export class UsersService {
    * Sets up a connection to listen for user-related server-sent events to keep the list of users in sync.
    */
   init() {
-    const tasksEvents = new EventSource(environment.BASE_URL + 'users/stream/');
+    const tasksEvents = new EventSource(this.USERS_URL + 'stream/');
     tasksEvents.onmessage = () => this.syncRegisteredUsers();
     this.syncRegisteredUsers();
   }
@@ -47,7 +46,7 @@ export class UsersService {
    * @returns A Promise that resolves when the users have been synchronized.
    */
   async syncRegisteredUsers(): Promise<void> {
-    const url = environment.BASE_URL + 'users/';
+    const url = this.USERS_URL;
     const resp = await lastValueFrom(this.http.get(url));
     this.users = [];
     (resp as Array<any>).forEach(uData => {
