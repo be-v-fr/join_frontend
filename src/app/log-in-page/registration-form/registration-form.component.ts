@@ -27,6 +27,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   @Output() toggleMode = new EventEmitter<void>();
   passwordFieldType: 'password' | 'text' = 'password';
   passwordConfirmationFieldType: 'password' | 'text' = 'password';
+  @ViewChild('form') formRef!: ElementRef<HTMLFormElement> 
   @ViewChild('passwordContainer') passwordContainerRef!: ElementRef;
   @ViewChild('passwordConfirmationContainer') passwordConfirmationContainerRef!: ElementRef;
   rememberLogIn: boolean;
@@ -292,10 +293,20 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
    * Transfer to the login form after signing up, displaying a toast notification.
    */
   transferAfterSignUp() {
-    this.loading = false;
-    this.toastMsg = 'You signed up successfully';
+    this.toastMsg = 'Success! Check your email to activate';
     this.showToastMsg = true;
-    setTimeout(() => this.toggleModeEmit(), 700);
+    setTimeout(() => {
+      this.showToastMsg = false;
+      this.loading = false;
+      this.formRef.nativeElement.reset();
+      this.formData = {
+        name: '',
+        email: '',
+        password: '',
+        passwordConfirmation: ''
+      };
+      this.acceptPrivacyPolicy = false;
+    }, 4000);
   }
 
 

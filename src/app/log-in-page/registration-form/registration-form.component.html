@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit(registrationForm)" #registrationForm="ngForm" (change)="resetAuthError()">
+<form (ngSubmit)="onSubmit(registrationForm)" #form #registrationForm="ngForm" (change)="resetAuthError()">
     <app-arrow-back-btn *ngIf="formMode == 'Sign up'" (click)="toggleModeEmit()" class="arrow-back" />
     <h2>{{formMode}}</h2>
     <div class="form-field" *ngIf="formMode == 'Sign up'"
