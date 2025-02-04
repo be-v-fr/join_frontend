@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 
 /**
@@ -22,7 +23,8 @@ export class LogInPageComponent implements OnInit {
 
 
   constructor(
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
 
@@ -32,7 +34,7 @@ export class LogInPageComponent implements OnInit {
    */
   ngOnInit() {
     setTimeout(() => {
-      if (localStorage.getItem('remember_log_in') && this.router.url === '/') {
+      if (this.authService.currentUser && localStorage.getItem('remember_log_in') && this.router.url === '/') {
         this.router.navigateByUrl('summary');
       };
       this.animate = false
