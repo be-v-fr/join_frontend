@@ -96,15 +96,4 @@ export class UsersService {
     if (this.users.find(u => u.user.email == email)) { return false }
     return true;
   }
-
-
-  /**
-   * Check if a contact is a registered user.
-   * A contact is considered a registered user if their email is found in the user list.
-   * @param contact The contact to check.
-   * @returns `true` if the contact is a registered user, `false` otherwise.
-   */
-  isUser(contact: Contact): boolean {
-    return contact.email ? !this.isEmailAvailable(contact.email) : true;
-  }
 }

@@ -150,6 +150,7 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
           if (contactsArrayIndex == -1) {
             contacts.push(u.asContact());
           } else {
+            contacts[contactsArrayIndex].user_id = u.id;
             contacts[contactsArrayIndex].name = u.user.username;
             contacts[contactsArrayIndex].email = u.user.email;
           }
@@ -177,7 +178,7 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    * @returns {boolean} Check result
    */
   isUser(contact: Contact): boolean {
-    return this.usersService.isUser(contact);
+    return contact.isUser();
   }
 
 

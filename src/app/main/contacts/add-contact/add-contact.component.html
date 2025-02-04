@@ -36,7 +36,7 @@
                 [ngClass]="{'validation-error': (email.touched || contactForm.submitted) && (!email.valid || (!isUser && emailTaken))}">
                 <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel"
                     (change)="resetEmailTaken()" [(ngModel)]="formData.email"
-                    pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" [disabled]="isUser">
+                    pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" [disabled]="isCurrentUser">
                 <img src="assets/img/mail.svg" alt="email">
                 @if((email.touched || contactForm.submitted) && !email.valid && !isUser) {
                 <p>This is not a valid email adress.</p>

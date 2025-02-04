@@ -13,6 +13,7 @@ export class Contact {
     email?: string;
     phone?: string;
     color_id: number;
+    user_id: number;
 
 
     /**
@@ -23,6 +24,7 @@ export class Contact {
         this.id = obj.id ? obj.id : -1;
         this.name = obj.name ? obj.name : '';
         this.color_id = obj.color_id ? obj.color_id : -1;
+        this.user_id = obj.contact_user ? obj.contact_user : -1;
         this.email = obj.email ? obj.email : undefined;
         this.phone = obj.phone ? obj.phone : undefined;
     }
@@ -37,6 +39,7 @@ export class Contact {
         const json: any = {
             name: this.name,
             color_id: this.color_id == -1 ? Math.floor(Math.random() * 25) : this.color_id,
+            contact_user: this.user_id,
             email: this.email,
             phone: this.phone,
         };
@@ -51,5 +54,10 @@ export class Contact {
      */
     getColor(): string {
         return environment.BADGE_COLORS[this.color_id] || '#d1d1d1';
+    }
+
+
+    isUser(): boolean {
+        return this.user_id > 0;
     }
 }

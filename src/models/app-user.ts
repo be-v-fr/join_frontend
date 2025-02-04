@@ -55,8 +55,8 @@ export class AppUser {
      */
     asContact(): Contact {
         return new Contact({
+            contact_user: this.id,
             name: this.user.username,
-            email: this.user.email,
             color_id: this.color_id
         });
     }

@@ -6,6 +6,7 @@ import { Contact } from '../../../../models/contact';
 import { CloseBtnComponent } from '../../../templates/close-btn/close-btn.component';
 import { SlideComponent } from '../../../templates/slide/slide.component';
 import { UsersService } from '../../../services/users.service';
+import { AuthService } from '../../../services/auth.service';
 
 
 /**
@@ -26,8 +27,10 @@ export class AddContactComponent extends SlideComponent {
   @Output() contactSubmission = new EventEmitter<Contact>();
   @Output() delete = new EventEmitter<void>();
   isUser: boolean = false;
+  isCurrentUser: boolean = false;
   emailTaken: boolean = false;
   private usersService = inject(UsersService);
+  private authService = inject(AuthService);
 
 
   /**
@@ -38,7 +41,13 @@ export class AddContactComponent extends SlideComponent {
     super.ngOnInit();
     if (this.mode == 'edit') {
       this.formData = new Contact(this.inputContact.toJson());
-      if (this.usersService.isUser(this.inputContact)) { this.isUser = true }
+      if (this.inputContact.isUser()) {
+        this.isUser = true;
+        if(this.inputContact.user_id === this.authService.currentUser?.id) {
+          this.formData.email = this.authService.currentUser.user.email;
+          this.isCurrentUser = true;
+        }
+      }
     }
   }
 
