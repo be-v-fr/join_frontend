@@ -4,7 +4,7 @@
     <div class="form-field" *ngIf="formMode == 'Sign up'"
         [ngClass]="{'validation-error': ((name.touched || registrationForm.submitted) && !name.valid) || authError.includes('credentials') || authError.includes('username')}">
         <input type="text" class="text-input" placeholder="Name" name="name" autocomplete="name" #name="ngModel"
-            [(ngModel)]="formData.name" maxlength="30" required>
+            [(ngModel)]="formData.name" maxlength="30" required autocomplete="username">
         <img src="assets/img/person.svg" alt="name">
         @if((name.touched || registrationForm.submitted) && !name.valid) {
         <p>Your name is required.</p>
@@ -14,7 +14,7 @@
     </div>
     <div class="form-field"
         [ngClass]="{'validation-error': ((email.touched || registrationForm.submitted) && !email.valid) || authError.includes('credentials') || authError.includes('email') || authError.includes('token') || authError == authService.timeoutErrorMsg}">
-        <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel" maxlength="30"
+        <input type="text" class="text-input" placeholder="Email" name="email" #email="ngModel" maxlength="30" autocomplete="email"
             [(ngModel)]="formData.email" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}">
         <img src="assets/img/mail.svg" alt="email">
         @if((email.touched || registrationForm.submitted) && !email.valid) {
@@ -26,7 +26,7 @@
     <div class="form-field" #passwordContainer
         [ngClass]="{'validation-error': (authError.includes('credentials')) || [this.authService.timeoutErrorMsg, this.authService.activationTokenErrorMsg].includes(authError) || ((password.touched || registrationForm.submitted) && !password.valid)}">
         <input type="{{passwordFieldType}}" class="text-input" placeholder="Password" name="password" minlength="6"
-            autocomplete="current-password" #password="ngModel" [(ngModel)]="formData.password" required>
+            autocomplete="current-password" #password="ngModel" [(ngModel)]="formData.password" required autocomplete="current-password">
         @if(formData.password.length > 0) {
         <app-password-icon [state]="passwordFieldType" (click)="toggleVisibility('password')" />
         }

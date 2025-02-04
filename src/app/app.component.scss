@@ -142,7 +142,7 @@ h5 {
     background: $anthracite-darkened;
     border-color: $anthracite-darkened;
   }
-  &[disabled] {
+  &[disabled], &:disabled {
     background: $grey;
     border-color: $grey;
     box-shadow: none;
@@ -161,7 +161,7 @@ h5 {
     color: $anthracite-darkened;
     border-color: $anthracite-darkened;
   }
-  &[disabled] {
+  &[disabled], &:disabled {
     color: $grey;
     border-color: $grey;
     box-shadow: none;
