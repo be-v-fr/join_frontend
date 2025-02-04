@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 
 /**
@@ -21,12 +21,22 @@ export class LogInPageComponent implements OnInit {
   formMode: 'Log in' | 'Sign up' = 'Log in';
 
 
+  constructor(
+    private router: Router
+  ) { }
+
+
   /**
    * Lifecycle hook that initializes the component.
    * It disables the intro animation after 800 milliseconds.
    */
   ngOnInit() {
-    setTimeout(() => this.animate = false, 800);
+    setTimeout(() => {
+      if (localStorage.getItem('remember_log_in') && this.router.url === '/') {
+        this.router.navigateByUrl('summary');
+      };
+      this.animate = false
+    }, 800);
   }
 
 
