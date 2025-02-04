@@ -83,12 +83,10 @@ body {
 }
 
 .prevent-select {
+  -webkit-tap-highlight-color: transparent;
   -webkit-user-select: none;
-  /* Safari */
   -ms-user-select: none;
-  /* IE 10 and IE 11 */
   user-select: none;
-  /* Standard syntax */
 }
 
 body,
@@ -126,11 +124,13 @@ textarea {
 }
 
 a {
+  -webkit-tap-highlight-color: transparent;
   text-decoration: none;
   cursor: pointer;
 }
 
 button {
+  -webkit-tap-highlight-color: transparent;
   background: none;
   border: none;
   outline: none;
