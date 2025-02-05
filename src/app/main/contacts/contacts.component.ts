@@ -154,7 +154,6 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
           } else {
             contacts[contactsArrayIndex].user_id = u.id;
             contacts[contactsArrayIndex].name = u.user.username;
-            contacts[contactsArrayIndex].email = u.user.email;
           }
         }
       });
