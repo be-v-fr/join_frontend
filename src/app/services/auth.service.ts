@@ -4,6 +4,8 @@ import { Subject, lastValueFrom } from "rxjs";
 import { environment } from "../../environments/environment.development";
 import { Router } from "@angular/router";
 import { AppUser } from "../../models/app-user";
+import { UsersService } from "./users.service";
+import { TasksService } from "./tasks.service";
 
 
 /**
@@ -23,6 +25,8 @@ export class AuthService {
     constructor(
         private http: HttpClient,
         private router: Router,
+        private usersService: UsersService,
+        private tasksService: TasksService
     ) { }
 
 
@@ -175,6 +179,9 @@ export class AuthService {
         this.currentUser = null;
         this.currentUser$.next(null);
         this.router.navigateByUrl('');
+        this.usersService.eventSource?.close();
+        this.tasksService.tasksEventSource?.close();
+        this.tasksService.subtasksEventSource?.close();
     }
 
 

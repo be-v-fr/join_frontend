@@ -15,6 +15,8 @@ import { Subtask } from '../../models/subtask';
 
 export class TasksService {
   TASKS_URL = environment.BASE_URL + 'tasks/';
+  public tasksEventSource?: EventSource;
+  public subtasksEventSource?: EventSource;
   tasks: Task[] = [];
   tasks$: Subject<void> = new Subject<void>();
   newTaskStatus: 'To do' | 'In progress' | 'Await feedback' = 'To do';
@@ -34,10 +36,10 @@ export class TasksService {
    * Listens for server-sent events to synchronize tasks and subtasks in real-time.
    */
   init() {
-    const tasksEvents = new EventSource(this.TASKS_URL + 'stream/');
-    const subtasksEvents = new EventSource(this.TASKS_URL + 'subtasks/stream/');
-    tasksEvents.onmessage = () => this.syncTasks();
-    subtasksEvents.onmessage = () => this.syncSubtasks();
+    this.tasksEventSource = new EventSource(this.TASKS_URL + 'stream/');
+    this.subtasksEventSource = new EventSource(this.TASKS_URL + 'subtasks/stream/');
+    this.tasksEventSource.onmessage = () => this.syncTasks();
+    this.subtasksEventSource.onmessage = () => this.syncSubtasks();
     this.syncTasks();
   }
 

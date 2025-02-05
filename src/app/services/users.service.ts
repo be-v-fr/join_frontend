@@ -16,6 +16,7 @@ import { Contact } from "../../models/contact";
 
 export class UsersService {
   private USERS_URL = environment.BASE_URL + 'auth/users/';
+  public eventSource?: EventSource;
   users: AppUser[] = [];
   users$: Subject<void> = new Subject<void>();
 
@@ -33,8 +34,8 @@ export class UsersService {
    * Sets up a connection to listen for user-related server-sent events to keep the list of users in sync.
    */
   init() {
-    const tasksEvents = new EventSource(this.USERS_URL + 'stream/');
-    tasksEvents.onmessage = () => this.syncRegisteredUsers();
+    this.eventSource = new EventSource(this.USERS_URL + 'stream/');
+    this.eventSource.onmessage = () => this.syncRegisteredUsers();
     this.syncRegisteredUsers();
   }
 
