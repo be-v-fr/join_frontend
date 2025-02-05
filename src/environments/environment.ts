@@ -1,5 +1,5 @@
 export const environment = {
-    BASE_URL: 'http://localhost:8000/api/',
+    BASE_URL: 'https://api.join.bengt-fruechtenicht.de/api/',
     BADGE_COLORS: [
         '#FDDC2F',
         '#33DA81',

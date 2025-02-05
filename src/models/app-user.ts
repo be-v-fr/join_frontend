@@ -71,7 +71,7 @@ export class AppUser {
         if (this.contacts) {
             for (let i = 0; i < this.contacts.length; i++) {
                 const c = this.contacts[i];
-                if (c.email == appUser.user.email) { return i }
+                if (c.user_id == appUser.id) { return i }
             }
         }
         return -1;

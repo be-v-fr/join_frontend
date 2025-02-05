@@ -86,7 +86,9 @@ export class ContactsComponent implements OnInit, AfterViewInit, OnDestroy {
    * Update users array according to usersService and update sorted contacts afterwards.
    */
   setContacts() {
-    this.users = this.usersService.users;
+    if (this.users !== this.usersService.users) {
+      this.users = this.usersService.users;
+    }
     this.sortedContacts = this.getSortedContacts();
   }
 
