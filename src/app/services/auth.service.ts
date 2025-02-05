@@ -150,7 +150,7 @@ export class AuthService {
      * The guest log in is handled via local storage.
      */
     async logInAsGuest(): Promise<Object> {
-        const url = this.AUTH_URL + 'login/guest';
+        const url = this.AUTH_URL + 'login/guest/';
         const body = {
             username: localStorage.getItem('token') || '',
             email: localStorage.getItem('token') + '@token.key' || '',
