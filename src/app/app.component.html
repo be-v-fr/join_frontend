@@ -1,7 +1,7 @@
 <div class="content-all" (click)="closeHeaderDropdown()" *ngIf="currentUser || onLogInPage() || onOtherPage()">
-  <app-menu *ngIf="!onLogInPage()" />
+  <app-menu *ngIf="currentUser && !onLogInPage()" />
   <div class="main">
-    <app-header *ngIf="!onLogInPage()" [currentUser]="currentUser" [displayDropdown]="showHeaderDropdown"
+    <app-header *ngIf="currentUser && !onLogInPage()" [currentUser]="currentUser" [displayDropdown]="showHeaderDropdown"
       (updateDropdown)="showHeaderDropdown = $event" />
     <div class="page-wrapper" id="pageWrapper" [ngClass]="{'scrollable': getCurrentRoute() != '/contacts'}">
       <div class="page" id="page"

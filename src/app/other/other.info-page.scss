@@ -6,6 +6,7 @@
 }
 
 .content {
+    padding-bottom: 20px;
 
     p,
     span,
@@ -56,4 +57,8 @@ h3 {
     font-size: $font-large;
     margin-top: 28px;
     margin-bottom: 20px;
+}
+
+.adress {
+    list-style-type: none;
 }
