@@ -133,7 +133,16 @@ export class AppComponent implements OnInit, OnDestroy {
    * @returns check result
    */
   onLogInPage(): boolean {
-    return !(this.MAIN_ROUTES.includes(this.getCurrentRoute()) || this.OTHER_ROUTES.includes(this.getCurrentRoute()));
+    return !(this.MAIN_ROUTES.includes(this.getCurrentRoute()) || this.onOtherPage());
+  }
+
+
+  /**
+   * Check if the current route belongs to the other routes requiring no authentication.
+   * @returns check result
+   */
+  onOtherPage(): boolean {
+    return this.OTHER_ROUTES.includes(this.getCurrentRoute());
   }
 
 

@@ -1,4 +1,4 @@
-<div class="content-all" (click)="closeHeaderDropdown()" *ngIf="currentUser || onLogInPage()">
+<div class="content-all" (click)="closeHeaderDropdown()" *ngIf="currentUser || onLogInPage() || onOtherPage()">
   <app-menu *ngIf="!onLogInPage()" />
   <div class="main">
     <app-header *ngIf="!onLogInPage()" [currentUser]="currentUser" [displayDropdown]="showHeaderDropdown"
